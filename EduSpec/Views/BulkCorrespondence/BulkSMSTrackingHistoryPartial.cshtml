@@ -1,0 +1,125 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["BulkSMSHistoryViewProperties"]);
+
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "BulkCorrespondence", Action = "BulkSMSCellnumberUpdate" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "BulkCorrespondence", Action = "DeleteSMSQueueRow" };
+
+    settings.Settings.ShowPreview = true;
+    settings.PreviewEncodeHtml = false;
+    settings.PreviewFieldName = "SMSMessage";
+
+
+    settings.CommandButtonInitialize = (sender, e) =>
+    {
+        if (e.VisibleIndex >= 0)
+        {
+
+            MVCxGridView _gridview = sender as MVCxGridView;
+
+            int StatusID = (int)_gridview.GetRowValues(e.VisibleIndex, "StatusID");
+
+            if (e.ButtonType == ColumnCommandButtonType.Edit)
+            {
+                switch (StatusID)
+                {
+                    case 1:
+                        {
+                            e.Visible = false;
+                        }
+                        break;
+                    case 3:
+                    case 4:
+                        {
+                            e.Visible = false;
+                        }
+                        break;
+                    case 2:
+                        {
+                            e.Visible = true;
+                        }
+                        break;
+                }
+            }
+
+            if (e.ButtonType == ColumnCommandButtonType.Delete)
+            {
+                switch (StatusID)
+                {
+                    case 1:
+                        {
+                            e.Visible = false;
+                        }
+                        break;
+                    case 3:
+                    case 4:
+                        {
+                            e.Visible = false;
+                        }
+                        break;
+                    case 2:
+                        {
+                            e.Visible = true;
+                        }
+                        break;
+                }
+            }
+        }
+    };
+
+    //settings.ClientSideEvents.SelectionChanged = "function(s,e) { OnGridViewSelectionChanged(s,e); }";
+
+
+    //settings.CommandColumn.ShowSelectCheckbox = true;
+    //settings.CommandColumn.ShowClearFilterButton = true;
+
+
+    @settings.SetEditFormTemplateContent(c =>
+    {
+        var BulkSMS = ViewData["BulkSMS"] != null ? ViewData["BulkSMS"] : c.DataItem;
+
+
+        EduSpecHtmlHelper.EditForm(Html);
+        EduSpecHtmlHelper.Line(Html);
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+        EduSpecHtmlHelper.NewRow(Html); //********** Row 1
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 180); // First column
+        EduSpecHtmlHelper.Label(Html, "Primary parent number:", "editorLabel");
+        EduSpecHtmlHelper.TextBox(Html, "formeditor", BulkSMS, "PrimaryCellNumber", true, 150, null);
+        EduSpecHtmlHelper.Label(Html, "Secondary parent number:", "editorLabel");
+        EduSpecHtmlHelper.TextBox(Html, "formeditor", BulkSMS, "SecondaryCellNumber", true, 150, null);
+        EduSpecHtmlHelper.EndColumn(Html);
+
+
+        EduSpecHtmlHelper.EndRow(Html);
+        EduSpecHtmlHelper.EndTable(Html);
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+
+        EduSpecHtmlHelper.EditForm(Html);
+        EduSpecHtmlHelper.NewDiv(Html, "line");
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> SaveEditLearnerEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        SaveEditLearnerEvents.Add(ButtonClientSideEvent.onClick, String.Format("function(s, e) {{ {0}.UpdateEdit(); }}", settings.Name));
+        EduSpecHtmlHelper.Button(Html, "btnSaveEditLearner", "button", "Save", 80, SaveEditLearnerEvents);
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string>
+        CancelEditLearnerEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        CancelEditLearnerEvents.Add(ButtonClientSideEvent.onClick, String.Format("function(s, e) {{{0}.CancelEdit(); }}", settings.Name));
+        EduSpecHtmlHelper.Button(Html, "btnCancelEditLearner", "button", "Cancel", 80, CancelEditLearnerEvents);
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+
+
+        settings.PreRender = (sender, e) =>
+        {
+            ((MVCxGridView)sender).StartEdit(1);
+        };
+
+    });
+
+}).Bind(Model).GetHtml()
+

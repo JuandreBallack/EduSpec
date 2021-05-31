@@ -1,0 +1,325 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["ViewProperties"]);
+
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Admin", Action = "InstitutionUserUpdate" };
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Admin", Action = "InstitutionUserAdd" };
+
+    settings.Columns.Add(column =>
+    {
+        column.Name = "Password";
+        column.FieldName = "Pwd";
+        column.Caption = "Reset <br />Password";
+        column.UnboundType = DevExpress.Data.UnboundColumnType.String;
+        column.Visible = true;
+        column.Width = 70;
+        column.SetDataItemTemplateContent(c =>
+        {
+            Html.DevExpress().Button(settingsBtn =>
+            {
+                settingsBtn.Name = "User_" + c.KeyValue.ToString();
+                settingsBtn.Text = "...";
+                settingsBtn.Width = 58;
+                settingsBtn.ClientSideEvents.Click = "function(s,e) {UserID.SetText(s.name); pcChangePassword.Show(); }";
+            }).Render();
+        });
+    });
+
+    settings.SetEditFormTemplateContent(c =>
+    {
+        var User = ViewData["User"] != null ? ViewData["User"] : c.DataItem;
+
+        ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 450px; margin:0px 5px 0px 5px;\">");
+        ViewContext.Writer.Write("<div class=\"line\" style=\"width: 100%; margin:10px 10px 0px; 10px\">");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = "User Name:";
+            edtSettings.AssociatedControlName = "UserName";
+        }).Render();
+
+        if (DataBinder.Eval(c.DataItem, "UserName") == null)
+        {
+            Html.DevExpress().TextBox(edtSettings =>
+            {
+                edtSettings.Name = "UserName";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                edtSettings.Properties.ClientSideEvents.Validation = "OnValidateUserName";
+                edtSettings.Properties.ClientSideEvents.Init = "function(s, e){ s.SetFocus(); }";
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Width = 150;
+                edtSettings.ControlStyle.BackColor = System.Drawing.Color.LightYellow;
+            }).Bind(DataBinder.Eval(User, "UserName")).Render();
+        }
+        else
+        {
+            Html.DevExpress().TextBox(edtSettings =>
+            {
+                edtSettings.Name = "UserName";
+                edtSettings.ClientVisible = false;
+            }).Bind(DataBinder.Eval(User, "UserName")).Render();
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.Name = "lbUserName";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Width = 150;
+            }).Bind(DataBinder.Eval(User, "UserName")).Render();
+        }
+
+        if (c.KeyValue == null)
+        {
+            ViewContext.Writer.Write("</div><div class=\"line\" style=\"width: 100%; margin:5px 10px 0px; 10px\">");
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = "Password:";
+                edtSettings.AssociatedControlName = "Password";
+            }).Render();
+
+            Html.DevExpress().TextBox(edtSettings =>
+            {
+                edtSettings.Name = "Password";
+                edtSettings.ControlStyle.CssClass = "formeditor";
+                edtSettings.Properties.Password = true;
+                edtSettings.Width = 150;
+                edtSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                edtSettings.Properties.ClientSideEvents.Validation = "OnPasswordValidation";
+                edtSettings.ControlStyle.BackColor = System.Drawing.Color.LightYellow;
+            }).Bind(DataBinder.Eval(User, "Password")).Render();
+        }
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = "Full Name:";
+            edtSettings.AssociatedControlName = "FullName";
+        }).Render();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "FullName";
+            edtSettings.ControlStyle.CssClass = "formeditor";
+            if (c.KeyValue != null)
+            {
+                edtSettings.Properties.ClientSideEvents.Init = "function(s, e){ s.SetFocus(); }";
+            }
+            edtSettings.Width = 150;
+            edtSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+            edtSettings.Properties.ClientSideEvents.Validation = "function(s,e){validateRequiredField(e.value, e);}";
+        }).Bind(DataBinder.Eval(User, "FullName")).Render();
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = "Surname:";
+            edtSettings.AssociatedControlName = "tbModel";
+        }).Render();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Surname";
+            edtSettings.ControlStyle.CssClass = "formeditor";
+            edtSettings.Width = 150;
+        }).Bind(DataBinder.Eval(User, "Surname")).Render();
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = "Email Address:";
+            edtSettings.AssociatedControlName = "tbModel";
+        }).Render();
+
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Email";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Width = 150;
+        }).Bind(DataBinder.Eval(User, "Email")).Render();
+
+        ViewContext.Writer.Write("</div><div class=\"line\" style=\"width: 100%; margin:5px 10px 0px; 10px\">");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = "Access Level:";
+            edtSettings.AssociatedControlName = "AccessLevelID";
+        }).Render();
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "AccessLevelID";
+            edtSettings.ControlStyle.CssClass = "formeditor";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "ID";
+            edtSettings.Properties.ValueType = typeof(Int32);
+            edtSettings.Width = 150;
+            edtSettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+            edtSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+            edtSettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Right;
+            edtSettings.Properties.ClientSideEvents.SelectedIndexChanged = "function(s, e) { DepartmentID.PerformCallback(); }";
+            edtSettings.Properties.ClientSideEvents.Validation = "function(s,e){validateRequiredField(e.value, e);}";
+        }).BindList(GridUtils.getDropdownList("Get_InstitutionUserAccessLevels_PickList"))
+        .Bind(DataBinder.Eval(User, "AccessLevelID"))
+        .Render();
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = "Department:";
+            edtSettings.AssociatedControlName = "DepartmentID";
+        }).Render();
+
+        ViewData["AccessLevelID"] = DataBinder.Eval(c.DataItem, "AccessLevelID");
+        Html.RenderPartial("DepartmentPickList", DataBinder.Eval(User, "DepartmentID"));
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = "Active:";
+            edtSettings.AssociatedControlName = "IsActive";
+        }).Render();
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Name = "IsActive";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueType = typeof(bool);
+            edtSettings.Width = 150;
+        }).Bind(DataBinder.Eval(User, "IsActive")).Render();
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = "Add new application:";
+            edtSettings.AssociatedControlName = "CanAddNewApplication";
+        }).Render();
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Name = "CanAddNewApplication";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueType = typeof(bool);
+            edtSettings.Width = 150;
+        }).Bind(DataBinder.Eval(User, "CanAddNewApplication")).Render();
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = "Submit Application:";
+            edtSettings.AssociatedControlName = "CanSubmitApplication";
+        }).Render();
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Name = "CanSubmitApplication";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueType = typeof(bool);
+            edtSettings.Width = 150;
+        }).Bind(DataBinder.Eval(User, "CanSubmitApplication")).Render();
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = "Process new application:";
+            edtSettings.AssociatedControlName = "CanProcessNewApplication";
+        }).Render();
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Name = "CanProcessApplication";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueType = typeof(bool);
+            edtSettings.Width = 150;
+        }).Bind(DataBinder.Eval(User, "CanProcessApplication")).Render();
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = "Finalise Application:";
+            edtSettings.AssociatedControlName = "CanFinaliseApplication";
+        }).Render();
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Name = "CanFinaliseApplication";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueType = typeof(bool);
+            edtSettings.Width = 150;
+        }).Bind(DataBinder.Eval(User, "CanFinaliseApplication")).Render();
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = "Manage Settings:";
+            edtSettings.AssociatedControlName = "CanManageSettings";
+        }).Render();
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Name = "CanManageSettings";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueType = typeof(bool);
+            edtSettings.Width = 150;
+        }).Bind(DataBinder.Eval(User, "CanManageSettings")).Render();
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = "Print finalised application:";
+            edtSettings.AssociatedControlName = "PrintOnFinalise";
+        }).Render();
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Name = "PrintOnFinalise";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Properties.ValueType = typeof(bool);
+            edtSettings.Width = 150;
+        }).Bind(DataBinder.Eval(User, "PrintOnFinalise")).Render();
+
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        Html.DevExpress().Button(
+            btnSettings =>
+            {
+                btnSettings.Name = "btnUpdate";
+                btnSettings.ControlStyle.CssClass = "button";
+                if (c.KeyValue == null)
+                {
+                    btnSettings.Text = "Save";
+                    btnSettings.ClientSideEvents.Click = String.Format("function(s, e) {{ if (UserName.GetIsValid() & Password.GetIsValid() & FullName.GetIsValid() & DepartmentID.GetIsValid() & AccessLevelID.GetIsValid()) {0}.UpdateEdit(); }}", settings.Name);
+                }
+                else
+                {
+                    btnSettings.Text = "Update";
+                    btnSettings.ClientSideEvents.Click = String.Format("function(s, e) {{ if (FullName.GetIsValid() & DepartmentID.GetIsValid() & AccessLevelID.GetIsValid()) {0}.UpdateEdit(); }}", settings.Name);
+                }
+
+            }
+        ).Render();
+
+        Html.DevExpress().Button(
+            btnSettings =>
+            {
+                btnSettings.Name = "btnCancel";
+                btnSettings.ControlStyle.CssClass = "button";
+                btnSettings.Text = "Cancel";
+                btnSettings.ClientSideEvents.Click = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+
+            }).Render();
+
+        ViewContext.Writer.Write("</div></div>");
+
+        settings.PreRender = (sender, e) =>
+        {
+            ((MVCxGridView)sender).StartEdit(1);
+        };
+
+    });
+
+
+}).Bind(Model).GetHtml()

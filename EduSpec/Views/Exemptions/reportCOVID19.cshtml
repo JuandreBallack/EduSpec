@@ -1,0 +1,13 @@
+﻿@model DevExpress.XtraReports.UI.XtraReport
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcPrintCOVID19form", "COVID-19");
+    settings.CallbackRouteValues = new { Controller = "Exemptions", Action = "reportCOVID19" };
+    settings.ClientSideEvents.BeginCallback = "function(s, e) { ; }";
+    settings.ClientSideEvents.EndCallback = "function(s, e) {  LoadingPanel.Hide(); s.Show(); }";
+    settings.SetContent(() =>
+    {
+        Html.RenderPartial("DocumentViewer", Model, new ViewDataDictionary { { "Name", "COVID19form" } });
+    });
+}).GetHtml()

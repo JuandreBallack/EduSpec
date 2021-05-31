@@ -1,0 +1,90 @@
+﻿@Html.DevExpress().CallbackPanel(settings =>
+{
+
+    var LedgerTypeID = Convert.ToInt32(HttpContext.Current.Session["LedgerTypeID"]);
+
+    settings.Name = "cbpAddNewInvoice";
+    settings.CallbackRouteValues = new { Controller = "SystemAdmin", Action = "AddNewInvoicePartial" };
+    settings.ClientSideEvents.BeginCallback = "function(s,e){{ e.customArgs[\"LedgerTypeID\"] = cbLedgerTypeInvoice.GetValue();}}";
+    
+
+    List<Int32> LedgerTypes = new List<Int32> {10};
+
+
+    settings.Width = Unit.Percentage(100);
+    settings.SetContent(() =>
+    {
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+        EduSpecHtmlHelper.Label(Html, "Institution:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 170);// Second column
+        EduSpecHtmlHelper.ComboBox(Html, "cbInstitutionsInvoice", "formeditor", 150, "Get_InstitutionName_Picklist", null);
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+        EduSpecHtmlHelper.Label(Html, "Item:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 170);// Second column
+        EduSpecHtmlHelper.ComboBox(Html, "cbItemsInvoice", "formeditor", 150, "Get_InvoiceItems_PickList", null);
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+        EduSpecHtmlHelper.Label(Html, "Ledger type:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 170);// Second column
+        //Dictionary<EduSpec.ComboboxClientSideEvent, string> LedgerTypeChangeEvents = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+        ////LedgerTypeChangeEvents.Add(ComboboxClientSideEvent.onSelectedIndexChanged, "function(s, e){ SetLedgerID();  }");
+        //LedgerTypeChangeEvents.Add(ComboboxClientSideEvent.onSelectedIndexChanged, "function(s, e){ cbpAddNewInvoice.PerformCallback();  }");
+        //EduSpecHtmlHelper.ComboBox(Html, "cbLedgerTypeInvoice", "formeditor", 150, "Get_ClientLedgerType_Picklist", LedgerTypeChangeEvents);
+        Html.RenderPartial("LedgerTypePickList");
+
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+
+
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+        EduSpecHtmlHelper.Label(Html, "lHoursWorked", "Hours worked:", "editorLabel", LedgerTypes.Contains(LedgerTypeID));
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 170);// Second column
+        EduSpecHtmlHelper.TextBox(Html, "tbHoursWorked", "formeditor", LedgerTypes.Contains(LedgerTypeID), 150, null);
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 118);// First column
+        EduSpecHtmlHelper.Label(Html, "Email invoice:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 170);// Second column
+        EduSpecHtmlHelper.CheckBox(Html, "cbEmailInvoice", "formeditor", 45, null);
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+        EduSpecHtmlHelper.EndTable(Html);
+
+
+        EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+        EduSpecHtmlHelper.NewDiv(Html, "line");
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> AddClientLedgerEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        AddClientLedgerEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){{ GenerateInvoice(); }}");
+        EduSpecHtmlHelper.Button(Html, "btnGenerateInvoice", "button", "OK", 80, AddClientLedgerEvents);
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> cancelClientLedgerEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        cancelClientLedgerEvents.Add(ButtonClientSideEvent.onClick, "function(s,e){pcGenerateInvoice.Hide();}");
+        EduSpecHtmlHelper.Button(Html, "btnCancelGenerateInvoice", "button", "Cancel", 80, cancelClientLedgerEvents);
+
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+
+
+
+    });
+}).GetHtml()
+

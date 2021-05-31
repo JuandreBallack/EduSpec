@@ -1,0 +1,18 @@
+<div class="leftPanel">
+
+    @model EduSpec.ItemData.CategoriesData
+
+    @Html.DevExpress().NavBar(settings =>
+    {
+        settings.Name = "LeftNavBar";
+        settings.AllowSelectItem = true;
+        settings.AutoCollapse = true;
+        settings.EncodeHtml = false;
+        settings.EnableAnimation = true;
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        settings.Height = System.Web.UI.WebControls.Unit.Percentage(100);
+        settings.ControlStyle.Border.BorderWidth = System.Web.UI.WebControls.Unit.Pixel(0);
+        settings.ControlStyle.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(0);
+
+    }).Bind(Model).GetHtml()
+</div>

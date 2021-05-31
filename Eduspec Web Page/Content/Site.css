@@ -1,0 +1,64 @@
+﻿body {
+    padding-top: 50px;
+    /*padding-bottom: 20px;*/
+    /*background-image: url('/Content/Images/Flow Chart Transparent.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size:  contain;
+    background-position-x:center;*/
+}
+
+.top-menu {
+    display: inline-block;
+    padding: 0 15px;
+}
+@media (max-width: 767px) {
+    .top-menu {
+        top: 6px;
+        right: 52px;
+        width: 100%;
+    }
+    .top-menu>.navbar-nav>li {
+        float: none!important;
+    }
+}
+
+@media (min-width: 768px) {
+    .top-menu {
+        float: right !important;
+        margin-right: -15px;
+    }
+}
+
+/*Eduspec*/
+
+p.footer_text{
+    font-size:12px;
+}
+
+.footer_text.inline{
+    display:inline;
+}
+
+
+blockquote.Green_Line {
+    border-left-color: #339085;
+    border-left-width: 2px;
+}
+
+blockquote.Orange_Line {
+    border-left-color: #EF662F;
+    border-left-width: 2px;
+}
+
+.Eduspec_Green {
+    color: #00494D
+}
+
+.Eduspec_Orange {
+    color: #EF662F
+}
+
+.element-maxwidth-200 {
+    max-width: 200px;
+}

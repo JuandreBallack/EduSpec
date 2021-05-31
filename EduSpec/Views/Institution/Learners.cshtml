@@ -1,0 +1,121 @@
+﻿@model System.Collections.IEnumerable
+
+<script type="text/javascript">
+
+    function OnBtn_MoveLearnerClick() {
+        GridView.GetRowValues(GridView.GetFocusedRowIndex(), "LearnerID;FamilyCode;FirstName;Surname;ExternalAccNo;FamilySurname;FamilyID", MoveLearner);
+    }
+
+    function MoveLearner(values) {
+        lbLearnerID.SetText(values[0]);
+        lbFamilyCode.SetText(values[1]);
+        lbFirstName.SetText(values[2]);
+        lbSurname.SetText(values[3]);
+        lbExternalAccNo.SetText(values[4]);
+        lbFamilySurname.SetText(values[5]);
+        lbFamilyID.SetText(values[6]);
+        pcConfirmMoveLearnerslbMessage.SetText("<b>You are about to move:</b></br><b>Family code:</b><font color=\"blue\"> " + values[1] +
+            "</font><b></br>Name: :</b><font color=\"blue\"> " + values[2] + "</font><b></br>Surname: :</b><font color=\"blue\"> " + values[3] + "<b></font>");
+        pcConfirmMoveLearners.Show();
+    }
+
+    function onBtnConfirmMoveLearnerClick(Result) {
+
+        if (Result == "mrYes") {
+            pcMoveLearner.Show();
+        }
+    }
+
+    function finalConfirmMove() {
+
+        if (cbNewFamily.GetIsValid()) {
+            var str = cbNewFamily.GetText();
+            var newString = str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, " - ");
+            pcConfirmFinalMovelbMessage.SetText("<b>You are about to move:</b></br></br><b><font color=\"blue\"> " + lbFamilyCode.GetText() + " - " + lbExternalAccNo.GetText() + " - " + lbFamilySurname.GetText() +
+                "</font></b></br></br><b>With</b></br></br><b><font color=\"blue\"> " + newString + "</b></font></br></br><b>Do you want to continue?</b>");
+            pcConfirmFinalMove.Show();
+        }
+
+    }
+
+    function onBtnConfirmFinalMergeClick(Result) {
+
+        if (Result == "mrYes") {
+
+            pcMoveLearner.Show();
+            $.ajax({
+                type: 'POST',
+                url: '/Institution/MoveLearner',
+                dataType: 'json',
+                async: false,
+                data: {
+                    LearnerID: lbLearnerID.GetValue(),
+                    NewFamilyID: cbNewFamily.GetValue(),
+                    OldFamilyID: lbFamilyID.GetValue(),
+                    IsDeactivateOldFamily: IsDeactivateOldFamily.GetValue()
+                },
+                success: function (response) {
+                    if (response.Success) {
+                        pcMoveComplete.Show();
+                        pcMoveLearner.Hide();
+                    }
+                }
+
+            });
+        }
+    }
+
+    function onMoveCompleteClick(Result) {
+        if (Result == "mrOK") {
+            pcMoveLearner.Hide();
+            GridView.PerformCallback();
+        }
+    }
+
+    function onErrorTerminationOKClick(Result) {
+        if (Result == "mrOK") {
+            pcErrorTerminationNotSelected.Hide();
+        }
+    }
+
+    function onErrorLeftSchoolOKClick(Result) {
+        if (Result == "mrOK") {
+            pcErrorLeftSchoolNotSelected.Hide();
+        }
+    }
+
+</script>
+
+@Html.DevExpress().Splitter(settings =>
+{
+    SplitterUtils.SetSplitterProperties(settings, ViewData["ViewProperties"]);
+
+    MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+    HeaderPane.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div ID=\"ViewInfo\">Learners - " + HttpContext.Current.Session["InstitutionName"] + "</div><div style=\"margin:2px\"></div>");
+    });
+
+    MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+    MainContentPane.SetContent(() =>
+    {
+        Html.RenderAction("LearnersPartial");
+    });
+
+
+    MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+    FooterPane.Separator.Visible = DefaultBoolean.True;
+    FooterPane.SetContent(() =>
+    {
+
+    });
+
+}).GetHtml()
+
+@Html.Partial("MoveLearnerPartial")
+
+@MessageDlg.ShowMessageDlg("pcConfirmMoveLearners", Html, "???", new BtnType[] { BtnType.mbYes, BtnType.mbNo }, MessageType.mConfirmation, "onBtnConfirmMoveLearnerClick")
+@MessageDlg.ShowMessageDlg("pcConfirmFinalMove", Html, "", new BtnType[] { BtnType.mbYes, BtnType.mbNo }, MessageType.mConfirmation, "onBtnConfirmFinalMergeClick")
+@MessageDlg.ShowMessageDlg("pcMoveComplete", Html, "The learner was moved successfully.", new BtnType[] { BtnType.mbOK }, MessageType.mInformation, "onMoveCompleteClick")
+@MessageDlg.ShowMessageDlg("pcErrorTerminationNotSelected", Html, "Please make sure that the Termination Date is set when grade/class has been changed to 'Left School'.", new BtnType[] { BtnType.mbOK }, MessageType.mInformation, "onErrorTerminationOKClick")
+@MessageDlg.ShowMessageDlg("pcErrorLeftSchoolNotSelected", Html, "Please make sure that the Grade/Class has been set to 'Left School' when a termination date is set.", new BtnType[] { BtnType.mbOK }, MessageType.mInformation, "onErrorLeftSchoolOKClick")

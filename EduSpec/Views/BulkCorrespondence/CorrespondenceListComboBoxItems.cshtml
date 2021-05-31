@@ -1,0 +1,32 @@
+﻿@Html.DevExpress().CallbackPanel(settings =>
+{
+
+    settings.Name = "cbpCorrespondenceListComboBoxItems";
+    settings.CallbackRouteValues = new { Controller = "BulkCorrespondence", Action = "CorrespondenceListComboBoxItems" };
+    
+    settings.SetContent(() =>
+    {
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+        EduSpecHtmlHelper.Label(Html, "Description:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 160);// Second column
+        Dictionary<EduSpec.ComboboxClientSideEvent, string> comboboxCorrespondenceList = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+        comboboxCorrespondenceList.Add(ComboboxClientSideEvent.onSelectedIndexChanged, "function(s, e) {cbpCorrespondenceListItems.PerformCallback();}");
+        EduSpecHtmlHelper.ComboBox(Html, "cbCorrespondenceList", "formeditor", 150, string.Format("Get_BulkCorrespondenceList_PickList {0}", HttpContext.Current.Session["InstID"]), comboboxCorrespondenceList);
+
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 50);// Third column
+        Dictionary<EduSpec.ButtonClientSideEvent, string> AddNewCorrespondenceItem = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        AddNewCorrespondenceItem.Add(ButtonClientSideEvent.onClick, String.Format("function(s, e) {{ pcAddNewCorrespondenceItem.Show(); }}"));
+        EduSpecHtmlHelper.Button(Html, "btnAddNewCorrespondenceItem", "formeditor", "...", 5, 2, AddNewCorrespondenceItem);
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+
+
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+        EduSpecHtmlHelper.EndTable(Html);
+
+    });
+}).GetHtml()

@@ -1,0 +1,56 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    settings.Columns.Add(column =>
+    {
+        column.Name = "Status";
+        column.FieldName = "Status";
+        column.Caption = "Status";
+        column.UnboundType = DevExpress.Data.UnboundColumnType.String;
+        column.Visible = true;
+        column.Width = 100;
+        column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+        column.SetDataItemTemplateContent(c =>
+        {
+            Html.DevExpress().Image(s =>
+            {
+                s.Properties.ImageHeight = Unit.Pixel(4);
+                switch (Convert.ToInt32(DataBinder.Eval(c.DataItem, "AgeStatusID")))
+                {
+                    case -1:
+                        s.ImageUrl = "~/Content/GridImages/No_Info.png";
+                        break;
+                    case 0:
+                    case 4:
+                        s.ImageUrl = "~/Content/GridImages/Current.png";
+                        break;
+                    case 1:
+                        s.ImageUrl = "~/Content/GridImages/30_Overdue.png";
+                        break;
+                    case 2:
+                        s.ImageUrl = "~/Content/GridImages/60_Overdue.png";
+                        break;
+                    case 3:
+                        s.ImageUrl = "~/Content/GridImages/90_Overdue.png";
+                        break;
+                }
+            }).Render();
+        });
+    });
+
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["LegalActionViewProperties"]);
+
+    settings.Settings.ShowFooter = true;
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Count, "AgeStatusID");
+
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.Caption = "Action";
+    settings.CommandColumn.ButtonRenderMode = GridCommandButtonRenderMode.Image;
+    settings.CommandColumn.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+    settings.CommandColumn.Width = 60;
+    settings.CommandColumn.ShowSelectCheckbox = true;
+    settings.CommandColumn.ShowClearFilterButton = true;
+    settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.AllPages;
+
+}).Bind(Model).GetHtml()
+

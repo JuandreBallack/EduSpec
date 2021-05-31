@@ -1,0 +1,15 @@
+﻿@model DevExpress.XtraReports.UI.XtraReport
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    //
+    PopupUtils.SetPopupViewProperties(settings, "pcPrintEmailHistoryReport", "Email history");
+    settings.CallbackRouteValues = new { Controller = "DebtCollector", Action = "reportEmailHistory" };
+    settings.ClientSideEvents.BeginCallback = "function(s, e) { ; }";
+    settings.ClientSideEvents.EndCallback = "function(s, e) {  LoadingPanel.Hide(); s.Show(); }";
+    settings.SetContent(() =>
+    {
+        Html.RenderPartial("DocumentViewer", Model, new ViewDataDictionary { { "Name", "EmailHistory" } });
+    });
+}).GetHtml()
+

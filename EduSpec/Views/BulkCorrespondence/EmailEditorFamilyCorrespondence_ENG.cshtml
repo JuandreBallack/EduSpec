@@ -1,0 +1,17 @@
+﻿@Html.DevExpress().HtmlEditor(edtSettings =>
+{
+    edtSettings.Toolbars.Add(toolbar =>
+    {
+        toolbar.Items.Add(new ToolbarUndoButton());
+        toolbar.Items.Add(new ToolbarRedoButton());
+    });
+
+    edtSettings.Name = "EmailBody_ENG";
+    edtSettings.CallbackRouteValues = new { Controller = "BulkCorrespondence", Action = "EmailEditorFamilyCorrespondence_ENG", SMSID = ViewData["InstEmailID"] };
+    edtSettings.Width = Unit.Percentage(100);
+    edtSettings.Height = 500;
+    edtSettings.Settings.AllowHtmlView = false;
+    edtSettings.Settings.AllowPreview = false;
+    edtSettings.ClientSideEvents.GotFocus = "onGotFocus_Email";
+
+}).Bind(Model).GetHtml()

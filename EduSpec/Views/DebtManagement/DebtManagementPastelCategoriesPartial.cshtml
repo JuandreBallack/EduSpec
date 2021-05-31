@@ -1,0 +1,34 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["DebtManagementPastelCategoriesViewProperties"]);
+
+    settings.Toolbars[0].Items.Add(i =>
+    {
+
+        i.Alignment = MenuItemAlignment.Right;
+        i.SetTemplateContent(c =>
+        {
+            Html.DevExpress().Button(btn =>
+            {
+                btn.Name = "BtnGetCategories";
+                btn.Width = 120;
+                btn.ControlStyle.CssClass = "editor";
+                btn.Text = "Get Categories from Import";
+                btn.ClientSideEvents.Click = "function(s, e) {GetPastelCategories = true; ucImportAge.Upload();}"; ;
+                btn.ClientEnabled = true;
+                btn.UseSubmitBehavior = false;
+            }).GetHtml();
+
+        });
+    });
+    settings.SettingsEditing.BatchUpdateRouteValues = new { Controller = "DebtManagement", Action = "BatchEditingUpdateModel" };
+    settings.SettingsEditing.BatchEditSettings.EditMode = GridViewBatchEditMode.Cell;
+    settings.ClientSideEvents.BatchEditStartEditing = "onStartEdit";
+    settings.SettingsEditing.Mode = GridViewEditingMode.Batch;
+    settings.ClientSideEvents.EndCallback = "function(s, e) {btnImport.SetEnabled(true); var GetCategoriesBtn = PastelCategoriesGridView.GetToolbar(0).GetItemByName('BtnGetCategories'); GetCategoriesBtn.SetEnabled(true);}";
+    settings.SettingsEditing.BatchEditSettings.StartEditAction = GridViewBatchStartEditAction.Click;
+    settings.SettingsEditing.BatchEditSettings.KeepChangesOnCallbacks = DevExpress.Utils.DefaultBoolean.False;
+
+
+}).Bind(Model).GetHtml()
+

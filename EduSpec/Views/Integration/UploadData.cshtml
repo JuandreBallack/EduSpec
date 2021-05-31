@@ -1,0 +1,32 @@
+﻿
+@using (Html.BeginForm())
+{
+
+    ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 300px\"><div class=\"line\">");
+
+    ViewContext.Writer.Write("</div><div class=\"line\">");
+    Html.DevExpress().UploadControl(
+    ucsettings =>
+    {
+        ucsettings.Name = "ucUploadData";
+        ucsettings.CallbackRouteValues = new { Controller = "Integration", Action = "CallbacksFileUpload" };
+        ucsettings.ClientSideEvents.FileUploadComplete = "function(s, e) { onFileUploadComplete(e); }";
+        ucsettings.ControlStyle.CssClass = "editorArea";
+        ucsettings.Width = 300;
+        ucsettings.ShowProgressPanel = true;
+        ucsettings.BrowseButton.Text = ". . .";
+        ucsettings.UploadMode = UploadControlUploadMode.Advanced;
+    }).Render();
+
+    ViewContext.Writer.Write("</div><div class=\"line\"><br/>");
+    Html.DevExpress().Button(settings =>
+    {
+        settings.Name = "btnUpload";
+        settings.Text = "Load";
+        settings.Width = 100;
+        settings.ClientSideEvents.Click = "function(s, e) {{ ucUploadData.Upload()}}";
+    }).GetHtml();
+
+    ViewContext.Writer.Write("</div></div>");
+}
+

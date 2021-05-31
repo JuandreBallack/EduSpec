@@ -1,0 +1,138 @@
+﻿<table class="CheckListTable">
+    <tr>
+        <th class="CheckListTable-l">
+            <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                <div class="line" style="width: 100%; margin:0px 10px 0px;">
+                    @Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "boldlabel";
+                        edtSettings.Width = 200;
+                        edtSettings.Text = "Expenditure";
+                    }).GetHtml()
+                </div>
+            </div>
+        </th>
+    </tr>
+    <tr>
+        <td class="CheckListTable-l">
+            <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                <div class="line" style="width: 100%; margin:0px 5px 0px;">
+
+                    @Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "boldlabel";
+                        edtSettings.Width = 300;
+                        edtSettings.Text = "Alternative required documentation.";
+                    }).GetHtml()
+
+                    @Html.DevExpress().CheckBox(cbSettings =>
+                    {
+                        cbSettings.Name = "IsIncomplete";
+                        cbSettings.ControlStyle.CssClass = "label";
+                        cbSettings.Width = 300;
+                        cbSettings.Text = "Some required documents are still outstanding. (Only select if document is outstanding)";
+                        cbSettings.Properties.ClientSideEvents.CheckedChanged = "SetExpenseCheckboxesEnabled";
+                        cbSettings.Properties.ClientSideEvents.Init = "SetExpenseCheckboxesEnabled";
+                    }).Bind(DataBinder.Eval(Model, "IsIncomplete")).GetHtml()                    
+
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="CheckListTable-l">
+            <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                <div class="line" style="width: 100%; margin:0px 10px 0px;">
+                    
+                    @Html.DevExpress().CheckBox(cbSettings =>
+                    {
+                        cbSettings.Name = "RequireRentBond";
+                        cbSettings.ControlStyle.CssClass = "label";
+                        cbSettings.Width = 200;
+                        cbSettings.Text = "Rent/Bond";
+                        cbSettings.ClientVisible = Convert.ToBoolean(DataBinder.Eval(Model, "IsRequireRentBond"));
+                    }).Bind(DataBinder.Eval(Model, "RequireRentBond")).GetHtml()
+
+                    @Html.DevExpress().CheckBox(cbSettings =>
+                    {
+                        cbSettings.Name = "RequireMunicipalAccount";
+                        cbSettings.ControlStyle.CssClass = "label";
+                        cbSettings.Width = 200;
+                        cbSettings.Text = "Municipal account";
+                        cbSettings.ClientVisible = Convert.ToBoolean(DataBinder.Eval(Model, "IsRequireMunicipalAccount"));
+                    }).Bind(DataBinder.Eval(Model, "RequireMunicipalAccount")).GetHtml()
+
+                    @Html.DevExpress().CheckBox(cbSettings =>
+                    {
+                        cbSettings.Name = "RequireVehicleFinance";
+                        cbSettings.ControlStyle.CssClass = "label";
+                        cbSettings.Width = 200;
+                        cbSettings.Text = "Vehicle Finance";
+                        cbSettings.ClientVisible = Convert.ToBoolean(DataBinder.Eval(Model, "IsRequireVehicleFinance"));
+                    }).Bind(DataBinder.Eval(Model, "RequireVehicleFinance")).GetHtml()
+
+                    @Html.DevExpress().CheckBox(cbSettings =>
+                    {
+                        cbSettings.Name = "RequireCreditCardAccount";
+                        cbSettings.ControlStyle.CssClass = "label";
+                        cbSettings.Width = 200;
+                        cbSettings.Text = "Credit card";
+                        cbSettings.ClientVisible = Convert.ToBoolean(DataBinder.Eval(Model, "IsRequireCreditCardAccount"));
+                    }).Bind(DataBinder.Eval(Model, "RequireCreditCardAccount")).GetHtml()
+
+                    @Html.DevExpress().CheckBox(cbSettings =>
+                    {
+                        cbSettings.Name = "RequireCellPhoneAccount";
+                        cbSettings.ControlStyle.CssClass = "label";
+                        cbSettings.Width = 200;
+                        cbSettings.Text = "Cell phone";
+                        cbSettings.ClientVisible = Convert.ToBoolean(DataBinder.Eval(Model, "IsRequireCellPhoneAccount"));
+                    }).Bind(DataBinder.Eval(Model, "RequireCellPhoneAccount")).GetHtml()
+
+                </div>
+            </div>
+        </td>
+        <td class="CheckListTable-r">
+            <div class="edit_form" style="width: 335px; margin:0px 5px 0px 5px;">
+                <div class="line" style="width: 335px; margin:0px 10px 0px;">
+                    @Html.DevExpress().CheckBox(cbSettings =>
+                    {
+                        cbSettings.Name = "RequireFurnitureAccounts";
+                        cbSettings.ControlStyle.CssClass = "label";
+                        cbSettings.Width = 200;
+                        cbSettings.Text = "Furniture";
+                        cbSettings.ClientVisible = Convert.ToBoolean(DataBinder.Eval(Model, "IsRequireFurnitureAccounts"));
+                    }).Bind(DataBinder.Eval(Model, "RequireFurnitureAccounts")).GetHtml()
+
+                    @Html.DevExpress().CheckBox(cbSettings =>
+                    {
+                        cbSettings.Name = "RequireClothingAccount";
+                        cbSettings.ControlStyle.CssClass = "label";
+                        cbSettings.Width = 200;
+                        cbSettings.Text = "Clothing";
+                        cbSettings.ClientVisible = Convert.ToBoolean(DataBinder.Eval(Model, "IsRequireClothingAccount"));
+                    }).Bind(DataBinder.Eval(Model, "RequireClothingAccount")).GetHtml()
+
+                    @Html.DevExpress().CheckBox(cbSettings =>
+                    {
+                        cbSettings.Name = "RequireRevolvingCreditAccount";
+                        cbSettings.ControlStyle.CssClass = "label";
+                        cbSettings.Width = 200;
+                        cbSettings.Text = "Revolving credit";
+                        cbSettings.ClientVisible = Convert.ToBoolean(DataBinder.Eval(Model, "IsRequireRevolvingCreditAccount"));
+                    }).Bind(DataBinder.Eval(Model, "RequireRevolvingCreditAccount")).GetHtml()
+
+                    @Html.DevExpress().CheckBox(cbSettings =>
+                    {
+                        cbSettings.Name = "RequireTelephoneAccount";
+                        cbSettings.ControlStyle.CssClass = "label";
+                        cbSettings.Width = 200;
+                        cbSettings.Text = "Telephone";
+                        cbSettings.ClientVisible = Convert.ToBoolean(DataBinder.Eval(Model, "IsRequireTelephoneAccount"));
+                    }).Bind(DataBinder.Eval(Model, "RequireTelephoneAccount")).GetHtml()                                      
+
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>

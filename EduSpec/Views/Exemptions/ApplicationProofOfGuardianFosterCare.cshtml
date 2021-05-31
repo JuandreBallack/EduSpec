@@ -1,0 +1,59 @@
+﻿<table class="CheckListTable">
+    <tr>
+        <td class="CheckListTable-l">
+            <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                    @Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "boldlabel";
+                        edtSettings.Width = 200;
+                        edtSettings.Text = "Guardian/Foster Parent";
+                    }).GetHtml()
+                    
+                    @Html.DevExpress().CheckBox(edtSettings =>
+                    {
+                        edtSettings.Name = "GuardianFosterIdentityDocument";
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Width = 200;
+                        edtSettings.Text = "Certified Copy of ID Document";
+                    }).Bind(DataBinder.Eval(Model, "GuardianFosterIdentityDocument")).GetHtml()
+                                       
+
+                    @Html.DevExpress().CheckBox(edtSettings =>
+                    {
+                        edtSettings.Name = "ProofofGuardianFosterCare";
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Width = 340;
+                        edtSettings.Text = "Certified Copy of Proof of Guardian/Foster Care";
+                    }).Bind(DataBinder.Eval(Model, "ProofofGuardianFosterCare")).GetHtml()
+                    
+
+                </div>
+            </div>
+        </td>
+        <td class="CheckListTable-r">
+            <div class="edit_form" style=\"width: 335px; margin:0px 5px 0px 5px;\">
+                <div class="line" style=\"width: 335px; margin:0px 10px 0px;\">
+
+                    @*@Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "boldlabel";
+                        edtSettings.Width = 200;
+                        edtSettings.Text = "Learner";
+                    }).GetHtml()
+
+                    @Html.DevExpress().CheckBox(edtSettings =>
+                    {
+                        edtSettings.Name = "LearnerBirthCertificate";
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Width = 340;
+                        edtSettings.Text = "Certified Copy of Learner Birth Certificate";
+                    }).Bind(DataBinder.Eval(Model, "LearnerBirthCertificate")).GetHtml()*@
+                                        
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+

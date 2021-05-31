@@ -1,0 +1,205 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    settings.Columns.Add(column =>
+    {
+        column.Name = "Status";
+        column.FieldName = "Status";
+        column.Caption = "Status";
+        column.UnboundType = DevExpress.Data.UnboundColumnType.String;
+        column.Visible = true;
+        column.Width = 100;
+        column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+        column.SetDataItemTemplateContent(c =>
+        {
+
+
+            Html.DevExpress().Image(s =>
+            {
+                s.Properties.ImageHeight = Unit.Pixel(4);
+                switch (Convert.ToInt32(DataBinder.Eval(c.DataItem, "AgeStatusID")))
+                {
+                    case -1:
+                        s.ImageUrl = "~/Content/GridImages/No_Info.png";
+                        break;
+                    case 0:
+                    case 4:
+                        s.ImageUrl = "~/Content/GridImages/Current.png";
+                        break;
+                    case 1:
+                        s.ImageUrl = "~/Content/GridImages/30_Overdue.png";
+                        break;
+                    case 2:
+                        s.ImageUrl = "~/Content/GridImages/60_Overdue.png";
+                        break;
+                    case 3:
+                        s.ImageUrl = "~/Content/GridImages/90_Overdue.png";
+                        break;
+                }
+
+
+            }).Render();
+        });
+    });
+
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["ViewProperties"]);
+
+    settings.Toolbars[0].Items.Add(i =>
+    {
+
+        i.Alignment = MenuItemAlignment.Right;
+        i.SetTemplateContent(c =>
+        {
+            Html.DevExpress().ComboBox(comboBox =>
+            {
+                comboBox.Name = "cbYear";
+                comboBox.Width = 70;
+                comboBox.ControlStyle.CssClass = "editor";
+                comboBox.Properties.TextField = "Description";
+                comboBox.Properties.ValueField = "ID";
+                comboBox.Properties.ValueType = typeof(int);
+                comboBox.Properties.ClientSideEvents.Init = String.Format("function(s, e) {{if (cbYearSelectedIndex == -1) cbYear.SetValue({0}); else cbYear.SetValue(cbYearSelectedIndex);}}", HttpContext.Current.Session["CurrentYearID"]);
+                comboBox.Properties.ClientSideEvents.SelectedIndexChanged = "function(s, e) {GridView.PerformCallback({ YearID: cbYear.GetValue() });}";
+                comboBox.Properties.Caption = "Year:";
+            }).BindList(GridUtils.getDropdownList("Get_SchoolYear_PickList")).GetHtml();
+
+        });
+
+    });
+
+    settings.Toolbars[0].Items.Add(i =>
+    {
+
+        i.Alignment = MenuItemAlignment.Right;
+        i.SetTemplateContent(c =>
+        {
+            
+            Dictionary<EduSpec.ComboboxClientSideEvent, string> DebtCollectorInstList = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+            DebtCollectorInstList.Add(ComboboxClientSideEvent.onInit, String.Format("function(s, e) {{if (cbInstitutionSelectedIndex == -1) cbInstitution.SetValue({0}); else cbInstitution.SetValue(cbInstitutionSelectedIndex);}}", -1));
+            DebtCollectorInstList.Add(ComboboxClientSideEvent.onSelectedIndexChanged, "function(s, e) {GridView.PerformCallback({ InstID: cbInstitution.GetValue() });}");
+            EduSpecHtmlHelper.ComboBox(Html, "cbInstitution", "editor", 200, string.Format("Get_InstitutionForDebtCollector_Picklist {0}", HttpContext.Current.Session["DebtCollectorID"]), DebtCollectorInstList);
+
+        });
+
+    });
+
+    //settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "DebtManagement", Action = "updateAgeAnalysis" };
+
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "PriorOutstanding").DisplayFormat = "c";
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "LegalAmount").DisplayFormat = "c";
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "SchoolFees").DisplayFormat = "c";
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "January").DisplayFormat = "c";
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "February").DisplayFormat = "c";
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "March").DisplayFormat = "c";
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "April").DisplayFormat = "c";
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "May").DisplayFormat = "c";
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "June").DisplayFormat = "c";
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "July").DisplayFormat = "c";
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "August").DisplayFormat = "c";
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "September").DisplayFormat = "c";
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "October").DisplayFormat = "c";
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "November").DisplayFormat = "c";
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "December").DisplayFormat = "c";
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "AdHocAmount").DisplayFormat = "c";
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "AdHocAmountPaid").DisplayFormat = "c";
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "AdHocAmountOutstanding").DisplayFormat = "c";
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "TotalOutstanding").DisplayFormat = "c";
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Count, "AgeStatusID");
+    settings.Settings.ShowFooter = true;
+
+    settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "SchoolFees").DisplayFormat = "c";
+    settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Count, "AgeStatusID");
+
+    //settings.SetEditFormTemplateContent(c =>
+    //{
+    //    var AgeRecord = ViewData["AgeRecord"] != null ? ViewData["AgeRecord"] : c.DataItem;
+
+    //    ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 320px\" style=\"height: 700px ; margin:0px 5px 0px 5px;\">");
+    //    ViewContext.Writer.Write("<div class=\"line\" style=\"width: 100%; margin:10px 10px 0px; 10px\">");
+
+
+    //    EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+
+    //    EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+    //    EduSpecHtmlHelper.NewRow(Html);
+    //    EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+    //    EduSpecHtmlHelper.Label(Html, "Legat Status:", "editorLabel");
+    //    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 160);// Second column
+    //    EduSpecHtmlHelper.ComboBox(Html, "formeditor", AgeRecord, "LegalStatusID", 150, "Get_DebtManagement_LegalStatusType_PickList", null);
+    //    EduSpecHtmlHelper.EndColumn(Html);
+    //    EduSpecHtmlHelper.EndRow(Html);
+
+    //    EduSpecHtmlHelper.NewRow(Html);
+    //    EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+    //    EduSpecHtmlHelper.Label(Html, "Previous Outstanding:", "editorLabel");
+    //    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 160);// Second column
+    //    EduSpecHtmlHelper.CurrencyEdit(Html, "formeditor", AgeRecord, "PriorOutstanding", 100, null);
+    //    EduSpecHtmlHelper.EndColumn(Html);
+    //    EduSpecHtmlHelper.EndRow(Html);
+
+    //    EduSpecHtmlHelper.NewRow(Html);
+    //    EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+    //    EduSpecHtmlHelper.Label(Html, "Handed Over Amount:", "editorLabel");
+    //    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 160);// Second column
+    //    EduSpecHtmlHelper.CurrencyEdit(Html, "formeditor", AgeRecord, "LegalAmount", 100, null);
+    //    EduSpecHtmlHelper.EndColumn(Html);
+    //    EduSpecHtmlHelper.EndRow(Html);
+
+    //    EduSpecHtmlHelper.NewRow(Html);
+    //    EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+    //    EduSpecHtmlHelper.Label(Html, "Handed Over Date:", "editorLabel");
+    //    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 160);// Second column
+    //    EduSpecHtmlHelper.DateEdit(Html, "formeditor", AgeRecord, "LegalDate", 100, null);
+    //    EduSpecHtmlHelper.EndColumn(Html);
+    //    EduSpecHtmlHelper.EndRow(Html);
+
+    //    EduSpecHtmlHelper.NewRow(Html);
+    //    EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+    //    EduSpecHtmlHelper.Label(Html, "Internal Reference:", "editorLabel");
+    //    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 160);// Second column
+    //    EduSpecHtmlHelper.TextBox(Html, "formeditor", AgeRecord, "LegalReferenceInternal", true, 150, null);
+    //    EduSpecHtmlHelper.EndColumn(Html);
+    //    EduSpecHtmlHelper.EndRow(Html);
+
+    //    EduSpecHtmlHelper.NewRow(Html);
+    //    EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+    //    EduSpecHtmlHelper.Label(Html, "External Reference:", "editorLabel");
+    //    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 160);// Second column
+    //    EduSpecHtmlHelper.TextBox(Html, "formeditor", AgeRecord, "LegalReferenceExternal", true, 150, null);
+    //    EduSpecHtmlHelper.EndColumn(Html);
+    //    EduSpecHtmlHelper.EndRow(Html);
+
+    //    EduSpecHtmlHelper.NewRow(Html);
+    //    EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+    //    EduSpecHtmlHelper.Label(Html, "Is under debt review:", "editorLabel");
+    //    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 160);// Second column
+    //    EduSpecHtmlHelper.CheckBox(Html, "formeditor", AgeRecord, "IsDebtReview", 100, null);
+    //    EduSpecHtmlHelper.EndColumn(Html);
+    //    EduSpecHtmlHelper.EndRow(Html);
+
+    //    EduSpecHtmlHelper.EndColumn(Html);
+    //    EduSpecHtmlHelper.EndRow(Html);
+    //    EduSpecHtmlHelper.EndTable(Html);
+
+    //    EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+    //    EduSpecHtmlHelper.NewDiv(Html, "line");
+
+    //    Dictionary<EduSpec.ButtonClientSideEvent, string> AddSupportCaseEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+    //    AddSupportCaseEvents.Add(ButtonClientSideEvent.onClick, String.Format("function(s, e) {{{0}.UpdateEdit(); }}", settings.Name));
+    //    EduSpecHtmlHelper.Button(Html, "btnUpdate", "button", "Update", 80, AddSupportCaseEvents);
+
+    //    Dictionary<EduSpec.ButtonClientSideEvent, string> cancelSupportCaseEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+    //    cancelSupportCaseEvents.Add(ButtonClientSideEvent.onClick, String.Format("function(s, e) {{{0}.CancelEdit(); }}", settings.Name));
+    //    EduSpecHtmlHelper.Button(Html, "btnCancel", "button", "Cancel", 80, cancelSupportCaseEvents);
+
+
+    //    EduSpecHtmlHelper.EndDiv(Html);
+    //    EduSpecHtmlHelper.EndDiv(Html);
+
+
+
+    //});
+
+}).Bind(Model).GetHtml()
+
+

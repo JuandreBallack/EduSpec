@@ -1,0 +1,12 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["ViewProperties"]);
+
+    settings.ClientSideEvents.BeginCallback = "function(s, e) { e.customArgs['SupportID'] = GridView.GetRowKey(GridView.GetFocusedRowIndex()); }";
+    
+
+    settings.Settings.ShowPreview = true;
+    settings.PreviewFieldName = "CaseDescription";
+
+}).Bind(Model).GetHtml()
+

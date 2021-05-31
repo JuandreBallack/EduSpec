@@ -1,0 +1,60 @@
+﻿@model System.Collections.IEnumerable
+
+<script type="text/javascript">
+
+    function onConfirmActivation(values) {
+        pcActivateBundlelbMessage.SetText("Are you sure you want to activate the following SMS bundle? </br></br><b>Institution " + values[0] + " with bundle code:" + values[1]);
+        pcActivateBundle.Show();
+    }
+
+    function onBtnActivateSMSBundleClick(Result) {
+
+        if (Result == "mrYes") {
+            var SMSBundleID = GridView.GetRowKey(GridView.GetFocusedRowIndex());
+            $.ajax({
+                type: 'POST',
+                url: '/SystemAdmin/ActivateSMSBundle',
+                dataType: 'json',
+                async: false,
+                data: {
+                    SMSBundleID: SMSBundleID
+                },
+            });
+
+            GridView.PerformCallback();
+            pcActivateBundle.Hide();
+        }
+    }
+
+</script>
+
+@Html.DevExpress().Splitter(settings =>
+    {
+        SplitterUtils.SetSplitterProperties(settings, ViewData["ViewProperties"]);
+
+        MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+        HeaderPane.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<div ID=\"ViewInfo\">Bundles Pending Activation</div><div style=\"margin:2px\">");
+
+            //Html.RenderPartial("MenuButtonsPartialView", ViewData["ViewProperties"]);
+
+            ViewContext.Writer.Write("</div>");
+
+        });
+
+        MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+        MainContentPane.SetContent(() =>
+        {
+            Html.RenderAction("BundlesPendingActivationPartial");
+        });
+
+        MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+        FooterPane.SetContent(() =>
+        {
+
+        });
+
+    }).GetHtml()
+
+@MessageDlg.ShowMessageDlg("pcActivateBundle", Html, "Are you sure you want to order selected package?", new BtnType[] { BtnType.mbYes, BtnType.mbNo }, MessageType.mConfirmation, "onBtnActivateSMSBundleClick")

@@ -1,0 +1,301 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["DebtCollectorsViewProperties"]);
+
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "DebtManagement", Action = "DebtCollectorAdd" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "DebtManagement", Action = "DebtCollectorUpdate" };
+
+    settings.SetEditFormTemplateContent(c =>
+    {
+        var DebtCollectors = ViewData["DebtCollectors"] != null ? ViewData["DebtCollectors"] : c.DataItem;
+
+        ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 600px\" style=\"height: 9000px ; margin:0px 5px 0px 5px;\">");
+        ViewContext.Writer.Write("<div class=\"line\" style=\"width: 100%; margin:10px 10px 0px; 10px\">");
+
+        var LabelColoumWidth = 80;
+        var EditColoumnWidth = 150;
+
+        if (c.KeyValue == null)
+        {
+            Dictionary<EduSpec.ComboboxClientSideEvent, string> comboboxSelectedIndexChanged = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+            comboboxSelectedIndexChanged.Add(ComboboxClientSideEvent.onSelectedIndexChanged, "function(s,e){SelectedIndexChanged();}");
+
+            EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+            EduSpecHtmlHelper.NewRow(Html);
+            EduSpecHtmlHelper.NewColumn(Html, "edit_form", LabelColoumWidth);// First column
+            EduSpecHtmlHelper.Label(Html, "Company Info", "boldlabel");
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// Second column
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// Third column
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// Forth column
+
+            EduSpecHtmlHelper.EndAndNewRow(Html);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+            EduSpecHtmlHelper.Label(Html, "lbCollectorNameSelect", "Please Select:", "editorLabel", true);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 2
+            EduSpecHtmlHelper.ComboBox(Html, "formeditor", DebtCollectors, "DebtCollectorID", 300, "Get_DebtCollectors_Picklist", comboboxSelectedIndexChanged);
+
+            EduSpecHtmlHelper.EndAndNewRow(Html);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+            EduSpecHtmlHelper.Label(Html, "lbCollectorName", "Company Name:", "editorLabel", false);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 2
+            EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "CollectorName", false, 300, null);
+
+            EduSpecHtmlHelper.EndAndNewRow(Html);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+            EduSpecHtmlHelper.Label(Html,"lbEmail", "Email:", "editorLabel", false);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 2
+            EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "Email", false, 300, null);
+
+            EduSpecHtmlHelper.EndAndNewRow(Html);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+            EduSpecHtmlHelper.Label(Html, "lbTelephone", "Telephone:", "editorLabel", false);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 2
+            EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "Telephone", false, 120, null);
+
+            EduSpecHtmlHelper.EndAndNewRow(Html);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+            EduSpecHtmlHelper.Label(Html, "lbCell", "Cell:", "editorLabel", false);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 2
+            EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "Cell", false, 120, null);
+
+            EduSpecHtmlHelper.EndAndNewRow(Html);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+            EduSpecHtmlHelper.Label(Html, "lbFax", "Fax:", "editorLabel", false);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 2
+            EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "Fax", false, 120, null);
+
+            EduSpecHtmlHelper.EndAndNewRow(Html);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+            EduSpecHtmlHelper.Label(Html, "lbAddress", "Address", "boldlabel", false);
+
+
+            EduSpecHtmlHelper.EndAndNewRow(Html);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+            EduSpecHtmlHelper.Label(Html, "lbPhysAddress1", "Phys Address:", "editorLabel", false);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 2
+            EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "PhysAddress1", false, 160, null);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 3
+            EduSpecHtmlHelper.Label(Html, "lbPosAddress1", "Pos Address:", "editorLabel", false);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 4
+            EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "PosAddress1", false, 160, null);
+
+            EduSpecHtmlHelper.EndAndNewRow(Html);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 2
+            EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "PhysAddress2", false, 160, null);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 3
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 4
+            EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "PosAddress2", false, 160, null);
+
+            EduSpecHtmlHelper.EndAndNewRow(Html);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 2
+            EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "PhysAddress3", false, 160, null);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 3
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 4
+            EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "PosAddress3", false, 160, null);
+
+            EduSpecHtmlHelper.EndAndNewRow(Html);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+            EduSpecHtmlHelper.Label(Html, "lbPhysProvince", "Province:", "editorLabel", false);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 2
+            EduSpecHtmlHelper.ComboBox(Html, "PhysProvinceID", "formeditor", 160, "Get_Provinces_PickList", false, null);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 3
+            EduSpecHtmlHelper.Label(Html, "lbPostProvince","Province:", "editorLabel", false);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 4
+            EduSpecHtmlHelper.ComboBox(Html, "PosProvinceID", "formeditor", 160, "Get_Provinces_PickList", false, null);
+
+            EduSpecHtmlHelper.EndAndNewRow(Html);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+            EduSpecHtmlHelper.Label(Html, "lbPhyPostalCode", "Postal Code:", "editorLabel", false);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 2
+            EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "PhysCode", false, 60, null);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 3
+            EduSpecHtmlHelper.Label(Html, "lbPostalCode", "Postal Code:", "editorLabel", false);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 4
+            EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "PosCode", false, 60, null);
+
+            EduSpecHtmlHelper.EndAndNewRow(Html);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+            EduSpecHtmlHelper.Label(Html, "Contact Person", "boldlabel");
+
+            EduSpecHtmlHelper.EndAndNewRow(Html);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+            EduSpecHtmlHelper.Label(Html, "Name:", 100, "editorLabel");
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 2
+            EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "ContactName", true, 160, null);
+
+            EduSpecHtmlHelper.EndAndNewRow(Html);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+            EduSpecHtmlHelper.Label(Html, "Cell Number:", 100, "editorLabel");
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 2
+            EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "ContactCell", true, 160, null);
+
+            EduSpecHtmlHelper.EndAndNewRow(Html);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+            EduSpecHtmlHelper.Label(Html, "Email:", 100, "editorLabel");
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 2
+            EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "ContactEmail", true, 300, null);
+
+            EduSpecHtmlHelper.EndColumn(Html);
+            EduSpecHtmlHelper.EndRow(Html);
+            EduSpecHtmlHelper.EndTable(Html);
+        }
+        else
+        {
+            EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+            EduSpecHtmlHelper.NewRow(Html);
+            EduSpecHtmlHelper.NewColumn(Html, "edit_form", LabelColoumWidth);// First column
+            EduSpecHtmlHelper.Label(Html, "Company Info", "boldlabel");
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// Second column
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// Third column
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// Forth column
+
+            if (Convert.ToBoolean(DataBinder.Eval(DebtCollectors, "IsCustom")) == true)
+            {
+                EduSpecHtmlHelper.EndAndNewRow(Html);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+                EduSpecHtmlHelper.Label(Html, "lbCollectorName", "Company Name:", "editorLabel", true);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 2
+                EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "CollectorName", true, 300, null);
+
+                EduSpecHtmlHelper.EndAndNewRow(Html);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+                EduSpecHtmlHelper.Label(Html, "lbEmail", "Email:", "editorLabel", true);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 2
+                EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "Email", true, 300, null);
+
+                EduSpecHtmlHelper.EndAndNewRow(Html);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+                EduSpecHtmlHelper.Label(Html, "lbTelephone", "Telephone:", "editorLabel", true);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 2
+                EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "Telephone", true, 120, null);
+
+                EduSpecHtmlHelper.EndAndNewRow(Html);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+                EduSpecHtmlHelper.Label(Html, "lbCell", "Cell:", "editorLabel", true);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 2
+                EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "Cell", true, 120, null);
+
+                EduSpecHtmlHelper.EndAndNewRow(Html);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+                EduSpecHtmlHelper.Label(Html, "lbFax", "Fax:", "editorLabel", true);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 2
+                EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "Fax", true, 120, null);
+
+                EduSpecHtmlHelper.EndAndNewRow(Html);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+                EduSpecHtmlHelper.Label(Html, "lbAddress", "Address", "boldlabel", true);
+
+                EduSpecHtmlHelper.EndAndNewRow(Html);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+                EduSpecHtmlHelper.Label(Html, "lbPhysAddress1", "Phys Address:", "editorLabel", true);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 2
+                EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "PhysAddress1", true, 160, null);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 3
+                EduSpecHtmlHelper.Label(Html, "lbPosAddress1", "Pos Address:", "editorLabel", true);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 4
+                EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "PosAddress1", true, 160, null);
+
+                EduSpecHtmlHelper.EndAndNewRow(Html);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 2
+                EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "PhysAddress2", true, 160, null);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 3
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 4
+                EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "PosAddress2", true, 160, null);
+
+                EduSpecHtmlHelper.EndAndNewRow(Html);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 2
+                EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "PhysAddress3", true, 160, null);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 3
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 4
+                EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "PosAddress3", true, 160, null);
+
+                EduSpecHtmlHelper.EndAndNewRow(Html);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+                EduSpecHtmlHelper.Label(Html, "lbPhysProvince", "Province:", "editorLabel", true);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 2
+                EduSpecHtmlHelper.ComboBox(Html, "PhysProvinceID", "formeditor", 160, "Get_Provinces_PickList", true, null);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 3
+                EduSpecHtmlHelper.Label(Html, "lbPostProvince", "Province:", "editorLabel", true);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 4
+                EduSpecHtmlHelper.ComboBox(Html, "PosProvinceID", "formeditor", 160, "Get_Provinces_PickList", true, null);
+
+                EduSpecHtmlHelper.EndAndNewRow(Html);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+                EduSpecHtmlHelper.Label(Html, "lbPhyPostalCode", "Postal Code:", "editorLabel", true);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 2
+                EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "PhysCode", true, 60, null);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 3
+                EduSpecHtmlHelper.Label(Html, "lbPostalCode", "Postal Code:", "editorLabel", true);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 4
+                EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "PosCode", true, 60, null);
+            }
+            else
+            {
+                EduSpecHtmlHelper.EndAndNewRow(Html);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+                EduSpecHtmlHelper.Label(Html, "lbCollectorName", "Company Name:", "editorLabel", true);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 2
+                EduSpecHtmlHelper.Label(Html, DebtCollectors, "CollectorName","", "editorLabel", true);
+            }
+
+            EduSpecHtmlHelper.EndAndNewRow(Html);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+            EduSpecHtmlHelper.Label(Html, "Contact Person", "boldlabel");
+
+            EduSpecHtmlHelper.EndAndNewRow(Html);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+            EduSpecHtmlHelper.Label(Html, "Name:", 100, "editorLabel");
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 2
+            EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "ContactName", true, 160, null);
+
+            EduSpecHtmlHelper.EndAndNewRow(Html);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+            EduSpecHtmlHelper.Label(Html, "Cell Number:", 100, "editorLabel");
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 2
+            EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "ContactCell", true, 160, null);
+
+            EduSpecHtmlHelper.EndAndNewRow(Html);
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", LabelColoumWidth);// 1
+            EduSpecHtmlHelper.Label(Html, "Email:", 100, "editorLabel");
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", EditColoumnWidth);// 2
+            EduSpecHtmlHelper.TextBox(Html, "formeditor", DebtCollectors, "ContactEmail", true, 300, null);
+
+            EduSpecHtmlHelper.EndColumn(Html);
+            EduSpecHtmlHelper.EndRow(Html);
+            EduSpecHtmlHelper.EndTable(Html);
+        }
+
+        EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+        EduSpecHtmlHelper.NewDiv(Html, "line");
+
+        Html.DevExpress().Button(btnSettings =>
+        {
+            btnSettings.Name = "btnUpdate";
+            btnSettings.ControlStyle.CssClass = "button";
+            btnSettings.Text = "Add";
+            btnSettings.ClientSideEvents.Click = String.Format("function(s, e) {{{0}.UpdateEdit(); }}", settings.Name);
+        }).GetHtml();
+
+        Html.DevExpress().Button(btnSettings =>
+        {
+            btnSettings.Name = "btnCancel";
+            btnSettings.ControlStyle.CssClass = "button";
+            btnSettings.Text = "Cancel";
+            btnSettings.ClientSideEvents.Click = String.Format("function(s, e) {{{0}.CancelEdit(); }}", settings.Name);
+        }).GetHtml();
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+
+        settings.PreRender = (sender, e) =>
+        {
+            ((MVCxGridView)sender).StartEdit(1);
+        };
+
+    });
+
+}).Bind(Model).GetHtml()

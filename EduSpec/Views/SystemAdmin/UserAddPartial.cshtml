@@ -1,0 +1,219 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["ViewProperties"]);
+
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "SystemAdmin", Action = "UserUpdate" };
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "SystemAdmin", Action = "AddNewUser" };
+
+    settings.Columns.Add(column =>
+    {
+        column.Name = "Password";
+        column.FieldName = "Pwd";
+        column.Caption = "Reset <br />Password";
+        column.UnboundType = DevExpress.Data.UnboundColumnType.String;
+        column.Visible = true;
+        column.Width = 70;
+        column.SetDataItemTemplateContent(c =>
+        {
+            Html.DevExpress().Button(settingsBtn =>
+            {
+                settingsBtn.Name = "User_" + c.KeyValue.ToString();
+                settingsBtn.Text = "...";
+                settingsBtn.Width = 58;
+                settingsBtn.ClientSideEvents.Click = "function(s,e) {UserID.SetText(s.name); pcChangePassword.Show(); }";
+            }).Render();
+        });
+    });
+
+    settings.SetEditFormTemplateContent(c =>
+    {
+        var User = ViewData["User"] != null ? ViewData["User"] : c.DataItem;
+
+        ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 320px; margin:0px 5px 0px 5px;\">");
+        ViewContext.Writer.Write("<div class=\"line\" style=\"width: 100%; margin:10px 10px 0px; 10px\">");
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 100);// First column
+        EduSpecHtmlHelper.Label(Html, "User Name:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 180);// Second column
+        Dictionary<EduSpec.TextBoxClientSideEvent, string> txBoxClientSideEvent = new Dictionary<EduSpec.TextBoxClientSideEvent, string>();
+        txBoxClientSideEvent.Add(TextBoxClientSideEvent.onValidation, "function(s,e){OnValidateUserName;}");
+        txBoxClientSideEvent.Add(TextBoxClientSideEvent.onInit, "function(s,e){s.SetFocus();}");
+        if (DataBinder.Eval(c.DataItem, "UserName") == null)
+        {
+            EduSpecHtmlHelper.TextBox(Html, "formeditor", User, "UserName", true, 150, txBoxClientSideEvent);
+        }
+        else
+        {
+            EduSpecHtmlHelper.Label(Html, "formeditor", User, "UserName");
+        }
+        EduSpecHtmlHelper.EndColumn(Html);
+
+
+        if (c.KeyValue == null)
+        {
+            EduSpecHtmlHelper.NewRow(Html);
+            EduSpecHtmlHelper.NewColumn(Html, "edit_form", 100);// First column
+            EduSpecHtmlHelper.Label(Html, "Password:", "editorLabel");
+            EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 180);// Second column
+            //Dictionary<EduSpec.TextBoxClientSideEvent, string> txPasswordEvent = new Dictionary<EduSpec.TextBoxClientSideEvent, string>();
+            //txPasswordEvent.Add(TextBoxClientSideEvent.onValidation, "function(s,e){OnPasswordValidation;}");
+            //EduSpecHtmlHelper.TextBox(Html, "formeditor", User, "Password", true, 150, txBoxClientSideEvent);
+
+            Html.DevExpress().TextBox(edtSettings =>
+            {
+                edtSettings.Name = "Password";
+                edtSettings.ControlStyle.CssClass = "formeditor";
+                edtSettings.Properties.Password = true;
+                edtSettings.Width = 150;
+                edtSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                edtSettings.Properties.ClientSideEvents.Validation = "OnPasswordValidation";
+                edtSettings.ControlStyle.BackColor = System.Drawing.Color.LightYellow;
+            }).Bind(DataBinder.Eval(User, "Password")).Render();
+
+            EduSpecHtmlHelper.EndColumn(Html);
+        }
+
+
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 100);// First column
+        EduSpecHtmlHelper.Label(Html, "Full Name:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 180);// Second column
+        Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "FullName";
+            edtSettings.ControlStyle.CssClass = "formeditor";
+            if (c.KeyValue != null)
+            {
+                edtSettings.Properties.ClientSideEvents.Init = "function(s, e){ s.SetFocus(); }";
+            }
+            edtSettings.Width = 150;
+            edtSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+            edtSettings.Properties.ClientSideEvents.Validation = "function(s,e){validateRequiredField(e.value, e);}";
+        }).Bind(DataBinder.Eval(User, "FullName")).Render();
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 100);// First column
+        EduSpecHtmlHelper.Label(Html, "Surname:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 180);// Second column
+        EduSpecHtmlHelper.TextBox(Html, "formeditor", User, "Surname", true, 150, txBoxClientSideEvent);
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 100);// First column
+        EduSpecHtmlHelper.Label(Html, "Email Address:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 180);// Second column
+        EduSpecHtmlHelper.TextBox(Html, "formeditor", User, "Email", true, 150, txBoxClientSideEvent);
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 100);// First column
+        EduSpecHtmlHelper.Label(Html, "Access Level:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 180);// Second column
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "AccessLevelID";
+            edtSettings.ControlStyle.CssClass = "formeditor";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "ID";
+            edtSettings.Properties.ValueType = typeof(Int32);
+            edtSettings.Width = 150;
+            edtSettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+            edtSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+            edtSettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Right;
+            edtSettings.Properties.ClientSideEvents.SelectedIndexChanged = "function(s, e) { DepartmentID.PerformCallback(); }";
+            edtSettings.Properties.ClientSideEvents.Validation = "function(s,e){validateRequiredField(e.value, e);}";
+        }).BindList(GridUtils.getDropdownList("Get_AdminUserAccessLevels_PickList"))
+        .Bind(DataBinder.Eval(User, "AccessLevelID"))
+        .Render();
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 100);// First column
+        EduSpecHtmlHelper.Label(Html, "Department:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 180);// Second column
+        ViewData["AccessLevelID"] = DataBinder.Eval(c.DataItem, "AccessLevelID");
+        Html.RenderPartial("DepartmentPickList", DataBinder.Eval(User, "DepartmentID"));
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 100);// First column
+        EduSpecHtmlHelper.Label(Html, "Debt Collector:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 180);// Second column
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "DebtCollectorID";
+            edtSettings.ControlStyle.CssClass = "formeditor";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "ID";
+            edtSettings.Properties.ValueType = typeof(Int32);
+            edtSettings.Width = 150;
+            edtSettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+            edtSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+            edtSettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Right;
+            //edtSettings.Properties.ClientSideEvents.SelectedIndexChanged = "function(s, e) { DepartmentID.PerformCallback(); }";
+            edtSettings.Properties.ClientSideEvents.Validation = "function(s,e){validateRequiredField(e.value, e);}";
+        }).BindList(GridUtils.getDropdownList("Get_DebtCollector_PickList"))
+        .Bind(DataBinder.Eval(User, "DebtCollectorID"))
+        .Render();
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 100);// First column
+        EduSpecHtmlHelper.Label(Html, "Active:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 180);// Second column
+        EduSpecHtmlHelper.CheckBox(Html, "formeditor", User, "IsActive", "Active", 120, null);
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.EndRow(Html);
+        EduSpecHtmlHelper.EndTable(Html);
+
+
+        Html.DevExpress().Button(
+            btnSettings =>
+            {
+                btnSettings.Name = "btnUpdate";
+                btnSettings.ControlStyle.CssClass = "button";
+                if (c.KeyValue == null)
+                {
+                    btnSettings.Text = "Save";
+                    btnSettings.ClientSideEvents.Click = String.Format("function(s, e) {{ if (UserName.GetIsValid() & Password.GetIsValid() & FullName.GetIsValid() & DepartmentID.GetIsValid() & AccessLevelID.GetIsValid()) {0}.UpdateEdit(); }}", settings.Name);
+                }
+                else
+                {
+                    btnSettings.Text = "Update";
+                    btnSettings.ClientSideEvents.Click = String.Format("function(s, e) {{ if (FullName.GetIsValid() & DepartmentID.GetIsValid() & AccessLevelID.GetIsValid()) {0}.UpdateEdit(); }}", settings.Name);
+                }
+
+            }
+        ).Render();
+
+        Html.DevExpress().Button(
+            btnSettings =>
+            {
+                btnSettings.Name = "btnCancel";
+                btnSettings.ControlStyle.CssClass = "button";
+                btnSettings.Text = "Cancel";
+                btnSettings.ClientSideEvents.Click = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+
+            }).Render();
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+
+        settings.PreRender = (sender, e) =>
+        {
+            ((MVCxGridView)sender).StartEdit(1);
+        };
+
+    });
+
+
+}).Bind(Model).GetHtml()
+
+
+

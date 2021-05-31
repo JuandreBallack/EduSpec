@@ -1,0 +1,15 @@
+﻿@using (Html.BeginForm())
+{
+    Html.DevExpress().UploadControl(
+    ucsettings =>
+    {
+        ucsettings.Name = "ucSingleEmailCustomUploadData";
+        ucsettings.CallbackRouteValues = new { Controller = "Shared", Action = "CallbacksSingleEmailCustomFileUpload" };
+        ucsettings.ClientSideEvents.FileUploadComplete = "function(s, e) { SendSingleEmailCustom(e); }";
+        ucsettings.ControlStyle.CssClass = "editorArea";
+        ucsettings.Width = 500;
+        ucsettings.ShowProgressPanel = true;
+        ucsettings.BrowseButton.Text = ". . .";
+        ucsettings.UploadMode = UploadControlUploadMode.Advanced;
+    }).Render();
+}

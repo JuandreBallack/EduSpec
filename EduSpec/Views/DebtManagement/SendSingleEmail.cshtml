@@ -1,0 +1,187 @@
+﻿
+<script type="text/javascript">
+
+    function SetAgeEmailSend() {
+        $.ajax({
+            type: 'POST',
+            url: '/DebtManagement/EmailSend',
+            dataType: 'json',
+            async: false,
+            data: {
+                FamilyID: tbFamilyIDEmail.GetValue(),
+                Recipient: Recipient.GetValue(),
+                CcEmail: CcEmail.GetValue(),
+                Subject: Subject.GetValue(),
+                MessageEmail: MessageEmail.GetValue(),
+                AgeStatusID: tbAgeStatusIDEmail.GetValue(),
+            },
+            success: function (response) {
+                var s = response.Url;
+                s.target = "_Blank"
+                window.open(s);
+            }
+        });
+        pcSendSingleEmail.Hide();
+        
+    }
+
+    function ImportEmailAttachment(s, e) {
+        ucLegalProcessFileCallbacks.Upload();
+    }
+
+</script>
+
+@using (Html.BeginForm())
+{
+
+    ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 650px\"><div class=\"line\">");
+
+    Html.DevExpress().TextBox(textBoxSettings =>
+    {
+        textBoxSettings.Name = "tbExemptionIDEmail";
+        textBoxSettings.ControlStyle.CssClass = "editor";
+        textBoxSettings.ClientVisible = false;
+        textBoxSettings.Width = 300;
+
+    }).Render();
+
+
+    Html.DevExpress().TextBox(textBoxSettings =>
+    {
+        textBoxSettings.Name = "tbFamilyIDEmail";
+        textBoxSettings.ControlStyle.CssClass = "editor";
+        textBoxSettings.ClientVisible = false;
+        textBoxSettings.Width = 300;
+
+    }).Render();
+
+    Html.DevExpress().TextBox(textBoxSettings =>
+    {
+        textBoxSettings.Name = "tbAgeStatusIDEmail";
+        textBoxSettings.ControlStyle.CssClass = "editor";
+        textBoxSettings.ClientVisible = false;
+        textBoxSettings.Width = 300;
+
+    }).Render();
+
+    Html.DevExpress().Label(lbsettings =>
+    {
+        lbsettings.Name = "lblRecipient";
+        lbsettings.Text = "To:";
+        lbsettings.ControlStyle.CssClass = "editor";
+        lbsettings.Width = 80;
+    }).Render();
+
+    Html.DevExpress().TextBox(textBoxSettings =>
+    {
+        textBoxSettings.Name = "Recipient";
+        textBoxSettings.ControlStyle.CssClass = "editor";
+        textBoxSettings.Width = 300;
+
+    }).Render();
+
+    ViewContext.Writer.Write("</div><div class=\"line\">");
+
+    Html.DevExpress().Label(lbsettings =>
+    {
+        lbsettings.Name = "lblCcEmail";
+        lbsettings.Text = "Cc:";
+        lbsettings.ControlStyle.CssClass = "editor";
+        lbsettings.Width = 80;
+    }).Render();
+
+    Html.DevExpress().TextBox(textBoxSettings =>
+    {
+        textBoxSettings.Name = "CcEmail";
+        textBoxSettings.ControlStyle.CssClass = "editor";
+        textBoxSettings.Width = 300;
+
+    }).Render();
+
+    ViewContext.Writer.Write("</div><div class=\"line\">");
+
+    Html.DevExpress().Label(lbsettings =>
+    {
+        lbsettings.Name = "lblSubject";
+        lbsettings.Text = "Subject:";
+        lbsettings.ControlStyle.CssClass = "editor";
+        lbsettings.Width = 80;
+    }).Render();
+
+    Html.DevExpress().TextBox(textBoxSettings =>
+    {
+        textBoxSettings.Name = "Subject";
+        textBoxSettings.ControlStyle.CssClass = "editor";
+        textBoxSettings.Width = 300;
+
+    }).Render();
+
+    //ViewContext.Writer.Write("</div><div class=\"line\">");
+    //Html.DevExpress().UploadControl(
+    //ucsettings =>
+    //{
+    //    ucsettings.Name = "ucLegalProcessFileAttachement";
+    //    ucsettings.CallbackRouteValues = new { Controller = "LegalProcess", Action = "CallbacksEmailFileUpload" };
+    //    ucsettings.ControlStyle.CssClass = "editorArea";
+    //    ucsettings.Width = 300;
+    //    ucsettings.ShowProgressPanel = true;
+    //    ucsettings.BrowseButton.Text = ". . .";
+    //    ucsettings.ClientSideEvents.FileUploadComplete = "function(s, e){ SetAgeEmailSend; }";
+
+    //}).GetHtml();
+
+    //    Html.DevExpress().Button(btnsettings =>
+    //{
+    //    btnsettings.Name = "btnUpload";
+    //    btnsettings.Text = "Load";
+    //    btnsettings.Width = 100;
+    //    //settings.ClientSideEvents.Click = string.Format("function(s, e) {{ ImportInvoice({0}); }}", "rbUploadOptions.GetSelectedIndex()");e.CallbackData
+    //    btnsettings.ClientSideEvents.Click = "ImportEmailAttachment";
+    //}).GetHtml();
+
+    ViewContext.Writer.Write("</div><div class=\"line\"><br/>");
+
+    Html.DevExpress().Label(lbsettings =>
+    {
+        lbsettings.Name = "lblMessageEmail";
+        lbsettings.Text = "Message";
+        lbsettings.ControlStyle.CssClass = "editor";
+    }).Render();
+
+    //using (Html.BeginForm())
+    //{
+
+    //}
+
+    Html.DevExpress().Memo(mSettings =>
+    {
+        mSettings.Name = "MessageEmail";
+        mSettings.ControlStyle.CssClass = "editor";
+        mSettings.Width = 650;
+        mSettings.Height = 360;
+    }).Render();
+
+    ViewContext.Writer.Write("</div><div class=\"line\">");
+
+    Html.DevExpress().Button(buttonSettings =>
+    {
+        buttonSettings.Name = "btnEmailSend";
+        buttonSettings.ControlStyle.CssClass = "button";
+        buttonSettings.Width = 80;
+        buttonSettings.Text = "Send";
+        buttonSettings.ClientSideEvents.Click = "function(s, e) { SetAgeEmailSend();}";
+    }).Render();
+
+    Html.DevExpress().Button(buttonSettings =>
+    {
+        buttonSettings.Name = "btnEmailCancel";
+        buttonSettings.ControlStyle.CssClass = "button";
+        buttonSettings.Width = 80;
+        buttonSettings.Text = "Cancel";
+        buttonSettings.ClientSideEvents.Click = "function(s, e){ pcSendSingleEmail.Hide(); }";
+    }).Render();
+
+    ViewContext.Writer.Write("</div></div><b class=\"Clear\"></b>");
+
+}
+

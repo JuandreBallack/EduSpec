@@ -1,0 +1,60 @@
+﻿@Html.DevExpress().CallbackPanel(cpsettings =>
+{
+    cpsettings.Name = "cbpSendBulkEmail";
+    cpsettings.CallbackRouteValues = new { Controller = "Shared", Action = "SendEmailBulk" };
+
+    cpsettings.SetContent(() =>
+    {
+        Dictionary<EduSpec.ComboboxClientSideEvent, string> EmailcomboboxValidateRequiredField = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+        EmailcomboboxValidateRequiredField.Add(ComboboxClientSideEvent.onValidation, "function(s,e){validateRequiredField(e.value, e);}");
+
+        EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+        EduSpecHtmlHelper.NewDiv(Html, "line");
+
+
+        if (Model != null)
+        {
+            // ComboBox 1
+            if (DataBinder.Eval(Model, "ComboBoxIsVisible_1"))
+            {
+                EduSpecHtmlHelper.Label(Html, DataBinder.Eval(Model, "ComboBoxDescription_1"), 140, "formeditor");
+                EduSpecHtmlHelper.ComboBox(Html, "ComboBoxListProc_1", "formeditor", 300, DataBinder.Eval(Model, "ComboBoxListProc_1"), EmailcomboboxValidateRequiredField);
+            }
+
+            EduSpecHtmlHelper.Label(Html, "Subject:", "formeditor");
+            EduSpecHtmlHelper.TextBox(Html, "BulkEmailSubject", "formeditor", true, 300, null);
+
+            // ComboBox 2
+            if (DataBinder.Eval(Model, "ComboBoxIsVisible_2"))
+            {
+                EduSpecHtmlHelper.Label(Html, DataBinder.Eval(Model, "ComboBoxDescription_2"), 140, "formeditor");
+                EduSpecHtmlHelper.ComboBox(Html, "ComboBoxListProc_2", "formeditor", 300, DataBinder.Eval(Model, "ComboBoxListProc_2"), EmailcomboboxValidateRequiredField);
+            }
+
+
+            EduSpecHtmlHelper.NewDiv(Html, "line");
+
+            EduSpecHtmlHelper.Label(Html, "AttachLetter", "Attachment:", "formeditor", true);
+
+            Dictionary<EduSpec.ComboboxClientSideEvent, string> AttachFileEvents = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+            AttachFileEvents.Add(ComboboxClientSideEvent.onSelectedIndexChanged, "function(s, e){ BulkEmailUploadFileTypeChange(s,e); }");
+            AttachFileEvents.Add(ComboboxClientSideEvent.onInit, "function(s, e){ BulkEmailUploadFileTypeChange(s,e); }");
+            EduSpecHtmlHelper.ComboBox(Html, "AttachBulkEmailFile", "formeditor", 200, "Get_EmailAttacementType_PickList", AttachFileEvents);
+
+            //ComboBox 3
+            EduSpecHtmlHelper.Label(Html, "lblBulkEmailLetters", "Letters:", "editorLabel", false);
+            EduSpecHtmlHelper.ComboBox(Html, "ComboBoxListProc_3", "formeditor", DataBinder.Eval(Model, "ComboBoxIsVisible_3"), 300, DataBinder.Eval(Model, "ComboBoxListProc_3"), EmailcomboboxValidateRequiredField);
+
+            EduSpecHtmlHelper.Label(Html, "lblBulkEmailUploadFile", "Upload file:", "editorLabel", false);
+            Html.RenderPartial("BulkEmailUploadData");
+
+            EduSpecHtmlHelper.EndDiv(Html);
+
+        }
+
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+    });
+}).GetHtml()
+

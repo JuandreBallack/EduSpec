@@ -1,0 +1,48 @@
+﻿<script type="text/javascript">
+
+
+
+</script>
+
+@Html.DevExpress().Splitter(settings =>
+{
+    SplitterUtils.SetSplitterProperties(settings, ViewData["ViewProperties"]);
+
+    MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+    HeaderPane.SetContent(() =>
+    {
+
+        ViewContext.Writer.Write("<div ID=\"ViewInfo\">Communication History</div>");
+
+    });
+
+    MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+    MainContentPane.SetContent(() =>
+    {
+
+        Html.RenderAction("CommunicationHistoryPartial");
+
+    });
+
+    MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+    FooterPane.Separator.Visible = DefaultBoolean.True;
+    FooterPane.SetContent(() =>
+    {
+
+        Html.RenderAction("CommunicationHistoryDetailPartial");
+
+    });
+
+}).GetHtml()
+
+@Html.DevExpress().LoadingPanel(
+       settings =>
+       {
+           settings.Name = "LoadingPanel";
+           settings.Modal = true;
+           settings.Text = "Processing report...";
+       }
+   ).GetHtml()
+
+@Html.Partial("reportCommunicationHistory")
+@Html.Partial("reportCommunicationHistoryFamily")

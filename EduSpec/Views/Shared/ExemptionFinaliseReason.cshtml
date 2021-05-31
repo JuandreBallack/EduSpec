@@ -1,0 +1,46 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["ExemptionFinaliseReasonViewProperties"]);
+    settings.ClientSideEvents.BeginCallback = "onAddNewReasonBeginCallback";
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Shared", Action = "FinaliseReasonAdd"};
+    //settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Shared", Action = "InstitutionLearnerUpdate" };
+    settings.SettingsPopup.EditForm.Width = 320;
+
+    settings.SetEditFormTemplateContent(c =>
+    {
+        var Reasons = ViewData["Reasons"] != null ? ViewData["Reasons"] : c.DataItem;
+
+        EduSpecHtmlHelper.EditForm(Html);
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+        EduSpecHtmlHelper.Line(Html);
+
+        EduSpecHtmlHelper.TextBox(Html, "formeditor", Reasons, "ExemptionID", false, 10, null);
+
+        EduSpecHtmlHelper.Label(Html, "Enter reason description:", "editorLabel");
+        EduSpecHtmlHelper.Memo(Html, "formeditor", Reasons, "Description", 300, 100);
+
+        EduSpecHtmlHelper.NewDiv(Html, "line");
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> SaveEditLearnerEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        SaveEditLearnerEvents.Add(ButtonClientSideEvent.onClick, String.Format("function(s, e) {{ {0}.UpdateEdit(); }}", settings.Name));
+        EduSpecHtmlHelper.Button(Html, "btnLearner", "button", "Add", 80, SaveEditLearnerEvents);
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string>
+        CancelEditLearnerEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        CancelEditLearnerEvents.Add(ButtonClientSideEvent.onClick, String.Format("function(s, e) {{ {0}.CancelEdit(); }}", settings.Name));
+        EduSpecHtmlHelper.Button(Html, "btnCancelLearner", "button", "Cancel", 80, CancelEditLearnerEvents);
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndTable(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+
+        settings.PreRender = (sender, e) =>
+        {
+            ((MVCxGridView)sender).StartEdit(1);
+        };
+
+    });
+
+}).Bind(Model).GetHtml()

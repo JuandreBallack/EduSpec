@@ -1,0 +1,91 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["ViewProperties"]);
+
+    settings.Toolbars[0].Items.Add(i =>
+    {
+
+        i.Alignment = MenuItemAlignment.Right;
+        i.SetTemplateContent(c =>
+        {
+            Html.DevExpress().ComboBox(comboBox =>
+            {
+                comboBox.Name = "cbYear";
+                comboBox.Width = 70;
+                comboBox.ControlStyle.CssClass = "editor";
+                comboBox.Properties.TextField = "Description";
+                comboBox.Properties.ValueField = "ID";
+                comboBox.Properties.ValueType = typeof(int);
+                comboBox.Properties.ClientSideEvents.Init = String.Format("function(s, e) {{if (cbYearSelectedIndex == -1) cbYear.SetValue({0}); else cbYear.SetValue(cbYearSelectedIndex);}}", HttpContext.Current.Session["CurrentYearID"]);
+                comboBox.Properties.ClientSideEvents.SelectedIndexChanged = "function(s, e) {GridView.PerformCallback({ YearID: cbYear.GetValue() });}";
+                comboBox.Properties.Caption = "Year:";
+            }).BindList(GridUtils.getDropdownList("Get_SchoolYear_PickList")).GetHtml();
+
+        });
+    });
+
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Institution", Action = "SetLearnerAdHocFeesUpdate" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Institution", Action = "SetLearnerAdHocFeesDelete" };
+
+    settings.Settings.ShowFooter = true;
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Count, "Description");
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Amount").DisplayFormat = "c";
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "AmountPaid").DisplayFormat = "c";
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "AmountOutstanding").DisplayFormat = "c";
+
+    settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Count, "Description");
+    settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Amount").DisplayFormat = "c";
+    settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "AmountPaid").DisplayFormat = "c";
+    settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "AmountOutstanding").DisplayFormat = "c";
+
+    settings.SetEditFormTemplateContent(c =>
+    {
+        var AdhocFees = ViewData["AdhocFees"] != null ? ViewData["AdhocFees"] : c.DataItem;
+
+        ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 400px; margin:0px 5px 0px 5px;\">");
+        ViewContext.Writer.Write("<div class=\"line\" style=\"width: 100%; margin:10px 10px 0px; 10px\">");
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 80);// First column
+        EduSpecHtmlHelper.Label(Html, "Amount:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 250);// Second column
+        EduSpecHtmlHelper.CurrencyEdit(Html, "formeditor", AdhocFees, "Amount", 120, null);
+
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 80);// First column
+        EduSpecHtmlHelper.Label(Html, "Amount Paid:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 250);// Second column
+        EduSpecHtmlHelper.CurrencyEdit(Html, "formeditor", AdhocFees, "AmountPaid", 120, null);
+
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+        EduSpecHtmlHelper.EndTable(Html);
+
+
+        Html.DevExpress().Button(btnSettings =>
+        {
+            btnSettings.Name = "btnUpdate";
+            btnSettings.ControlStyle.CssClass = "button";
+            btnSettings.Text = "Update";
+            btnSettings.ClientSideEvents.Click = String.Format("function(s, e) {{{0}.UpdateEdit(); }}", settings.Name);
+        }).Render();
+
+        Html.DevExpress().Button(btnSettings =>
+        {
+            btnSettings.Name = "btnCancel";
+            btnSettings.ControlStyle.CssClass = "button";
+            btnSettings.Text = "Cancel";
+            btnSettings.ClientSideEvents.Click = String.Format("function(s, e) {{{0}.CancelEdit(); }}", settings.Name);
+
+        }).Render();
+
+        //ViewContext.Writer.Write("</div></div>");
+
+        settings.PreRender = (sender, e) =>
+        {
+            ((MVCxGridView)sender).StartEdit(1);
+        };
+    });
+
+}).Bind(Model).GetHtml()

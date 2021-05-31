@@ -1,0 +1,14 @@
+﻿
+@model DevExpress.XtraReports.UI.XtraReport
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcCommunicationHistoryFamily", "Communication History Family");
+    settings.CallbackRouteValues = new { Controller = "BulkCorrespondence", Action = "reportCommunicationHistoryFamily" };
+    settings.ClientSideEvents.BeginCallback = "function(s, e) { e.customArgs['FamilyID'] = FamiliesGridView.GetRowKey(FamiliesGridView.GetFocusedRowIndex()); }";
+    settings.ClientSideEvents.EndCallback = "function(s, e) {  LoadingPanel.Hide(); s.Show(); }";
+    settings.SetContent(() =>
+    {
+        Html.RenderPartial("DocumentViewer", Model, new ViewDataDictionary { { "Name", "CommunicationHistoryFamily" } });
+    });
+}).GetHtml()

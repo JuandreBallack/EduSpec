@@ -1,0 +1,14 @@
+﻿@model DevExpress.XtraReports.UI.XtraReport
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcFamilyDetail", "Family Detail");
+    settings.CallbackRouteValues = new {Controller = "Institution", Action = "reportFamilyDetail" };
+    settings.ClientSideEvents.BeginCallback = "function(s, e) { e.customArgs['FamilyID'] = GridView.GetRowKey(GridView.GetFocusedRowIndex()); }";
+    settings.ClientSideEvents.EndCallback = "function(s, e) {  LoadingPanel.Hide(); s.Show(); }";
+    settings.SetContent(() =>
+    {
+        Html.RenderPartial("DocumentViewer", Model, new ViewDataDictionary { { "Name", "FamilyDetail" } });
+    });
+}).GetHtml()
+

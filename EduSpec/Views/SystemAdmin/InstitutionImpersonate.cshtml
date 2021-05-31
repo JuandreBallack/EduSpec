@@ -1,0 +1,46 @@
+﻿@model System.Collections.IEnumerable
+
+<script type="text/javascript">
+
+    function ImpersonateInstitution(InstID) {
+
+        $.ajax({
+            type: 'POST',
+            url: '/Account/ImpersonateInstitution',
+            dataType: 'json',
+            async: false,
+            data: {
+                InstID: InstID
+            },
+            success: function (response) {
+                window.location.href = response.Url;
+            },
+            error: function () { alert(Data.error); }
+        });
+    }
+</script>
+
+
+@Html.DevExpress().Splitter(settings =>
+{
+    SplitterUtils.SetSplitterProperties(settings, ViewData["ViewProperties"]);
+
+    MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+    HeaderPane.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div ID=\"ViewInfo\">Impersonate institution</div>");
+    });
+
+    MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+    MainContentPane.SetContent(() =>
+    {
+        Html.RenderAction("InstitutionImpersonatePartial");
+    });
+
+    MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+    FooterPane.SetContent(() =>
+    {
+
+    });
+
+}).GetHtml()

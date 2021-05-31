@@ -1,0 +1,174 @@
+﻿<script type="text/javascript">
+
+    var SupportTypeID;
+
+    function onBtnUpdateSupportClick(Result) {
+
+        if (Result == "mrYes") {
+            var PackID = OrderApplicationGridView.GetRowKey(OrderApplicationGridView.GetFocusedRowIndex());
+            $.ajax({
+                type: 'POST',
+                url: '/Admin/ApplicationPacksAddNewOrder',
+                dataType: 'json',
+                async: false,
+                data: {
+                    PackID: PackID
+                },
+                success: function (response) {
+                    window.open(response.Url, '_Blank');
+                }
+            });
+
+            OrderApplicationGridView.PerformCallback();
+            pcPurchasePackage.Hide();
+            GridView.PerformCallback();
+        }
+    }
+
+
+    function SetSupportStatusID(s, e) {
+        var X = rgActions.GetSelectedIndex()
+        var Y = rgActions.GetValue()
+        switch (s.name) {
+            case 'rbInProgress':
+                SupportTypeID = 2;
+                break;
+            case 'rbOnHold':
+                SupportTypeID = 3;
+                break;
+            case 'rbPendingWorkaround':
+                SupportTypeID = 4;
+                break;
+            //case 'rbAssignOtherUser':
+            //    SupportTypeID = 5;
+            //    break;
+            //case 'rbUAT':
+            //    SupportTypeID = 6;
+            //    break;
+            case 'rbPendingRelease':
+                SupportTypeID = 5;
+                break;
+            case 'rbResolve':
+                SupportTypeID = 6;
+                break;
+            default:
+                SupportTypeID = 2;
+                break;
+        }
+    }
+
+    function AddNewSupportCase() {
+       // if (ASPxClientEdit.AreEditorsValid())
+        $.ajax({
+            type: 'POST',
+            url: '/Support/InstitutionSupportAdd',
+            dataType: 'json',
+            async: false,
+            data: {
+                SupportCategoryID: cbSupportCategory.GetValue(),
+                SupportTypeID: cbSupportType.GetValue(),
+                CaseTitle: tbCaseTitle.GetValue(),
+                CaseDescription: mCaseDescriptionNew.GetValue()
+            },
+            success: function (result) {
+                if (result.Success == true) {
+                    pcAddNewCase.Hide();
+                    GridView.PerformCallback();
+                }
+            }
+        });
+    }
+
+    function EditSupportCase() {
+        $.ajax({
+            type: 'POST',
+            url: '/Support/InstitutionSupportUpdate',
+            dataType: 'json',
+            async: false,
+            data: {
+                SupportTypeID: SupportTypeID,
+                CaseTitle: CaseTitle.GetValue(),
+                CaseDescription: mCaseDescription.GetValue(),
+                HistoryComment: mHistoryComment.GetValue(),
+                Resolution: mResolution.GetValue(),
+                ResolutionCategoryID: cbResolutionCategory.GetValue()
+            },
+            success: function (result) {
+                if (result.Success == true) {
+                    pcEditSupportCase.Hide();
+                    GridView.PerformCallback();
+                }
+            }
+        });
+    }
+
+    function NextTab(s, e) {
+        var activeTab = pcSupport.GetActiveTabIndex();
+        SupportTypeID = rgActions.GetValue();
+        pcSupport.SetActiveTabIndex(activeTab + 1);
+    }
+
+    function ImportFile(s, e) {
+        if (ucUploadData.GetText() == '') {
+            AddNewSupportCase();
+        }
+        else {
+            ucUploadData.Upload();
+        }        
+    }
+
+</script>
+
+@Html.DevExpress().Splitter(settings =>
+{
+    SplitterUtils.SetSplitterProperties(settings, ViewData["ViewProperties"]);
+
+    MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+    HeaderPane.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div ID=\"ViewInfo\">Cases Logged</div>");
+
+    });
+
+    MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+    MainContentPane.SetContent(() =>
+    {
+        if(WebSecurity.CurrentUserId == 1 && Convert.ToInt32(HttpContext.Current.Session["ImpersonateInstUserID"]) == -1)
+        {
+            Html.RenderAction("LoggedCasesPartial");
+        }
+        else
+            Html.RenderAction("LoggedCasesUsersPartial");
+
+    });
+
+    MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+    FooterPane.Separator.Visible = DefaultBoolean.True;
+    FooterPane.SetContent(() =>
+    {
+        Html.RenderAction("LoggedCasesHistoryPartial");
+    });
+
+}).GetHtml()
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcAddNewCase", "Add new case");
+
+    settings.SetContent(() =>
+    {
+        Html.RenderPartial("AddNewCasePartial");
+    });
+
+}).GetHtml()
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcEditSupportCase", "Edit case");
+
+    settings.SetContent(() =>
+    {
+        Html.RenderAction("EditCasePartial");
+    });
+
+}).GetHtml()

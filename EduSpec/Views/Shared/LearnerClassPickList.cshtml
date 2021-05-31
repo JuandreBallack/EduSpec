@@ -1,0 +1,34 @@
+﻿@if (Model != null && Model is System.Int32)
+{
+    Html.DevExpress().ComboBox(settings =>
+    {
+        settings.Name = "Edit_ClassID";
+        settings.CallbackRouteValues = new { Controller = "Shared", Action = "LearnerClassPickList" };
+        settings.Properties.ValueType = typeof(Int32);
+        settings.ControlStyle.CssClass = "formeditor";
+        settings.Properties.TextField = "Description";
+        settings.Properties.ValueField = "ID";
+        settings.Properties.CallbackPageSize = 20;
+        settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+        settings.Width = 100;
+        settings.Properties.ClientSideEvents.BeginCallback = "function(s, e) { e.customArgs['GradeID'] = Edit_GradeID.GetValue(); }";
+        settings.Properties.ClientSideEvents.Validation = "function(s,e){validateGradeAndClassField(e.value, e);}";
+    }).BindList(EduSpec.Controllers.SharedController.GetInstitutionLearnerClass(Convert.ToInt32(ViewData["GradeID"]), Convert.ToInt32(HttpContext.Current.Session["InstID"]))).Bind(Model).GetHtml();
+}
+else
+{
+    Html.DevExpress().ComboBox(settings =>
+    {
+        settings.Name = "Edit_ClassID";
+        settings.CallbackRouteValues = new { Controller = "Shared", Action = "LearnerClassPickList" };
+        settings.Properties.ValueType = typeof(Int32);
+        settings.ControlStyle.CssClass = "formeditor";
+        settings.Properties.TextField = "Description";
+        settings.Properties.ValueField = "ID";
+        settings.Properties.CallbackPageSize = 20;
+        settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+        settings.Width = 100;
+        settings.Properties.ClientSideEvents.BeginCallback = "function(s, e) { e.customArgs['GradeID'] = Edit_GradeID.GetValue(); }";
+        settings.Properties.ClientSideEvents.Validation = "function(s,e){validateGradeAndClassField(e.value, e);}";
+    }).BindList(EduSpec.Controllers.SharedController.GetInstitutionLearnerClass(Convert.ToInt32(ViewData["GradeID"]), Convert.ToInt32(HttpContext.Current.Session["InstID"]))).Bind(Model, "Edit_ClassID").GetHtml();
+}

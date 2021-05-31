@@ -1,0 +1,48 @@
+﻿@model  EduSpec.Models.Get_Exemptions_ApplicationInformationResult
+
+@Html.DevExpress().CallbackPanel(settings =>
+    {
+        settings.Name = "cbpSubmitApplicationInfo";
+        settings.CallbackRouteValues = new { Controller = "Exemptions", Action = "FinaliseApplicationInfo" };
+        settings.ClientSideEvents.BeginCallback = "function(s,e){{ e.customArgs[\"ApplicationNumber\"] = tbApplicationNumber.GetText(); }}";
+        settings.ClientSideEvents.EndCallback = "SetExemptionType";
+        settings.Width = Unit.Percentage(100);
+        settings.SetContent(() =>
+        {
+            Html.DevExpress().Label(lbsettings =>
+            {
+                lbsettings.Name = "CalculatedExemptionType";
+                lbsettings.ClientVisible = false;
+            }).Bind(DataBinder.Eval(Model, "CalculatedExemptionType")).GetHtml();
+
+            Html.DevExpress().Label(lbsettings =>
+            {
+                lbsettings.Name = "AmountExempted";
+                lbsettings.ClientVisible = false;
+            }).Bind(DataBinder.Eval(Model, "AmountExempted")).GetHtml();
+
+            Html.DevExpress().Label(lbsettings =>
+            {
+                lbsettings.Name = "Offer";
+                lbsettings.ClientVisible = false;
+            }).Bind(DataBinder.Eval(Model, "Offer")).GetHtml();
+                
+            Html.DevExpress().RoundPanel(rpSettings =>
+            {                
+                rpSettings.Name = "rpApplicationNumber";
+                rpSettings.HeaderText = "Application Identification";
+                rpSettings.Width = Unit.Percentage(100);
+                rpSettings.ClientSideEvents.Init = "function(s,e){tbApplicationNumber.SetFocus()}";
+                rpSettings.SetContent(() =>
+                {
+                    Html.RenderPartial("ApplicationNumberPartial");
+                });
+            }).GetHtml();
+
+            Html.RenderPartial("ApplicationInformation", Model);
+            Html.RenderPartial("FinaliseApplicationPartial", Model);
+
+        });
+    }).GetHtml()
+
+

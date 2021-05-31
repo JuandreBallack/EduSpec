@@ -1,0 +1,76 @@
+﻿@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.Name = "cbpSupportCaseActions";
+    settings.CallbackRouteValues = new { Controller = "Support", Action = "AddNewCasePartial" };
+    //settings.ClientSideEvents.BeginCallback = "function(s,e){{ e.customArgs[\"ApplicationNumber\"] = tbApplicationNumber.GetText(); }}";
+    settings.Width = Unit.Percentage(100);
+    settings.SetContent(() =>
+    {
+        Dictionary<EduSpec.ComboboxClientSideEvent, string> SupportCategory = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+        SupportCategory.Add(ComboboxClientSideEvent.onValidation, "OnRequiredFieldValidation");
+        Dictionary<EduSpec.ComboboxClientSideEvent, string> SupportType = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+        SupportType.Add(ComboboxClientSideEvent.onValidation, "OnRequiredFieldValidation");
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+        EduSpecHtmlHelper.Label(Html, "Support category:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 220);// Second column
+        EduSpecHtmlHelper.ComboBox(Html, "cbSupportCategory", "formeditor", 200, "Get_SupportCategory_Picklist", SupportCategory);
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+
+      
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+        EduSpecHtmlHelper.Label(Html, "Request Type:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 220);// Second column
+        EduSpecHtmlHelper.ComboBox(Html, "cbSupportType", "formeditor", 200, "Get_SupportType_Picklist", SupportType);
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+        EduSpecHtmlHelper.Label(Html, "Case title:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 220);// Second column
+        EduSpecHtmlHelper.TextBox(Html, "tbCaseTitle", "formeditor", true, 200, null);
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form");// First column
+        EduSpecHtmlHelper.Label(Html, "Case description:", "editorLabel");
+        EduSpecHtmlHelper.Memo(Html, "mCaseDescriptionNew", "formeditor", 320, 100);
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form");// First column
+        EduSpecHtmlHelper.Label(Html, "Upload file:", 80, "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 120);// Second column
+
+        Html.RenderPartial("UploadData");
+
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+        EduSpecHtmlHelper.EndTable(Html);
+
+        EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+        EduSpecHtmlHelper.NewDiv(Html, "line");
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> AddSupportCaseEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        AddSupportCaseEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){{ ImportFile(); }}" );
+        EduSpecHtmlHelper.Button(Html, "btnAddSupportCase", "button", "OK", 80, AddSupportCaseEvents);
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> cancelSupportCaseEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        cancelSupportCaseEvents.Add(ButtonClientSideEvent.onClick, "function(s,e){pcAddNewCase.Hide();}");
+        EduSpecHtmlHelper.Button(Html, "btnCancelAddSupportCase", "button", "Cancel", 80, cancelSupportCaseEvents);
+
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+
+
+
+    });
+}).GetHtml()
+

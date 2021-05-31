@@ -1,0 +1,36 @@
+﻿@if (Model != null && Model is System.Int32)
+{
+    @Html.DevExpress().ComboBox(settings =>
+    {
+        settings.Name = "GradeID";
+        settings.CallbackRouteValues = new { Controller = "BulkCorrespondence", Action = "CorrespondencePicklist" };
+        settings.Properties.ValueType = typeof(Int32);
+        settings.ControlStyle.CssClass = "formeditor";
+        settings.Properties.TextField = "Description";
+        settings.Properties.ValueField = "ID";
+        settings.Properties.CallbackPageSize = 20;
+        settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+        settings.Width = 150;
+        settings.Properties.ClientSideEvents.SelectedIndexChanged = "function(s, e) { ClassID.PerformCallback(); }";
+        settings.Properties.ClientSideEvents.BeginCallback = "function(s, e) { e.customArgs['ListID'] = cbCorrespondenceList.GetValue(); }";
+        //settings.Properties.ClientSideEvents.Validation = "function(s,e){validateRequiredField(e.value, e);}";
+    }).BindList(EduSpec.Controllers.BulkCorrespondenceController.GetListParameters(Convert.ToInt32(ViewData["ListID"]))).Bind(Model).GetHtml()
+}
+else
+{
+    @Html.DevExpress().ComboBox(settings =>
+    {
+        settings.Name = "GradeID";
+        settings.CallbackRouteValues = new { Controller = "BulkCorrespondence", Action = "CorrespondencePicklist" };
+        settings.Properties.ValueType = typeof(Int32);
+        settings.ControlStyle.CssClass = "formeditor";
+        settings.Properties.TextField = "Description";
+        settings.Properties.ValueField = "ID";
+        settings.Properties.CallbackPageSize = 20;
+        settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithTooltip;
+        settings.Width = 150;
+        settings.Properties.ClientSideEvents.SelectedIndexChanged = "function(s, e) { ClassID.PerformCallback(); }";
+        settings.Properties.ClientSideEvents.BeginCallback = "function(s, e) { e.customArgs['ListID'] = cbCorrespondenceList.GetValue(); }";
+        //settings.Properties.ClientSideEvents.Validation = "function(s,e){validateRequiredField(e.value, e);}";
+    }).BindList(EduSpec.Controllers.BulkCorrespondenceController.GetListParameters(Convert.ToInt32(ViewData["ListID"]))).Bind(Model, "ListID").GetHtml()
+}

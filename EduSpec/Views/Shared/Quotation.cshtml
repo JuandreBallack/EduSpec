@@ -1,0 +1,156 @@
+﻿<script type="text/javascript">
+
+    function GenerateQuotation() {
+
+        var ItemID;
+
+        if (cbApplicationPacks.GetValue() === null)
+            ItemID = -1
+        else
+            ItemID = cbApplicationPacks.GetValue();
+
+        $.ajax({
+            type: 'POST',
+            url: '/Account/Set_GenerateQuotation',
+            dataType: 'json',
+            async: false,
+            data: {
+                ItemID: ItemID,
+                PackageID: cbEduSpecPackage.GetValue()
+            },
+            success: function (result) {
+                if (result.Success === true) {
+                    pcQuotation.Hide();
+                    window.open(result.Url, '_Blank');
+                }
+                else {
+                    //pcErrorlbMessage.SetText(result.Message);
+                    //pcError.Show();
+                }
+
+            }
+        });
+    }
+
+
+</script>
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcQuotation", "Quotation");
+    //settings.Height = 800;
+    settings.Width = 400;
+    //settings.ScrollBars = ScrollBars.Vertical;
+    //settings.ShowFooter = true;
+    settings.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 100%; margin:0px 5px 0px 5px;\">");
+        ViewContext.Writer.Write("<div class=\"line\" style=\"width: 100%; margin:10px 10px 0px; 10px\">");
+
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        Html.DevExpress().Label(lbsettings =>
+        {
+            lbsettings.Text = "Please select the quantity on application packs you would require.";
+            lbsettings.ControlStyle.CssClass = "label";
+            lbsettings.Width = Unit.Percentage(100);
+        }).GetHtml();
+
+        ViewContext.Writer.Write("<br />");
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "cbApplicationPacks";
+            edtSettings.ControlStyle.CssClass = "formeditor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "ID";
+            edtSettings.Properties.ValueType = typeof(int);
+            edtSettings.Width = 400;
+        }).BindList(GridUtils.getDropdownList("Get_ApplicationPacks_PickList")).GetHtml();
+
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        Html.DevExpress().Label(lbsettings =>
+        {
+            lbsettings.Text = "Please select the EduSpec package that you would require.";
+            lbsettings.ControlStyle.CssClass = "label";
+            lbsettings.Width = Unit.Percentage(100);
+        }).GetHtml();
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "cbEduSpecPackage";
+            edtSettings.ControlStyle.CssClass = "formeditor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "ID";
+            edtSettings.Properties.ValueType = typeof(int);
+            edtSettings.Width = 400;
+        }).BindList(GridUtils.getDropdownList("Get_EduSpecPackages_PickList")).GetHtml();
+
+        //Html.DevExpress().Label(lbsettings =>
+        //{
+        //    lbsettings.Text = "Please select the EduSpec package that you would require.";
+        //    lbsettings.ControlStyle.CssClass = "label";
+        //    lbsettings.Width = Unit.Percentage(100);
+        //}).GetHtml();
+
+        //ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        //Html.DevExpress().CheckBox(edtSettings =>
+        //{
+        //    edtSettings.Name = "ExemptionPack";
+        //    edtSettings.ControlStyle.CssClass = "editor";
+        //    edtSettings.Properties.ValueType = typeof(bool);
+        //    edtSettings.Text = "Exemptions";
+        //    edtSettings.Width = 150;
+        //}).Render();
+
+        //ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        //Html.DevExpress().CheckBox(edtSettings =>
+        //{
+        //    edtSettings.Name = "CombinedPack";
+        //    edtSettings.ControlStyle.CssClass = "editor";
+        //    edtSettings.Properties.ValueType = typeof(bool);
+        //    edtSettings.Text = "Exemptions & debt management";
+        //    edtSettings.Width = 150;
+        //}).Render();
+
+        //ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        //Html.DevExpress().CheckBox(edtSettings =>
+        //{
+        //    edtSettings.Name = "DebtManagemntPack";
+        //    edtSettings.ControlStyle.CssClass = "editor";
+        //    edtSettings.Properties.ValueType = typeof(bool);
+        //    edtSettings.Text = "Debt management";
+        //    edtSettings.Width = 150;
+        //}).Render();
+
+        //ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        Html.DevExpress().Button(btnSettings =>
+        {
+            btnSettings.Name = "btnGenerateQuotation";
+            btnSettings.ControlStyle.CssClass = "button";
+            btnSettings.Text = "Generate Quotation";
+            btnSettings.ClientSideEvents.Click = "function(s, e){ GenerateQuotation() }";
+
+        }).Render();
+
+        Html.DevExpress().Button(btnSettings =>
+        {
+            btnSettings.Name = "btnGenerateQuotationCancel";
+            btnSettings.ControlStyle.CssClass = "button";
+            btnSettings.Text = "Cancel";
+            btnSettings.ClientSideEvents.Click = "function(s, e){ pcQuotation.Hide(); }";
+
+        }).Render();
+
+        ViewContext.Writer.Write("</div></div>");
+    });
+}).GetHtml()
+
+@MessageDlg.ShowMessageDlg("pcError", Html,"", new BtnType[] { BtnType.mbYes, BtnType.mbNo }, MessageType.mConfirmation)

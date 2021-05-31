@@ -1,0 +1,221 @@
+﻿@model System.Collections.IEnumerable
+
+<script type="text/javascript">
+
+    var cbYearSelectedIndex = -1;
+
+    function ConfirmApply() {
+
+        pcConfirmlbMessage.SetText("You are about to Apply for Exemption for: </br><b></br>Family Code:</b><font color=\"blue\"> " +
+            "</font><b></br>Primary Parent:</b><font color=\"blue\"> " + "<b></font></br>Secondary Parent:</b><font color=\"blue\"> " + "<font>");
+        pcConfirm.Show();
+    }
+
+    function SetApplyButton(s, e) {
+        GridView.GetRowValues(GridView.GetFocusedRowIndex(), "IsAppliedForExemption;ApplicationBalance", _setApplyButton);
+    }
+
+    function _setApplyButton(values) {
+        var Button = GridView.GetToolbar(0);
+        if ((values[0] == false) && (values[1] != 0))
+            SettingsMenuButton(Button.GetItemByName("Btn_Apply"), true, "ApplySmall.png")
+        else
+            SettingsMenuButton(Button.GetItemByName("Btn_Apply"), false, "ApplySmallGrey.png")
+    }
+
+    var IsApplyForExemptions
+    var ApplMaritalStatusID
+    var IsSingleApplication
+
+    //function ApplyForExemption() {
+    //    var FamilyID = GridView.GetRowKey(GridView.GetFocusedRowIndex());
+    //    $.ajax({
+    //        type: 'POST',
+    //        url: '/Exemptions/ApplyForExemption',
+    //        dataType: 'json',
+    //        async: false,
+    //        data: {
+    //            FamilyID: GridView.GetRowKey(GridView.GetFocusedRowIndex()),
+    //            ExternalAccNo: ApplicantExternalAccNo.GetValue(),
+    //            ApplMaritalStatusID: ApplicantMaritalStatusID.GetValue(),
+    //            IsSingleApplication: ApplicantIsSingleApplication.GetValue(),
+    //            Wareabouts: rbWareabouts.GetValue(),
+    //            Contact: rbContact.GetValue(),
+    //            Unwilling: rbUnwilling.GetValue(),
+    //        },
+    //        success: function (response) {
+    //            if (response.Success === true) {
+    //                if (response.Url !== "") {
+    //                    window.open(response.Url, '_Blank');
+    //                }
+    //            }
+    //            else {
+    //                pcErrorlbMessage.SetText(response.ExceptionMessage);
+    //                pcError.Show();
+    //            }
+    //        }
+    //    });
+
+    //    IsApplyForExemptions = false;
+    //    GridView.PerformCallback();
+    //    SetApplyButton(GridView);
+
+    //}
+
+    //function MaritalStatusIDChange(s, e) {
+    //    var x = s.GetValue();
+    //    var ReqDocstr = "";
+    //    if (x === 1)
+    //        btnApplyForExemption.SetEnabled(false);
+    //    else
+    //        btnApplyForExemption.SetEnabled(true);
+
+    //    switch (x) {
+    //        case 2:
+    //            ReqDocstr = SingleContactRequiredDocs.GetValue()
+    //            break;
+    //        case 4:
+    //            ReqDocstr = DivorcedContactRequiredDocs.GetValue()
+    //            break;
+    //        case 6:
+    //            ReqDocstr = SingleNoContactRequiredDocs.GetValue()
+    //            break;
+    //        case 7:
+    //            ReqDocstr = DivorcedNoContactRequiredDocs.GetValue()
+    //    };
+
+    //    if (x === 2 || x === 4 || x === 6 || x === 7) {
+    //        var Affidavitstr = "6";
+    //        if (ReqDocstr.match(new RegExp("(?:^|,)" + Affidavitstr + "(?:,|$)"))) {
+    //            lWareabouts.SetVisible(true);
+    //            rbWareabouts.SetVisible(true);
+    //            lContactWithSpouse.SetVisible(true);
+    //            rbContact.SetVisible(true);
+    //            lSpouseUnwilling.SetVisible(true);
+    //            rbUnwilling.SetVisible(true);
+    //        }
+    //        else {
+    //            lWareabouts.SetVisible(false);
+    //            rbWareabouts.SetVisible(false);
+    //            rbWareabouts.SetValue(2);
+    //            lContactWithSpouse.SetVisible(false);
+    //            rbContact.SetVisible(false);
+    //            rbContact.SetValue(4);
+    //            lSpouseUnwilling.SetVisible(false);
+    //            rbUnwilling.SetVisible(false);
+    //            rbUnwilling.SetValue(6);
+    //        }
+    //    }
+    //    else {
+    //        lWareabouts.SetVisible(false);
+    //        rbWareabouts.SetVisible(false);
+    //        rbWareabouts.SetValue(2);
+    //        lContactWithSpouse.SetVisible(false);
+    //        rbContact.SetVisible(false);
+    //        rbContact.SetValue(4);
+    //        lSpouseUnwilling.SetVisible(false);
+    //        rbUnwilling.SetVisible(false);
+    //        rbUnwilling.SetValue(6);
+    //    }
+
+    //    var str = "2,5,6,7";
+    //    if (str.match(new RegExp("(?:^|,)" + x + "(?:,|$)"))) {
+    //        ApplicantIsSingleApplication.SetChecked(true);
+    //    }
+    //    else {
+    //        ApplicantIsSingleApplication.SetChecked(false);
+    //    }
+    //}
+
+    function onFamilyManagementCloseUp(s, e) {
+        //cbpApplicantInfo.PerformCallback();
+        cbpApplicantToApplyOrReprintInfo.PerformCallBack();
+    }
+
+    function GenerateQuotation() {
+
+        var ItemID;
+
+        if (cbApplicationPacks.GetValue() === null)
+            ItemID = -1
+        else
+            ItemID = cbApplicationPacks.GetValue();
+
+        $.ajax({
+            type: 'POST',
+            url: '/Admin/Set_GenerateQuotation',
+            dataType: 'json',
+            async: false,
+            data: {
+                ItemID: ItemID,
+                PackageID: cbEduSpecPackage.GetValue()
+            },
+            success: function (result) {
+                if (result.Success === true) {
+                    pcQuotation.Hide();
+                    window.open(result.Url, '_Blank');
+                    QuotationGridView.PerformCallback();
+                }
+                else {
+                    pcErrorlbMessage.SetText(result.Message);
+                    pcError.Show();
+                }
+            }
+        });
+    }
+
+
+</script>
+
+@Html.DevExpress().Splitter(settings =>
+{
+    SplitterUtils.SetSplitterProperties(settings, ViewData["ViewProperties"]);
+
+    MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+    HeaderPane.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div ID=\"ViewInfo\">New application</div>");
+
+    });
+
+    MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+    MainContentPane.SetContent(() =>
+    {
+        Html.RenderAction("ApplyPartial");
+    });
+
+    MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+    FooterPane.Separator.Visible = DefaultBoolean.True;
+    FooterPane.SetContent(() =>
+    {
+        Html.RenderAction("LearnersPartial");
+    });
+
+}).GetHtml()
+
+@Html.DevExpress().LoadingPanel(settings =>
+{
+    settings.Name = "LoadingPanel";
+    settings.Modal = true;
+    settings.Text = "Preparing report.";
+}).GetHtml()
+@Html.Partial("AccountInformation", "true")
+@Html.Partial("reportExemptionApplication")
+
+@*@Html.DevExpress().PopupControl(settings =>
+    {
+        PopupUtils.SetPopupViewProperties(settings, "pcApplicantInfo", "Applicant information");
+        settings.Width = 500;
+        settings.ClientSideEvents.CloseUp = "function(s, e){GridView.PerformCallback();}";
+
+        settings.SetContent(() =>
+        {
+            Html.RenderAction("ApplicantInfo");
+        });
+    }).GetHtml()*@
+
+
+@MessageDlg.ShowMessageDlg("pcConfirm", Html, "", new BtnType[] { BtnType.mbYes, BtnType.mbNo }, MessageType.mConfirmation, "onConfirmation")
+@MessageDlg.ShowMessageDlg("pcError", Html, "", new BtnType[] { BtnType.mbOK }, MessageType.mError)
+
+@Html.Partial("ApplicationForms")

@@ -1,0 +1,91 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["ViewPropertiesDetail"]);
+    
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Housekeeping", Action = "UpdateDepartmentsAccess" };
+
+    settings.ClientSideEvents.BeginCallback = "OnBeginCallback";
+
+    settings.SetEditFormTemplateContent(c =>
+    {
+        var Department = ViewData["Department"] != null ? ViewData["Department"] : c.DataItem;
+
+        ViewContext.Writer.Write(
+                     "<div class=\"edit_form\" style=\"width: 200px; margin:10px 10px 10px 10px;\">" +
+                     "<div class=\"line\">"
+                 );
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = "Can View:";
+            edtSettings.AssociatedControlName = "IsActive";
+        }).Render();
+
+        Html.DevExpress().CheckBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "IsActive";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.ValueType = typeof(bool);
+                edtSettings.Width = 50;
+            }).Bind(DataBinder.Eval(Department, "IsActive")).Render();
+
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = "Read Only:";
+        }).Render();
+
+        Html.DevExpress().CheckBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "IsReadOnly";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.ValueType = typeof(bool);
+                edtSettings.Width = 50;
+            }).Bind(DataBinder.Eval(Department, "IsReadOnly")).Render();
+
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        Html.DevExpress().Button(
+            btnSettings =>
+            {
+                btnSettings.Name = "btnUpdate";
+                btnSettings.ControlStyle.CssClass = "button";
+                if (c.KeyValue == null)
+                {
+                    btnSettings.Text = "Save";
+                }
+                else
+                {
+                    btnSettings.Text = "Update";
+                }
+                btnSettings.ClientSideEvents.Click = String.Format("function(s, e) {{ {0}.UpdateEdit(); }}", settings.Name);
+            }
+        )
+        .Render();
+        Html.DevExpress().Button(
+            btnSettings =>
+            {
+                btnSettings.Name = "btnCancel";
+                btnSettings.ControlStyle.CssClass = "button";
+                btnSettings.Text = "Cancel";
+                btnSettings.ClientSideEvents.Click = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+
+            }
+        )
+        .Render();
+
+        ViewContext.Writer.Write("</div></div>");
+
+        settings.PreRender = (sender, e) =>
+        {
+            ((MVCxGridView)sender).StartEdit(1);
+        };
+
+    });   
+
+}).Bind(Model).GetHtml()

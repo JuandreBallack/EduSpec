@@ -1,0 +1,50 @@
+﻿@model System.Collections.IEnumerable
+
+<script type="text/javascript">
+
+    function OnFocusedRowChanged(s, e) {
+        s.GetRowValues(s.GetFocusedRowIndex(), 'LearnerCount', GetValuesCallback);
+    }
+
+    function GetValuesCallback(value) {
+        var DeleteBtn = GridView.GetToolbar(0).GetItemByName('Delete');
+        if (value == 0)
+            DeleteBtn.SetEnabled(true);
+        else
+            DeleteBtn.SetEnabled(false);
+    }
+
+    //function onFamilyManagementCloseUp(s, e) {
+    //    //Add this function to all view were "AccountInformation" is used.
+    //    //This is to have custom code when Family management form is close.
+    //}
+</script>
+
+@Html.DevExpress().Splitter(settings =>
+{
+    SplitterUtils.SetSplitterProperties(settings, ViewData["ViewProperties"]);
+
+
+
+    MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+    HeaderPane.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div ID=\"ViewInfo\">Classes</div><div style=\"margin:2px\">");
+    });
+
+    MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+    MainContentPane.SetContent(() =>
+    {
+        Html.RenderAction("ClassesPartial");
+    });
+
+    MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+    FooterPane.Separator.Visible = DefaultBoolean.True;
+    FooterPane.SetContent(() =>
+    {
+
+    });
+
+    }).GetHtml()
+
+@*@Html.Partial("AccountInformation", "false")*@

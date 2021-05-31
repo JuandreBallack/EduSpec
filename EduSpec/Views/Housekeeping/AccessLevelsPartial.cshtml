@@ -1,0 +1,286 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["ViewProperties"]);
+
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Housekeeping", Action = "AccessLevelsUpdate" };
+
+    settings.SetEditFormTemplateContent(c =>
+    {
+        var AccessLevel = ViewData["AccessLevel"] != null ? ViewData["AccessLevel"] : c.DataItem;
+        int lbWidth = 160;
+        
+        ViewContext.Writer.Write(
+                     "<div class=\"edit_form\" style=\"width: 390px; margin:10px 10px 10px 10px;\">" +
+                     "<div class=\"line\">"
+                 );
+
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = "Description:";
+                edtSettings.AssociatedControlName = "Description";
+                edtSettings.Width = lbWidth;
+            }
+        )
+        .Render();
+        Html.DevExpress().TextBox(edtSettings =>
+            {
+                edtSettings.Name = "Description";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                edtSettings.Properties.ClientSideEvents.Validation = "function(s,e){e.isValid = true; validateRequiredField(e.value, e);}";
+                edtSettings.Width = 150;
+                edtSettings.ControlStyle.BackColor = System.Drawing.Color.LightYellow;
+            }
+            )
+            .Bind(DataBinder.Eval(AccessLevel, "Description"))
+            .Render();
+
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = "Active:";
+                edtSettings.AssociatedControlName = "IsActive";
+                edtSettings.Width = lbWidth;
+            }).Render();
+
+        Html.DevExpress().CheckBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "IsActive";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.ValueType = typeof(bool);
+                edtSettings.Width = 150;
+            }
+        )
+        .Bind(DataBinder.Eval(AccessLevel, "IsActive"))
+        .Render();
+
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = "Institution:";
+            edtSettings.AssociatedControlName = "IsActive";
+            edtSettings.Width = lbWidth;
+        }).Render();
+
+        Html.DevExpress().CheckBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "IsInstitution";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.ValueType = typeof(bool);
+                edtSettings.Width = 150;
+            }
+        )
+        .Bind(DataBinder.Eval(AccessLevel, "IsInstitution"))
+        .Render();
+        
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = "System Administrator:";
+                edtSettings.Width = lbWidth;
+            }).Render();
+
+        Html.DevExpress().CheckBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "IsSystemAdmin";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.ValueType = typeof(bool);
+                edtSettings.Width = 150;
+            }
+        )
+        .Bind(DataBinder.Eval(AccessLevel, "IsSystemAdmin"))
+        .Render();
+
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = "Administrator:";
+                edtSettings.Width = lbWidth;
+            }).Render();
+
+        Html.DevExpress().CheckBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "IsAdmin";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.ValueType = typeof(bool);
+                edtSettings.Width = 150;
+            }
+        )
+        .Bind(DataBinder.Eval(AccessLevel, "IsAdmin"))
+        .Render();
+
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = "Exemptions:";
+                edtSettings.Width = lbWidth;
+            }).Render();
+
+        Html.DevExpress().CheckBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "IsExemptions";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.ValueType = typeof(bool);
+                edtSettings.Width = 150;
+            }
+        )
+        .Bind(DataBinder.Eval(AccessLevel, "IsExemptions"))
+        .Render();
+
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = "Housekeeping:";
+                edtSettings.Width = lbWidth;
+            }).Render();
+
+        Html.DevExpress().CheckBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "IsHousekeeping";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.ValueType = typeof(bool);
+                edtSettings.Width = 150;
+            }
+        )
+        .Bind(DataBinder.Eval(AccessLevel, "IsHousekeeping"))
+        .Render();
+
+        Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = "Legal process:";
+                edtSettings.Width = lbWidth;
+            }).Render();
+
+        Html.DevExpress().CheckBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "IsLegalProcess";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.ValueType = typeof(bool);
+                edtSettings.Width = 150;
+            }
+        )
+        .Bind(DataBinder.Eval(AccessLevel, "IsLegalProcess"))
+        .Render();
+
+        Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = "Marketing:";
+                edtSettings.Width = lbWidth;
+            }).Render();
+
+        Html.DevExpress().CheckBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "IsMarketing";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.ValueType = typeof(bool);
+                edtSettings.Width = 150;
+            }
+        )
+        .Bind(DataBinder.Eval(AccessLevel, "IsMarketing"))
+        .Render();
+
+        Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = "Integration:";
+                edtSettings.Width = lbWidth;
+            }).Render();
+
+        Html.DevExpress().CheckBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "IsIntegration";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.ValueType = typeof(bool);
+                edtSettings.Width = 150;
+            }
+        )
+        .Bind(DataBinder.Eval(AccessLevel, "IsIntegration"))
+        .Render();
+
+        Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Text = "Support:";
+                edtSettings.Width = lbWidth;
+            }).Render();
+
+        Html.DevExpress().CheckBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "IsSupport";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Properties.ValueType = typeof(bool);
+                edtSettings.Width = 150;
+            }
+        )
+        .Bind(DataBinder.Eval(AccessLevel, "IsSupport"))
+        .Render();
+
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        Html.DevExpress().Button(
+            btnSettings =>
+            {
+                btnSettings.Name = "btnUpdate";
+                btnSettings.ControlStyle.CssClass = "button";
+                if (c.KeyValue == null)
+                {
+                    btnSettings.Text = "Save";
+                }
+                else
+                {
+                    btnSettings.Text = "Update";
+                }
+                btnSettings.ClientSideEvents.Click = String.Format("function(s, e) {{ if (Description.GetIsValid()) {0}.UpdateEdit(); }}", settings.Name);
+            }
+        )
+        .Render();
+        
+        Html.DevExpress().Button(
+            btnSettings =>
+            {
+                btnSettings.Name = "btnCancel";
+                btnSettings.ControlStyle.CssClass = "button";
+                btnSettings.Text = "Cancel";
+                btnSettings.ClientSideEvents.Click = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+
+            }
+        )
+        .Render();
+
+        ViewContext.Writer.Write("</div></div>");
+
+        settings.PreRender = (sender, e) =>
+        {
+            ((MVCxGridView)sender).StartEdit(1);
+        };
+
+    });
+}).Bind(Model).GetHtml()
+
+

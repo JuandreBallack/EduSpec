@@ -1,0 +1,44 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["ViewProperties"]);
+
+    if (Convert.ToInt32(HttpContext.Current.Session["ImpersonateInstitutionID"]) != -1)
+    {
+        settings.PreRender = (sender, e) =>
+        {
+            ASPxGridView gridView = (ASPxGridView)sender;
+
+            object keyValue = HttpContext.Current.Session["ImpersonateInstitutionID"];
+            gridView.FocusedRowIndex = gridView.FindVisibleIndexByKeyValue(keyValue);
+
+        };
+    }
+
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Count, "Name");
+    settings.Settings.ShowFooter = true;
+
+    settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Count, "Name");
+
+    settings.Columns.Add(column =>
+    {
+        column.Name = "Impersonate";
+        column.FieldName = "ImpersonateInstitution";
+        column.Caption = "Impersonate";
+        column.UnboundType = DevExpress.Data.UnboundColumnType.String;
+        column.Visible = true;
+        column.Width = 100;
+        column.SetDataItemTemplateContent(c =>
+        {
+            
+            Html.DevExpress().Button(settingsBtn =>
+            {
+                settingsBtn.Name = "btnResetPassword" + c.KeyValue;
+                settingsBtn.Text = "...";
+                settingsBtn.Width = 90;
+                settingsBtn.ClientSideEvents.Click = string.Format("function(s, e) {{ ImpersonateInstitution('{0}'); }}", c.KeyValue);
+                settingsBtn.Width = 90;
+            }).Render();
+        });
+    });
+
+}).Bind(Model).GetHtml()

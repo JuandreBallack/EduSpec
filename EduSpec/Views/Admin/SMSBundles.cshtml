@@ -1,0 +1,96 @@
+﻿@model System.Collections.IEnumerable
+
+<script type="text/javascript">
+
+    function GetMessageValues(values) {
+        OrderSMSBundleGridView.GetRowValues(OrderSMSBundleGridView.GetFocusedRowIndex(), "Bundle;Price", onConfirmOrderSubmit);
+    }
+
+    function onConfirmOrderSubmit(values) {
+        pcSubmitOrderlbMessage.SetText("Are you sure you want to order the following SMS bundle? </br></br><b>Bundle " + values[0] + " at R" + values[1] + ".00</b>");
+        pcSubmitOrder.Show();
+    }
+
+    function onBtnAddSMSBundleClick(Result) {
+
+        if (Result == "mrYes") {
+            var BundleID = OrderSMSBundleGridView.GetRowKey(OrderSMSBundleGridView.GetFocusedRowIndex());
+            $.ajax({
+                type: 'POST',
+                url: '/Admin/SMSBundleAddNewOrder',
+                dataType: 'json',
+                async: false,
+                data: {
+                    BundleID: BundleID
+                },
+                success: function (response) {
+                    window.open(response.Url, '_Blank');
+                }
+            });
+
+            OrderSMSBundleGridView.PerformCallback();
+            pcSMSBundles.Hide();
+            GridView.PerformCallback();
+        }
+    }
+
+</script>
+
+@Html.DevExpress().Splitter(settings =>
+    {
+        SplitterUtils.SetSplitterProperties(settings, ViewData["ViewProperties"]);
+
+        MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+        HeaderPane.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<div ID=\"ViewInfo\">SMS Bundles</div>");           
+
+        });
+
+        MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+        MainContentPane.SetContent(() =>
+        {
+            Html.RenderAction("SMSBundlesPartial");
+        });
+
+        MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+        FooterPane.SetContent(() =>
+        {
+
+        });
+
+    }).GetHtml()
+
+@MessageDlg.ShowMessageDlg("pcSubmitOrder", Html, "Are you sure you want to order selected SMS bundle?", new BtnType[] { BtnType.mbYes, BtnType.mbNo }, MessageType.mConfirmation, "onBtnAddSMSBundleClick")
+
+
+@Html.DevExpress().PopupControl(settings =>
+    {
+        PopupUtils.SetPopupViewProperties(settings, "pcSMSBundles", "SMS Bundles");
+        settings.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 300px\">");
+            Html.RenderAction("SMSBundlesOrderPartial", "Admin");
+
+            Html.DevExpress().Button(buttonSettings =>
+            {
+                buttonSettings.Name = "btnOrderSMSBundle";
+                buttonSettings.ControlStyle.CssClass = "button";
+                buttonSettings.Width = 80;
+                buttonSettings.Text = "Order";
+                buttonSettings.ClientSideEvents.Click = "function(s,e) { GetMessageValues(); }";
+            }).Render();
+
+            Html.DevExpress().Button(buttonSettings =>
+            {
+                buttonSettings.Name = "btnOrderViewerClose";
+                buttonSettings.ControlStyle.CssClass = "button";
+                buttonSettings.Width = 80;
+                buttonSettings.Text = "Close";
+                buttonSettings.ClientSideEvents.Click = "function(s,e) { pcSMSBundles.Hide(); }";
+            }).Render();
+
+            ViewContext.Writer.Write("</div><b class=\"Clear\"></b>");
+        });
+
+    }).GetHtml()

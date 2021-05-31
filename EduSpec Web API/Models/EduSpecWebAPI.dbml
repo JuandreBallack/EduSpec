@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="EduSpec WebAPI DEV" Class="EduSpecWebAPIDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=HENNIE-HP\SQL2017;Initial Catalog=&quot;EduSpec WebAPI DEV&quot;;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ConnectionString" Provider="System.Data.SqlClient" />
+  <Function Name="dbo.Get_WebAPI_Learners" Method="Get_WebAPI_Learners">
+    <Parameter Name="InstID" Parameter="instID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="Get_WebAPI_LearnersResult">
+      <Column Name="InstID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LearnerID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="AccessionNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="EntryDate" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="DateLeft" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Initials" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Surname" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="BirthDate" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="IDNumber" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Gender" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Language" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="TelHome" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="TelCell" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="GradeID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ClassID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ClassName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Race" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="LuritsNumber" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Get_WebAPI_Family" Method="Get_WebAPI_Family">
+    <Parameter Name="FamilyID" Parameter="familyID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="Get_WebAPI_FamilyResult">
+      <Column Name="FamilyID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FamilyCode" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="AccountNumber" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Get_WebAPI_Families" Method="Get_WebAPI_Families">
+    <Parameter Name="InstID" Parameter="instID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="Get_WebAPI_FamiliesResult">
+      <Column Name="FamilyID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FamilyCode" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="AccountNumber" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Set_WebAPI_Learners" Method="Set_WebAPI_Learners">
+    <Parameter Name="InstID" Parameter="instID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ID" Parameter="iD" Type="System.Int32" DbType="Int" />
+    <Parameter Name="LearnerID" Parameter="learnerID" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="AccessionNo" Parameter="accessionNo" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="EntryDate" Parameter="entryDate" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="DateLeft" Parameter="dateLeft" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Title" Parameter="title" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="Initials" Parameter="initials" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="FullName" Parameter="fullName" Type="System.String" DbType="VarChar(255)" />
+    <Parameter Name="Surname" Parameter="surname" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="BirthDate" Parameter="birthDate" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="IDNumber" Parameter="iDNumber" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="Gender" Parameter="gender" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="Language" Parameter="language" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="TelHome" Parameter="telHome" Type="System.String" DbType="VarChar(255)" />
+    <Parameter Name="TelCell" Parameter="telCell" Type="System.String" DbType="VarChar(255)" />
+    <Parameter Name="Email" Parameter="email" Type="System.String" DbType="VarChar(250)" />
+    <Parameter Name="GradeID" Parameter="gradeID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ClassID" Parameter="classID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ClassName" Parameter="className" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Race" Parameter="race" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="LuritsNumber" Parameter="luritsNumber" Type="System.Double" DbType="Float" />
+    <Parameter Name="Status" Parameter="status" Type="System.String" DbType="VarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Set_WebAPI_LearnersClear" Method="Set_WebAPI_LearnersClear">
+    <Parameter Name="InstID" Parameter="instID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Get_WebAPI_ParentChild" Method="Get_WebAPI_ParentChild">
+    <Parameter Name="InstID" Parameter="instID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="Get_WebAPI_ParentChildResult">
+      <Column Name="InstID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ParentId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ChildId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Learnerid" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="FamilyCode" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Set_WebAPI_ParentChild" Method="Set_WebAPI_ParentChild">
+    <Parameter Name="InstID" Parameter="instID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ParentID" Parameter="parentID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ChildID" Parameter="childID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="LearnerID" Parameter="learnerID" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Status" Parameter="status" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="FamilyCode" Parameter="familyCode" Type="System.String" DbType="VarChar(200)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Set_WebAPI_ParentChildClear" Method="Set_WebAPI_ParentChildClear">
+    <Parameter Name="InstID" Parameter="instID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Get_WebAPI_Parents" Method="Get_WebAPI_Parents">
+    <Parameter Name="InstID" Parameter="instID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="Get_WebAPI_ParentsResult">
+      <Column Name="InstID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ParentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Initials" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Surname" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="IDNumber" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Employer" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Occupation" Type="System.String" DbType="VarChar(60)" CanBeNull="true" />
+      <Column Name="StreetAddress1" Type="System.String" DbType="VarChar(70)" CanBeNull="true" />
+      <Column Name="StreetAddress2" Type="System.String" DbType="VarChar(70)" CanBeNull="true" />
+      <Column Name="StreetAddress3" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="StreetCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="PostalAddress1" Type="System.String" DbType="VarChar(70)" CanBeNull="true" />
+      <Column Name="PostalAddress2" Type="System.String" DbType="VarChar(70)" CanBeNull="true" />
+      <Column Name="PostalAddress3" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PostalCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="TelHome" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TelWork" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TelCell" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TelFax" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="EMail" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="Gender" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Homelanguage" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SpouseFullName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="SpouseSurname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SpouseIDNumber" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="SpouseOccupation" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="SpouseWorkTel" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="SpouseGender" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SpouseCell" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="SpouseEmail" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="MaritalStatus" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Relationship" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Set_WebAPI_Parents" Method="Set_WebAPI_Parents">
+    <Parameter Name="InstID" Parameter="instID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ParentID" Parameter="parentID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Title" Parameter="title" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="Initials" Parameter="initials" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="FullName" Parameter="fullName" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="Surname" Parameter="surname" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="IDNumber" Parameter="iDNumber" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="Employer" Parameter="employer" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="Occupation" Parameter="occupation" Type="System.String" DbType="VarChar(60)" />
+    <Parameter Name="StreetAddress1" Parameter="streetAddress1" Type="System.String" DbType="VarChar(70)" />
+    <Parameter Name="StreetAddress2" Parameter="streetAddress2" Type="System.String" DbType="VarChar(70)" />
+    <Parameter Name="StreetAddress3" Parameter="streetAddress3" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="StreetCode" Parameter="streetCode" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="PostalAddress1" Parameter="postalAddress1" Type="System.String" DbType="VarChar(70)" />
+    <Parameter Name="PostalAddress2" Parameter="postalAddress2" Type="System.String" DbType="VarChar(70)" />
+    <Parameter Name="PostalAddress3" Parameter="postalAddress3" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="PostalCode" Parameter="postalCode" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="TelHome" Parameter="telHome" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="TelWork" Parameter="telWork" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="TelCell" Parameter="telCell" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="TelFax" Parameter="telFax" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="EMail" Parameter="eMail" Type="System.String" DbType="VarChar(250)" />
+    <Parameter Name="Gender" Parameter="gender" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="Homelanguage" Parameter="homelanguage" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="SpouseFullName" Parameter="spouseFullName" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="SpouseSurname" Parameter="spouseSurname" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="SpouseIDNumber" Parameter="spouseIDNumber" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="SpouseOccupation" Parameter="spouseOccupation" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="SpouseWorkTel" Parameter="spouseWorkTel" Type="System.String" DbType="VarChar(30)" />
+    <Parameter Name="SpouseGender" Parameter="spouseGender" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="SpouseCell" Parameter="spouseCell" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="SpouseEmail" Parameter="spouseEmail" Type="System.String" DbType="VarChar(250)" />
+    <Parameter Name="MaritalStatus" Parameter="maritalStatus" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="Relationship" Parameter="relationship" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Status" Parameter="status" Type="System.String" DbType="VarChar(10)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Set_WebAPI_ParentsClear" Method="Set_WebAPI_ParentsClear">
+    <Parameter Name="InstID" Parameter="instID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Set_WebAPI_Transactions" Method="Set_WebAPI_Transactions">
+    <Parameter Name="InstID" Parameter="instID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="LearnerID" Parameter="learnerID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="DateDone" Parameter="dateDone" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="Description" Parameter="description" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="Amount" Parameter="amount" Type="System.Decimal" DbType="Money" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Set_WebAPI_TransactionsClear" Method="Set_WebAPI_TransactionsClear">
+    <Parameter Name="InstID" Parameter="instID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Get_WebAPI_SysParams" Method="Get_WebAPI_SysParams">
+    <Parameter Name="InstID" Parameter="instID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="Get_WebAPI_SysParamsResult">
+      <Column Name="InstID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SASAMS_FilePath" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="SASAMS_Password" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="AccessDatabaseProvider" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="IsSASAMSFinance" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+</Database>

@@ -1,0 +1,186 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["ViewProperties"]);
+
+    settings.Toolbars[0].Items.Add(i =>
+    {
+
+        i.Alignment = MenuItemAlignment.Right;
+        i.SetTemplateContent(c =>
+        {
+            Html.DevExpress().ComboBox(comboBox =>
+            {
+                comboBox.Name = "cbYear";
+                comboBox.Width = 70;
+                comboBox.ControlStyle.CssClass = "editor";
+                comboBox.Properties.TextField = "Description";
+                comboBox.Properties.ValueField = "ID";
+                comboBox.Properties.ValueType = typeof(int);
+                comboBox.Properties.ClientSideEvents.Init = String.Format("function(s, e) {{if (cbYearSelectedIndex == -1) cbYear.SetValue({0}); else cbYear.SetValue(cbYearSelectedIndex);}}", HttpContext.Current.Session["CurrentYearID"]);
+                comboBox.Properties.ClientSideEvents.SelectedIndexChanged = "function(s, e) {GridView.PerformCallback({ YearID: cbYear.GetValue() });}";
+                comboBox.Properties.Caption = "Year:";
+            }).BindList(GridUtils.getDropdownList("Get_SchoolYear_PickList")).GetHtml();
+
+        });
+    });
+
+
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "DebtManagement", Action = "FollowUpsUpdate" };
+
+    settings.SetEditFormTemplateContent(c =>
+    {
+        Dictionary<EduSpec.ComboboxClientSideEvent, string> ContactReasonComboboxValidateRequiredField = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+        ContactReasonComboboxValidateRequiredField.Add(ComboboxClientSideEvent.onValidation, "function(s,e){validateRequiredField(e.value, e);}");
+
+        var Contact = ViewData["Contact"] != null ? ViewData["Contact"] : c.DataItem;
+
+        ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 680px\" style=\"height: 700px ; margin:0px 5px 0px 5px;\">");
+        ViewContext.Writer.Write("<div class=\"line\" style=\"width: 100%; margin:10px 10px 0px; 10px\">");
+
+        ViewData["ContactReasonID"] = DataBinder.Eval(Contact, "ContactReasonID");
+
+        EduSpecHtmlHelper.TextBox(Html, "edit_form", Contact, "ArrangementID", false, 80, null);
+        EduSpecHtmlHelper.TextBox(Html, "edit_form", Contact, "ContactReasonID", false, 80, null);
+
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 310);//-------Left table------------------------------------------------------
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable-r");
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 80);
+
+        EduSpecHtmlHelper.Label(Html, "Resolve:", 80, "boldlabel");
+        //EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 130);
+
+        if (Model != null)
+        {
+            EduSpecHtmlHelper.ComboBox(Html, "ResolveFollowUpReasonID", "formeditor", 150, Convert.ToString(DataBinder.Eval(Contact, "ComboBoxListProc_1")), ContactReasonComboboxValidateRequiredField);
+        }
+
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 130);
+
+        EduSpecHtmlHelper.Label(Html, "Note:", 120, "boldlabel");
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 130);
+        EduSpecHtmlHelper.Memo(Html, "formeditor", Contact, "ResolveReasonNote", 300, 100, true);
+
+        EduSpecHtmlHelper.EndRow(Html);
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndTable(Html);
+
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 330);//-----Right table---------------------------------------------------------------------------------------------
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable-r");
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 100);
+
+        EduSpecHtmlHelper.Label(Html, "Contact Type:", 120, "boldlabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form");
+        EduSpecHtmlHelper.Label(Html, "edit_form", 200, Contact, "ContactTypeDescription");
+
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form");
+
+        EduSpecHtmlHelper.Label(Html, "Name:", 120, "boldlabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form");
+        EduSpecHtmlHelper.Label(Html, "edit_form", 200, Contact, "ContactName");
+
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 150);
+
+        EduSpecHtmlHelper.Label(Html, "Cell:", 120, "boldlabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form");
+        EduSpecHtmlHelper.Label(Html, "edit_form", 200, Contact, "Cell");
+
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form");
+
+        EduSpecHtmlHelper.Label(Html, "Contact Reason:", 120, "boldlabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form");
+        EduSpecHtmlHelper.Label(Html, "edit_form", 200, Contact, "ContactReasonDescription");
+
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form");
+
+        EduSpecHtmlHelper.Label(Html, "Amount:", 120, "boldlabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form");
+        EduSpecHtmlHelper.Label(Html, "edit_form", Contact, "Amount", "currency");
+
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form");
+
+        EduSpecHtmlHelper.Label(Html, "Arrangement date:", 120, "boldlabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form");
+        EduSpecHtmlHelper.Label(Html, "edit_form", Contact, "ActionDate", "date");
+
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 110);
+
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form");// First column
+        EduSpecHtmlHelper.Label(Html, "Note:", 120, "boldlabel");
+        EduSpecHtmlHelper.Label(Html, "label", 250, Contact, "Note");
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+        EduSpecHtmlHelper.EndTable(Html);
+        
+
+        EduSpecHtmlHelper.EndRow(Html);
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndTable(Html);
+
+
+        EduSpecHtmlHelper.EndRow(Html);
+        EduSpecHtmlHelper.EndTable(Html);
+
+        Html.DevExpress().Button(
+        btnSettings =>
+        {
+            btnSettings.Name = "btnUpdate";
+            btnSettings.ControlStyle.CssClass = "button";
+            btnSettings.Text = "Update";
+            btnSettings.ClientSideEvents.Click = String.Format("function(s, e) {{ if (ASPxClientEdit.AreEditorsValid()){0}.UpdateEdit(); }}", settings.Name);
+
+        }).Render();
+
+        Html.DevExpress().Button(
+        btnSettings =>
+        {
+            btnSettings.Name = "btnCancel";
+            btnSettings.ControlStyle.CssClass = "button";
+            btnSettings.Text = "Cancel";
+            btnSettings.ClientSideEvents.Click = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+
+        }).Render();
+
+        Html.DevExpress().Button(
+        btnSettings =>
+        {
+            btnSettings.Name = "btnReply";
+            btnSettings.ControlStyle.CssClass = "button";
+            btnSettings.Text = "Reply";
+            btnSettings.ClientSideEvents.Click = "function(s, e){  ShowSMSForm(GridView.GetRowKey(GridView.GetFocusedRowIndex()), 3, false, null); }";
+
+        }).Render();
+
+
+
+        settings.PreRender = (sender, e) =>
+        {
+            ((MVCxGridView)sender).StartEdit(1);
+        };
+
+    });
+
+    settings.Settings.ShowPreview = true;
+    settings.PreviewFieldName = "Note";
+
+
+}).Bind(Model).GetHtml()
+

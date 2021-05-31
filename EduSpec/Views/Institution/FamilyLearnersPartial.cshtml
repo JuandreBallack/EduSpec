@@ -1,0 +1,8 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["FamilyLearnersViewProperties"]);
+
+}).Bind(Model).GetHtml()
+
+
+

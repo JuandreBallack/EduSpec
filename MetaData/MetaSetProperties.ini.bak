@@ -1,0 +1,6 @@
+[MetaSet]
+Server=HENNIE-NV\SQL2012
+User=sa
+Password=sql2012
+[Database]
+Database=EduSpec

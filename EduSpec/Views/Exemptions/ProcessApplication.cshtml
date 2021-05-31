@@ -1,0 +1,54 @@
+﻿@model System.Collections.IEnumerable
+
+<script type="text/javascript">
+
+    //function onBtnSaveClick(Result) {
+    //    if (Result == "mrYes") {
+    //        var e = document.getElementsByName("applyButton");
+    //        e[0].click();
+    //    }
+    //}
+
+
+</script>
+
+
+@Html.DevExpress().Splitter(settings =>
+    {
+        SplitterUtils.SetSplitterProperties(settings, true, 63, false, 0);
+
+        MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+        HeaderPane.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<div ID=\"ViewInfo\">Process application</div><div style=\"margin:2px\">");
+            Html.RenderPartial("MenuButtonsPartialView", ViewData["ViewProperties"]);
+        });
+
+        MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+        MainContentPane.ScrollBars = ScrollBars.Vertical;
+        MainContentPane.SetContent(() =>
+        {
+            Html.RenderPartial("ProcessApplicationInfo");
+            Html.RenderPartial("CalculationPartial");
+        });
+
+        MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+        FooterPane.Separator.Visible = DefaultBoolean.True;
+        FooterPane.SetContent(() =>
+        {
+
+        });
+
+    }).GetHtml()
+
+@EduSpec.MessageDlg.ShowMessageDlg("pcConfirmSave", Html, "Are you sure you want to save the changes?", new BtnType[] { BtnType.mbYes, BtnType.mbNo }, MessageType.mConfirmation, "onBtnSaveClick")
+@EduSpec.MessageDlg.ShowMessageDlg("pcWarning", Html, "The Application does not Exist.", new BtnType[] { BtnType.mbOK }, MessageType.mWarning, "onBtnWarningClick")
+
+@Html.DevExpress().LoadingPanel(settings =>
+{
+    settings.Name = "LoadingPanel";
+    settings.Modal = true;
+    settings.Text = "Preparing report.";
+}).GetHtml()
+
+@Html.Partial("ReportExemptionCalculation")

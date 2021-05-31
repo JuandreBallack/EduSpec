@@ -1,0 +1,94 @@
+﻿@using (Html.BeginForm("setInstitutionSchoolFeePaymentsAdd", "Admin"))
+{
+
+    @Html.DevExpress().Button(btnSettings =>
+    {
+        btnSettings.Name = "btnSaveGeneralSettings";
+        btnSettings.Text = "Save";
+        btnSettings.UseSubmitBehavior = true;
+        btnSettings.ClientSideEvents.Click = "function(s,e) { LoadingPanel.Show(); }";
+    }).GetHtml()
+
+    <table style="margin-left:0px; margin-right:0px; margin-top:0px; margin-bottom:0px"></table>
+
+    @EduSpecHtmlHelper.BeginTable(Html, "TableWithMargin")
+    @EduSpecHtmlHelper.NewRow(Html)
+    @EduSpecHtmlHelper.AddColumn(Html, 180)
+    @EduSpecHtmlHelper.AddColumn(Html, 200)
+    @EduSpecHtmlHelper.AddColumn(Html, 120)
+    @EduSpecHtmlHelper.AddColumn(Html)
+    @EduSpecHtmlHelper.EndRow(Html)
+
+    @EduSpecHtmlHelper.NewRow(Html) //  Row 1
+    @EduSpecHtmlHelper.NewColumn(Html, "edit_form") // Col 1
+    @EduSpecHtmlHelper.Label(Html, "Initial payment:", "formlabel")
+    @EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form") // Col 2
+    @EduSpecHtmlHelper.CurrencyEdit(Html, "formeditor", Model, "InitialPayment", 100, null)
+    @EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", new TableSpan() { RowsSpan = 1, ColumnsSpan = 2 }) // Col 3
+    @EduSpecHtmlHelper.Label(Html, "Entry/Termination rules:", "formlabelbold")
+    ///No column due to Column Span // Col 4
+    @EduSpecHtmlHelper.EndColumn(Html)
+    @EduSpecHtmlHelper.EndRow(Html)
+
+    @EduSpecHtmlHelper.NewRow(Html) //  Row 2
+    @EduSpecHtmlHelper.NewColumn(Html, "edit_form", new TableSpan() { RowsSpan = 1, ColumnsSpan = 2 }) // Col 1
+    @EduSpecHtmlHelper.Label(Html, "Initial payment description:", "formlabelbold")
+    //No column due to Column Span // Col 2
+    @EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form") // Col 3
+    @EduSpecHtmlHelper.Label(Html, "Entry Date:", "formlabel")
+    @EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form") // Col 4
+    @EduSpecHtmlHelper.ComboBox(Html, "formeditor", Model, "EntryRuleID", true, 350, "Get_Institutions_EntryRules_PickList", null)
+    @EduSpecHtmlHelper.EndColumn(Html)
+    @EduSpecHtmlHelper.EndRow(Html)
+
+    @EduSpecHtmlHelper.NewRow(Html) //  Row 3
+    @EduSpecHtmlHelper.NewColumn(Html, "edit_form") // Col 1
+    @EduSpecHtmlHelper.Label(Html, "English:", "formlabel")
+    @EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form") // Col 2
+    @EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "InitialPaymentDescription_ENG", true, 180, null)
+    @EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form") // Col 3
+    @EduSpecHtmlHelper.Label(Html, "Termination Date:", "formlabel")
+    @EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form") // Col 4
+    @EduSpecHtmlHelper.ComboBox(Html, "formeditor", Model, "TerminationRuleID", true, 350, "Get_Institutions_TerminationRules_PickList", null)
+    @EduSpecHtmlHelper.EndColumn(Html)
+    @EduSpecHtmlHelper.EndRow(Html)
+
+    @EduSpecHtmlHelper.NewRow(Html) //  Row 4
+    @EduSpecHtmlHelper.NewColumn(Html, "edit_form") // Col 1
+    @EduSpecHtmlHelper.Label(Html, "Afrikaans:", "formlabel")
+    @EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form") // Col 2
+    @EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "InitialPaymentDescription_AFR", true, 180, null)
+    @EduSpecHtmlHelper.NewColumn(Html, "edit_form") // Col 3
+    @EduSpecHtmlHelper.Label(Html, "Rounding:", "formlabel")
+    @EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form") // Col 4
+    @EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Rounding", true, 60, null)
+    @EduSpecHtmlHelper.EndColumn(Html)
+    @EduSpecHtmlHelper.EndRow(Html)
+
+    @EduSpecHtmlHelper.NewRow(Html) //  Row 4
+    @EduSpecHtmlHelper.NewColumn(Html, "edit_form") // Col 1
+    @EduSpecHtmlHelper.Label(Html, "Equal school fees payments:", "formlabel")
+    @EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form") // Col 2
+    @EduSpecHtmlHelper.SpinEdit(Html, "formeditor", Model, "MonthsPayable", 50, 0, 12, false, null)
+    @EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", new TableSpan() { RowsSpan = 1, ColumnsSpan = 2 }) // Col 3
+    @EduSpecHtmlHelper.CheckBox(Html, "formeditor", Model, "IsAddIntitialFeeToStartMonth", "Is the initial fee added to the first months school fees?", 400, null)
+    @EduSpecHtmlHelper.EndColumn(Html)
+    @EduSpecHtmlHelper.EndRow(Html)
+
+    @EduSpecHtmlHelper.NewRow(Html) //  Row 5
+    @EduSpecHtmlHelper.NewColumn(Html, "edit_form") // Col 1
+    @EduSpecHtmlHelper.Label(Html, "Start month:", "formlabel")
+    @EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form") // Col 2
+    @EduSpecHtmlHelper.ComboBox(Html, "formeditor", Model, "SchoolFeesStartMonth", true, 80, "Get_Months_PickList", null)
+    @EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", new TableSpan() { RowsSpan = 1, ColumnsSpan = 2 }) // Col 3
+    @EduSpecHtmlHelper.CheckBox(Html, "formeditor", Model, "IsInitialPaymentExcludedFromSchoolFees", "Is the initial fee completely excluded from the school fees?", 400, null)
+    @*@EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", new TableSpan() { RowsSpan = 2, ColumnsSpan = 2 }) // Col 3*@
+    @*<font color="red">PLEASE NOTE: To have your initial fee completely excluded from your school fees is against the law. In the instance that your institution do have an initial fee that are completely excluded from your school fees EduSpec will not include the initial fee in the calculation for exemptions.</font>*@
+    //@EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form") // Col 4
+    @EduSpecHtmlHelper.EndColumn(Html)
+    @EduSpecHtmlHelper.EndRow(Html)
+
+    @EduSpecHtmlHelper.EndTable(Html)
+
+
+}

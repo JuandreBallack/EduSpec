@@ -1,0 +1,44 @@
+﻿<div id="RoundPanel">
+    <table>
+        <tr>
+            <td class="FormTableApplNumber">
+                <div class="edit_form" style="width: 100%; margin:0px 2px 0px 2px;">
+                    <div class="line" style="width: 100%">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                        {
+                            edtSettings.ControlStyle.CssClass = "label";
+                            edtSettings.Width = 130;
+                            edtSettings.Text = "Application Number:";
+                        }).GetHtml()
+
+                        @Html.DevExpress().TextBox(edtSettings =>
+                        {
+                            edtSettings.Name = "tbApplicationNumber";
+                            edtSettings.ControlStyle.CssClass = "editor";
+                            edtSettings.ShowModelErrors = true;
+                            edtSettings.Width = 100;
+                            edtSettings.Properties.ClientSideEvents.KeyDown = "onKeyPress";
+                        }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="FormTable">
+                <div class="edit_form" style="width: 100%; margin:0px 2px 0px 2px;">
+                    <div class="line" style="width: 100%">
+
+                        @Html.DevExpress().Button(btnSettings =>
+                        {
+                            btnSettings.Name = "btnFind";
+                            btnSettings.Images.Image.Url = Url.Content("~/Content/MenuButtons/2Find.png");
+                            btnSettings.Text = "Find";
+                            btnSettings.ClientSideEvents.Click = "function(s,e){{FindApplication(tbApplicationNumber.GetText());}}";
+                        }).GetHtml()
+                    
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

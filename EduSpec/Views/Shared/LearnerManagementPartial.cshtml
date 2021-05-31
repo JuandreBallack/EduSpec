@@ -1,0 +1,162 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["LearnersMagagementViewProperties"]);
+    settings.ClientSideEvents.BeginCallback = "onLearnersManagementBeginCallback";
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Shared", Action = "InstitutionLearnerAdd" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Shared", Action = "InstitutionLearnerUpdate" };
+    settings.SettingsPopup.EditForm.Width = 650;
+
+    settings.SetEditFormTemplateContent(c =>
+    {
+        var Learners = ViewData["Learners"] != null ? ViewData["Learners"] : c.DataItem;
+
+        EduSpecHtmlHelper.TextBox(Html, "", Learners, "Edit_LearnerFamilyID", false, 100, null);
+
+        Dictionary<EduSpec.TextBoxClientSideEvent, string> textboxValidateRequiredField = new Dictionary<EduSpec.TextBoxClientSideEvent, string>();
+        textboxValidateRequiredField.Add(TextBoxClientSideEvent.onValidation, "function(s,e){validateRequiredField(e.value, e);}");
+
+        Dictionary<EduSpec.ComboboxClientSideEvent, string> comboboxValidateRequiredField = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+        comboboxValidateRequiredField.Add(ComboboxClientSideEvent.onValidation, "function(s,e){validateRequiredField(e.value, e);}");
+
+        Dictionary<EduSpec.DateEditClientSideEvent, string> dateValidateRequiredField = new Dictionary<EduSpec.DateEditClientSideEvent, string>();
+        dateValidateRequiredField.Add(DateEditClientSideEvent.onValidation, "function(s,e){validateRequiredField(e.value, e);}");
+
+        EduSpecHtmlHelper.EditForm(Html);
+        EduSpecHtmlHelper.Line(Html);
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+        EduSpecHtmlHelper.NewRow(Html); //********** Row 1
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120); // First column
+        EduSpecHtmlHelper.Label(Html, "General Info", "boldlabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 180); // Second column
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 110); // Third column
+        EduSpecHtmlHelper.Label(Html, "Admission", "boldlabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Fourth column
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 2
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "Admission No.:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        Dictionary<EduSpec.TextBoxClientSideEvent, string> textboxValidateAdmissionNo = new Dictionary<EduSpec.TextBoxClientSideEvent, string>();
+        if (DataBinder.Eval(Learners, "Edit_LearnerID") != null)
+            textboxValidateAdmissionNo.Add(TextBoxClientSideEvent.onValidation, "function(s,e){OnValidateAdmissionNo(e.value, e, " + DataBinder.Eval(Learners, "Edit_LearnerID") + ");}");
+        else
+            textboxValidateAdmissionNo.Add(TextBoxClientSideEvent.onValidation, "function(s,e){OnValidateAdmissionNo(e.value, e, -1);}");
+        EduSpecHtmlHelper.TextBox(Html, "formeditor", Learners, "Edit_AdmissionNo", true, 80, textboxValidateAdmissionNo);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        EduSpecHtmlHelper.Label(Html, "Entry Date:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Fourth column
+        EduSpecHtmlHelper.DateEdit(Html, "edit_form", Learners, "Edit_EntryDate", 100, dateValidateRequiredField);
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 3
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "Title:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        EduSpecHtmlHelper.ComboBox(Html, "formeditor", Learners, "Edit_TitleID", 80, "Get_Title_Picklist", comboboxValidateRequiredField);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        EduSpecHtmlHelper.Label(Html, "Termination Date:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Fourth column
+        Dictionary<EduSpec.DateEditClientSideEvent, string> DateEditEvents = new Dictionary<EduSpec.DateEditClientSideEvent, string>();
+        DateEditEvents.Add(DateEditClientSideEvent.onValidation, "function(s,e){validateTerminationSelectionField(e.value, e); }");
+        EduSpecHtmlHelper.DateEdit(Html, "edit_form", Learners, "Edit_TerminationDate", 100, DateEditEvents);
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 4
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "Initials:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        EduSpecHtmlHelper.TextBox(Html, "formeditor", Learners, "Edit_Initials", true, 50, textboxValidateRequiredField);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        EduSpecHtmlHelper.Label(Html, "Class", "boldlabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Fourth column
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 5
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "Full Name:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        EduSpecHtmlHelper.TextBox(Html, "formeditor", Learners, "Edit_FirstName", true, 150, textboxValidateRequiredField);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        EduSpecHtmlHelper.Label(Html, "Grade:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Fourth column
+        Dictionary<EduSpec.ComboboxClientSideEvent, string> GradeIDEvents = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+        GradeIDEvents.Add(ComboboxClientSideEvent.onSelectedIndexChanged, "function(s,e){Edit_ClassID.PerformCallback();}");
+        GradeIDEvents.Add(ComboboxClientSideEvent.onValidation, "function(s,e){validateGradeAndClassField(e.value, e);}");
+        EduSpecHtmlHelper.ComboBox(Html, "formeditor", Learners, "Edit_GradeID", 100, string.Format("Get_LearnersGrade_PickList {0}", HttpContext.Current.Session["InstID"]), GradeIDEvents);
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 6
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "Surname:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        EduSpecHtmlHelper.TextBox(Html, "formeditor", Learners, "Edit_Surname", true, 150, textboxValidateRequiredField);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        EduSpecHtmlHelper.Label(Html, "Class:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Fourth column
+        Html.RenderAction("LearnerClassPickList", "Shared", new { GradeID = DataBinder.Eval(Learners, "Edit_GradeID"), ClassID = DataBinder.Eval(Learners, "Edit_ClassID") });
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 7
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "ID Number:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        EduSpecHtmlHelper.TextBox(Html, "formeditor", Learners, "Edit_IDNo", true, 150, null);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        EduSpecHtmlHelper.Label(Html, "Contact", "boldlabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Fourth column
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 8
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "Birth Date:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        EduSpecHtmlHelper.DateEdit(Html, "edit_form", Learners, "Edit_DateOfBirth", 100, dateValidateRequiredField);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        EduSpecHtmlHelper.Label(Html, "Cell Number:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Fourth column
+        EduSpecHtmlHelper.TextBox(Html, "formeditor", Learners, "Edit_CellNo", true, 100, null);
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 9
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "Gender:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        EduSpecHtmlHelper.ComboBox(Html, "formeditor", Learners, "Edit_GenderID", 100, "Get_Gender_Picklist", comboboxValidateRequiredField);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        EduSpecHtmlHelper.Label(Html, "Email:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Fourth column
+        EduSpecHtmlHelper.TextBox(Html, "formeditor", Learners, "Edit_Email", true, 200, null);
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.EndRow(Html);
+        EduSpecHtmlHelper.EndTable(Html);
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+
+        EduSpecHtmlHelper.EditForm(Html);
+        EduSpecHtmlHelper.NewDiv(Html, "line");
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> SaveEditLearnerEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>    ();
+        SaveEditLearnerEvents.Add(ButtonClientSideEvent.onClick, String.Format("function(s, e) {{ if ((Edit_AdmissionNo.GetIsValid() && Edit_EntryDate.GetIsValid() && Edit_TitleID.GetIsValid() && Edit_Initials.GetIsValid() && Edit_FirstName.GetIsValid() && Edit_Surname.GetIsValid() && Edit_DateOfBirth.GetIsValid() &&  Edit_GenderID.GetIsValid() && Edit_GradeID.GetIsValid() && Edit_ClassID.GetIsValid()) && validateTerminationAndLeftSchoolField()) {0}.UpdateEdit(); }}", settings.Name));
+        EduSpecHtmlHelper.Button(Html, "btnSaveEditLearner", "button", "Save", 80, SaveEditLearnerEvents);
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string>
+        CancelEditLearnerEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        CancelEditLearnerEvents.Add(ButtonClientSideEvent.onClick, String.Format("function(s, e) {{{0}.CancelEdit(); }}", settings.Name));
+        EduSpecHtmlHelper.Button(Html, "btnCancelEditLearner", "button", "Cancel", 80, CancelEditLearnerEvents);
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+
+        settings.PreRender = (sender, e) =>
+        {
+            ((MVCxGridView)sender).StartEdit(1);
+        };
+
+    });
+
+}).Bind(Model).GetHtml()
+

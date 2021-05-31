@@ -1,0 +1,28 @@
+﻿@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcEditCorrespondenceItem", "Edit Correspondence List");
+    settings.SetContent(() =>
+    {
+
+        Html.RenderPartial("CorrespondenceListComboBoxItems");
+
+        Html.RenderPartial("CorrespondenceListItems");
+
+        EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+        EduSpecHtmlHelper.NewDiv(Html, "line");
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> UpdateCorrespondenceItemCaseEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        UpdateCorrespondenceItemCaseEvents.Add(ButtonClientSideEvent.onClick, String.Format("function(s, e) {{UpdateCorrespondenceItem(); cbpCorrespondenceListItems.PerformCallback(); cbpCorrespondenceListComboBoxItems.PerformCallback(); }}", settings.Name));
+        EduSpecHtmlHelper.Button(Html, "btnUpdate", "button", "Update", 80, UpdateCorrespondenceItemCaseEvents);
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> cancelSupportCaseEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        cancelSupportCaseEvents.Add(ButtonClientSideEvent.onClick, String.Format("function(s, e) {{ pcEditCorrespondenceItem.Hide(); }}"));
+        EduSpecHtmlHelper.Button(Html, "btnCancel", "button", "Cancel", 80, cancelSupportCaseEvents);
+
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+
+    });
+
+}).GetHtml()

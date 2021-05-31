@@ -1,0 +1,131 @@
+﻿@{ Layout = "~/Views/Shared/_lightLayout.cshtml"; }
+
+@model  EduSpec.Models.Get_Account_NewInstitutions_ViewResult
+
+<script type="text/javascript">
+
+    function setGrade(s, e) {
+
+        switch (s.GetValue()) {
+            case 1:
+                {
+                    GradeFromID.SetValue("0");
+                    GradeToID.SetValue("12");
+                }
+                break;
+            case 2:
+                {
+                    GradeFromID.SetValue("10");
+                    GradeToID.SetValue("12");
+                }
+                break;
+            case 3:
+                {
+                    GradeFromID.SetValue("0");
+                    GradeToID.SetValue("12");
+                }
+                break;
+            case 4:
+                {
+                    GradeFromID.SetValue("1");
+                    GradeToID.SetValue("7");
+                }
+                break;
+            case 5:
+                {
+                    GradeFromID.SetValue("8");
+                    GradeToID.SetValue("12");
+                }
+        }
+    }
+
+    function Register(s, e)
+    {
+        if (ASPxClientEdit.AreEditorsValid())
+        $.ajax({
+            type: 'POST',
+            url: '/Account/Register',
+            dataType: 'json',
+            async: false,
+            data: {
+                FullName: FullName.GetText(),
+                Surname: Surname.GetText(),
+                Email: Email.GetText(),
+                MasterInstID: MasterInstID.GetValue(),
+                EMISNo: EMISNo.GetText(),
+                QuintileID: QuintileID.GetValue(),
+                PhaseID: PhaseID.GetValue(),
+                PhysAddress1: PhysAddress1.GetText(),
+                PhysAddress2: PhysAddress2.GetText(),
+                PhysAddress3: PhysAddress3.GetText(),
+                PhysProvinceID: PhysProvinceID.GetValue(),
+                PhysCode: PhysCode.GetText(),
+                PosAddress1: PosAddress1.GetText(),
+                PosAddress2: PosAddress2.GetText(),
+                PosAddress3: PosAddress3.GetText(),
+                PosProvinceID: PosProvinceID.GetValue(),
+                PosCode: PosCode.GetText(),
+                Telephone: Telephone.GetText(),
+                Cell: Cell.GetText(),
+                Fax: Fax.GetText(),
+                InstEmail: InstEmail.GetText(),
+                Password: Password.GetText(),
+                IsRequestEvaluation: IsRequestEvaluation.GetValue(),
+                CorrespondenceLanguageID: CorrespondenceLanguageID.GetValue(),
+                GradeFromID: GradeFromID.GetValue(),
+                GradeToID: GradeToID.GetValue(),
+                IntegrationTypeID: IntegrationTypeID.GetValue()
+            },
+            success: function (result) {
+                if (result.Success === true) {
+                    if (result.Url !== "") {
+                        window.location.href = result.Url;
+                        //window.open(result.Url);
+                    }                    
+                }
+                else {
+                    pcErrorlbMessage.SetText(result.Message);
+                    pcError.Show();
+                }
+            }
+        });
+    }
+
+    function OnComparePasswords(s, e) {
+
+        var Password1 = Password.GetValue();
+        var Password2 = ConfirmPassword.GetValue();
+
+        if (e.isValid & e.value !== null)
+            validatePasswordMatch(e, Password1, Password2);
+    };
+
+</script>
+
+<table>
+    <tr>
+        <td width="15%"></td>
+        <td width="70%">
+                <h1>EduSpec Online registration.</h1>
+                @Html.Partial("AdminUser", Model)
+                @Html.Partial("Institution", Model)
+                @Html.Partial("TermsAndConditions", Model)
+        </td>
+        <td width="15%"></td>
+    </tr>
+</table>
+
+    @Html.DevExpress().PopupControl(settings =>
+    {
+        PopupUtils.SetPopupViewProperties(settings, "pcTermsAndConditions", "Terms and Conditions");
+        settings.Height = 500;
+        settings.Width = 700;
+        settings.ScrollBars = ScrollBars.Vertical;
+        settings.ShowFooter = true;
+        settings.SetContent(() =>
+        {
+            ViewContext.Writer.Write(File.ReadAllText(Server.MapPath("~/Content/HTML/Terms Of Service Summary.html")));
+        });
+    }).GetHtml()
+
+    @EduSpec.MessageDlg.ShowMessageDlg("pcError", Html, "", new BtnType[] { BtnType.mbOK }, MessageType.mError)

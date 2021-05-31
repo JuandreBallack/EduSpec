@@ -1,0 +1,104 @@
+﻿@model System.Collections.IEnumerable
+
+<script type="text/javascript">
+
+    var IsRefreshedButtons
+    var cbYearSelectedIndex = -1;
+
+    function SetToolbarButtons(Status, AllowSend) {
+
+        var Button = GridView.GetToolbar(0);
+
+        if (AllowSend) {
+
+            switch (Status)
+            {
+                case "1":
+                    {
+                        SettingsMenuButton(Button.GetItemByName("Btn_SendMessages"), false, "SubmitSmallGrey.png");
+                        SettingsMenuButton(Button.GetItemByName("Btn_DeleteSMS"), true, "CancelSmall.png")
+                    }
+                    break;
+                case "3":
+                case "4": {
+                    SettingsMenuButton(Button.GetItemByName("Btn_SendMessages"), false, "SubmitSmallGrey.png");
+                    SettingsMenuButton(Button.GetItemByName("Btn_DeleteSMS"), false, "CancelSmallGrey.png");
+                }                    
+                break;
+                case "2": {
+                    SettingsMenuButton(Button.GetItemByName("Btn_SendMessages"), true, "SubmitSmall.png");
+                    SettingsMenuButton(Button.GetItemByName("Btn_DeleteSMS"), true, "CancelSmall.png")
+                }
+                break;
+            }            
+        }
+        else {
+            SettingsMenuButton(Button.GetItemByName("Btn_SendMessages"), false, "SubmitSmallGrey.png");
+            SettingsMenuButton(Button.GetItemByName("Btn_DeleteSMS"), true, "CancelSmall.png")
+        }
+    }
+
+   
+    function onBtnConfirmDeleteSMSClick(Result) {
+
+        if (Result == "mrYes") {
+
+            var str = GridView.GetRowKey(GridView.GetFocusedRowIndex());
+            var res = str.split("|");
+
+            $.ajax({
+                type: 'POST',
+                url: '/BulkCorrespondence/DeleteBulkSMS',
+                dataType: 'json',
+                async: false,
+                data: {
+                    SMSTrackingKey: res[0]
+                },
+                success: function (result) {
+                    if (result.Success === true) {
+                        GridView.PerformCallback();
+                    }
+                }
+            });
+        }
+    }
+
+
+
+</script>
+
+@Html.DevExpress().Splitter(settings =>
+{
+    SplitterUtils.SetSplitterProperties(settings, ViewData["ViewProperties"]);
+
+    MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+    HeaderPane.SetContent(() =>
+    {
+        if (ViewBag.SMSBundleBalance >= 30)
+            ViewContext.Writer.Write("<div ID=\"ViewInfo\">Bulk sms's - " + HttpContext.Current.Session["SMSBundleBalanceMessage"] + "</div>");
+        else
+            ViewContext.Writer.Write("<div ID=\"ViewInfo\">Bulk sms's " + "<b></font><font color=\"red\">" + HttpContext.Current.Session["SMSBundleBalanceMessage"] + "</b><b></font><font color=\"black\">" + "</b></div>");
+        
+    });
+
+    MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+    MainContentPane.SetContent(() =>
+    {
+
+        Html.RenderAction("BulkSMSTrackingPartial");
+
+    });
+
+    MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+    FooterPane.Separator.Visible = DefaultBoolean.True;
+    FooterPane.SetContent(() =>
+    {
+
+        Html.RenderAction("BulkSMSTrackingHistoryPartial");
+
+    });
+
+}).GetHtml()
+
+@MessageDlg.ShowMessageDlg("pcBulkSMSSending", Html, "The selected bulk sms's are being sent.", new BtnType[] { BtnType.mbOK }, MessageType.mInformation)
+@MessageDlg.ShowMessageDlg("pcDeleteSMS", Html, "Are you sure you want to delete the SMS?", new BtnType[] { BtnType.mbYes, BtnType.mbNo }, MessageType.mConfirmation, "onBtnConfirmDeleteSMSClick")

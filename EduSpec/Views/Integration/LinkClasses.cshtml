@@ -1,0 +1,49 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["LinkClassesViewProperties"]);
+
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Integration", Action = "updateLinkClasses" };
+
+    settings.SettingsPopup.EditForm.Width = 300;
+    settings.SetEditFormTemplateContent(c =>
+    {
+        var LinkClasses = ViewData["LinkClasses"] != null ? ViewData["LinkClasses"] : c.DataItem;
+
+        ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 320px\" style=\"height: 700px ; margin:0px 5px 0px 5px;\">");
+        ViewContext.Writer.Write("<div class=\"line\" style=\"width: 100%; margin:10px 10px 0px; 10px\">");
+        //EduSpecHtmlHelper.EditForm(Html);
+        //EduSpecHtmlHelper.Line(Html);
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+
+        EduSpecHtmlHelper.NewRow(Html); // Row 1
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 80); // First column
+        EduSpecHtmlHelper.Label(Html, "Class", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        EduSpecHtmlHelper.ComboBox(Html, "formeditor", LinkClasses, "ClassID", 200, String.Format("Get_LearnerClass_PickList {0}", DataBinder.Eval(LinkClasses, "InstID")) , null);
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+
+        EduSpecHtmlHelper.EndTable(Html);
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> updateButtonEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        updateButtonEvents.Add(ButtonClientSideEvent.onClick, String.Format("function(s, e) {{{0}.UpdateEdit(); }}", settings.Name));
+        EduSpecHtmlHelper.Button(Html, "BtnUpdateLinkClasses", "button", "Update", 80, updateButtonEvents);
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> cancelButtonEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        cancelButtonEvents.Add(ButtonClientSideEvent.onClick, String.Format("function(s, e) {{{0}.CancelEdit(); }}", settings.Name));
+        EduSpecHtmlHelper.Button(Html, "BtnCancelLinkClasses", "button", "Cancel", 80, cancelButtonEvents);
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+
+
+        settings.PreRender = (sender, e) =>
+        {
+            ((MVCxGridView)sender).StartEdit(1);
+        };
+
+    });
+
+}).Bind(Model).GetHtml()
+

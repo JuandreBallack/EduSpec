@@ -1,0 +1,35 @@
+﻿@Html.DevExpress().CallbackPanel(settings =>
+    {
+        settings.Name = "cbpApplicationParentType";
+        //settings.CallbackRouteValues = new { Controller = "Exemptions", Action = "ApplicationParentType" };
+        //settings.ClientSideEvents.BeginCallback = "function(s,e){{ e.customArgs[\"ExemptionID\"] = ExemptionID.GetText(); }}";
+        settings.Width = Unit.Percentage(100);
+        settings.SettingsLoadingPanel.Enabled = false;
+        ViewContext.Writer.Write("<div ID=\"RoundPanel\">");
+        Html.DevExpress().RoundPanel(rpSettings =>
+        {
+
+            rpSettings.Name = "rpApplicationParentType";
+            rpSettings.HeaderText = "Parent Type";
+            rpSettings.Width = Unit.Percentage(100);
+
+            rpSettings.SetContent(() =>
+            {
+                Html.DevExpress().RadioButtonList(rbsettings =>
+                {
+                    rbsettings.Name = "ApplParentTypeID";
+                    rbsettings.Properties.ValueType = typeof(int);
+                    rbsettings.Width = 350;
+                    rbsettings.Properties.Items.Add("Parent", 1);
+                    rbsettings.Properties.Items.Add("Guardian/Foster care", 2);
+                    rbsettings.Properties.RepeatLayout = RepeatLayout.Table;
+                    rbsettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+                    rbsettings.Properties.RepeatColumns = 2;
+                    rbsettings.ControlStyle.Border.BorderStyle = BorderStyle.None;
+                    rbsettings.Properties.ClientSideEvents.SelectedIndexChanged = "setParentType";
+                    rbsettings.Properties.ClientSideEvents.Init = "setParentType";
+                }).Bind(DataBinder.Eval(Model, "ApplParentTypeID")).Render();
+            });
+        }).Render();
+        ViewContext.Writer.Write("</div>");        
+}).GetHtml()

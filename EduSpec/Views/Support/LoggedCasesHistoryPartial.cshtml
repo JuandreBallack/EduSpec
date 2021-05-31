@@ -1,0 +1,37 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["HistoryViewProperties"]);
+
+    settings.Columns.Add(column =>
+    {
+        column.Name = "SupportFiles";
+        column.Caption = "Document";
+        column.UnboundType = DevExpress.Data.UnboundColumnType.String;
+        column.Visible = true;
+        column.Width = 75;
+        column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        column.SetDataItemTemplateContent(c =>
+        {
+
+            Html.DevExpress().HyperLink(settingsBtn =>
+            {
+
+                settingsBtn.Name = "cb_" + c.KeyValue.ToString();
+
+                if (DataBinder.Eval(c.DataItem, "FileName") != null)
+                {
+                    settingsBtn.Properties.ImageUrl = "~/Content/GridImages/FileType_PDF.png";
+                    settingsBtn.NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Support", Action = "getInstitutionSupportFiles", returnUrl = "~/SupportDocs/" + DataBinder.Eval(c.DataItem, "FileName").ToString() });
+                    settingsBtn.Properties.Target = "_blank";
+                }
+
+                settingsBtn.Width = 60;
+
+            }).GetHtml();
+        });
+    });
+
+    settings.Settings.ShowPreview = true;
+    settings.PreviewFieldName = "Resolution";
+
+}).Bind(Model).GetHtml()

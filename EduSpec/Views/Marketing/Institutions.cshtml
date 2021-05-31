@@ -1,0 +1,157 @@
+﻿@model System.Collections.IEnumerable
+
+<script type="text/javascript">
+
+    function AddNewNote() {
+
+        var X = deFollowUpDate.GetDate().toISOString();
+        var m = Note.GetValue();
+
+            $.ajax({
+                type: 'POST',
+                url: '/Marketing/NewNoteAdd',
+                dataType: 'json',
+                async: false,
+                data: {
+                    Date: deFollowUpDate.GetDate().toISOString(),
+                    NewNote: Note.GetValue(),
+                    InstID: GridView.GetRowKey(GridView.GetFocusedRowIndex())
+                   
+                },
+                success: function (response) {
+                    pcAddNote.Hide()
+                }
+            });
+            GridView.PerformCallback();
+            MarketingHistoryGridView.PerformCallback({ InstID: GridView.GetRowKey(GridView.GetFocusedRowIndex()) });
+        }
+    
+
+</script>
+
+@Html.DevExpress().Splitter(settings =>
+    {
+        SplitterUtils.SetSplitterProperties(settings, ViewData["ViewProperties"]);
+
+        MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+        HeaderPane.SetContent(() =>
+        {
+            ViewContext.Writer.Write(
+                "<div ID=\"ViewInfo\">Active Clients</div><div style=\"margin:2px\">");
+
+            //Html.RenderPartial("MenuButtonsPartialView", ViewData["ViewProperties"]);
+        });
+
+        MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+        MainContentPane.SetContent(() =>
+        {
+            Html.RenderPartial("InstitutionsPartial", Model);
+        });
+
+        MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+
+        FooterPane.SetContent(() =>
+        {
+            Html.RenderAction("InstitutionHistoryPartial", Model);
+        });
+
+    }).GetHtml()
+
+@Html.DevExpress().PopupControl(settings =>
+    {
+        PopupUtils.SetPopupViewProperties(settings, "pcInstitutionContacts", "Contacts");
+        settings.Height = 50;
+        settings.Width = 50;
+        settings.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 500px\">");
+            Html.RenderAction("InstitutionContactsPartial", "Marketing");
+
+            //Html.DevExpress().Button(buttonSettings =>
+            //{
+            //    buttonSettings.Name = "btnOrderApplicationPack";
+            //    buttonSettings.ControlStyle.CssClass = "button";
+            //    buttonSettings.Width = 80;
+            //    buttonSettings.Text = "Order";
+            //    buttonSettings.ClientSideEvents.Click = "function(s,e) { GetMessageValues(); }";
+            //}).Render();
+
+            //Html.DevExpress().Button(buttonSettings =>
+            //{
+            //    buttonSettings.Name = "btnOrderViewerClose";
+            //    buttonSettings.ControlStyle.CssClass = "button";
+            //    buttonSettings.Width = 80;
+            //    buttonSettings.Text = "Close";
+            //    buttonSettings.ClientSideEvents.Click = "function(s,e) { pcPurchasePackage.Hide(); }";
+            //}).Render();
+
+            ViewContext.Writer.Write("</div><b class=\"Clear\"></b>");
+        });
+
+    }).GetHtml()
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcAddNote", "Add a new note");
+    settings.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 300px\"><div class=\"line\">");
+
+        Html.DevExpress().Label(lbsettings =>
+        {
+            lbsettings.Name = "lbMessage";
+            lbsettings.Text = "Note";
+            lbsettings.ControlStyle.CssClass = "editor";
+        }).Render();
+
+        Html.DevExpress().Memo(mSettings =>
+        {
+            mSettings.Name = "Note";
+            mSettings.ControlStyle.CssClass = "editor";
+            mSettings.Width = 300;
+            mSettings.Height = 80;
+        }).Render();
+
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+        
+        Html.DevExpress().Label(lbsettings =>
+        {
+            lbsettings.Name = "lbDate";
+            lbsettings.Text = "Follow up:";
+            lbsettings.ControlStyle.CssClass = "editor";
+        }).Render();
+
+        Html.DevExpress().DateEdit(edtSettings =>
+        {
+            edtSettings.Name = "deFollowUpDate";
+            edtSettings.ControlStyle.CssClass = "editor";
+            edtSettings.Width = 100;
+            edtSettings.ClientEnabled = true;
+            edtSettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        }).Render();
+
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        Html.DevExpress().Button(buttonSettings =>
+        {
+            buttonSettings.Name = "btnAddNote";
+            buttonSettings.ControlStyle.CssClass = "button";
+            buttonSettings.Width = 80;
+            buttonSettings.Text = "Add";
+            buttonSettings.ClientSideEvents.Click = "AddNewNote";
+        }).Render();
+
+        Html.DevExpress().Button(buttonSettings =>
+        {
+            buttonSettings.Name = "btnNoteCancel";
+            buttonSettings.ControlStyle.CssClass = "button";
+            buttonSettings.Width = 80;
+            buttonSettings.Text = "Cancel";
+            buttonSettings.ClientSideEvents.Click = "function(s, e){ pcAddNote.Hide(); }";
+        }).Render();
+
+        ViewContext.Writer.Write("</div></div><b class=\"Clear\"></b>");
+
+
+    });
+}).GetHtml()

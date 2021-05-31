@@ -1,0 +1,52 @@
+﻿@model System.Collections.IEnumerable
+
+<script type="text/javascript">
+
+    //var NavBarNodeID;
+    //var AccessLevelID;
+
+    //function OnGridViewFocusedRowChanged(s, e) {
+    //    s.GetRowValues(s.GetFocusedRowIndex(), "NavBarNodeID;AccessLevelID", SetParameters);
+    //}
+
+    //function OnBeginCallback(s, e) {
+    //    e.customArgs["NavBarNodeID"] = NavBarNodeID;
+    //    e.customArgs["AccessLevelID"] = AccessLevelID;
+    //}
+
+    //function SetParameters(values) {
+    //        NavBarNodeID = values[0];
+    //        AccessLevelID = values[1];
+    //        DetailGrid.PerformCallback({ NavBarNodeID: values[0], AccessLevelID: values[1] });
+    //}
+
+</script>
+
+@Html.DevExpress().Splitter(settings =>
+    {
+        SplitterUtils.SetSplitterProperties(settings, ViewData["ViewProperties"]);
+
+        MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+        HeaderPane.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<div ID=\"ViewInfo\">Learners - " + HttpContext.Current.Session["InstitutionName"] + "</div><div style=\"margin:2px\">");
+
+            Html.RenderPartial("MenuButtonsPartialView", ViewData["ViewProperties"]);
+
+            ViewContext.Writer.Write("</div>");
+        });
+
+        MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+        MainContentPane.SetContent(() =>
+        {
+            Html.RenderPartial("LearnersPartial");
+        });
+
+        MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+        FooterPane.Separator.Visible = DefaultBoolean.True;
+        FooterPane.SetContent(() =>
+        {
+
+        });
+
+    }).GetHtml()

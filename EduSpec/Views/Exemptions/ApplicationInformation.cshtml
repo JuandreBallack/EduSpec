@@ -1,0 +1,121 @@
+﻿<div id="RoundPanel">
+
+    @Html.DevExpress().RoundPanel(rpSettings =>
+    {
+        rpSettings.Name = "rpApplicationInformation";
+        rpSettings.HeaderText = "Application Information";
+        rpSettings.Width = Unit.Percentage(100);
+        rpSettings.AllowCollapsingByHeaderClick = true;
+        rpSettings.ShowCollapseButton = true;
+
+        rpSettings.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 100%; margin:0px 5px 0px 5px;\">");
+            ViewContext.Writer.Write("<div class=\"line\" style=\"width: 100%; margin:0px 10px 10px 0px;\">");
+            
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.Name = "ExemptionID";
+                edtSettings.ControlStyle.CssClass = "boldlabel";
+                edtSettings.Width = 300;
+                edtSettings.ClientVisible = false;
+            }).Bind(DataBinder.Eval(Model, "ExemptionID")).GetHtml();
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.Name = "LanguageID";
+                edtSettings.ControlStyle.CssClass = "boldlabel";
+                edtSettings.Width = 300;
+                edtSettings.ClientVisible = false;
+            }).Bind(DataBinder.Eval(Model, "LanguageID")).GetHtml();
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Width = 130;
+                edtSettings.Text = "Application Number:";
+            }).Render();
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.Name = "ApplicationNumber";
+                edtSettings.ControlStyle.CssClass = "boldlabel";
+                edtSettings.Width = 300;
+                edtSettings.Properties.ClientInstanceName = "ApplicationNumber";                
+            }).Bind(DataBinder.Eval(Model, "ApplicationNumber")).GetHtml();
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Width = 130;
+                edtSettings.Text = "Account Number:";
+            }).Render();
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.Name = "ExternalAccNo";
+                edtSettings.ControlStyle.CssClass = "boldlabel";
+                edtSettings.Width = 300;
+            }).Bind(DataBinder.Eval(Model, "ExternalAccNo")).GetHtml();
+            
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Width = 130;
+                edtSettings.Text = "Family Code:";
+            }).Render();
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.Name = "FamilyCode";
+                edtSettings.ControlStyle.CssClass = "boldlabel";
+                edtSettings.Width = 300;
+            }).Bind(DataBinder.Eval(Model, "FamilyCode")).GetHtml();
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Width = 130;
+                edtSettings.Text = "Applicant:";
+            }).Render();
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.Name = "ParentsName";
+                edtSettings.ControlStyle.CssClass = "boldlabel";
+                edtSettings.Width = 300;
+            }).Bind(DataBinder.Eval(Model, "ParentsName")).Render();
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Width = 130;
+                edtSettings.Text = "Learners:";
+            }).Render();
+
+            ViewContext.Writer.Write("</div><div class=\"line\" style=\"width: 550px; margin:0px 10px 10px 0px;\">");
+                        
+            Html.RenderAction("ExemptionLearners", new { ExceptionID = DataBinder.Eval(Model, "ExemptionID") });
+            
+            ViewContext.Writer.Write("</div><div class=\"line\" style=\"width: 550px; margin:0px 10px 10px 0px;\">");
+
+            Html.DevExpress().Label(s =>
+            {
+                s.Text = "Notes";
+                s.ControlStyle.CssClass = "label";
+                s.Text = "Notes";
+            }).GetHtml();
+
+            Html.DevExpress().Memo(msettings =>
+            {
+                msettings.Name = "Note";
+                msettings.Width = 550;
+                msettings.Height = 100;
+            }).Bind(DataBinder.Eval(Model, "Note")).GetHtml();
+
+            ViewContext.Writer.Write("</div>");
+        });
+    }).GetHtml()
+
+</div>

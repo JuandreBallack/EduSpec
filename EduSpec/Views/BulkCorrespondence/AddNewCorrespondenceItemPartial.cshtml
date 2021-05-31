@@ -1,0 +1,35 @@
+﻿@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcAddNewCorrespondenceItem", "Add correspondence item");
+    settings.SetContent(() =>
+    {
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 80);// First column
+        EduSpecHtmlHelper.Label(Html, "Description:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 160);// Second column
+        EduSpecHtmlHelper.TextBox(Html, "NewListDescription", "formeditor", true, 150, null);
+
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+        EduSpecHtmlHelper.EndTable(Html);
+
+        EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+        EduSpecHtmlHelper.NewDiv(Html, "line");
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> AddSupportCaseEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        AddSupportCaseEvents.Add(ButtonClientSideEvent.onClick, String.Format("function(s, e) {{ AddNewCorrespondenceList(); cbpCorrespondenceListComboBoxItems.PerformCallback(); }}"));
+        EduSpecHtmlHelper.Button(Html, "btnAddNewCorrespondenceList", "button", "Add", 80, AddSupportCaseEvents);
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> cancelSupportCaseEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        cancelSupportCaseEvents.Add(ButtonClientSideEvent.onClick, String.Format("function(s, e) {{ pcAddNewCorrespondenceItem.Hide(); }}"));
+        EduSpecHtmlHelper.Button(Html, "btnCancelNewList", "button", "Cancel", 80, cancelSupportCaseEvents);
+
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+
+    });
+
+}).GetHtml()

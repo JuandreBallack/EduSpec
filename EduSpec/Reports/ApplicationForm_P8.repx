@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XtraReportsLayoutSerializer SerializerVersion="17.2.3.0" Ref="0" ControlType="DevExpress.XtraReports.UI.XtraReport, DevExpress.XtraReports.v17.2, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Name="ApplicationForm_P8" Margins="30, 30, 25, 25" PaperKind="A4" PageWidth="827" PageHeight="1169" Version="17.2">
+  <Bands>
+    <Item1 Ref="1" ControlType="DetailBand" Name="Detail" HeightF="1012.5" TextAlignment="TopLeft" Padding="0,0,0,0,100">
+      <Controls>
+        <Item1 Ref="2" ControlType="XRLabel" Name="xrLabel30" SizeF="160.4167,48.95834" LocationFloat="436.0834, 933.0624" Padding="2,2,0,0,100" Borders="All">
+          <StylePriority Ref="3" UseBorders="false" />
+        </Item1>
+        <Item2 Ref="4" ControlType="XRLabel" Name="xrLabel31" Text="Signature:" TextAlignment="MiddleLeft" SizeF="56.83334,17.875" LocationFloat="370.5001, 946.3124" Font="Arial, 8pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="5" UseFont="false" UseTextAlignment="false" />
+        </Item2>
+        <Item3 Ref="6" ControlType="XRLine" Name="xrLine6" SizeF="238.1667,5.208344" LocationFloat="359.25, 913.2708" />
+        <Item4 Ref="7" ControlType="XRLabel" Name="xrLabel32" Text="Bank Official Name:" TextAlignment="MiddleLeft" SizeF="170.8333,19.875" LocationFloat="363.625, 874.6042" Font="Arial, 8pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="8" UseFont="false" UseTextAlignment="false" />
+        </Item4>
+        <Item5 Ref="9" ControlType="XRLabel" Name="xrLabel33" Text="STAMP" TextAlignment="MiddleCenter" SizeF="221.875,93.74998" LocationFloat="21, 898.5625" Font="Arial, 14pt" ForeColor="LightGray" Padding="2,2,0,0,100" Borders="All">
+          <StylePriority Ref="10" UseFont="false" UseForeColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item5>
+        <Item6 Ref="11" ControlType="XRLabel" Name="xrLabel34" Text="POST BANK" TextAlignment="MiddleLeft" SizeF="92.33334,23.95831" LocationFloat="25.41666, 874.6042" Font="Arial, 8pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="12" UseFont="false" UseTextAlignment="false" />
+        </Item6>
+        <Item7 Ref="13" ControlType="XRLabel" Name="xrLabel25" Text="CAPITEC BANK" TextAlignment="MiddleLeft" SizeF="92.33334,23.95831" LocationFloat="25.41666, 739.375" Font="Arial, 8pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="14" UseFont="false" UseTextAlignment="false" />
+        </Item7>
+        <Item8 Ref="15" ControlType="XRLabel" Name="xrLabel26" Text="STAMP" TextAlignment="MiddleCenter" SizeF="221.875,93.74998" LocationFloat="21, 763.3334" Font="Arial, 14pt" ForeColor="LightGray" Padding="2,2,0,0,100" Borders="All">
+          <StylePriority Ref="16" UseFont="false" UseForeColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item8>
+        <Item9 Ref="17" ControlType="XRLabel" Name="xrLabel27" Text="Bank Official Name:" TextAlignment="MiddleLeft" SizeF="170.8333,19.875" LocationFloat="363.6249, 739.375" Font="Arial, 8pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="18" UseFont="false" UseTextAlignment="false" />
+        </Item9>
+        <Item10 Ref="19" ControlType="XRLine" Name="xrLine5" SizeF="238.1667,5.208344" LocationFloat="359.25, 778.0417" />
+        <Item11 Ref="20" ControlType="XRLabel" Name="xrLabel28" Text="Signature:" TextAlignment="MiddleLeft" SizeF="56.83334,17.875" LocationFloat="370.5001, 811.0833" Font="Arial, 8pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="21" UseFont="false" UseTextAlignment="false" />
+        </Item11>
+        <Item12 Ref="22" ControlType="XRLabel" Name="xrLabel29" SizeF="160.4167,48.95834" LocationFloat="436.0833, 797.8333" Padding="2,2,0,0,100" Borders="All">
+          <StylePriority Ref="23" UseBorders="false" />
+        </Item12>
+        <Item13 Ref="24" ControlType="XRLabel" Name="xrLabel20" SizeF="160.4167,48.95834" LocationFloat="436.0834, 664.4792" Padding="2,2,0,0,100" Borders="All">
+          <StylePriority Ref="25" UseBorders="false" />
+        </Item13>
+        <Item14 Ref="26" ControlType="XRLabel" Name="xrLabel21" Text="Signature:" TextAlignment="MiddleLeft" SizeF="56.83334,17.875" LocationFloat="370.5001, 677.7291" Font="Arial, 8pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="27" UseFont="false" UseTextAlignment="false" />
+        </Item14>
+        <Item15 Ref="28" ControlType="XRLine" Name="xrLine4" SizeF="238.1667,5.208344" LocationFloat="359.25, 644.6875" />
+        <Item16 Ref="29" ControlType="XRLabel" Name="xrLabel22" Text="Bank Official Name:" TextAlignment="MiddleLeft" SizeF="170.8333,19.875" LocationFloat="363.625, 606.0208" Font="Arial, 8pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="30" UseFont="false" UseTextAlignment="false" />
+        </Item16>
+        <Item17 Ref="31" ControlType="XRLabel" Name="xrLabel23" Text="STAMP" TextAlignment="MiddleCenter" SizeF="221.875,93.74998" LocationFloat="21, 629.9792" Font="Arial, 14pt" ForeColor="LightGray" Padding="2,2,0,0,100" Borders="All">
+          <StylePriority Ref="32" UseFont="false" UseForeColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item17>
+        <Item18 Ref="33" ControlType="XRLabel" Name="xrLabel24" Text="FIRST NATIONAL BANK" TextAlignment="MiddleLeft" SizeF="137.125,23.95831" LocationFloat="25.41666, 606.0208" Font="Arial, 8pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="34" UseFont="false" UseTextAlignment="false" />
+        </Item18>
+        <Item19 Ref="35" ControlType="XRLabel" Name="xrLabel15" Text="STANDARD BANK" TextAlignment="MiddleLeft" SizeF="111.0834,23.95834" LocationFloat="25.41666, 470.1042" Font="Arial, 8pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="36" UseFont="false" UseTextAlignment="false" />
+        </Item19>
+        <Item20 Ref="37" ControlType="XRLabel" Name="xrLabel16" Text="STAMP" TextAlignment="MiddleCenter" SizeF="221.875,93.74998" LocationFloat="21, 494.0626" Font="Arial, 14pt" ForeColor="LightGray" Padding="2,2,0,0,100" Borders="All">
+          <StylePriority Ref="38" UseFont="false" UseForeColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item20>
+        <Item21 Ref="39" ControlType="XRLabel" Name="xrLabel17" Text="Bank Official Name:" TextAlignment="MiddleLeft" SizeF="170.8333,19.875" LocationFloat="363.6249, 470.1042" Font="Arial, 8pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="40" UseFont="false" UseTextAlignment="false" />
+        </Item21>
+        <Item22 Ref="41" ControlType="XRLine" Name="xrLine3" SizeF="238.1667,5.208344" LocationFloat="359.25, 508.7708" />
+        <Item23 Ref="42" ControlType="XRLabel" Name="xrLabel18" Text="Signature:" TextAlignment="MiddleLeft" SizeF="56.83334,17.875" LocationFloat="370.5001, 541.8125" Font="Arial, 8pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="43" UseFont="false" UseTextAlignment="false" />
+        </Item23>
+        <Item24 Ref="44" ControlType="XRLabel" Name="xrLabel19" SizeF="160.4167,48.95834" LocationFloat="436.0833, 528.5625" Padding="2,2,0,0,100" Borders="All">
+          <StylePriority Ref="45" UseBorders="false" />
+        </Item24>
+        <Item25 Ref="46" ControlType="XRLabel" Name="xrLabel10" Text="NEDBANK" TextAlignment="MiddleLeft" SizeF="71.50001,23.95833" LocationFloat="25.41666, 330.5417" Font="Arial, 8pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="47" UseFont="false" UseTextAlignment="false" />
+        </Item25>
+        <Item26 Ref="48" ControlType="XRLabel" Name="xrLabel11" Text="STAMP" TextAlignment="MiddleCenter" SizeF="221.875,93.74998" LocationFloat="21, 354.5" Font="Arial, 14pt" ForeColor="LightGray" Padding="2,2,0,0,100" Borders="All">
+          <StylePriority Ref="49" UseFont="false" UseForeColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item26>
+        <Item27 Ref="50" ControlType="XRLabel" Name="xrLabel12" Text="Bank Official Name:" TextAlignment="MiddleLeft" SizeF="170.8333,19.875" LocationFloat="363.6249, 330.5417" Font="Arial, 8pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="51" UseFont="false" UseTextAlignment="false" />
+        </Item27>
+        <Item28 Ref="52" ControlType="XRLine" Name="xrLine2" SizeF="238.1667,5.208344" LocationFloat="359.25, 369.2083" />
+        <Item29 Ref="53" ControlType="XRLabel" Name="xrLabel13" Text="Signature:" TextAlignment="MiddleLeft" SizeF="56.83334,17.875" LocationFloat="370.5001, 402.25" Font="Arial, 8pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="54" UseFont="false" UseTextAlignment="false" />
+        </Item29>
+        <Item30 Ref="55" ControlType="XRLabel" Name="xrLabel14" SizeF="160.4167,48.95834" LocationFloat="436.0833, 389" Padding="2,2,0,0,100" Borders="All">
+          <StylePriority Ref="56" UseBorders="false" />
+        </Item30>
+        <Item31 Ref="57" ControlType="XRLabel" Name="xrLabel9" SizeF="160.4167,48.95834" LocationFloat="436.0833, 253.25" Padding="2,2,0,0,100" Borders="All">
+          <StylePriority Ref="58" UseBorders="false" />
+        </Item31>
+        <Item32 Ref="59" ControlType="XRLabel" Name="xrLabel8" Text="Signature:" TextAlignment="MiddleLeft" SizeF="56.83334,17.875" LocationFloat="370.5, 266.5" Font="Arial, 8pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="60" UseFont="false" UseTextAlignment="false" />
+        </Item32>
+        <Item33 Ref="61" ControlType="XRLine" Name="xrLine1" SizeF="238.1667,5.208344" LocationFloat="359.25, 233.4583" />
+        <Item34 Ref="62" ControlType="XRLabel" Name="xrLabel7" Text="Bank Official Name:" TextAlignment="MiddleLeft" SizeF="170.8333,19.875" LocationFloat="363.6249, 194.7917" Font="Arial, 8pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="63" UseFont="false" UseTextAlignment="false" />
+        </Item34>
+        <Item35 Ref="64" ControlType="XRLabel" Name="xrLabel6" Text="STAMP" TextAlignment="MiddleCenter" SizeF="221.875,93.74998" LocationFloat="21.00001, 218.75" Font="Arial, 14pt" ForeColor="LightGray" Padding="2,2,0,0,100" Borders="All">
+          <StylePriority Ref="65" UseFont="false" UseForeColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item35>
+        <Item36 Ref="66" ControlType="XRLabel" Name="xrLabel5" Text="ABSA BANK" TextAlignment="MiddleLeft" SizeF="71.50001,23.95833" LocationFloat="25.41667, 194.7917" Font="Arial, 8pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="67" UseFont="false" UseTextAlignment="false" />
+        </Item36>
+        <Item37 Ref="68" ControlType="XRLabel" Name="xrLabel4" TextAlignment="MiddleLeft" SizeF="177.4167,22.91667" LocationFloat="95.4167, 130.2083" Padding="2,2,0,0,100" Borders="All">
+          <StylePriority Ref="69" UseBorders="false" UseTextAlignment="false" />
+        </Item37>
+        <Item38 Ref="70" ControlType="XRLabel" Name="xrLabel3" Text="ID Number" TextAlignment="MiddleLeft" SizeF="74.41666,22.91667" LocationFloat="21, 130.2083" Font="Arial, 8pt, style=Bold" Padding="2,2,0,0,100" BorderColor="Black" Borders="Left, Top, Bottom">
+          <StylePriority Ref="71" UseFont="false" UseBorderColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item38>
+        <Item39 Ref="72" ControlType="XRLabel" Name="xrLabel2" Text="Please confirm that the Applicant" SizeF="218.75,13.87501" LocationFloat="21, 116.3333" Font="Arial, 8pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="73" UseFont="false" />
+        </Item39>
+        <Item40 Ref="74" ControlType="XRLabel" Name="xrLabel1" SizeF="767,35.41665" LocationFloat="0, 33.41667" Font="Arial, 8pt" Padding="2,2,0,0,100" BorderColor="Transparent">
+          <StylePriority Ref="75" UseFont="false" UseBorderColor="false" />
+        </Item40>
+        <Item41 Ref="76" ControlType="XRLabel" Name="xrLabel53" Text="14. BANK VERIFICATION - PARENT/GUARDIAN" TextAlignment="MiddleLeft" SizeF="767,23" LocationFloat="0, 0" Font="Arial, 8pt, style=Bold" ForeColor="White" BackColor="DimGray" Padding="6,2,0,0,100" BorderColor="DimGray" BorderWidth="0.75">
+          <StylePriority Ref="77" UseFont="false" UseForeColor="false" UseBackColor="false" UsePadding="false" UseBorderColor="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item41>
+      </Controls>
+    </Item1>
+    <Item2 Ref="78" ControlType="TopMarginBand" Name="TopMargin" HeightF="25" TextAlignment="TopLeft" Padding="0,0,0,0,100" />
+    <Item3 Ref="79" ControlType="BottomMarginBand" Name="BottomMargin" HeightF="25" TextAlignment="TopLeft" Padding="0,0,0,0,100">
+      <Controls>
+        <Item1 Ref="80" ControlType="XRPageInfo" Name="xrPageInfo1" TextAlignment="MiddleCenter" SizeF="36.99976,23" LocationFloat="689.0002, 0" Padding="2,2,0,0,100">
+          <StylePriority Ref="81" UseTextAlignment="false" />
+        </Item1>
+        <Item2 Ref="82" ControlType="XRLabel" Name="xrLabel35" Text="Printed by EduSpec" SizeF="100,15.70835" LocationFloat="0, 0" Font="Arial Narrow, 8.25pt, charSet=0" Padding="2,2,0,0,100">
+          <StylePriority Ref="83" UseFont="false" />
+        </Item2>
+      </Controls>
+    </Item3>
+  </Bands>
+  <ComponentStorage>
+    <Item1 Ref="84" ObjectType="DevExpress.DataAccess.Sql.SqlDataSource,DevExpress.DataAccess.v17.2" Name="sqlDataSource1" Base64="PFNxbERhdGFTb3VyY2U+PE5hbWU+c3FsRGF0YVNvdXJjZTE8L05hbWU+PENvbm5lY3Rpb24gTmFtZT0iRWR1U3BlY19ERVZDb25uZWN0aW9uU3RyaW5nIiBGcm9tQXBwQ29uZmlnPSJ0cnVlIiAvPjxRdWVyeSBUeXBlPSJTdG9yZWRQcm9jUXVlcnkiIE5hbWU9IlJQVF9FeGVtcHRpb25BcHBsaWNhdGlvbiI+PFBhcmFtZXRlciBOYW1lPSJASW5zdElEIiBUeXBlPSJTeXN0ZW0uSW50MzIiPjI8L1BhcmFtZXRlcj48UGFyYW1ldGVyIE5hbWU9IkBZZWFySUQiIFR5cGU9IlN5c3RlbS5JbnQzMiI+ODwvUGFyYW1ldGVyPjxQYXJhbWV0ZXIgTmFtZT0iQEV4ZW1wdGlvbklEIiBUeXBlPSJTeXN0ZW0uSW50MzIiPjE4MTk8L1BhcmFtZXRlcj48UHJvY05hbWU+UlBUX0V4ZW1wdGlvbkFwcGxpY2F0aW9uPC9Qcm9jTmFtZT48L1F1ZXJ5PjxDb25uZWN0aW9uT3B0aW9ucyBDbG9zZUNvbm5lY3Rpb249InRydWUiIC8+PC9TcWxEYXRhU291cmNlPg==" />
+  </ComponentStorage>
+</XtraReportsLayoutSerializer>

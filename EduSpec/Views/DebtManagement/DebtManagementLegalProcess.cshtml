@@ -1,0 +1,48 @@
+﻿@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcLegalProcess", "Legal Process");
+    //settings.ClientSideEvents.PopUp = "onFamilyManagementPopUp";
+    //settings.ClientSideEvents.CloseUp = "onFamilyManagementCloseUp";
+    settings.Width = 900;
+    settings.SetContent(() =>
+    {
+
+        EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+        EduSpecHtmlHelper.NewDiv(Html, "line");
+
+        EduSpecHtmlHelper.Label(Html, "Select Debt Collector", "boldlabel");
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+
+        EduSpecHtmlHelper.NewRow(Html); //********** Row 1
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form",100); // First column
+        EduSpecHtmlHelper.Label(Html, "Debt Collector:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        Dictionary<EduSpec.ComboboxClientSideEvent, string> comboboxValidateRequiredField = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+        comboboxValidateRequiredField.Add(ComboboxClientSideEvent.onValidation, "function(s,e){validateRequiredField(e.value, e);}");
+        EduSpecHtmlHelper.ComboBox(Html,"cbDebtCollector", "formeditor", 220, "Get_DebtManagement_InstitutionDebtCollectors_PickList " + HttpContext.Current.Session["InstID"], comboboxValidateRequiredField);
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+
+        EduSpecHtmlHelper.EndTable(Html);
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+
+        Html.RenderAction("StartLegalAction", "DebtManagement");
+
+        EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+        EduSpecHtmlHelper.NewDiv(Html, "line");
+        Dictionary<EduSpec.ButtonClientSideEvent, string> saveButtonEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        saveButtonEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){ if (cbDebtCollector.GetIsValid()) onStartLegal();}");
+        EduSpecHtmlHelper.Button(Html, "btnSaveLegalProcess", "button", "Start", 80, saveButtonEvents);
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> closeButtonEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        closeButtonEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){ pcLegalProcess.Hide(); }");
+        EduSpecHtmlHelper.Button(Html, "btnCancelLegalProcess", "button", "Cancel", 80, closeButtonEvents);
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+    });
+}).GetHtml()
+

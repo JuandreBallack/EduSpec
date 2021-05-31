@@ -1,0 +1,42 @@
+﻿@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcCustomCoorespondencList", "Create Custom List");
+    settings.SetContent(() =>
+    {
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 80);// First column
+        EduSpecHtmlHelper.Label(Html, "Description:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 130);// Second column
+        EduSpecHtmlHelper.TextBox(Html, "CustomListName", "formeditor",true, 120, null);
+
+        //EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 120);// Third column
+        //Dictionary<EduSpec.ButtonClientSideEvent, string> AddNewCorrespondenceItem = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        //AddNewCorrespondenceItem.Add(ButtonClientSideEvent.onClick, String.Format("function(s, e) {{ pcLinkCustomList.Show(); }}"));
+        //EduSpecHtmlHelper.Button(Html, "btnLinkToExistingList", "formeditor", "Link to list", 80, 2, AddNewCorrespondenceItem);
+        //EduSpecHtmlHelper.EndColumn(Html);
+        //EduSpecHtmlHelper.EndRow(Html);
+
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+        EduSpecHtmlHelper.EndTable(Html);
+
+        EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+        EduSpecHtmlHelper.NewDiv(Html, "line");
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> CreateCustomListCaseEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        CreateCustomListCaseEvents.Add(ButtonClientSideEvent.onClick, String.Format("function(s, e) {{AddCustomList(); }}", settings.Name));
+        EduSpecHtmlHelper.Button(Html, "btnSaveCustomList", "button", "Save", 80, CreateCustomListCaseEvents);
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> cancelSupportCaseEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        cancelSupportCaseEvents.Add(ButtonClientSideEvent.onClick, String.Format("function(s, e) {{ pcCustomCoorespondencList.Hide(); }}"));
+        EduSpecHtmlHelper.Button(Html, "btnCancelCustomList", "button", "Cancel", 80, cancelSupportCaseEvents);
+
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+
+    });
+
+}).GetHtml()

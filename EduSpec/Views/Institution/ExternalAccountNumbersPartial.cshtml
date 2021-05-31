@@ -1,0 +1,13 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["ViewProperties"]);
+
+    settings.SettingsEditing.BatchEditSettings.EditMode = GridViewBatchEditMode.Cell;
+
+    settings.SettingsEditing.BatchUpdateRouteValues = new { Controller = "Institution", Action = "UpdateExternalAccNumbers" };
+    settings.SettingsEditing.Mode = GridViewEditingMode.Batch;
+
+    settings.SettingsEditing.BatchEditSettings.StartEditAction = GridViewBatchStartEditAction.Click;
+    settings.Settings.ShowStatusBar = GridViewStatusBarMode.Hidden;
+
+}).Bind(Model).GetHtml()

@@ -1,0 +1,48 @@
+﻿@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcSendSingleSMS", "Send SMS");
+    settings.ClientSideEvents.PopUp = "function(s,e){SMSMessage.SetText(\"\");}";
+
+    settings.SetContent(() =>
+    {
+        Html.RenderPartial("SendSMSSingle");
+
+        //EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+        //EduSpecHtmlHelper.NewDiv(Html, "line");
+        //Dictionary<EduSpec.ButtonClientSideEvent, string> SMSSingleSendEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        //SMSSingleSendEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){ SendSingleSMS(); }");
+        //EduSpecHtmlHelper.Button(Html, "btnSMSSingleSend", "button", "OK", 80, SMSSingleSendEvents);
+
+        //Dictionary<EduSpec.ButtonClientSideEvent, string> cancelSingleSMSEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        //cancelSingleSMSEvents.Add(ButtonClientSideEvent.onClick, "function(s,e){pcSendSingleSMS.Hide();}");
+        //EduSpecHtmlHelper.Button(Html, "btnCancelSingleSMS", "button", "Cancel", 80, cancelSingleSMSEvents);
+
+        //EduSpecHtmlHelper.EndDiv(Html);
+        //EduSpecHtmlHelper.EndDiv(Html);
+    });
+
+}).GetHtml()
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcSendBulkSMS", "Send bulk SMS's");
+    settings.SetContent(() =>
+    {
+        Html.RenderPartial("SendSMSBulk");
+
+        EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+        EduSpecHtmlHelper.NewDiv(Html, "line");
+        Dictionary<EduSpec.ButtonClientSideEvent, string> SMSBulkSendEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        SMSBulkSendEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){ SendBulkSMS(); }");
+        EduSpecHtmlHelper.Button(Html, "btnSMSBoubleSend", "button", "Queue SMS's", 80, SMSBulkSendEvents);
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> cancelBullSMSEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        cancelBullSMSEvents.Add(ButtonClientSideEvent.onClick, "function(s,e){pcSendBulkSMS.Hide();}");
+        EduSpecHtmlHelper.Button(Html, "btnCancelBulkSMS", "button", "Cancel", 80, cancelBullSMSEvents);
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+});
+}).GetHtml()
+
+

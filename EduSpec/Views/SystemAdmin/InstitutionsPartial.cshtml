@@ -1,0 +1,69 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["ViewProperties"]);
+
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "SystemAdmin", Action = "InstitutionUpdate" };
+    settings.SettingsPopup.EditForm.Width = 400;
+
+    settings.SetEditFormTemplateContent(c =>
+    {
+        var Institution = ViewData["Institution"] != null ? ViewData["Institution"] : c.DataItem;
+
+        ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 320px\" style=\"height: 700px ; margin:0px 5px 0px 5px;\">");
+        ViewContext.Writer.Write("<div class=\"line\" style=\"width: 100%; margin:10px 10px 0px; 10px\">");
+        //EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+        //EduSpecHtmlHelper.NewDiv(Html, "line");
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+        EduSpecHtmlHelper.Label(Html, "System Type:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 220);// Second column
+        EduSpecHtmlHelper.ComboBox(Html, "formeditor", Institution, "SystemTypeID", 200, "Get_InstitutionSystemType_PickList", null);
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+        EduSpecHtmlHelper.Label(Html, "Account:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 220);// Second column
+        EduSpecHtmlHelper.TextBox(Html, "formeditor", Institution, "Account",true, 80, null);
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+        EduSpecHtmlHelper.Label(Html, "Exemptions:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 220);// Second column
+        EduSpecHtmlHelper.CheckBox(Html, "formeditor", Institution, "IsRequireExemptionsLicenceFee", 80, null);
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+        EduSpecHtmlHelper.Label(Html, "DebtManagement:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 220);// Second column
+        EduSpecHtmlHelper.CheckBox(Html, "formeditor", Institution, "IsRequireDebtManagementLicenceFee", 80, null);
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.EndRow(Html);
+        EduSpecHtmlHelper.EndTable(Html);
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> updateButtonEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        updateButtonEvents.Add(ButtonClientSideEvent.onClick, String.Format("function(s, e) {{{0}.UpdateEdit(); }}", settings.Name));
+        EduSpecHtmlHelper.Button(Html, "BtnUpdateInst", "button", "Update", 80, updateButtonEvents);
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> CancelInstEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        CancelInstEvents.Add(ButtonClientSideEvent.onClick, String.Format("function(s, e) {{{0}.CancelEdit(); }}", settings.Name));
+        EduSpecHtmlHelper.Button(Html, "btnCancelInst", "button", "Cancel", 80, CancelInstEvents);
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+
+        settings.PreRender = (sender, e) =>
+        {
+            ((MVCxGridView)sender).StartEdit(1);
+        };
+
+    });
+
+
+}).Bind(Model).GetHtml()

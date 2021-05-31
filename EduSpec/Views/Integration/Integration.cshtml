@@ -1,0 +1,215 @@
+﻿<script type="text/javascript">
+
+    var cbIntegrationStatusSelectedIndex;
+    var cbParentsIntegrationStatusSelectedIndex;
+
+    function onFileUploadComplete(e) {
+        if (e.callbackData) {
+            LoadingPanel.Show();
+            pcUploadData.Hide();
+            ImportData(e.callbackData);
+        }
+    }
+
+    function ImportData(resultFilePath) {
+
+        $.ajax({
+            type: 'POST',
+            url: '/Integration/importData',
+            dataType: 'json',
+            //async: false,
+            data: {
+                resultFilePath: resultFilePath,
+
+            },
+            success: function (response) {
+                LoadingPanel.Hide();
+                ClassesGridView.PerformCallback();
+                LanguageGridView.PerformCallback();
+                MaritalStatusGridView.PerformCallback();
+                TitlesGridView.PerformCallback();
+                NationalitiesGridView.PerformCallback();
+                ParentRelationGridView.PerformCallback();
+            }
+        });
+    }
+
+    function UpdateLearners(values) {
+
+        LearnersList = values.join(',');
+
+        $.ajax({
+            type: 'POST',
+            url: '/Integration/ProcessLearnerInformation',
+            dataType: 'json',
+            async: false,
+            data: {
+                LearnersList: LearnersList,
+                IntegrationStatusID: cbIntegrationStatus.GetValue()
+            },
+            success: function (response) {
+                GridViewLearners.UnselectRows();
+                GridViewLearners.PerformCallback();
+                LoadingPanel.Hide();
+            },
+            error: function () { alert("error"); }
+        });
+    }
+
+    function UpdateParents(values) {
+
+        ParentsList = values.join(',');
+
+        $.ajax({
+            type: 'POST',
+            url: '/Integration/ProcessParentsInformation',
+            dataType: 'json',
+            async: false,
+            data: {
+                ParentsList: ParentsList,
+                IntegrationStatusID: cbParentsIntegrationStatus.GetValue()
+            },
+            success: function (response) {
+                GridViewParents.UnselectRows();
+                GridViewParents.PerformCallback();
+                LoadingPanel.Hide();
+            },
+            error: function () { alert("error"); }
+        });
+    }
+
+    function myFunction(item, index) {
+        
+        $.ajax({
+            type: 'POST',
+            url: '/Integration/AddFamilyFromLerners',
+            dataType: 'json',
+            async: false,
+            data: {
+                LearnersList: item
+            }//,
+            //success: function (response) {
+            //    //GridViewLearners.UnselectRows();
+            //    //GridViewLearners.PerformCallback();
+            //    //LoadingPanel.Hide();
+            //    progressBar1.SetPosition(progressBar1.GetPosition() + 1);
+            //},
+            //error: function () { alert("error"); }
+        });
+        //progressBar1.SetPosition(progressBar1.GetPosition() + 1);
+    }
+
+
+</script>
+
+@Html.DevExpress().Splitter(settings =>
+{
+    SplitterUtils.SetSplitterProperties(settings, true, 0, false, 0);
+
+    MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+    HeaderPane.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div ID=\"ViewInfo\">Integration</div>");
+    });
+
+    MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+    MainContentPane.ScrollBars = ScrollBars.Vertical;
+    MainContentPane.SetContent(() =>
+    {
+
+
+        Html.DevExpress().PageControl(pcsettings =>
+        {
+            pcsettings.Name = "pcLegalProcessSettings";
+            pcsettings.Width = Unit.Percentage(100);
+            pcsettings.Height = Unit.Percentage(100);
+            pcsettings.EnableTabScrolling = true;
+            pcsettings.TabAlign = TabAlign.Justify;
+            pcsettings.EnableClientSideAPI = true;
+
+            pcsettings.TabPages.Add("SASAMS Data Links", "Links").SetContent(() =>
+            {
+                Html.DevExpress().PageControl(pc2settings =>
+                {
+                    pc2settings.Name = "pcLinksSettings";
+                    pc2settings.Width = Unit.Percentage(100);
+                    pc2settings.Height = Unit.Percentage(100);
+                    pc2settings.EnableTabScrolling = true;
+                    pc2settings.TabAlign = TabAlign.Justify;
+                    pc2settings.EnableClientSideAPI = true;
+
+                    pc2settings.TabPages.Add("Classes", "ClassesLink").SetContent(() =>
+                    {
+                        Html.RenderAction("LinkClasses");
+                    });
+
+                    pc2settings.TabPages.Add("Languages", "LanguageLink").SetContent(() =>
+                    {
+                        Html.RenderAction("LinkLanguages");
+                    });
+
+                    pc2settings.TabPages.Add("Titles", "TitleLink").SetContent(() =>
+                    {
+                        Html.RenderAction("LinkTitles");
+                    });
+
+                    pc2settings.TabPages.Add("Marital Satuses", "MaritalSatus").SetContent(() =>
+                    {
+                        Html.RenderAction("LinkMaritalSatus");
+                    });
+
+                    pc2settings.TabPages.Add("Nationalities", "Nationalities").SetContent(() =>
+                    {
+                        Html.RenderAction("LinkNationalities");
+                    });
+
+                    pc2settings.TabPages.Add("Parent Relations", "ParentRelation").SetContent(() =>
+                    {
+                        Html.RenderAction("LinkParentRelation");
+                    });
+
+                }).GetHtml();
+
+            });
+
+            ;
+
+            pcsettings.TabPages.Add("Learners", "Learners").SetContent(() =>
+            {
+                Html.RenderAction("Learners");
+            });
+
+            pcsettings.TabPages.Add("Parents", "Parents").SetContent(() =>
+            {
+                Html.RenderAction("Parents");
+            });
+
+        }).GetHtml();
+    });
+
+    MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+    FooterPane.Separator.Visible = DefaultBoolean.True;
+    FooterPane.SetContent(() =>
+    {
+
+    });
+
+}).GetHtml()
+
+@Html.DevExpress().LoadingPanel(settings =>
+{
+    settings.Name = "LoadingPanel";
+    settings.Modal = true;
+    settings.Text = "Processing information...</br>This can take a few minutes.";
+}).GetHtml()
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcUploadData", "Upload Institution Data");
+    settings.SetContent(() =>
+    {
+        Html.RenderPartial("UploadData");
+    });
+
+}).GetHtml()
+

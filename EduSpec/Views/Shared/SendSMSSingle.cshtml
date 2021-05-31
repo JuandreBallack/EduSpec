@@ -1,0 +1,100 @@
+﻿@Html.DevExpress().CallbackPanel(cpsettings =>
+{
+    cpsettings.Name = "cbpSendSingleSMS";
+    cpsettings.CallbackRouteValues = new { Controller = "Shared", Action = "SendSMSSingle" };
+
+    cpsettings.SetContent(() =>
+    {
+        Html.DevExpress().PageControl(pcsettings =>
+        {
+            pcsettings.Name = "pcSingleSMSTabControl";
+            pcsettings.Width = Unit.Percentage(100);
+            pcsettings.Height = Unit.Percentage(100);
+            pcsettings.EnableTabScrolling = true;
+            pcsettings.TabAlign = TabAlign.Justify;
+            pcsettings.EnableClientSideAPI = true;
+
+            pcsettings.TabPages.Add("Manual SMS", "ManualSMS").SetContent(() =>
+            {
+
+                EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+                EduSpecHtmlHelper.NewDiv(Html, "line");
+                EduSpecHtmlHelper.Label(Html, "Cell number/s", "formeditor");
+                EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "ParentsCell", true, 300, null);
+                EduSpecHtmlHelper.Label(Html, "Message", "formeditor");
+
+
+                Html.DevExpress().Memo(memoSettings =>
+                {
+                    memoSettings.Name = "SMSMessage";
+                    memoSettings.ControlStyle.CssClass = "formeditor";
+                    //memoSettings.Properties.MaxLength = 22;
+                    //memoSettings.Properties.ClientSideEvents.Init = "function(s,e){ RecalculateCharsRemaining(s);}";
+                    //memoSettings.Properties.ClientSideEvents.GotFocus = "function(s,e){EnableMaxLengthMemoTimer() ;}";
+                    //memoSettings.Properties.ClientSideEvents.LostFocus = "function(s,e){DisableMaxLengthMemoTimer() ;}";
+                    //memoSettings.Properties.ClientSideEvents.KeyUp = "function(s,e){RecalculateCharsRemaining(s);}";
+                    //memoSettings.Properties.ClientSideEvents.KeyDown = "function(s,e){ RecalculateCharsRemaining(s);}";
+
+                    memoSettings.Width = 300;
+                    memoSettings.Height = 100;
+                }).Render();
+
+                //EduSpecHtmlHelper.Label(Html, "", "RemainingMessage", "formeditor");
+                EduSpecHtmlHelper.TextBox(Html, "RemainingMessage", "formeditor", true, 100, null);
+
+
+                //EduSpecHtmlHelper.Memo(Html, "SMSMessage", "formeditor", 300, 100);
+                EduSpecHtmlHelper.EndDiv(Html);
+                EduSpecHtmlHelper.EndDiv(Html);
+
+                EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+                EduSpecHtmlHelper.NewDiv(Html, "line");
+                Dictionary<EduSpec.ButtonClientSideEvent, string> SMSSingleSendEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+                SMSSingleSendEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){ SendSingleSMS(); }");
+                EduSpecHtmlHelper.Button(Html, "btnSMSSingleSend", "button", "OK", 80, SMSSingleSendEvents);
+
+                Dictionary<EduSpec.ButtonClientSideEvent, string> cancelSingleSMSEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+                cancelSingleSMSEvents.Add(ButtonClientSideEvent.onClick, "function(s,e){pcSendSingleSMS.Hide();}");
+                EduSpecHtmlHelper.Button(Html, "btnCancelSingleSMS", "button", "Cancel", 80, cancelSingleSMSEvents);
+
+                EduSpecHtmlHelper.EndDiv(Html);
+                EduSpecHtmlHelper.EndDiv(Html);
+
+
+            });
+
+            pcsettings.TabPages.Add("Custom SMS", "CustomSMS").SetContent(() =>
+            {
+
+                if (Model != null)
+                {
+
+                    EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+                    EduSpecHtmlHelper.NewDiv(Html, "line");
+                    EduSpecHtmlHelper.Label(Html, "Cell number/s", "CellNumbersCustomSMS", "formeditor");
+                    EduSpecHtmlHelper.TextBox(Html, "formeditor", "ParentsCellCustomSMS", Model, "ParentsCell", true, 300, null);
+                    EduSpecHtmlHelper.Label(Html, DataBinder.Eval(Model, "ComboBoxDescription_2"), 300, "formeditor");
+                    EduSpecHtmlHelper.ComboBox(Html, "ComboBoxListProc_2", "formeditor", 300, DataBinder.Eval(Model, "ComboBoxListProc_2"), null);
+                    EduSpecHtmlHelper.EndDiv(Html);
+                    EduSpecHtmlHelper.EndDiv(Html);
+                }
+
+                EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+                EduSpecHtmlHelper.NewDiv(Html, "line");
+                Dictionary<EduSpec.ButtonClientSideEvent, string> CustomSMSSingleSendEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+                CustomSMSSingleSendEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){ SendSingleCustomSMS(); }");
+                EduSpecHtmlHelper.Button(Html, "btnCustomSMSSingleSend", "button", "OK", 80, CustomSMSSingleSendEvents);
+
+                Dictionary<EduSpec.ButtonClientSideEvent, string> cancelSingleCustomSMSEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+                cancelSingleCustomSMSEvents.Add(ButtonClientSideEvent.onClick, "function(s,e){pcSendSingleSMS.Hide();}");
+                EduSpecHtmlHelper.Button(Html, "btnCancelSingleCustomSMS", "button", "Cancel", 80, cancelSingleCustomSMSEvents);
+
+                EduSpecHtmlHelper.EndDiv(Html);
+                EduSpecHtmlHelper.EndDiv(Html);
+
+            });
+
+        }).GetHtml();
+
+    });
+}).GetHtml()

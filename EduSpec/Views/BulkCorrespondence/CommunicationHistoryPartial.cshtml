@@ -1,0 +1,5 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["HistoryViewProperties"]);
+
+}).Bind(Model).GetHtml()

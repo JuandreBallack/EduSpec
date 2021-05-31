@@ -1,0 +1,168 @@
+﻿@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcSelectEmailMessage", "Send Emails");
+    settings.SetContent(() =>
+    {
+
+        Html.DevExpress().PageControl(pcsettings =>
+        {
+            pcsettings.Name = "pcEmailTabControl";
+            pcsettings.Width = Unit.Pixel(550);
+            pcsettings.Height = Unit.Percentage(100);
+            pcsettings.EnableTabScrolling = true;
+            pcsettings.TabAlign = TabAlign.Justify;
+            pcsettings.EnableClientSideAPI = true;
+
+            pcsettings.TabPages.Add("Custom Email", "CustomEmail").SetContent(() =>
+            {
+
+                EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+                EduSpecHtmlHelper.NewRow(Html);
+                EduSpecHtmlHelper.NewColumn(Html, "edit_form", 90);// First column
+                EduSpecHtmlHelper.Label(Html, "Subject:", 80, "formeditor");
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 220);// Second column
+                EduSpecHtmlHelper.TextBox(Html, "tbCustomEmailSubject", "formeditor", true, 200, null);
+                EduSpecHtmlHelper.EndColumn(Html);
+                EduSpecHtmlHelper.EndRow(Html);
+
+                EduSpecHtmlHelper.NewRow(Html);
+                EduSpecHtmlHelper.NewColumn(Html, "edit_form", 90);// First column
+                EduSpecHtmlHelper.Label(Html, "Email:", 80, "formeditor");
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 220);// Second column
+                Dictionary<EduSpec.ComboboxClientSideEvent, string> EmailcomboboxValidateRequiredField = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+                EmailcomboboxValidateRequiredField.Add(ComboboxClientSideEvent.onValidation, "function(s,e){validateRequiredField(e.value, e);}");
+                EduSpecHtmlHelper.ComboBox(Html, "cbCorrespondenceEmail", "formeditor", 200, string.Format("Get_InstitutionEmailMessages_PickList {0},{1}", HttpContext.Current.Session["InstID"], 3), EmailcomboboxValidateRequiredField);
+                EduSpecHtmlHelper.EndColumn(Html);
+                EduSpecHtmlHelper.EndRow(Html);
+
+                EduSpecHtmlHelper.NewRow(Html);
+                EduSpecHtmlHelper.NewColumn(Html, "edit_form", 90);// First column
+                EduSpecHtmlHelper.Label(Html, "Send to:", "formeditor");
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 220);// Second column
+                Dictionary<EduSpec.ComboboxClientSideEvent, string> FamilyContactTypeManual = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+                FamilyContactTypeManual.Add(ComboboxClientSideEvent.onSelectedIndexChanged, "function(s,e){ FamilyContactTypeIDCustomChangeEmail(s,e);}");
+                EduSpecHtmlHelper.ComboBox(Html, "cbFamilyContactTypeCustomEmail", "formeditor", 200, "Get_FamilyContactType_PickList", FamilyContactTypeManual);
+                EduSpecHtmlHelper.EndColumn(Html);
+                EduSpecHtmlHelper.EndRow(Html);
+
+                EduSpecHtmlHelper.NewRow(Html);
+                EduSpecHtmlHelper.NewColumn(Html, "edit_form", 220);// First column
+                EduSpecHtmlHelper.CheckBox(Html, "cbSendSingleParentCustomEmail", "formeditor", "Send to primary parent only", false, 200, null);
+                EduSpecHtmlHelper.EndColumn(Html);
+                EduSpecHtmlHelper.EndRow(Html);
+
+                EduSpecHtmlHelper.NewRow(Html);
+                EduSpecHtmlHelper.NewColumn(Html, "edit_form", 90);// First column
+                EduSpecHtmlHelper.Label(Html, "AttachLetterCustom", "Attachment:", "formeditor", true);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 220);// Second column
+                Dictionary<EduSpec.ComboboxClientSideEvent, string> AttachFileEventsCustom = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+                AttachFileEventsCustom.Add(ComboboxClientSideEvent.onSelectedIndexChanged, "function(s, e){ CustomEmailUploadFileTypeChange(s,e); }");
+                AttachFileEventsCustom.Add(ComboboxClientSideEvent.onInit, "function(s, e){ CustomEmailUploadFileTypeChange(s,e); }");
+                EduSpecHtmlHelper.ComboBox(Html, "AttachEmailFileCutom", "formeditor", 200, "Get_EmailAttacementType_PickList", AttachFileEventsCustom);
+                EduSpecHtmlHelper.EndColumn(Html);
+                EduSpecHtmlHelper.EndRow(Html);
+
+                EduSpecHtmlHelper.NewRow(Html);
+                EduSpecHtmlHelper.NewColumn(Html, "edit_form", 90);// First column
+                EduSpecHtmlHelper.Label(Html, "lbEmailLettersCustom", "Letter:", "editorLabel", false);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 220);// Second column
+                EduSpecHtmlHelper.ComboBox(Html, "cbCorrespondenceLetterCustom", "formeditor", 200, string.Format("Get_GeneralCorrespondence_Letters_PickList {0}", HttpContext.Current.Session["InstID"]), null);
+                EduSpecHtmlHelper.EndColumn(Html);
+                EduSpecHtmlHelper.EndRow(Html);
+
+                EduSpecHtmlHelper.NewRow(Html);
+                EduSpecHtmlHelper.NewColumn(Html, "edit_form", 90);// First column
+                EduSpecHtmlHelper.Label(Html, "lblEmailUploadFileCustom", "Upload file:", "editorLabel", false);
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 220);// Second column
+                Html.RenderPartial("CorrespondenceEmailCustomUploadData");
+                EduSpecHtmlHelper.EndColumn(Html);
+                EduSpecHtmlHelper.EndRow(Html);
+
+                EduSpecHtmlHelper.EndColumn(Html);
+                EduSpecHtmlHelper.EndRow(Html);
+                EduSpecHtmlHelper.EndTable(Html);
+
+                EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+                EduSpecHtmlHelper.NewDiv(Html, "line");
+
+                Dictionary<EduSpec.ButtonClientSideEvent, string> EmailSingleCustomSendEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+                EmailSingleCustomSendEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){ ImportCorrespondenceFileEmailCustom(); }");
+                EduSpecHtmlHelper.Button(Html, "btnCorrespondenceEmailCustomSend", "button", "OK", 80, EmailSingleCustomSendEvents);
+
+                Dictionary<EduSpec.ButtonClientSideEvent, string> cancelSingleEmailEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+                cancelSingleEmailEvents.Add(ButtonClientSideEvent.onClick, "function(s,e){pcSelectEmailMessage.Hide();}");
+                EduSpecHtmlHelper.Button(Html, "btnCancelCorrespondenceEmailCustom", "button", "Cancel", 80, cancelSingleEmailEvents);
+
+                EduSpecHtmlHelper.EndDiv(Html);
+                EduSpecHtmlHelper.EndDiv(Html);
+
+                
+
+            });
+
+            pcsettings.TabPages.Add("Manual Email", "ManualEmail").SetContent(() =>
+            {
+
+                EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+
+                EduSpecHtmlHelper.NewDiv(Html, "line");
+                EduSpecHtmlHelper.Label(Html, "Subject:", 80, "formeditor");
+                EduSpecHtmlHelper.TextBox(Html, "tbManualEmailSubject", "formeditor", true, 200, null);
+                EduSpecHtmlHelper.EndDiv(Html);
+
+                EduSpecHtmlHelper.NewDiv(Html, "line");
+                EduSpecHtmlHelper.Label(Html, "Send to:", 80, "formeditor");
+                Dictionary<EduSpec.ComboboxClientSideEvent, string> FamilyContactTypeManual = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+                FamilyContactTypeManual.Add(ComboboxClientSideEvent.onSelectedIndexChanged, "function(s,e){ FamilyContactTypeIDManualChangeEmail(s,e);}");
+                EduSpecHtmlHelper.ComboBox(Html, "cbFamilyContactTypeManualEmail", "formeditor", 200, "Get_FamilyContactType_PickList", FamilyContactTypeManual);
+                EduSpecHtmlHelper.EndDiv(Html);
+
+                EduSpecHtmlHelper.NewDiv(Html, "line");
+                EduSpecHtmlHelper.CheckBox(Html, "cbSendSingleParentManualEmail", "formeditor", "Send to primary parent only", false, 200, null);
+                EduSpecHtmlHelper.EndDiv(Html);
+
+                EduSpecHtmlHelper.NewDiv(Html, "line");
+
+                EduSpecHtmlHelper.Label(Html, "Attachment:", 80, "formeditor");
+
+                Dictionary<EduSpec.ComboboxClientSideEvent, string> AttachFileEventsManual = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+                AttachFileEventsManual.Add(ComboboxClientSideEvent.onSelectedIndexChanged, "function(s, e){ ManualEmailUploadFileTypeChange(s,e); }");
+                AttachFileEventsManual.Add(ComboboxClientSideEvent.onInit, "function(s, e){ ManualEmailUploadFileTypeChange(s,e); }");
+                EduSpecHtmlHelper.ComboBox(Html, "AttachEmailFileManual", "formeditor", 200, "Get_EmailAttacementType_PickList", AttachFileEventsManual);
+
+                EduSpecHtmlHelper.Label(Html, "lbEmailLettersManual", "Letter:", "editorLabel", false);
+                EduSpecHtmlHelper.ComboBox(Html, "cbCorrespondenceLetterManual", "formeditor", 200, string.Format("Get_GeneralCorrespondence_Letters_PickList {0}", HttpContext.Current.Session["InstID"]), null);
+
+                EduSpecHtmlHelper.Label(Html, "lblEmailUploadFileManual", "Upload file:", "editorLabel", false);
+                Html.RenderPartial("CorrespondenceEmailManualUploadData");
+
+                EduSpecHtmlHelper.EndDiv(Html);
+
+                EduSpecHtmlHelper.EndDiv(Html);
+
+                EduSpecHtmlHelper.NewDiv(Html, "line");
+
+                Html.RenderPartial("EmailManualBody");
+
+                EduSpecHtmlHelper.EndDiv(Html);
+
+                EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+                EduSpecHtmlHelper.NewDiv(Html, "line");
+                Dictionary<EduSpec.ButtonClientSideEvent, string> EmailSingleSendEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+                EmailSingleSendEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){ ImportCorrespondenceFileEmailManual(); }");
+                EduSpecHtmlHelper.Button(Html, "btnManualEmailSend", "button", "OK", 80, EmailSingleSendEvents);
+
+                Dictionary<EduSpec.ButtonClientSideEvent, string> cancelSingleEmailEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+                cancelSingleEmailEvents.Add(ButtonClientSideEvent.onClick, "function(s,e){pcSelectEmailMessage.Hide();}");
+                EduSpecHtmlHelper.Button(Html, "btnCancelManualEmail", "button", "Cancel", 80, cancelSingleEmailEvents);
+
+                EduSpecHtmlHelper.EndDiv(Html);
+                EduSpecHtmlHelper.EndDiv(Html);
+
+            });
+
+        }).GetHtml();
+
+    });
+
+}).GetHtml()

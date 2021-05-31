@@ -1,0 +1,1228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CB414A69-9A8D-4DE7-8A9D-6EAD92226833}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EduSpec</RootNamespace>
+    <AssemblyName>EduSpec</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CsvHelper, Version=15.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>..\packages\CsvHelper.15.0.5\lib\net45\CsvHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Dashboard.v20.1.Web.Mvc5, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v20.1.Core, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Sparkline.v20.1.Core, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.ASPxRichEdit.v20.1, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.Mvc5.v20.1, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v20.1, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraRichEdit.v20.1, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DotNetOpenAuth.AspNet, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetOpenAuth.AspNet.4.3.4.13329\lib\net45-full\DotNetOpenAuth.AspNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.Core, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetOpenAuth.Core.4.3.4.13329\lib\net45-full\DotNetOpenAuth.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Core.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth.Consumer, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Consumer.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.Core.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OpenId.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Excel">
+      <HintPath>..\packages\Ecxel\Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.0.0\lib\net451\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebPages.OAuth, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.OAuth.3.2.7\lib\net45\Microsoft.Web.WebPages.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MigraDoc.DocumentObjectModel-gdi, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc-gdi.1.50.5147\lib\net20\MigraDoc.DocumentObjectModel-gdi.dll</HintPath>
+    </Reference>
+    <Reference Include="MigraDoc.Rendering-gdi, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc-gdi.1.50.5147\lib\net20\MigraDoc.Rendering-gdi.dll</HintPath>
+    </Reference>
+    <Reference Include="MigraDoc.RtfRendering-gdi, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc-gdi.1.50.5147\lib\net20\MigraDoc.RtfRendering-gdi.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.7.2\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog.Mvc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.Mvc.1.0.8\lib\net451\NLog.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp-gdi, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc-gdi.1.50.5147\lib\net20\PdfSharp-gdi.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.Charting.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting-gdi, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc-gdi.1.50.5147\lib\net20\PdfSharp.Charting-gdi.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="DevExpress.Data.v20.1, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Web.v20.1, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Web.ASPxHtmlEditor.v20.1, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Web.ASPxSpellChecker.v20.1, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Web.ASPxGantt.v20.1, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Web.ASPxTreeList.v20.1, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Web.ASPxThemes.v20.1, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Web.ASPxPivotGrid.v20.1, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Data.Desktop.v20.1, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v20.1, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Office.v20.1.Core, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.SpellChecker.v20.1.Core, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Charts.v20.1.Core, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v20.1, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraGauges.v20.1.Core, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraGauges.v20.1.Presets, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Web.ASPxGauges.v20.1, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v20.1.Web, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Pdf.v20.1.Core, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v20.1.Core, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.CodeParser.v20.1, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.RichEdit.v20.1.Export, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraReports.v20.1, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraReports.v20.1.Web.WebForms, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraReports.v20.1.Web, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraPivotGrid.v20.1, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.PivotGrid.v20.1.Core, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraScheduler.v20.1.Core, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Web.ASPxScheduler.v20.1, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Spreadsheet.v20.1.Core, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Web.ASPxSpreadsheet.v20.1, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v20.1, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.DataAccess.v20.1, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.TreeMap.v20.1.Core, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraTreeMap.v20.1, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Dashboard.v20.1.Core, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Web.Resources.v20.1, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Dashboard.v20.1.Web.WebForms, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Dashboard.v20.1.Web, Version=20.1.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebMatrix.Data, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.3.2.7\lib\net45\WebMatrix.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebMatrix.WebData, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.3.2.7\lib\net45\WebMatrix.WebData.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WhatsAppApi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WhatsAppAPI.15.4.29\lib\net40\WhatsAppApi.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\GridImages\30_Overdue.png" />
+    <Content Include="Content\GridImages\60_Overdue.png" />
+    <Content Include="Content\GridImages\90_Overdue.png" />
+    <Content Include="Content\GridImages\Add.png" />
+    <Content Include="Content\GridImages\Current.png" />
+    <Content Include="Content\GridImages\Delete.png" />
+    <Content Include="Content\GridImages\Duplicate.png" />
+    <Content Include="Content\GridImages\Edit.png" />
+    <Content Include="Content\GridImages\FileType_JPG.png" />
+    <Content Include="Content\GridImages\FileType_PDF.png" />
+    <Content Include="Content\GridImages\FileType_TIF.png" />
+    <Content Include="Content\GridImages\Limit_Blue.png" />
+    <Content Include="Content\GridImages\Limit_Green.png" />
+    <Content Include="Content\GridImages\Limit_Red.png" />
+    <Content Include="Content\GridImages\Limit_Yellow.png" />
+    <Content Include="Content\GridImages\No_Info.png" />
+    <Content Include="Content\HTML\Terms of Service Summary.html" />
+    <Content Include="Content\Images\AquaHeader.jpg" />
+    <Content Include="Content\Images\BlackGlassHeader.jpg" />
+    <Content Include="Content\Images\GlassHeader.jpg" />
+    <Content Include="Content\Images\MainLogo.png" />
+    <Content Include="Content\Images\PlasticBlueHeader.jpg" />
+    <Content Include="Content\Images\RedWineHeader.jpg" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\jquery-ui.min.css" />
+    <Content Include="Content\MenuButtons\2Export.png" />
+    <Content Include="Content\MenuButtons\2Find.png" />
+    <Content Include="Content\MenuButtons\AccountInfo.png" />
+    <Content Include="Content\MenuButtons\AccountInfoSmall.png" />
+    <Content Include="Content\MenuButtons\Actions.png" />
+    <Content Include="Content\MenuButtons\ActionsSmall.png" />
+    <Content Include="Content\MenuButtons\Add.png" />
+    <Content Include="Content\MenuButtons\AddSmall.png" />
+    <Content Include="Content\MenuButtons\Apply.png" />
+    <Content Include="Content\MenuButtons\ApplyGrey.png" />
+    <Content Include="Content\MenuButtons\ApplySmall.png" />
+    <Content Include="Content\MenuButtons\ApplySmallGrey.png" />
+    <Content Include="Content\MenuButtons\Calculator.png" />
+    <Content Include="Content\MenuButtons\CalculatorGrey.png" />
+    <Content Include="Content\MenuButtons\CalculatorSmall.png" />
+    <Content Include="Content\MenuButtons\CalculatorSmallGrey.png" />
+    <Content Include="Content\MenuButtons\Cancel.png" />
+    <Content Include="Content\MenuButtons\CancelGrey.png" />
+    <Content Include="Content\MenuButtons\CancelSmall.png" />
+    <Content Include="Content\MenuButtons\CancelSmallGrey.png" />
+    <Content Include="Content\MenuButtons\Confirm.png" />
+    <Content Include="Content\MenuButtons\ConfirmGrey.png" />
+    <Content Include="Content\MenuButtons\ConfirmSmall.png" />
+    <Content Include="Content\MenuButtons\ConfirmSmallGrey.png" />
+    <Content Include="Content\MenuButtons\Delete.png" />
+    <Content Include="Content\MenuButtons\Edit.png" />
+    <Content Include="Content\MenuButtons\EditGrey.png" />
+    <Content Include="Content\MenuButtons\EditSmall.png" />
+    <Content Include="Content\MenuButtons\Email.png" />
+    <Content Include="Content\MenuButtons\Export.png" />
+    <Content Include="Content\MenuButtons\Finalise.png" />
+    <Content Include="Content\MenuButtons\FinaliseGrey.png" />
+    <Content Include="Content\MenuButtons\FinaliseSmall.png" />
+    <Content Include="Content\MenuButtons\FinaliseSmallGrey.png" />
+    <Content Include="Content\MenuButtons\Find.png" />
+    <Content Include="Content\MenuButtons\Import.png" />
+    <Content Include="Content\MenuButtons\ImportSmall.png" />
+    <Content Include="Content\MenuButtons\ImportSmallGrey.png" />
+    <Content Include="Content\MenuButtons\Info.png" />
+    <Content Include="Content\MenuButtons\MoveLearner.png" />
+    <Content Include="Content\MenuButtons\MoveLearnerGrey.png" />
+    <Content Include="Content\MenuButtons\Report.png" />
+    <Content Include="Content\MenuButtons\ReportSmall.png" />
+    <Content Include="Content\MenuButtons\SaveSmall.png" />
+    <Content Include="Content\MenuButtons\SaveSmallGrey.png" />
+    <Content Include="Content\MenuButtons\SMS.png" />
+    <Content Include="Content\MenuButtons\SubmitSmall.png" />
+    <Content Include="Content\MenuButtons\SubmitSmallGrey.png" />
+    <Content Include="Content\Platform.css" />
+    <Content Include="Content\MenuButtons\PreView.png" />
+    <Content Include="Content\MenuButtons\Print.png" />
+    <Content Include="Content\MenuButtons\Receive.png" />
+    <Content Include="Content\MenuButtons\Refresh.png" />
+    <Content Include="Content\MenuButtons\Save.png" />
+    <Content Include="Content\MenuButtons\SaveGrey.png" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\MenuButtons\Split.png" />
+    <Content Include="Content\MenuButtons\SplitGrey.png" />
+    <Content Include="Content\MenuButtons\Submit.png" />
+    <Content Include="Content\MenuButtons\SubmitGrey.png" />
+    <Content Include="Content\MenuButtons\Undo.png" />
+    <Content Include="Content\MenuButtons\UndoGrey.png" />
+    <Content Include="Content\webintellisense.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\AjaxLogin.js" />
+    <Content Include="Scripts\ExemptionCheckList.js" />
+    <Content Include="Scripts\GenerateApplicationReport.js" />
+    <Content Include="Scripts\globalize.cultures.js" />
+    <Content Include="Scripts\globalize.js" />
+    <Content Include="Scripts\EduSpecGolbal.js" />
+    <Content Include="Scripts\SendEmail.js" />
+    <Content Include="Scripts\SendSMS.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-ui-1.10.3.js" />
+    <Content Include="Scripts\jquery-ui-1.10.3.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\knockout-3.0.0.debug.js" />
+    <Content Include="Scripts\knockout-3.0.0.js" />
+    <Content Include="packages.config" />
+    <Content Include="Models\EduSpec.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>EduSpec.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Scripts\ManageFamily.js" />
+    <Content Include="Scripts\MenuButtons.js" />
+    <Content Include="Scripts\SupportCases.js" />
+    <Content Include="Scripts\Validation.js" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\PublishProfiles\EduSpec UAT.pubxml" />
+    <None Include="Properties\PublishProfiles\EduSpec.pubxml" />
+    <None Include="Properties\PublishProfiles\UAT.pubxml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\modernizr-2.0.6-development-only.js" />
+    <Content Include="Scripts\webintellisense-ace.min.js" />
+    <Content Include="Scripts\webintellisense-codemirror.min.js" />
+    <Content Include="Scripts\webintellisense-textbox.min.js" />
+    <Content Include="Scripts\webintellisense.min.js" />
+    <Content Include="Views\Shared\DisplayTemplates\Boolean.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Boolean.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Decimal.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\MultilineText.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Password.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\EmailAddress.cshtml" />
+    <Content Include="Views\Housekeeping\AccessLevels.cshtml" />
+    <Content Include="Views\Housekeeping\AccessLevelsPartial.cshtml" />
+    <Content Include="Views\Housekeeping\DepartmentAccess.cshtml" />
+    <Content Include="Views\Housekeeping\DepartmentAccessPartial.cshtml" />
+    <Content Include="Views\Housekeeping\DepartmentAccessSetupPartial.cshtml" />
+    <Content Include="Views\Admin\InstitutionUsers.cshtml" />
+    <Content Include="Views\Admin\InstitutionUsersPartial.cshtml" />
+    <Content Include="Views\SystemAdmin\Institutions.cshtml" />
+    <Content Include="Views\SystemAdmin\InstitutionsActivation.cshtml" />
+    <Content Include="Views\SystemAdmin\InstitutionsActivationPartial.cshtml" />
+    <Content Include="Views\SystemAdmin\InstitutionsPartial.cshtml" />
+    <Content Include="Views\SystemAdmin\InstitutionTakeOn.cshtml" />
+    <Content Include="Views\SystemAdmin\InstitutionTakeOnPartial.cshtml" />
+    <Content Include="Views\Exemptions\Apply.cshtml" />
+    <Content Include="Views\Institution\Learners.cshtml" />
+    <Content Include="Views\Institution\LearnersPartial.cshtml" />
+    <Content Include="Views\Shared\MenuButtonsPartialView.cshtml" />
+    <Content Include="Views\Shared\PasswordChange.cshtml" />
+    <Content Include="Views\Shared\FooterPartialView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Shared\ContentLeftPartialView.cshtml" />
+    <Content Include="Views\Shared\HeaderPartialView.cshtml" />
+    <Content Include="Views\Shared\LogOnPartialView.cshtml" />
+    <Content Include="Views\Shared\_lightLayout.cshtml" />
+    <Content Include="Views\Shared\_mainLayout.cshtml" />
+    <Content Include="Views\Shared\_rootLayout.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\GridViewPartialView.cshtml" />
+    <Content Include="Views\Admin\ManageInstitution.cshtml" />
+    <Content Include="Views\Admin\ManageInstitutionPartial.cshtml" />
+    <Content Include="Views\Exemptions\Exemptions.cshtml" />
+    <Content Include="Views\Exemptions\ExemptionsPartial.cshtml" />
+    <Content Include="Views\Exemptions\ExemptionsApplicationHistoryPartial.cshtml" />
+    <Content Include="Views\Exemptions\ProcessApplication.cshtml" />
+    <Content Include="Views\Exemptions\FinaliseApplication.cshtml" />
+    <Content Include="Views\Exemptions\SubmitApplication.cshtml" />
+    <Content Include="Views\Exemptions\ApplicationNumberPartial.cshtml" />
+    <Content Include="Views\Exemptions\ApplicationInformation.cshtml" />
+    <Content Include="Views\Exemptions\ExemptionLearners.cshtml" />
+    <Content Include="Views\Exemptions\FinaliseApplicationPartial.cshtml" />
+    <Content Include="Views\Exemptions\ProcessApplicationInfo.cshtml" />
+    <Content Include="Views\Exemptions\CalculationPartial.cshtml" />
+    <Content Include="Views\Exemptions\SubmitApplicationCheckList.cshtml" />
+    <Content Include="Views\Exemptions\ApplicationParentType.cshtml" />
+    <Content Include="Views\Exemptions\ApplicationMaritalStatus.cshtml" />
+    <Content Include="Views\Exemptions\ApplicationProofOfIncome.cshtml" />
+    <Content Include="Views\Exemptions\ApplicationProofOfGuardianFosterCare.cshtml" />
+    <Content Include="Views\Exemptions\ApplicationExpenditure.cshtml" />
+    <Content Include="Views\Exemptions\SubmitApplicationInfo.cshtml" />
+    <Content Include="Views\Admin\ApplicationPacksPartial.cshtml" />
+    <Content Include="Views\Admin\ApplicationPacks.cshtml" />
+    <Content Include="Views\Admin\ApplicationPacksOrderPartial.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\AdminUser.cshtml" />
+    <Content Include="Views\Account\Institution.cshtml" />
+    <Content Include="Views\Account\TermsAndConditions.cshtml" />
+    <Content Include="Views\Account\MasterInstitutionPickList.cshtml" />
+    <Content Include="Views\Account\RegistrationConfirmation.cshtml" />
+    <Content Include="Views\Account\LoginInformation.cshtml" />
+    <Content Include="Views\SystemAdmin\PacksPendingActivation.cshtml" />
+    <Content Include="Views\SystemAdmin\PacksPendingActivationPartial.cshtml" />
+    <Content Include="Views\Admin\DepartmentPickList.cshtml" />
+    <Content Include="Views\Exemptions\ApplicationIncomeCapture.cshtml" />
+    <Content Include="Views\Exemptions\FinaliseApplicationInfo.cshtml" />
+    <Content Include="Views\Exemptions\ExemptionSettings.cshtml" />
+    <Content Include="Views\Exemptions\ExemptionSettingsAnnualParam.cshtml" />
+    <Content Include="Views\Exemptions\ExemptionSettingsRequiredDocuments.cshtml" />
+    <Content Include="Views\Exemptions\ExemptionSettingsLetters.cshtml" />
+    <Content Include="Views\Exemptions\LettersEditor.cshtml" />
+    <Content Include="Views\Exemptions\ExemptionSettingsGeneralSettings.cshtml" />
+    <Content Include="Views\Shared\Quotation.cshtml" />
+    <Content Include="Views\Exemptions\ExemptionSettingsSchoolFees.cshtml" />
+    <Content Include="Views\Shared\LearnerClassPickList.cshtml" />
+    <Content Include="Views\Institution\LearnerNewFamilyPickList.cshtml" />
+    <Content Include="Views\Institution\MoveLearnerPartial.cshtml" />
+    <Content Include="Views\Institution\Family.cshtml" />
+    <Content Include="Views\Institution\FamilyPartial.cshtml" />
+    <Content Include="Views\Exemptions\Learners.cshtml" />
+    <Content Include="Views\Exemptions\LearnersPartial.cshtml" />
+    <Content Include="Views\DebtManagement\AgeAnalysis.cshtml" />
+    <Content Include="Views\DebtManagement\AgeAnalysisPartial.cshtml" />
+    <Content Include="Views\DebtManagement\ImportAge.cshtml" />
+    <Content Include="Views\Admin\InstitutionSchoolFeePayments.cshtml" />
+    <Content Include="Views\Admin\SetupSchoolFees.cshtml" />
+    <Content Include="Views\Admin\SetupSchoolFeesPartial.cshtml" />
+    <Content Include="Views\Shared\SendSMSSingle.cshtml" />
+    <Content Include="Views\DebtManagement\AgeAnalysisLedgent.cshtml" />
+    <Content Include="Views\Shared\SendSMSBulk.cshtml" />
+    <Content Include="Views\DebtManagement\DebtManagementHistoryPartial.cshtml" />
+    <Content Include="Views\DebtManagement\DebtManagementSettings.cshtml" />
+    <Content Include="Views\DebtManagement\DebtManagementSettingsLetters.cshtml" />
+    <Content Include="Views\Exemptions\ExemptionSettingsSMS.cshtml" />
+    <Content Include="Views\Marketing\Institutions.cshtml" />
+    <Content Include="Views\Marketing\Scheduler.cshtml" />
+    <Content Include="Views\Marketing\SchedularPartial.cshtml" />
+    <Content Include="Views\Marketing\InstitutionContactsPartial.cshtml" />
+    <Content Include="Views\Marketing\InstitutionHistoryPartial.cshtml" />
+    <Content Include="Views\Marketing\InstitutionsPartial.cshtml" />
+    <Content Include="Views\Admin\SMSBundles.cshtml" />
+    <Content Include="Views\Admin\SMSBundlesOrderPartial.cshtml" />
+    <Content Include="Views\Admin\SMSBundlesPartial.cshtml" />
+    <Content Include="Views\SystemAdmin\BundlesPendingActivation.cshtml" />
+    <Content Include="Views\SystemAdmin\BundlesPendingActivationPartial.cshtml" />
+    <Content Include="Views\Admin\Finance.cshtml" />
+    <Content Include="Views\Admin\FinancePartial.cshtml" />
+    <Content Include="Views\Integration\Integration.cshtml" />
+    <Content Include="Views\Integration\Parents.cshtml" />
+    <Content Include="Views\Integration\Learners.cshtml" />
+    <Content Include="Views\Integration\UploadData.cshtml" />
+    <Content Include="Views\Exemptions\ApplicationProofLearner.cshtml" />
+    <Content Include="Views\DebtManagement\SendSingleEmail.cshtml" />
+    <Content Include="Views\Exemptions\FamiliesEditPartial.cshtml" />
+    <Content Include="Views\SystemAdmin\InstitutionImpersonate.cshtml" />
+    <Content Include="Views\SystemAdmin\InstitutionImpersonatePartial.cshtml" />
+    <Content Include="Views\Institution\FamilyLearnersPartial.cshtml" />
+    <Content Include="Views\DebtManagement\BulkCorrespondence.cshtml" />
+    <Content Include="Views\DebtManagement\BulkCorrespondencePartial.cshtml" />
+    <Content Include="Views\DebtManagement\FollowUps.cshtml" />
+    <Content Include="Views\DebtManagement\FollowUpsPartial.cshtml" />
+    <Content Include="Views\DebtManagement\DebtManagementNotePartial.cshtml" />
+    <Content Include="Views\Shared\FamilyManagementPartial.cshtml" />
+    <Content Include="Views\Shared\LearnerManagementPartial.cshtml" />
+    <Content Include="Views\Exemptions\ApplyPartial.cshtml" />
+    <Content Include="Views\Support\LoggedCases.cshtml" />
+    <Content Include="Views\Support\LoggedCasesPartial.cshtml" />
+    <Content Include="Views\BulkCorrespondence\BulkLetterCorrespondence.cshtml" />
+    <Content Include="Views\BulkCorrespondence\BulkLetterCorrespondencePartial.cshtml" />
+    <Content Include="Views\BulkCorrespondence\BulkSMSTrackingPartial.cshtml" />
+    <Content Include="Views\BulkCorrespondence\BulkSMSTrackingHistoryPartial.cshtml" />
+    <Content Include="Views\Shared\AccountInformation.cshtml" />
+    <Content Include="Views\Shared\FamilyInfoPartial.cshtml" />
+    <Content Include="Views\DebtManagement\AgeAnalysisImport.cshtml" />
+    <Content Include="Views\DebtManagement\AgeAnalysisImportPartial.cshtml" />
+    <Content Include="Views\DebtManagement\AgeAnalysisImportDetailPartial.cshtml" />
+    <Content Include="Views\BulkCorrespondence\BulkLetterTrackingHistoryPartial.cshtml" />
+    <Content Include="Views\Integration\LinkClasses.cshtml" />
+    <Content Include="Views\Integration\LinkLanguages.cshtml" />
+    <Content Include="Views\Integration\LinkTitles.cshtml" />
+    <Content Include="Views\Integration\LinkMaritalSatus.cshtml" />
+    <Content Include="Views\DebtManagement\EmailEditor_ENG.cshtml" />
+    <Content Include="Views\DebtManagement\EmailEditor_AFR.cshtml" />
+    <Content Include="Views\DebtManagement\LetterEditor_AFR.cshtml" />
+    <Content Include="Views\DebtManagement\LetterEditor_ENG.cshtml" />
+    <Content Include="Views\DebtManagement\MessageEditorLegal_AFR.cshtml" />
+    <Content Include="Views\DebtManagement\MessageEditorLegal_ENG.cshtml" />
+    <Content Include="Views\BulkCorrespondence\BulkEmailCorrespondence.cshtml" />
+    <Content Include="Views\BulkCorrespondence\BulkEmailCorrespondencePartial.cshtml" />
+    <Content Include="Views\BulkCorrespondence\BulkEmailTrackingHistoryPartial.cshtml" />
+    <Content Include="Views\Exemptions\SendSingleEmailExemptions.cshtml" />
+    <Content Include="Views\BulkCorrespondence\SMSReplies.cshtml" />
+    <Content Include="Views\BulkCorrespondence\SMSRepliesPartial.cshtml" />
+    <Content Include="Views\Shared\InfoPanel.cshtml" />
+    <Content Include="Views\DebtManagement\DebtManagementSettingsEmails.cshtml" />
+    <Content Include="Views\DebtManagement\DebtManagementSettingsSMSMessages.cshtml" />
+    <Content Include="Views\Exemptions\EmailEditorExemptions_AFR.cshtml" />
+    <Content Include="Views\Exemptions\EmailEditorExemptions_ENG.cshtml" />
+    <Content Include="Views\Exemptions\LetterEditor_AFR.cshtml" />
+    <Content Include="Views\Exemptions\LetterEditor_ENG.cshtml" />
+    <Content Include="Views\Exemptions\MessageEditorExemptions_AFR.cshtml" />
+    <Content Include="Views\Exemptions\MessageEditorExemptions_ENG.cshtml" />
+    <Content Include="Views\Shared\SMSForms.cshtml" />
+    <Content Include="Views\Shared\SendEmailSingle.cshtml" />
+    <Content Include="Views\Shared\EmailForms.cshtml" />
+    <Content Include="Views\Shared\EmailBody.cshtml" />
+    <Content Include="Views\Support\AddNewCasePartial.cshtml" />
+    <Content Include="Views\Support\EditCasePartial.cshtml" />
+    <Content Include="Views\Support\LoggedCasesHistoryPartial.cshtml" />
+    <Content Include="Views\Support\LoggedCasesUsersPartial.cshtml" />
+    <Content Include="Views\Support\UploadData.cshtml" />
+    <Content Include="Views\Shared\SendEmailBulk.cshtml" />
+    <Content Include="Views\Integration\LinkNationalities.cshtml" />
+    <Content Include="Views\Integration\LinkParentRelation.cshtml" />
+    <Content Include="Views\Institution\LearnerClassPicklist.cshtml" />
+    <Content Include="Views\SystemAdmin\ClientLedger.cshtml" />
+    <Content Include="Views\SystemAdmin\ClientLedgerPartial.cshtml" />
+    <Content Include="Views\Shared\SingleEmailUploadData.cshtml" />
+    <Content Include="Views\DebtManagement\DebtManagementSettingsGeneral.cshtml" />
+    <Content Include="Views\Institution\Classes.cshtml" />
+    <Content Include="Views\Institution\ClassesPartial.cshtml" />
+    <Content Include="Views\Exemptions\AffidavitQuestions.cshtml" />
+    <Content Include="Views\SystemAdmin\AddNewInvoicePartial.cshtml" />
+    <Content Include="Views\SystemAdmin\LedgerTypePickList.cshtml" />
+    <Content Include="Views\Shared\ApplicationForms.cshtml" />
+    <Content Include="Views\Shared\ApplicantToApplyOrReprint.cshtml" />
+    <Content Include="Views\Institution\ExternalAccountNumbers.cshtml" />
+    <Content Include="Views\Institution\ExternalAccountNumbersPartial.cshtml" />
+    <Content Include="Views\Institution\ExternalAccountNumbers.cshtml" />
+    <Content Include="Views\Institution\ExternalAccountNumbersPartial.cshtml" />
+    <Content Include="Views\SystemAdmin\NewInvoiceLinesPartial.cshtml" />
+    <Content Include="Views\SystemAdmin\NewInvoice.cshtml" />
+    <Content Include="Views\Shared\ExemptionFinaliseReason.cshtml" />
+    <Content Include="Views\Shared\FinaliseApplicationReason.cshtml" />
+    <Content Include="Views\DebtManagement\DebtManagementFamilyStatementPartial.cshtml" />
+    <Content Include="Views\DebtManagement\DebtManagementNote.cshtml" />
+    <Content Include="Views\Shared\SingleEmailCustomUploadData.cshtml" />
+    <Content Include="Views\Shared\DocumentViewer.cshtml" />
+    <Content Include="Views\Exemptions\reportCompensation.cshtml" />
+    <Content Include="Views\Exemptions\reportExemptionSummary.cshtml" />
+    <Content Include="Views\Exemptions\reportExemptionSummaryGrouped.cshtml" />
+    <Content Include="Views\DebtManagement\reportParentAccountHistory.cshtml" />
+    <Content Include="Views\DebtManagement\reportDebtManagementSummary.cshtml" />
+    <Content Include="Views\Exemptions\reportExemptionProvisionalList.cshtml" />
+    <Content Include="Views\BulkCorrespondence\BulkSMSTracking.cshtml" />
+    <Content Include="Views\Exemptions\ExemptionSettingsEmails.cshtml" />
+    <Content Include="Views\Institution\reportFamilyDetail.cshtml" />
+    <Content Include="Views\Institution\CombineFamiliesPartial.cshtml" />
+    <Content Include="Views\DebtManagement\DebtManagementSettingsDebtCollectors.cshtml" />
+    <Content Include="Views\DebtManagement\DebtManagementSettingsDebtCollectorsAdd.cshtml" />
+    <Content Include="Views\DebtManagement\DebtManagementLegalProcess.cshtml" />
+    <Content Include="Views\DebtManagement\StartLegalAction.cshtml" />
+    <Content Include="Views\DebtManagement\reportPaymentArrangements.cshtml" />
+    <Content Include="Views\DebtManagement\reportPaymentArrangementsFamily.cshtml" />
+    <Content Include="Views\Shared\BulkEmailUploadData.cshtml" />
+    <Content Include="Views\Shared\reportSMSMessageHistory.cshtml" />
+    <Content Include="Views\Admin\SetupAdHocFeesPartial.cshtml" />
+    <Content Include="Views\Institution\AdHocFees.cshtml" />
+    <Content Include="Views\Institution\AdHocFeesPartial.cshtml" />
+    <Content Include="Views\Shared\reportEmailHistory.cshtml" />
+    <Content Include="Views\Institution\LinkLearnersAdHocFees.cshtml" />
+    <Content Include="Views\Institution\LearnerAdHocFees.cshtml" />
+    <Content Include="Views\Institution\reportAdHocFees.cshtml" />
+    <Content Include="Views\DebtManagement\DebtManagementRegisteredEmails.cshtml" />
+    <Content Include="Views\DebtManagement\DebtManagementGenerateRegisteredEmails.cshtml" />
+    <Content Include="Views\DebtManagement\reportRegisteredMail.cshtml" />
+    <Content Include="Views\Exemptions\reportExemptionRegister.cshtml" />
+    <Content Include="Views\Admin\SetupSchoolFeesNextYearPartial.cshtml" />
+    <Content Include="Views\Admin\FinanceInvoicePartial.cshtml" />
+    <Content Include="Views\Admin\FinanceQuotationPartial.cshtml" />
+    <Content Include="Views\Exemptions\reportCompensation_FreeState.cshtml" />
+    <Content Include="Views\Exemptions\reportExemptionApplication.cshtml" />
+    <Content Include="Views\DebtManagement\DebtManagementPastelCategoriesPartial.cshtml" />
+    <Content Include="Views\DebtManagement\FamiliesPickListPartial.cshtml" />
+    <Content Include="Views\Support\TutorialVideos.cshtml" />
+    <Content Include="Views\Support\TutorialVideosPartial.cshtml" />
+    <Content Include="Views\BulkCorrespondence\AddNewCorrespondenceItemPartial.cshtml" />
+    <Content Include="Views\BulkCorrespondence\CorrespondenceEmailCustomUploadData.cshtml" />
+    <Content Include="Views\BulkCorrespondence\CorrespondenceEmailManualUploadData.cshtml" />
+    <Content Include="Views\BulkCorrespondence\CorrespondenceEmailSetupPartial.cshtml" />
+    <Content Include="Views\BulkCorrespondence\CorrespondenceLetterSetupPartial.cshtml" />
+    <Content Include="Views\BulkCorrespondence\CorrespondenceList.cshtml" />
+    <Content Include="Views\BulkCorrespondence\CorrespondenceListItems.cshtml" />
+    <Content Include="Views\BulkCorrespondence\CorrespondenceListPartial.cshtml" />
+    <Content Include="Views\BulkCorrespondence\CorrespondencePicklist.cshtml" />
+    <Content Include="Views\BulkCorrespondence\CorrespondenceSMsSetupPartial.cshtml" />
+    <Content Include="Views\BulkCorrespondence\EditCorrespondenceItemPartial.cshtml" />
+    <Content Include="Views\BulkCorrespondence\EmailEditorFamilyCorrespondence_AFR.cshtml" />
+    <Content Include="Views\BulkCorrespondence\EmailEditorFamilyCorrespondence_ENG.cshtml" />
+    <Content Include="Views\BulkCorrespondence\EmailManualBody.cshtml" />
+    <Content Include="Views\BulkCorrespondence\LearnerClassPickList.cshtml" />
+    <Content Include="Views\BulkCorrespondence\LetterEditor_AFR.cshtml" />
+    <Content Include="Views\BulkCorrespondence\LetterEditor_ENG.cshtml" />
+    <Content Include="Views\BulkCorrespondence\MessageEditorFamilyCorrespondence_AFR.cshtml" />
+    <Content Include="Views\BulkCorrespondence\MessageEditorFamilyCorrespondence_ENG.cshtml" />
+    <Content Include="Views\BulkCorrespondence\SelectEmailMessagePartial.cshtml" />
+    <Content Include="Views\BulkCorrespondence\SelectSMSMessagePartial.cshtml" />
+    <Content Include="Views\Exemptions\ReportExemptionCalculation.cshtml" />
+    <Content Include="Views\BulkCorrespondence\CustomCorrespondenceList.cshtml" />
+    <Content Include="Views\BulkCorrespondence\CommunicationHistory.cshtml" />
+    <Content Include="Views\BulkCorrespondence\CommunicationHistoryDetailPartial.cshtml" />
+    <Content Include="Views\BulkCorrespondence\CommunicationHistoryPartial.cshtml" />
+    <Content Include="Views\BulkCorrespondence\reportCommunicationHistory.cshtml" />
+    <Content Include="Views\BulkCorrespondence\reportCommunicationHistoryFamily.cshtml" />
+    <Content Include="Views\SystemAdmin\UserAdd.cshtml" />
+    <Content Include="Views\SystemAdmin\UserAddPartial.cshtml" />
+    <Content Include="Views\SystemAdmin\DepartmentPicklist.cshtml" />
+    <Content Include="Views\DebtCollector\AgeAnalysis.cshtml" />
+    <Content Include="Views\DebtCollector\AgeAnalysisHistoryPartial.cshtml" />
+    <Content Include="Views\DebtCollector\AgeAnalysisPartial.cshtml" />
+    <Content Include="Views\DebtCollector\reportEmailHistory.cshtml" />
+    <Content Include="Views\DebtCollector\reportParentAccountHistory.cshtml" />
+    <Content Include="Views\DebtCollector\reportSMSMessageHistory.cshtml" />
+    <Content Include="Views\Exemptions\reportCOVID19.cshtml" />
+    <Content Include="Views\Exemptions\reportCOVID19AFR.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\AuthConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Code\AccessCommands.cs" />
+    <Compile Include="Code\AgeImportDataTables.cs" />
+    <Compile Include="Code\CustomUtils.cs" />
+    <Compile Include="Code\Email.cs" />
+    <Compile Include="Code\GridUtils.cs" />
+    <Compile Include="Code\EduSpecHtmlHelper.cs" />
+    <Compile Include="Code\GridViewExportHelper.cs" />
+    <Compile Include="Code\ReadTextFile.cs" />
+    <Compile Include="Code\test.cs" />
+    <Compile Include="Code\UserUtils.cs" />
+    <Compile Include="Code\MembershipStatus.cs" />
+    <Compile Include="Code\MenuButtonsUtils.cs" />
+    <Compile Include="Code\MessageDlg.cs" />
+    <Compile Include="Code\PopupUtils.cs" />
+    <Compile Include="Code\SessionExpireAttribute.cs" />
+    <Compile Include="Code\SMS.cs" />
+    <Compile Include="Code\SplitterUtils.cs" />
+    <Compile Include="Code\StringCipher.cs" />
+    <Compile Include="Code\SystemParameters.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BulkCorrespondenceController.cs" />
+    <Compile Include="Controllers\DebtCollectorController.cs" />
+    <Compile Include="Controllers\ExemptionsController.cs" />
+    <Compile Include="Controllers\HousekeepingController.cs" />
+    <Compile Include="Controllers\InstitutionController.cs" />
+    <Compile Include="Controllers\IntegrationController.cs" />
+    <Compile Include="Controllers\DebtManagementController.cs" />
+    <Compile Include="Controllers\MarketingController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
+    <Compile Include="Controllers\SharedController.cs" />
+    <Compile Include="Controllers\SupportController.cs" />
+    <Compile Include="Controllers\SystemAdminController.cs" />
+    <Compile Include="Controllers\UploadControlHelper.cs" />
+    <Compile Include="Controllers\ViewProperties.cs" />
+    <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\EduSpec.cs">
+      <DependentUpon>EduSpec.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EduSpec.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EduSpec.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NavbarModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\AcknowledgmentOfDebt.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\AdHocFees.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\AffidavitNoContactWithSpouce_AFR.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\AffidavitNoContactWithSpouce_ENG.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\AffidavitSpouseRefuseToParticipate.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationBankFormParent.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationBankFormParent_AFR.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationBankFormSpouce_AFR.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationBankFormSpouse.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationCoverPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationCovidForm_AFR.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationCovidForm_ENG.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationForm_ENG.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationForm_P2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationForm_P2_AFR.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationForm_P3.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationForm_P3_AFR.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationForm_P3_FosterCare.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationForm_P3_FosterCare_AFR.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationForm_P3_Single.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationForm_P3_Single_AFR.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationForm_P4.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationForm_P4_AFR.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationForm_P4_Single.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationForm_P4_Single_AFR.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationForm_P5.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationForm_P5_AFR.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationForm_P5_Single.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationForm_P5_Single_AFR.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationForm_P6.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationForm_P6_AFR.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationForm_P6_Single.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationForm_P6_Single_AFR.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationForm_P7.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ApplicationForm_P7_AFR.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Application_CoverPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\CorrespondenceHistory.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\CorrespondenceHistory.Designer.cs">
+      <DependentUpon>CorrespondenceHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\CorrespondenceHistoryFamily.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\CorrespondenceHistoryFamily.Designer.cs">
+      <DependentUpon>CorrespondenceHistoryFamily.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\DebtManagementSummary.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\EmailHistory.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ExemptionCalculation.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ExemptionCompensation.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ExemptionCompensation_FreeSate.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ExemptionProvisionalList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ExemptionsSummaryGrouped.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ExemptionSummary.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Families.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\FamilyDetail.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\FamilyExemptionHistory.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\FinalTableExemptions.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\FormRegister.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\GenericLetter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\GenericLetterAcceptance.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\GenericLetterAll.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Invoice.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\LearnersClassList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\MonthlyReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ParentAccountHistory.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\PaymentArrangements.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\PaymentArrangementsFamily.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Quotation.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\RegisteredEmails.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\SMSHistory.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Statement.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Content\SchoolLogos\" />
+    <Folder Include="Printouts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\EduSpec.dbml.layout">
+      <DependentUpon>EduSpec.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Reports\AcknowledgmentOfDebt.resx">
+      <DependentUpon>AcknowledgmentOfDebt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\AdHocFees.resx">
+      <DependentUpon>AdHocFees.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\AffidavitNoContactWithSpouce_AFR.resx">
+      <DependentUpon>AffidavitNoContactWithSpouce_AFR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\AffidavitNoContactWithSpouce_ENG.resx">
+      <DependentUpon>AffidavitNoContactWithSpouce_ENG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\AffidavitSpouseRefuseToParticipate.resx">
+      <DependentUpon>AffidavitSpouseRefuseToParticipate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationBankFormParent.resx">
+      <DependentUpon>ApplicationBankFormParent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationBankFormParent_AFR.resx">
+      <DependentUpon>ApplicationBankFormParent_AFR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationBankFormSpouce_AFR.resx">
+      <DependentUpon>ApplicationBankFormSpouce_AFR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationBankFormSpouse.resx">
+      <DependentUpon>ApplicationBankFormSpouse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationCoverPage.resx">
+      <DependentUpon>ApplicationCoverPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationCovidForm_AFR.resx">
+      <DependentUpon>ApplicationCovidForm_AFR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationCovidForm_ENG.resx">
+      <DependentUpon>ApplicationCovidForm_ENG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationForm_ENG.resx">
+      <DependentUpon>ApplicationForm_ENG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationForm_P2.resx">
+      <DependentUpon>ApplicationForm_P2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationForm_P2_AFR.resx">
+      <DependentUpon>ApplicationForm_P2_AFR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationForm_P3.resx">
+      <DependentUpon>ApplicationForm_P3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationForm_P3_AFR.resx">
+      <DependentUpon>ApplicationForm_P3_AFR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationForm_P3_FosterCare.resx">
+      <DependentUpon>ApplicationForm_P3_FosterCare.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationForm_P3_FosterCare_AFR.resx">
+      <DependentUpon>ApplicationForm_P3_FosterCare_AFR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationForm_P3_Single.resx">
+      <DependentUpon>ApplicationForm_P3_Single.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationForm_P3_Single_AFR.resx">
+      <DependentUpon>ApplicationForm_P3_Single_AFR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationForm_P4.resx">
+      <DependentUpon>ApplicationForm_P4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationForm_P4_AFR.resx">
+      <DependentUpon>ApplicationForm_P4_AFR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationForm_P4_Single.resx">
+      <DependentUpon>ApplicationForm_P4_Single.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationForm_P4_Single_AFR.resx">
+      <DependentUpon>ApplicationForm_P4_Single_AFR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationForm_P5.resx">
+      <DependentUpon>ApplicationForm_P5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationForm_P5_AFR.resx">
+      <DependentUpon>ApplicationForm_P5_AFR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationForm_P5_Single.resx">
+      <DependentUpon>ApplicationForm_P5_Single.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationForm_P5_Single_AFR.resx">
+      <DependentUpon>ApplicationForm_P5_Single_AFR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationForm_P6.resx">
+      <DependentUpon>ApplicationForm_P6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationForm_P6_AFR.resx">
+      <DependentUpon>ApplicationForm_P6_AFR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationForm_P6_Single.resx">
+      <DependentUpon>ApplicationForm_P6_Single.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationForm_P6_Single_AFR.resx">
+      <DependentUpon>ApplicationForm_P6_Single_AFR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationForm_P7.resx">
+      <DependentUpon>ApplicationForm_P7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ApplicationForm_P7_AFR.resx">
+      <DependentUpon>ApplicationForm_P7_AFR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Application_CoverPage.resx">
+      <DependentUpon>Application_CoverPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CorrespondenceHistory.resx">
+      <DependentUpon>CorrespondenceHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CorrespondenceHistoryFamily.resx">
+      <DependentUpon>CorrespondenceHistoryFamily.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\DebtManagementSummary.resx">
+      <DependentUpon>DebtManagementSummary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\EmailHistory.resx">
+      <DependentUpon>EmailHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ExemptionCalculation.resx">
+      <DependentUpon>ExemptionCalculation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ExemptionCompensation.resx">
+      <DependentUpon>ExemptionCompensation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ExemptionCompensation_FreeSate.resx">
+      <DependentUpon>ExemptionCompensation_FreeSate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ExemptionProvisionalList.resx">
+      <DependentUpon>ExemptionProvisionalList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ExemptionsSummaryGrouped.resx">
+      <DependentUpon>ExemptionsSummaryGrouped.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ExemptionSummary.resx">
+      <DependentUpon>ExemptionSummary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Families.resx">
+      <DependentUpon>Families.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\FamilyDetail.resx">
+      <DependentUpon>FamilyDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\FamilyExemptionHistory.resx">
+      <DependentUpon>FamilyExemptionHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\FinalTableExemptions.resx">
+      <DependentUpon>FinalTableExemptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\FormRegister.resx">
+      <DependentUpon>FormRegister.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\GenericLetter.resx">
+      <DependentUpon>GenericLetter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\GenericLetterAcceptance.resx">
+      <DependentUpon>GenericLetterAcceptance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\GenericLetterAll.resx">
+      <DependentUpon>GenericLetterAll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Invoice.resx">
+      <DependentUpon>Invoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\LearnersClassList.resx">
+      <DependentUpon>LearnersClassList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\MonthlyReport.resx">
+      <DependentUpon>MonthlyReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ParentAccountHistory.resx">
+      <DependentUpon>ParentAccountHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\PaymentArrangements.resx">
+      <DependentUpon>PaymentArrangements.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\PaymentArrangementsFamily.resx">
+      <DependentUpon>PaymentArrangementsFamily.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Quotation.resx">
+      <DependentUpon>Quotation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\RegisteredEmails.resx">
+      <DependentUpon>RegisteredEmails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\SMSHistory.resx">
+      <DependentUpon>SMSHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Statement.resx">
+      <DependentUpon>Statement.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:5239/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+  </Target>
+</Project>

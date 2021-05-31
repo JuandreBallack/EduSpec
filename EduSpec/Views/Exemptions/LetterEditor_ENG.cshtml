@@ -1,0 +1,11 @@
+﻿@Html.DevExpress().HtmlEditor(edtSettings =>
+{
+    edtSettings.Name = "Body_ENG";
+    edtSettings.CallbackRouteValues = new { Controller = "Exemptions", Action = "LetterEditor_ENG", LetterID = ViewData["InstLetterID"] };
+    //edtSettings.ControlStyle.CssClass = "formeditor";
+    edtSettings.Width = Unit.Percentage(100);
+    edtSettings.Height = 500;
+    edtSettings.Settings.AllowHtmlView = false;
+    edtSettings.Settings.AllowPreview = false;
+    edtSettings.ClientSideEvents.GotFocus = "onGotFocus_Letter";
+}).Bind(Model).GetHtml()

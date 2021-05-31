@@ -1,0 +1,76 @@
+﻿@model System.Collections.IEnumerable
+
+<script type="text/javascript">
+
+    var cbFamilyVisibleTypeSelectedIndex = 2; //Default as Active Families
+
+    function onFamilyManagementCloseUp(s, e) {
+        //Add this function to all view were "AccountInformation" is used.
+        //This is to have custom code when Family management form is close.
+    }
+
+    function onErrorTerminationOKClick(Result) {
+        if (Result == "mrOK") {
+            pcErrorTerminationNotSelected.Hide();
+        }
+    }
+
+    function onErrorLeftSchoolOKClick(Result) {
+        if (Result == "mrOK") {
+            pcErrorLeftSchoolNotSelected.Hide();
+        }
+    }
+
+</script>
+
+@Html.DevExpress().Splitter(settings =>
+{
+    SplitterUtils.SetSplitterProperties(settings, ViewData["ViewProperties"]);
+
+
+
+    MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+    HeaderPane.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div ID=\"ViewInfo\">Families" + "</div><div style=\"margin:2px\">");
+    });
+
+    MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+    MainContentPane.SetContent(() =>
+    {
+        Html.RenderAction("FamilyPartial");
+    });
+
+    MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+    FooterPane.Separator.Visible = DefaultBoolean.True;
+    FooterPane.SetContent(() =>
+    {
+        Html.RenderAction("FamilyLearnersPartial");
+    });
+
+    }).GetHtml()
+
+@MessageDlg.ShowMessageDlg("pcErrorTerminationNotSelected", Html, "Please make sure that the Termination Date is set when grade/class has been changed to 'Left School'.", new BtnType[] { BtnType.mbOK }, MessageType.mInformation, "onErrorTerminationOKClick")
+@MessageDlg.ShowMessageDlg("pcErrorLeftSchoolNotSelected", Html, "Please make sure that the Grade/Class has been set to 'Left School' when a termination date is set.", new BtnType[] { BtnType.mbOK }, MessageType.mInformation, "onErrorLeftSchoolOKClick")
+
+@Html.Partial("AccountInformation", "false")
+@Html.Partial("reportFamilyDetail")
+
+@Html.DevExpress().LoadingPanel(settings =>
+{
+    settings.Name = "LoadingPanel";
+    settings.Modal = true;
+    settings.Text = "Preparing report.";
+}).GetHtml()
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcCombineFamilies", "Combine Families");
+    //settings.ClientSideEvents.PopUp = "onFamilyManagementPopUp";
+    //settings.ClientSideEvents.CloseUp = "onFamilyManagementCloseUp";
+    settings.Width = 700;
+    settings.SetContent(() =>
+    {
+        Html.RenderPartial("CombineFamiliesPartial");
+    });
+}).GetHtml()

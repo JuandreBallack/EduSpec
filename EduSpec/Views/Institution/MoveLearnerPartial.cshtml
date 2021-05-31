@@ -1,0 +1,213 @@
+﻿@Html.DevExpress().PopupControl(settings =>
+    {
+        PopupUtils.SetPopupViewProperties(settings, "pcMoveLearner", "Move learner");
+
+
+        settings.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 350px\"><div class=\"line\">");
+
+            Html.DevExpress().Label(lbsettings =>
+            {
+                lbsettings.Name = "lbLearnerID";
+                lbsettings.Text = "";
+                lbsettings.Properties.ClientInstanceName = "lbLearnerID";
+                lbsettings.ClientVisible = false;
+            }).GetHtml();
+
+            Html.DevExpress().Label(lbsettings =>
+            {
+                lbsettings.Name = "lbFamilyID";
+                lbsettings.Text = "";
+                lbsettings.Properties.ClientInstanceName = "lbFamilyID";
+                lbsettings.ClientVisible = false;
+            }).GetHtml();
+
+            Html.DevExpress().Label(lbsettings =>
+            {
+                lbsettings.ControlStyle.CssClass = "label";
+                lbsettings.Text = "Learner (This learner will be moved):";
+                lbsettings.ControlStyle.Font.Bold = true;
+                lbsettings.ControlStyle.ForeColor = System.Drawing.Color.Blue;
+                lbsettings.ControlStyle.Font.Size = 10;
+                lbsettings.Width = 300;
+            }).GetHtml();
+
+            ViewContext.Writer.Write("</div><div class=\"line\">");
+
+            Html.DevExpress().Label(lbsettings =>
+            {
+                lbsettings.ControlStyle.CssClass = "label";
+                lbsettings.Text = "Name:";
+                lbsettings.Width = 280;
+            }).GetHtml();
+
+            Html.DevExpress().Label(lbsettings =>
+            {
+                lbsettings.Name = "lbFirstName";
+                lbsettings.ControlStyle.CssClass = "label";
+                lbsettings.Text = "";
+                lbsettings.Width = 300;
+                lbsettings.ControlStyle.Font.Bold = true;
+                lbsettings.Properties.ClientInstanceName = "lbFirstName";
+            }).GetHtml();
+
+            ViewContext.Writer.Write("</div><div class=\"line\">");
+
+            Html.DevExpress().Label(lbsettings =>
+            {
+                lbsettings.ControlStyle.CssClass = "label";
+                lbsettings.Text = "Surname:";
+                lbsettings.Width = 280;
+            }).GetHtml();
+
+            Html.DevExpress().Label(lbsettings =>
+            {
+                lbsettings.Name = "lbSurname";
+                lbsettings.ControlStyle.CssClass = "label";
+                lbsettings.Text = "";
+                lbsettings.Width = 300;
+                lbsettings.ControlStyle.Font.Bold = true;
+                lbsettings.Properties.ClientInstanceName = "lbSurname";
+            }).GetHtml();
+
+            ViewContext.Writer.Write("</div><div class=\"line\">");
+
+            Html.DevExpress().Label(lbsettings =>
+            {
+                lbsettings.ControlStyle.CssClass = "label";
+                lbsettings.Text = "Current family:";
+                lbsettings.ControlStyle.Font.Bold = true;
+                lbsettings.ControlStyle.ForeColor = System.Drawing.Color.Blue;
+                lbsettings.ControlStyle.Font.Size = 10;
+                lbsettings.Width = 300;
+            }).GetHtml();
+
+            ViewContext.Writer.Write("</div><div class=\"line\">");
+
+            Html.DevExpress().Label(lbsettings =>
+            {
+                lbsettings.ControlStyle.CssClass = "label";
+                lbsettings.Text = "Surname:";
+                lbsettings.Width = 280;
+            }).GetHtml();
+
+            Html.DevExpress().Label(lbsettings =>
+            {
+                lbsettings.Name = "lbFamilySurname";
+                lbsettings.ControlStyle.CssClass = "label";
+                lbsettings.Text = "";
+                lbsettings.Width = 300;
+                lbsettings.ControlStyle.Font.Bold = true;
+                lbsettings.Properties.ClientInstanceName = "lbFamilySurname";
+            }).GetHtml();
+
+            ViewContext.Writer.Write("</div><div class=\"line\">");
+
+            Html.DevExpress().Label(lbsettings =>
+            {
+                lbsettings.ControlStyle.CssClass = "label";
+                lbsettings.Text = "Family code:";
+                lbsettings.Width = 280;
+            }).GetHtml();
+
+            Html.DevExpress().Label(lbsettings =>
+            {
+                lbsettings.Name = "lbFamilyCode";
+                lbsettings.ControlStyle.CssClass = "label";
+                lbsettings.Text = "";
+                lbsettings.Width = 300;
+                lbsettings.ControlStyle.Font.Bold = true;
+                lbsettings.Properties.ClientInstanceName = "lbFamilyCode";
+            }).GetHtml();
+
+            ViewContext.Writer.Write("</div><div class=\"line\">");
+
+            Html.DevExpress().Label(lbsettings =>
+            {
+                lbsettings.ControlStyle.CssClass = "label";
+                lbsettings.Text = "External account number:";
+                lbsettings.Width = 280;
+            }).GetHtml();
+
+            Html.DevExpress().Label(lbsettings =>
+            {
+                lbsettings.Name = "lbExternalAccNo";
+                lbsettings.ControlStyle.CssClass = "label";
+                lbsettings.Text = "";
+                lbsettings.Width = 300;
+                lbsettings.ControlStyle.Font.Bold = true;
+                lbsettings.Properties.ClientInstanceName = "lbExternalAccNo";
+            }).GetHtml();
+
+            
+
+            ViewContext.Writer.Write("</div><div class=\"line\">");
+
+            Html.DevExpress().Label(lbsettings =>
+            {
+                lbsettings.ControlStyle.CssClass = "label";
+                lbsettings.Text = "New family:";
+                lbsettings.ControlStyle.Font.Bold = true;
+                lbsettings.ControlStyle.ForeColor = System.Drawing.Color.Blue;
+                lbsettings.ControlStyle.Font.Size = 10;
+                lbsettings.Width = 300;
+            }).GetHtml();
+
+            ViewContext.Writer.Write("</div><div class=\"line\">");
+
+            Html.DevExpress().Label(lbsettings =>
+            {
+                lbsettings.ControlStyle.CssClass = "label";
+                lbsettings.Text = "Family code/External Acc. no./Surname:";
+                lbsettings.Width = 800;
+            }).GetHtml();
+
+            Html.RenderAction("LearnerNewFamilyPicklist");
+
+            Html.DevExpress().Label(lbsettings =>
+            {
+                lbsettings.ControlStyle.CssClass = "label";
+                lbsettings.Text = "Deactivate current family?:";
+                lbsettings.Width = 280;
+            }).Render();
+
+            Html.DevExpress().CheckBox(lbsettings =>
+            {
+                lbsettings.Name = "IsDeactivateOldFamily";
+                lbsettings.ControlStyle.CssClass = "formeditor";
+                lbsettings.Properties.ValueType = typeof(bool);
+                lbsettings.Width = 150;
+                lbsettings.Properties.ClientSideEvents.Init = "function(s, e){ s.SetChecked(true); }";
+                lbsettings.Properties.ClientInstanceName = "IsDeactivateOldFamily";
+            }).GetHtml();
+
+            ViewContext.Writer.Write("</div><div class=\"line\">");
+
+            Html.DevExpress().Button(
+                buttonSettings =>
+                {
+                    buttonSettings.Name = "btnMoveLearner";
+                    buttonSettings.ControlStyle.CssClass = "button";
+                    buttonSettings.Width = 80;
+                    buttonSettings.Text = "Move";
+                    buttonSettings.ClientSideEvents.Click = "finalConfirmMove";
+                    buttonSettings.UseSubmitBehavior = true;
+                }
+            )
+            .Render();
+            Html.DevExpress().Button(
+                buttonSettings =>
+                {
+                    buttonSettings.Name = "btnCancelOrder";
+                    buttonSettings.ControlStyle.CssClass = "button";
+                    buttonSettings.Width = 80;
+                    buttonSettings.Text = "Cancel";
+                    buttonSettings.ClientSideEvents.Click = "function(s, e) {pcMoveLearner.Hide(); }";
+                }
+            )
+            .Render();
+            ViewContext.Writer.Write("</div></div><b class=\"Clear\"></b>");
+        });
+
+    }).GetHtml()

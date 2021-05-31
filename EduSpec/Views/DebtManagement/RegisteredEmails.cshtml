@@ -1,0 +1,54 @@
+﻿@model System.Collections.IEnumerable
+
+<script type="text/javascript">
+
+    var cbYearSelectedIndex = -1;
+
+</script>
+
+@Html.DevExpress().Splitter(settings =>
+{
+    SplitterUtils.SetSplitterProperties(settings, ViewData["ViewProperties"]);
+
+    MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+    HeaderPane.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div ID=\"ViewInfo\">Registered Emails</div><div style=\"margin:2px\">");
+    });
+
+    MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+    MainContentPane.SetContent(() =>
+    {
+        Html.RenderAction("RegisteredEmailsPartial");
+    });
+
+    MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+    FooterPane.Separator.Visible = DefaultBoolean.True;
+    FooterPane.SetContent(() =>
+    {
+        //Html.RenderAction("AgeAnalysisImportDetailPartial");
+    });
+
+}).GetHtml()
+
+@*@Html.DevExpress().PopupControl(settings =>
+    {
+        PopupUtils.SetPopupViewProperties(settings, "pcImportAgeAnalysis", "Import age analysis");
+        settings.SetContent(() =>
+        {
+            Html.RenderPartial("ImportAge");
+        });
+
+    }).GetHtml()
+
+@Html.DevExpress().LoadingPanel(
+       settings =>
+       {
+           settings.Name = "LoadingPanel";
+           settings.Modal = true;
+           settings.Text = "Process Age...";
+       }
+   ).GetHtml()
+
+@MessageDlg.ShowMessageDlg("pcAgeProcessed", Html, "The selected age analysis has been processed.", new BtnType[] { BtnType.mbOK }, MessageType.mInformation)
+@MessageDlg.ShowMessageDlg("pcDeleteAge", Html, "Are you sure you want to delete the selected Age Analysis?", new BtnType[] { BtnType.mbYes, BtnType.mbNo }, MessageType.mConfirmation, "onBtnConfirmDeleteAgeClick")*@

@@ -1,0 +1,51 @@
+﻿@*<table class="CheckListTable">
+    <tr>
+        <td class="CheckListTable-l" style="width:600px">
+            <div class="edit_form" style="width: 100%; margin:0px 3px 0px 5px;">
+                <div class="line" style="width: 100%; margin:0px;">*@
+
+                    
+                    @Html.DevExpress().HtmlEditor(edtSettings =>
+                    {
+                        edtSettings.Name = "Body";
+                        edtSettings.CallbackRouteValues = new { Controller = "Exemptions", Action = "LetterEditor", LetterID = ViewData["InstLetterID"] };
+                        //edtSettings.ControlStyle.CssClass = "formeditor";
+                        edtSettings.Width = Unit.Percentage(100);
+                        edtSettings.Height = 500;
+                        edtSettings.Settings.AllowHtmlView = false;
+                        edtSettings.Settings.AllowPreview = false;
+                    }).Bind(Model).GetHtml()
+
+                    
+
+                    
+
+                @*</div>
+            </div>
+        </td>
+        <td class="CheckListTable-r">
+            <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                <div class="line" style="width: 100%; margin:0px;">
+
+                    @Html.DevExpress().ListBox(
+                    lbsettings =>
+                    {
+                        lbsettings.Name = "PlaceHolders";
+                        lbsettings.Width = 225;
+                        lbsettings.Height = 300;
+                        lbsettings.Properties.Caption = "Place Holders:";
+                        lbsettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+                        lbsettings.Properties.SelectionMode = ListEditSelectionMode.Single;
+                        lbsettings.Properties.ValueField = "ID";
+                        lbsettings.Properties.ValueType = typeof(string);
+                        lbsettings.Properties.TextField = "Description";
+                        lbsettings.Properties.ClientSideEvents.ItemDoubleClick = "OnCLick";
+                    }).BindList(EduSpec.GridUtils.getDropdownList("Get_PlaceHolders_PickList")).GetHtml()
+                    
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>*@
+
+

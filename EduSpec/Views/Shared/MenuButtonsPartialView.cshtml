@@ -1,0 +1,6 @@
+﻿@Html.DevExpress().Menu(settings =>
+{
+    MenuButtonsUtils.SetMenuProperties(settings, ViewData["ViewProperties"]);
+    settings.SyncSelectionMode = SyncSelectionMode.None;
+
+}).GetHtml()

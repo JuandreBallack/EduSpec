@@ -1,0 +1,173 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["BulkEmailHistoryViewProperties"]);
+
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "BulkCorrespondence", Action = "BulkEmailUpdate" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "BulkCorrespondence", Action = "DeleteEmailQueueRow" };
+
+    settings.Settings.ShowPreview = true;
+    settings.PreviewEncodeHtml = false;
+    settings.PreviewFieldName = "EmailBody";
+
+    settings.CommandButtonInitialize = (sender, e) =>
+    {
+        if (e.VisibleIndex >= 0)
+        {
+
+            MVCxGridView _gridview = sender as MVCxGridView;
+
+            int StatusID = (int)_gridview.GetRowValues(e.VisibleIndex, "BulkEmailStatusID");
+
+            if (e.ButtonType == ColumnCommandButtonType.Edit)
+            {
+                switch (StatusID)
+                {
+                    case 1:
+                        {
+                            e.Visible = false;
+                        }
+                        break;
+                    case 3:
+                    case 4:
+                        {
+                            e.Visible = false;
+                        }
+                        break;
+                    case 2:
+                        {
+                            e.Visible = true;
+                        }
+                        break;
+                }
+            }
+
+            if (e.ButtonType == ColumnCommandButtonType.Delete)
+            {
+                switch (StatusID)
+                {
+                    case 1:
+                        {
+                            e.Visible = false;
+                        }
+                        break;
+                    case 3:
+                    case 4:
+                        {
+                            e.Visible = false;
+                        }
+                        break;
+                    case 2:
+                        {
+                            e.Visible = true;
+                        }
+                        break;
+                }
+            }
+        }
+    };
+
+    settings.Columns.Add(column =>
+    {
+        column.Name = "EmailLetters";
+        //column.FieldName = "IsDealerApplicationUploaded";
+        column.Caption = "Document";
+        column.UnboundType = DevExpress.Data.UnboundColumnType.String;
+        column.Visible = true;
+        column.Width = 80;
+        column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        column.SetDataItemTemplateContent(c =>
+        {
+
+            Html.DevExpress().HyperLink(settingsBtn =>
+            {
+
+                settingsBtn.Name = "cb_" + c.KeyValue.ToString();
+
+                if (DataBinder.Eval(c.DataItem, "FileName") != null)
+                {
+                    settingsBtn.Properties.ImageUrl = "~/Content/GridImages/FileType_PDF.png";
+                    settingsBtn.NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "BulkCorrespondence", Action = "getBulkEmailLetters", returnUrl = DataBinder.Eval(c.DataItem, "FileName").ToString() });
+                    settingsBtn.Properties.Target = "_blank";
+                }
+
+                settingsBtn.Width = 60;
+
+            }).GetHtml();
+        });
+    });
+
+    //settings.CommandButtonInitialize = (sender, e) =>
+    //{
+    //    if (e.VisibleIndex >= 0)
+    //    {
+
+    //        MVCxGridView _gridview = sender as MVCxGridView;
+
+    //        bool IsReadyToSend = (bool)_gridview.GetRowValues(e.VisibleIndex, "IsReadyToSend");
+
+    //        if (e.ButtonType == ColumnCommandButtonType.SelectCheckbox && (IsReadyToSend == false))
+    //        {
+    //            e.Visible = false;
+    //            e.Enabled = false;
+    //        }
+    //        else
+    //        {
+    //            e.Visible = true;
+
+    //        }
+
+    //    }
+    //};
+
+    //settings.CommandColumn.ShowSelectCheckbox = true;
+    //settings.CommandColumn.ShowClearFilterButton = true;
+
+
+    @settings.SetEditFormTemplateContent(c =>
+    {
+        var BulkEmail = ViewData["BulkEmail"] != null ? ViewData["BulkEmail"] : c.DataItem;
+
+
+        EduSpecHtmlHelper.EditForm(Html);
+        EduSpecHtmlHelper.Line(Html);
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+        EduSpecHtmlHelper.NewRow(Html); //********** Row 1
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 210); // First column
+        EduSpecHtmlHelper.Label(Html, "Primary parent email:", "editorLabel");
+        EduSpecHtmlHelper.TextBox(Html, "formeditor", BulkEmail, "Recipient", true, 200, null);
+        EduSpecHtmlHelper.Label(Html, "Cc:", "editorLabel");
+        EduSpecHtmlHelper.TextBox(Html, "formeditor", BulkEmail, "Cc", true, 200, null);
+        EduSpecHtmlHelper.EndColumn(Html);
+
+
+        EduSpecHtmlHelper.EndRow(Html);
+        EduSpecHtmlHelper.EndTable(Html);
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+
+        EduSpecHtmlHelper.EditForm(Html);
+        EduSpecHtmlHelper.NewDiv(Html, "line");
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> SaveEditEmailEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        SaveEditEmailEvents.Add(ButtonClientSideEvent.onClick, String.Format("function(s, e) {{ {0}.UpdateEdit(); }}", settings.Name));
+        EduSpecHtmlHelper.Button(Html, "btnSaveEditLearner", "button", "Save", 80, SaveEditEmailEvents);
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string>
+        CancelEditLearnerEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        CancelEditLearnerEvents.Add(ButtonClientSideEvent.onClick, String.Format("function(s, e) {{{0}.CancelEdit(); }}", settings.Name));
+        EduSpecHtmlHelper.Button(Html, "btnCancelEditLearner", "button", "Cancel", 80, CancelEditLearnerEvents);
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+
+
+        settings.PreRender = (sender, e) =>
+        {
+            ((MVCxGridView)sender).StartEdit(1);
+        };
+
+    });
+
+}).Bind(Model).GetHtml()

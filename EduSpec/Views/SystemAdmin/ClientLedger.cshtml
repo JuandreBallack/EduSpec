@@ -1,0 +1,241 @@
+﻿@model System.Collections.IEnumerable
+
+<script type="text/javascript">
+
+    function AddNewLedger() {
+        $.ajax({
+            type: 'POST',
+            url: '/SystemAdmin/ClientLedgerAdd',
+            dataType: 'json',
+            async: false,
+            data: {
+                InstID: cbInstitutions.GetValue(),
+                DateDone: deDateDone.GetDate().toISOString(),
+                LedgerTypeID: cbLedgerType.GetValue(),
+                LedgerTrxTypeID: cbLedgerTrxType.GetValue(),
+                Amount: ceLedgerAmount.GetValue()
+            },
+            success: function (result) {
+                if (result.Success == true) {
+                    pcAddNewLedger.Hide();
+                    GridView.PerformCallback();
+                }
+            }
+        });
+    }
+
+    function AddNewInvoice() {
+        $.ajax({
+            type: 'POST',
+            url: '/SystemAdmin/NewInvoiceAdd',
+            dataType: 'json',
+            async: false,
+            data: {
+                InstID: cbInstitutionsInvoice.GetValue()
+            },
+            success: function (response) {
+                //window.open(response.Url, '_Blank');
+                window.location.href = response.Url;
+            }
+        });
+
+        pcAddNewInvoice.Hide();
+       // GridView.PerformCallback();
+    }
+
+    function GenerateInvoice() {
+        $.ajax({
+            type: 'POST',
+            url: '/SystemAdmin/GenerateInvoice',
+            dataType: 'json',
+            async: false,
+            data: {
+                ItemID: cbItemsInvoice.GetValue(),
+                LedgerTypeID: cbLedgerTypeInvoice.GetValue(),
+                InstID: cbInstitutionsInvoice.GetValue(),
+                EmailInvoice: cbEmailInvoice.GetValue()
+            },
+            success: function (response) {
+                window.open(response.Url, '_Blank');
+            }
+        });
+
+        pcGenerateInvoice.Hide();
+        GridView.PerformCallback();
+    }
+
+    function SetLedgerID() {
+        //ViewBag.LedgerTypeID = cbLedgerTypeInvoice.GetValue();
+        '<%Session["LedgerID"] = "' + cbLedgerTypeInvoice.GetValue() + '"; %>';
+    }
+
+</script>
+
+@Html.DevExpress().Splitter(settings =>
+{
+    SplitterUtils.SetSplitterProperties(settings, ViewData["ViewProperties"]);
+
+    MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+    HeaderPane.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div ID=\"ViewInfo\">Client ledger</div><div style=\"margin:2px\"></div>");
+
+        ViewContext.Writer.Write("<div ID=\"RoundPanel\">");
+
+        Html.DevExpress().RoundPanel(rpSettings =>
+        {
+            rpSettings.Name = "rpSettings";
+            rpSettings.HeaderText = "Settings";
+            rpSettings.Width = Unit.Percentage(100);
+            rpSettings.SetContent(() =>
+            {
+                EduSpecHtmlHelper.EditForm(Html);
+                EduSpecHtmlHelper.Line(Html);
+
+                Html.DevExpress().Label(edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "label";
+                    edtSettings.Width = 40;
+                    edtSettings.Text = "Year:";
+                }).Render();
+
+                Html.DevExpress().ComboBox(cbSettings =>
+                {
+                    cbSettings.Name = "cbYear";
+                    cbSettings.ControlStyle.CssClass = "editor";
+                    cbSettings.Properties.TextField = "Description";
+                    cbSettings.Properties.ValueField = "ID";
+                    cbSettings.Properties.ValueType = typeof(int);
+                    cbSettings.ShowModelErrors = true;
+                    cbSettings.Properties.ClientSideEvents.Init = String.Format("function(s, e) {{cbYear.SetValue({0}); }}", HttpContext.Current.Session["CurrentYearID"]);
+                    cbSettings.Properties.ClientSideEvents.SelectedIndexChanged = "function(s, e) {GridView.PerformCallback({ YearID: cbYear.GetValue() });}";
+                    cbSettings.Width = 60;
+                }).BindList(GridUtils.getDropdownList("Get_SchoolYear_PickList")).Render();
+
+                ViewContext.Writer.Write("</div>");
+
+            });
+        }).Render();
+
+        ViewContext.Writer.Write("</div>");
+
+    });
+
+    MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+    MainContentPane.SetContent(() =>
+    {
+        Html.RenderAction("ClientLedgerPartial");
+    });
+
+    MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+    FooterPane.SetContent(() =>
+    {
+
+    });
+
+}).GetHtml()
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcAddNewLedger", "Transaction add");
+    settings.SetContent(() =>
+    {
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+        EduSpecHtmlHelper.Label(Html, "Institution:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 170);// Second column
+        EduSpecHtmlHelper.ComboBox(Html, "cbInstitutions", "formeditor", 150, "Get_InstitutionName_Picklist", null);
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+        EduSpecHtmlHelper.Label(Html, "Date done:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 170);// Second column
+        EduSpecHtmlHelper.DateEdit(Html, "deDateDone", "formeditor", 150, null);
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+        EduSpecHtmlHelper.Label(Html, "Ledger type:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 170);// Second column
+        EduSpecHtmlHelper.ComboBox(Html, "cbLedgerType", "formeditor", 150, "Get_ClientLedgerType_Picklist", null);
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+        EduSpecHtmlHelper.Label(Html, "Ledger transaction:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 170);// Second column
+        EduSpecHtmlHelper.ComboBox(Html, "cbLedgerTrxType", "formeditor", 150, "Get_ClientLedgerTrxType_Picklist", null);
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+        EduSpecHtmlHelper.Label(Html, "Amount:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 170);// Second column
+        EduSpecHtmlHelper.CurrencyEdit(Html, "ceLedgerAmount", "formeditor", 150, null);
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+        EduSpecHtmlHelper.EndTable(Html);
+
+
+        EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+        EduSpecHtmlHelper.NewDiv(Html, "line");
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> AddClientLedgerEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        AddClientLedgerEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){{ AddNewLedger(); }}");
+        EduSpecHtmlHelper.Button(Html, "btnAddClientLedger", "button", "OK", 80, AddClientLedgerEvents);
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> cancelClientLedgerEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        cancelClientLedgerEvents.Add(ButtonClientSideEvent.onClick, "function(s,e){pcAddNewLedger.Hide();}");
+        EduSpecHtmlHelper.Button(Html, "btnCancelAddClientLedger", "button", "Cancel", 80, cancelClientLedgerEvents);
+
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+
+    });
+}).GetHtml()
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcAddNewInvoice", "Create new invoice");
+    settings.SetContent(() =>
+    {
+        //Html.RenderAction("AddNewInvoicePartial");
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+        EduSpecHtmlHelper.Label(Html, "Institution:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 170);// Second column
+        EduSpecHtmlHelper.ComboBox(Html, "cbInstitutionsInvoice", "formeditor", 150, "Get_InstitutionName_Picklist", null);
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+        
+        EduSpecHtmlHelper.EndTable(Html);
+        
+        EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+        EduSpecHtmlHelper.NewDiv(Html, "line");
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> AddNewInvoiceEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        AddNewInvoiceEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){{ AddNewInvoice(); }}");
+        EduSpecHtmlHelper.Button(Html, "btnAddNewInvoice", "button", "OK", 80, AddNewInvoiceEvents);
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> cancelNewInvoiceEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        cancelNewInvoiceEvents.Add(ButtonClientSideEvent.onClick, "function(s,e){pcAddNewInvoice.Hide();}");
+        EduSpecHtmlHelper.Button(Html, "btnCancelAddNewInvoice", "button", "Cancel", 80, cancelNewInvoiceEvents);
+
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+
+    });
+}).GetHtml()

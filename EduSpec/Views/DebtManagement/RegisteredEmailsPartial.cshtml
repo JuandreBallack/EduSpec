@@ -1,0 +1,104 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    settings.Columns.Add(column =>
+    {
+        column.Name = "Status";
+        column.FieldName = "Status";
+        column.Caption = "Status";
+        column.UnboundType = DevExpress.Data.UnboundColumnType.String;
+        column.Visible = true;
+        column.Width = 100;
+        column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        column.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+        column.SetDataItemTemplateContent(c =>
+        {
+
+
+            Html.DevExpress().Image(s =>
+            {
+                s.Properties.ImageHeight = Unit.Pixel(4);
+                if (Convert.ToInt32(DataBinder.Eval(c.DataItem, "IsSent")) == 1)
+                {
+                    switch (Convert.ToInt32(DataBinder.Eval(c.DataItem, "IsDelivered")))
+                    {
+                        case 1:
+                            s.ImageUrl = "~/Content/GridImages/Delivered.png";
+                            break;
+                        case 0:
+                            s.ImageUrl = "~/Content/GridImages/Bounced.png";
+                            break;
+                    }
+                }
+                else
+                {
+                    if (Convert.ToInt32(DataBinder.Eval(c.DataItem, "IsCancelled")) == 1)
+                        s.ImageUrl = "~/Content/GridImages/Cancelled.png";
+                    else
+                        s.ImageUrl = "~/Content/GridImages/Not Send.png";
+                }
+            }).Render();
+        });
+    });
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["ViewProperties"]);
+
+    settings.Columns.Add(column =>
+    {
+        column.Name = "DeliveredCertificate";
+        column.Caption = "Certificate";
+        column.UnboundType = DevExpress.Data.UnboundColumnType.String;
+        column.Visible = true;
+        column.Width = 75;
+        column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        column.SetDataItemTemplateContent(c =>
+        {
+
+            Html.DevExpress().HyperLink(settingsBtn =>
+            {
+
+                settingsBtn.Name = "cbh_" + c.KeyValue.ToString();
+
+                if (DataBinder.Eval(c.DataItem, "DeliveredCertificate") != null)
+                {
+                    settingsBtn.Properties.ImageUrl = "~/Content/GridImages/FileType_PDF.png";
+                    settingsBtn.NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "DebtManagement", Action = "getCertificate", returnUrl = "~/RegisteredMailsCertificates/" + DataBinder.Eval(c.DataItem, "DeliveredCertificate").ToString() });
+                    settingsBtn.Properties.Target = "_blank";
+                }
+
+                settingsBtn.Width = 60;
+
+            }).GetHtml();
+        });
+    });
+
+    settings.Toolbars[0].Items.Add(i =>
+    {
+
+        i.Alignment = MenuItemAlignment.Right;
+        i.SetTemplateContent(c =>
+        {
+            Html.DevExpress().ComboBox(comboBox =>
+            {
+                comboBox.Name = "cbYear";
+                comboBox.Width = 70;
+                comboBox.ControlStyle.CssClass = "editor";
+                comboBox.Properties.TextField = "Description";
+                comboBox.Properties.ValueField = "ID";
+                comboBox.Properties.ValueType = typeof(int);
+                comboBox.Properties.ClientSideEvents.Init = String.Format("function(s, e) {{if (cbYearSelectedIndex == -1) cbYear.SetValue({0}); else cbYear.SetValue(cbYearSelectedIndex);}}", HttpContext.Current.Session["CurrentYearID"]);
+                comboBox.Properties.ClientSideEvents.SelectedIndexChanged = "function(s, e) {GridView.PerformCallback({ YearID: cbYear.GetValue() });}";
+                comboBox.Properties.Caption = "Year:";
+            }).BindList(GridUtils.getDropdownList("Get_SchoolYear_PickList")).GetHtml();
+        });
+    });
+
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Count, "DateDone").DisplayFormat = "Total: {0}";
+    settings.Settings.ShowFooter = true;
+
+    settings.Settings.ShowPreview = true;
+    settings.PreviewEncodeHtml = false;
+    settings.PreviewFieldName = "Description";
+
+}).Bind(Model).GetHtml()
+
+
+

@@ -1,0 +1,282 @@
+﻿<table style="width:680px; table-layout:fixed;">
+    <tr>
+        <th class="ReqDocTable-l" style="width:300px; color:blue"><h3><strong>Primary parent</strong></h3></th>
+        <th class="ReqDocTable-r"><h3> </h3></th>
+       
+    </tr>
+    <tr>
+        <td style="vertical-align: top; width: 100px;">
+            <div class="edit_form" style="width: 100%; margin:10px;">
+                <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                    @Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Text = "Title:";
+                        edtSettings.AssociatedControlName = "tbModel";
+                    }).GetHtml()
+
+                    @Html.DevExpress().ComboBox(edtSettings =>
+                    {
+                        edtSettings.Name = "TitleIDParent1";
+                        edtSettings.ControlStyle.CssClass = "formeditor";
+                        edtSettings.Properties.TextField = "Description";
+                        edtSettings.Properties.ValueField = "ID";
+                        edtSettings.Properties.ValueType = typeof(Int32);
+                        edtSettings.Width = 150;
+                    }).BindList(GridUtils.getDropdownList("Get_Title_PickList")).Bind(DataBinder.Eval(Model.DataItem, "TitleIDParent1")).GetHtml()
+
+                    @Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Text = "Relationship:";
+                        edtSettings.AssociatedControlName = "tbModel";
+                    }).GetHtml()
+
+                    @Html.DevExpress().ComboBox(edtSettings =>
+                    {
+                        edtSettings.Name = "PrimaryParentRelationID";
+                        edtSettings.ControlStyle.CssClass = "formeditor";
+                        edtSettings.Properties.TextField = "Description";
+                        edtSettings.Properties.ValueField = "ID";
+                        edtSettings.Properties.ValueType = typeof(Int32);
+                        edtSettings.Width = 150;
+                    }).BindList(GridUtils.getDropdownList("Get_ParentType_PickList")).Bind(DataBinder.Eval(Model.DataItem, "PrimaryParentRelationID")).GetHtml()
+
+                    @Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Text = "Name:";
+                        edtSettings.AssociatedControlName = "tbModel";
+                    }).GetHtml()
+
+                    @Html.DevExpress().TextBox(edtSettings =>
+                    {
+                        edtSettings.Name = "PrimaryParentName";
+                        edtSettings.ControlStyle.CssClass = "formeditor";
+                        edtSettings.Width = 150;
+                    }).Bind(DataBinder.Eval(Model.DataItem, "PrimaryParentName")).GetHtml()
+
+                    @Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Text = "Surname:";
+                        edtSettings.AssociatedControlName = "tbModel";
+                    }).GetHtml()
+
+                    @Html.DevExpress().TextBox(edtSettings =>
+                    {
+                        edtSettings.Name = "PrimaryParentSurname";
+                        edtSettings.ControlStyle.CssClass = "formeditor";
+                        edtSettings.Width = 150;
+                    }).Bind(DataBinder.Eval(Model.DataItem, "PrimaryParentSurname")).GetHtml()
+
+                </div>
+            </div>
+        </td>
+        <td style="vertical-align: top; width: 100px;">
+            <div class=" edit_form" style="width: 100%; margin:10px;">
+                <div class="tabelline">
+
+                    @Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Text = "Tel Home:";
+                        edtSettings.AssociatedControlName = "tbModel";
+                    }).GetHtml()
+
+                    @Html.DevExpress().TextBox(edtSettings =>
+                    {
+                        edtSettings.Name = "PrimaryParentTelHome";
+                        edtSettings.ControlStyle.CssClass = "formeditor";
+                        edtSettings.Width = 150;
+                    }).Bind(DataBinder.Eval(Model.DataItem, "PrimaryParentTelHome")).GetHtml()
+
+                    @Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Text = "Tel Work:";
+                        edtSettings.AssociatedControlName = "tbModel";
+                    }).GetHtml()
+
+                    @Html.DevExpress().TextBox(edtSettings =>
+                    {
+                        edtSettings.Name = "PrimaryParentTelWork";
+                        edtSettings.ControlStyle.CssClass = "formeditor";
+                        edtSettings.Width = 150;
+                    }).Bind(DataBinder.Eval(Model.DataItem, "PrimaryParentTelWork")).GetHtml()
+
+                    @Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Text = "Tel Cell:";
+                        edtSettings.AssociatedControlName = "tbModel";
+                    }).GetHtml()
+
+                    @Html.DevExpress().TextBox(edtSettings =>
+                    {
+                        edtSettings.Name = "PrimaryParentTelCell";
+                        edtSettings.ControlStyle.CssClass = "formeditor";
+                        edtSettings.Width = 150;
+                    }).Bind(DataBinder.Eval(Model.DataItem, "TelCellPrimaryParent")).GetHtml()
+
+                    @Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Text = "Email:";
+                        edtSettings.AssociatedControlName = "tbModel";
+                    }).GetHtml()
+
+                    @Html.DevExpress().TextBox(edtSettings =>
+                    {
+                        edtSettings.Name = "EmailPrimaryParent";
+                        edtSettings.ControlStyle.CssClass = "formeditor";
+                        edtSettings.Width = 150;
+                    }).Bind(DataBinder.Eval(Model.DataItem, "EmailPrimaryParent")).GetHtml()
+                   
+
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <th class="ReqDocTable-l" style="width:300px; color:blue"><h3><strong>Secondary parent</strong></h3></th>
+        <th class="ReqDocTable-r"><h3> </h3></th>
+
+    </tr>
+    <tr>
+        <td style="vertical-align: top; width: 100px;">
+            <div class="edit_form" style="width: 100%; margin:10px;">
+                <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                    @Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Text = "Title:";
+                        edtSettings.AssociatedControlName = "tbModel";
+                    }).GetHtml()
+
+                    @Html.DevExpress().ComboBox(edtSettings =>
+                    {
+                        edtSettings.Name = "TitleIDParent2";
+                        edtSettings.ControlStyle.CssClass = "formeditor";
+                        edtSettings.Properties.TextField = "Description";
+                        edtSettings.Properties.ValueField = "ID";
+                        edtSettings.Properties.ValueType = typeof(Int32);
+                        edtSettings.Width = 150;
+                    }).BindList(GridUtils.getDropdownList("Get_Title_PickList")).Bind(DataBinder.Eval(Model.DataItem, "TitleIDParent2")).GetHtml()
+
+                    @Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Text = "Relationship:";
+                        edtSettings.AssociatedControlName = "tbModel";
+                    }).GetHtml()
+
+                    @Html.DevExpress().ComboBox(edtSettings =>
+                    {
+                        edtSettings.Name = "SecondaryParentTypeID";
+                        edtSettings.ControlStyle.CssClass = "formeditor";
+                        edtSettings.Properties.TextField = "Description";
+                        edtSettings.Properties.ValueField = "ID";
+                        edtSettings.Properties.ValueType = typeof(Int32);
+                        edtSettings.Width = 150;
+                    }).BindList(GridUtils.getDropdownList("Get_ParentType_PickList")).Bind(DataBinder.Eval(Model.DataItem, "SecondaryParentTypeID")).GetHtml()
+
+                    @Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Text = "Name:";
+                        edtSettings.AssociatedControlName = "tbModel";
+                    }).GetHtml()
+
+                    @Html.DevExpress().TextBox(edtSettings =>
+                    {
+                        edtSettings.Name = "Parent2Name";
+                        edtSettings.ControlStyle.CssClass = "formeditor";
+                        edtSettings.Width = 150;
+                    }).Bind(DataBinder.Eval(Model.DataItem, "Parent2Name")).GetHtml()
+
+                    @Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Text = "Surname:";
+                        edtSettings.AssociatedControlName = "tbModel";
+                    }).GetHtml()
+
+                    @Html.DevExpress().TextBox(edtSettings =>
+                    {
+                        edtSettings.Name = "Parent2Surname";
+                        edtSettings.ControlStyle.CssClass = "formeditor";
+                        edtSettings.Width = 150;
+                    }).Bind(DataBinder.Eval(Model.DataItem, "Parent2Surname")).GetHtml()
+
+                </div>
+            </div>
+        </td>
+        <td style="vertical-align: top; width: 100px;">
+            <div class=" edit_form" style="width: 100%; margin:10px;">
+                <div class="tabelline">
+
+                    @Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Text = "Tel Home:";
+                        edtSettings.AssociatedControlName = "tbModel";
+                    }).GetHtml()
+
+                    @Html.DevExpress().TextBox(edtSettings =>
+                    {
+                        edtSettings.Name = "TelHomeSecondaryParent";
+                        edtSettings.ControlStyle.CssClass = "formeditor";
+                        edtSettings.Width = 150;
+                    }).Bind(DataBinder.Eval(Model.DataItem, "TelHomeSecondaryParent")).GetHtml()
+
+                    @Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Text = "Tel Work:";
+                        edtSettings.AssociatedControlName = "tbModel";
+                    }).GetHtml()
+
+                    @Html.DevExpress().TextBox(edtSettings =>
+                    {
+                        edtSettings.Name = "TelWorkSecondaryParent";
+                        edtSettings.ControlStyle.CssClass = "formeditor";
+                        edtSettings.Width = 150;
+                    }).Bind(DataBinder.Eval(Model.DataItem, "TelWorkSecondaryParent")).GetHtml()
+
+                    @Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Text = "Tel Cell:";
+                        edtSettings.AssociatedControlName = "tbModel";
+                    }).GetHtml()
+
+                    @Html.DevExpress().TextBox(edtSettings =>
+                    {
+                        edtSettings.Name = "TelCellSecondaryParent";
+                        edtSettings.ControlStyle.CssClass = "formeditor";
+                        edtSettings.Width = 150;
+                    }).Bind(DataBinder.Eval(Model.DataItem, "TelCellSecondaryParent")).GetHtml()
+
+                    @Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Text = "Email:";
+                        edtSettings.AssociatedControlName = "tbModel";
+                    }).GetHtml()
+
+                    @Html.DevExpress().TextBox(edtSettings =>
+                    {
+                        edtSettings.Name = "EmailSecondaryParent";
+                        edtSettings.ControlStyle.CssClass = "formeditor";
+                        edtSettings.Width = 150;
+                    }).Bind(DataBinder.Eval(Model.DataItem, "EmailSecondaryParent")).GetHtml()
+
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+

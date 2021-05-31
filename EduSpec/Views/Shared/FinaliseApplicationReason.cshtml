@@ -1,0 +1,35 @@
+﻿
+@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.Name = "cbpFinaliseApplicationReason";
+    settings.CallbackRouteValues = new { Controller = "Shared", Action = "FinaliseApplicationReason" };
+    settings.ClientSideEvents.BeginCallback = "function(s,e){{ e.customArgs[\"ExemptionTypeID\"] = ExemptionTypeID; e.customArgs[\"FinaliseReasonTypeID\"] = FinaliseReasonTypeID; }}"; 
+    settings.Width = Unit.Percentage(100);
+    settings.SetContent(() =>
+    {
+        List<Int32> DeclineReason = new List<Int32> { 7 };
+        List<Int32> ConditionalReason = new List<Int32> { 14,15 };
+
+        EduSpecHtmlHelper.Label(Html, "ConditionReason", "Condition reason:", "boldlabel", ConditionalReason.Contains(Convert.ToInt32(HttpContext.Current.Session["ExemptionType"])));
+        EduSpecHtmlHelper.Label(Html, "DeclineReason", "Decline reason:", "boldlabel", DeclineReason.Contains(Convert.ToInt32(HttpContext.Current.Session["ExemptionType"])));
+
+        Html.RenderAction("ExemptionFinaliseReason", "Shared");
+
+        EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+        EduSpecHtmlHelper.NewDiv(Html, "line");
+        Dictionary<EduSpec.ButtonClientSideEvent, string> saveButtonEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        saveButtonEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){ ExemptionsFinaliseApplication(); }");
+        EduSpecHtmlHelper.Button(Html, "btnSaveExemptionCondition", "button", "Save", 80, saveButtonEvents);
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> CloseExemptionConditionButtonEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        CloseExemptionConditionButtonEvents.Add(ButtonClientSideEvent.onClick, "function(s,e){ pcExemptionReason.Hide();}");
+        EduSpecHtmlHelper.Button(Html, "btnCloseExemptionCondition", "button", "Close", 80, CloseExemptionConditionButtonEvents);
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+
+    });
+}).GetHtml()
+
+
+

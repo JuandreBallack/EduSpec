@@ -1,0 +1,37 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["ViewProperties"]);
+
+    settings.Toolbars[0].Items.Add(i =>
+    {
+
+        i.Alignment = MenuItemAlignment.Right;
+        i.SetTemplateContent(c =>
+        {
+            Html.DevExpress().ComboBox(comboBox =>
+            {
+                comboBox.Name = "cbFamilyVisibleType";
+                comboBox.Width = 150;
+                //comboBox.ControlStyle.CssClass = "editor";
+                comboBox.Properties.TextField = "Description";
+                comboBox.Properties.ValueField = "ID";
+                comboBox.Properties.ValueType = typeof(int);
+                comboBox.Properties.ClientSideEvents.Init = "function(s, e) {if (cbFamilyVisibleTypeSelectedIndex == -1) cbFamilyVisibleType.SetValue(2); else cbFamilyVisibleType.SetValue(cbFamilyVisibleTypeSelectedIndex);}";
+                comboBox.Properties.ClientSideEvents.SelectedIndexChanged = "function(s, e) { GridView.PerformCallback({ FamilyVisibleTypeID: cbFamilyVisibleType.GetValue() });}";
+                comboBox.Properties.Caption = "View:";
+            }).BindList(GridUtils.getDropdownList("Get_FamilyVisibleType_PickList")).GetHtml();
+
+        });
+    });
+
+    settings.BeforeGetCallbackResult = (s, e) =>
+    {
+        if (Convert.ToInt32(Session["NewFamilyID"]) != -1)
+        {
+            var gridView = s as MVCxGridView;
+            gridView.FocusedRowIndex = gridView.FindVisibleIndexByKeyValue(Session["NewFamilyID"]);
+            gridView.ScrollToVisibleIndexOnClient = gridView.FocusedRowIndex;
+            Session["NewFamilyID"] = -1;
+        }
+    };   
+}).Bind(Model).GetHtml()

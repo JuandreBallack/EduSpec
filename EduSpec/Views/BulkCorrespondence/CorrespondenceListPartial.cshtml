@@ -1,0 +1,46 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["ListViewProperties"]);
+
+    //settings.Settings.ShowFooter = true;
+    //settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Count, "TableName");
+
+    MVCxGridViewToolbar Toolbar = (MVCxGridViewToolbar)settings.Toolbars[0];
+    Toolbar.Items.Add(i =>
+    {
+        i.BeginGroup = true;
+        i.SetTemplateContent(c =>
+        {
+            EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+            Dictionary<EduSpec.ComboboxClientSideEvent, string> comboboxCorrespondenceList = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+            comboboxCorrespondenceList.Add(ComboboxClientSideEvent.onSelectedIndexChanged, "function(s, e) {GridView.PerformCallback({ ListID: cbCorrespondenceItem.GetValue() });}");
+            comboboxCorrespondenceList.Add(ComboboxClientSideEvent.onInit, "function(s, e) {{if (cbCorrespondenceItemSelectedIndex == -1) cbCorrespondenceItem.SetValue(-1); else cbCorrespondenceItem.SetValue(cbCorrespondenceItemSelectedIndex);}}");
+            EduSpecHtmlHelper.ComboBox(Html, "cbCorrespondenceItem", "gridmenueditor", 180, string.Format("Get_BulkCorrespondenceListAll_PickList {0}", HttpContext.Current.Session["InstID"]), comboboxCorrespondenceList);
+            EduSpecHtmlHelper.EndDiv(Html);
+
+        });
+    });
+
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.Caption = "Action";
+    settings.CommandColumn.ButtonRenderMode = GridCommandButtonRenderMode.Image;
+    settings.CommandColumn.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+    settings.CommandColumn.Width = 60;
+    settings.CommandColumn.ShowSelectCheckbox = true;
+    settings.CommandColumn.ShowClearFilterButton = true;
+    settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.AllPages;
+
+    settings.SettingsEditing.BatchEditSettings.EditMode = GridViewBatchEditMode.Cell;
+
+    settings.SettingsEditing.BatchUpdateRouteValues = new { Controller = "BulkCorrespondence", Action = "UpdateLearnerCellNumberAndEmail" };
+    settings.SettingsEditing.Mode = GridViewEditingMode.Batch;
+
+    settings.SettingsEditing.BatchEditSettings.EditMode = GridViewBatchEditMode.Cell;    
+    settings.SettingsEditing.BatchEditSettings.KeepChangesOnCallbacks = DevExpress.Utils.DefaultBoolean.False;
+
+    settings.SettingsEditing.BatchEditSettings.StartEditAction = GridViewBatchStartEditAction.Click;
+//    settings.Settings.ShowStatusBar = GridViewStatusBarMode.Hidden;
+
+
+}).Bind(Model).GetHtml()
+

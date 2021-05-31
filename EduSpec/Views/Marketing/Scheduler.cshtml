@@ -1,0 +1,34 @@
+﻿@model System.Collections.IEnumerable
+
+<script type="text/javascript">
+
+</script>
+
+@Html.DevExpress().Splitter(settings =>
+{
+    SplitterUtils.SetSplitterProperties(settings,true,85,false,0);
+
+    //settings.ClientSideEvents.PaneResized = String.Format("function(s, e) {{ if(e.pane.name == 'ViewMainContentPane') MaterGridView.SetHeight(e.pane.GetClientHeight() - 2); if(e.pane.name == 'ViewMainContentPane') DetailGrid.SetHeight(e.pane.GetClientHeight() - 2); if(e.pane.name == 'footerPane') BranchDetail.SetHeight(e.pane.GetClientHeight() - 2) }}");
+    MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+    HeaderPane.SetContent(() =>
+    {
+        ViewContext.Writer.Write(
+            "<div ID=\"ViewInfo\">Scheduler</div><div style=\"margin:2px\">");
+
+        //Html.RenderPartial("MenuButtonsPartialView", ViewData["ViewProperties"]);
+    });
+
+    MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+    MainContentPane.SetContent(() =>
+    {
+        Html.RenderPartial("SchedularPartial");
+    });
+
+    MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+    //FooterPane.Separator.Visible = DefaultBoolean.True;
+    FooterPane.SetContent(() =>
+    {
+        //  Html.RenderAction("DealerSupplierBranchesPartial");
+    });
+
+}).GetHtml()

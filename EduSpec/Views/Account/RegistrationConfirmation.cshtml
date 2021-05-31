@@ -1,0 +1,22 @@
+﻿@{ Layout = "~/Views/Shared/_lightLayout.cshtml"; }
+
+<table>
+    <tr>
+        <td width="25%"></td>
+        <td style="padding:5px; text-align:center" width="50%">
+
+            <h1>EduSpec Online registration.</h1><br />
+            <p>Your request for registration has been submitted and your institution will be activated once a validation process has been done. An agent will contact you shortly.</p><br />
+
+            @Html.DevExpress().Button(btnsettings =>
+            {
+                btnsettings.Name = "btnOk";
+                btnsettings.Text = "Ok";
+                btnsettings.RouteValues = new { Controller = "Account", Action = "Login" };
+                btnsettings.CausesValidation = false;
+            }).GetHtml()
+
+        </td>
+        <td width="25%"></td>
+    </tr>
+</table>

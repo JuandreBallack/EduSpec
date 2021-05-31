@@ -1,0 +1,6 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["DebtManagementFamilyStatementViewProperties"]);    
+
+}).Bind(Model).GetHtml()
+

@@ -1,0 +1,65 @@
+﻿@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcRegisteredEmails", "Registered Emails");
+
+    settings.Width = 900;
+    settings.SetContent(() =>
+    {
+
+        EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+        EduSpecHtmlHelper.NewDiv(Html, "line");
+
+        EduSpecHtmlHelper.Label(Html, "Select parents to for registered emails", "boldlabel");
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+
+        EduSpecHtmlHelper.NewRow(Html); //********** Row 1
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form",100); // First column
+        EduSpecHtmlHelper.Label(Html, "Email body:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        Dictionary<EduSpec.ComboboxClientSideEvent, string> comboboxValidateRequiredFieldMessage = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+        comboboxValidateRequiredFieldMessage.Add(ComboboxClientSideEvent.onValidation, "function(s,e){validateRequiredField(e.value, e);}");
+        EduSpecHtmlHelper.ComboBox(Html,"cbSection41Message", "formeditor", 220, "Get_InstitutionEmailMessages_PickList " + HttpContext.Current.Session["InstID"] + ',' + 2, comboboxValidateRequiredFieldMessage);
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+
+        EduSpecHtmlHelper.NewRow(Html); //********** Row 2
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 100); // First column
+        EduSpecHtmlHelper.Label(Html, "Email subject:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        EduSpecHtmlHelper.TextBox(Html, "tbSection41EmailSubject", "formeditor", true, 220, null);
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+
+        EduSpecHtmlHelper.NewRow(Html); //********** Row 3
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 100); // First column
+        EduSpecHtmlHelper.Label(Html, "Letter:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        Dictionary<EduSpec.ComboboxClientSideEvent, string> comboboxValidateRequiredFieldLetter = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+        comboboxValidateRequiredFieldLetter.Add(ComboboxClientSideEvent.onValidation, "function(s,e){validateRequiredField(e.value, e);}");
+        EduSpecHtmlHelper.ComboBox(Html, "cbSection41Letter", "formeditor", 220, "Get_DebtManagement_InstitutionFinalDemandLetter_PickList " + HttpContext.Current.Session["InstID"], comboboxValidateRequiredFieldLetter);
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+
+        EduSpecHtmlHelper.EndTable(Html);
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+
+        Html.RenderAction("DebtManagementGenerateRegisteredEmails", "DebtManagement");
+
+        EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+        EduSpecHtmlHelper.NewDiv(Html, "line");
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> saveButtonEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        saveButtonEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){ if (cbSection41Letter.GetIsValid()) onGenerateRegisteredEmail();}");
+        EduSpecHtmlHelper.Button(Html, "btnSaveEmailSection41Letters", "button", "Generate", 80, saveButtonEvents);
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> closeButtonEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        closeButtonEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){ pcRegisteredEmails.Hide(); }");
+        EduSpecHtmlHelper.Button(Html, "btnCancelEmailSection41Letters", "button", "Cancel", 80, closeButtonEvents);
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+    });
+}).GetHtml()

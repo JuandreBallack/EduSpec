@@ -1,0 +1,22 @@
+﻿
+
+@Html.DevExpress().PageControl(pcsettings =>
+{
+    pcsettings.Name = "pcLegalProcessSettings";
+    pcsettings.Width = Unit.Percentage(100);
+    pcsettings.Height = Unit.Percentage(100);
+    pcsettings.EnableTabScrolling = true;
+    pcsettings.TabAlign = TabAlign.Justify;
+    pcsettings.EnableClientSideAPI = true;
+
+    pcsettings.TabPages.Add("Note", "Note").SetContent(() =>
+    {
+        Html.RenderAction("DebtManagementNotePartial");
+    });
+
+    pcsettings.TabPages.Add("Client Statement", "ClientStatement").SetContent(() =>
+    {
+        Html.RenderAction("DebtManagementFamilyStatementPartial");
+    });
+
+}).GetHtml()

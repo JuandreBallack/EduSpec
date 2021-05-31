@@ -1,0 +1,39 @@
+﻿<table class="CheckListTable">
+    <tr>
+        <td class="CheckListTable-l">
+            <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                @Html.DevExpress().Label(edtSettings =>
+                {
+                    edtSettings.ControlStyle.CssClass = "boldlabel_freestanding";
+                    edtSettings.Width = 200;
+                    edtSettings.Text = "Learner/s";
+                    edtSettings.ControlStyle.Font.Bold = true;
+                }).GetHtml()
+
+                @Html.DevExpress().CheckBox(edtSettings =>
+                {
+                    edtSettings.Name = "LearnerBirthCertificate";
+                    edtSettings.ControlStyle.CssClass = "label";
+                    edtSettings.Width = 350;
+                    edtSettings.Text = "Unabridged birth certificate: Learner/s in this school";
+                }).Bind(DataBinder.Eval(Model, "LearnerBirthCertificate")).GetHtml()
+
+                @Html.DevExpress().CheckBox(edtSettings =>
+                {
+                    edtSettings.Name = "LearnerBirthCertificateOtherSchools";
+                    edtSettings.ControlStyle.CssClass = "label";
+                    edtSettings.Width = 350;
+                    edtSettings.Text = "Unabridged birth certificate: Learner/s in other schools";
+                }).Bind(DataBinder.Eval(Model, "LearnerBirthCertificateOtherSchools")).GetHtml()
+
+            </div>
+        </td>
+        <td class="CheckListTable-r">
+            <div class="line" style=\"width: 335px; margin:0px 10px 0px;\">
+                              
+
+            </div>
+        </td>
+    </tr>
+</table>

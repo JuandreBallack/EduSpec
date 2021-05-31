@@ -1,0 +1,39 @@
+﻿@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcLinkCustomList", "Link To Custom List");
+    settings.SetContent(() =>
+    {
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 80);// First column
+        EduSpecHtmlHelper.Label(Html, "List:", "editorLabel");
+
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 150);// Third column
+        EduSpecHtmlHelper.ComboBox(Html, "cbCorrespondenceItemLink", "formeditor", 140, string.Format("Get_CorrespondenceListLinkCustom_PickList {0}", HttpContext.Current.Session["InstID"]), null);
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+        EduSpecHtmlHelper.EndTable(Html);
+
+        EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+        EduSpecHtmlHelper.NewDiv(Html, "line");
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> CreateCustomListCaseEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        CreateCustomListCaseEvents.Add(ButtonClientSideEvent.onClick, String.Format("function(s, e) {{LinkToCustomList(); }}", settings.Name));
+        EduSpecHtmlHelper.Button(Html, "btnLinkCustomList", "button", "OK", 80, CreateCustomListCaseEvents);
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> cancelSupportCaseEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        cancelSupportCaseEvents.Add(ButtonClientSideEvent.onClick, String.Format("function(s, e) {{ pcLinkCustomList.Hide(); }}"));
+        EduSpecHtmlHelper.Button(Html, "btnCancelCustomListLink", "button", "Cancel", 80, cancelSupportCaseEvents);
+
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+
+    });
+
+}).GetHtml()
+

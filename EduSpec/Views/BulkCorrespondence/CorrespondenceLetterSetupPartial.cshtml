@@ -1,0 +1,165 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["LettersViewProperties"]);
+
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "BulkCorrespondence", Action = "LettersUpdate" };
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "BulkCorrespondence", Action = "LettersAdd" };
+
+    settings.SetEditFormTemplateContent(c =>
+    {
+        var Letters = ViewData["Letters"] != null ? ViewData["Letters"] : c.DataItem;
+
+        List<Int32> checkValuesLetterHead = new List<Int32> { 0,1,3,4,5,6,7,8,9,10,11,12,13,14,15 };
+
+        List<Int32> checkValuesNote = new List<Int32> { 5,6,7,8,10,13,14,15 };
+
+        bool LetterHeadClientVisible;
+        bool NoteClientVisible;
+
+        if (DataBinder.Eval(Letters, "LetterStatusID") == null)
+        {
+            LetterHeadClientVisible = true;
+            NoteClientVisible = true;
+        }
+        else
+        {
+            LetterHeadClientVisible = checkValuesLetterHead.Contains((Int32)DataBinder.Eval(Letters, "LetterStatusID"));
+            NoteClientVisible = checkValuesNote.Contains((Int32)DataBinder.Eval(Letters, "LetterStatusID"));
+        }
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+        ViewContext.Writer.Write("<tr><td class=\"CheckListTable-l\" style=\"width:600px\">");
+        ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 100%; margin:0px 3px 0px 5px;\">");
+        ViewContext.Writer.Write("<div class=\"line\" style=\"width: 100%; margin:0px;\">");
+
+        EduSpecHtmlHelper.Label(Html, "Description: ", "formlabel");
+        EduSpecHtmlHelper.TextBox(Html, "formeditor", Letters, "Description", true, 200, null);
+
+        ViewData["InstLetterID"] = DataBinder.Eval(Letters, "InstLetterID");
+
+        using (Html.BeginForm())
+        {
+            Html.DevExpress().PageControl(pcsettings =>
+            {
+                pcsettings.Name = "pcGeneralCorrespondenceLetters";
+                pcsettings.Width = Unit.Percentage(100);
+                pcsettings.Height = Unit.Percentage(100);
+                pcsettings.EnableTabScrolling = true;
+                pcsettings.TabAlign = TabAlign.Justify;
+                pcsettings.EnableClientSideAPI = true;
+
+                pcsettings.TabPages.Add("English letter", "EnglishLetters").SetContent(() =>
+                {
+
+                    if (DataBinder.Eval(Letters, "Body_ENG") == null)
+                        Html.RenderPartial("LetterEditor_ENG", "");
+                    else
+                        Html.RenderPartial("LetterEditor_ENG", DataBinder.Eval(Letters, "Body_ENG"));
+
+                });
+
+                pcsettings.TabPages.Add("Afrikaans letters", "AfrikaansLetters").SetContent(() =>
+                {
+
+                    if (DataBinder.Eval(Letters, "Body_AFR") == null)
+                        Html.RenderPartial("LetterEditor_AFR", "");
+                    else
+                        Html.RenderPartial("LetterEditor_AFR", DataBinder.Eval(Letters, "Body_AFR"));
+                });
+
+
+            }).GetHtml();
+
+        }
+
+        ViewContext.Writer.Write("</div></div></td>");
+        ViewContext.Writer.Write("<td class=\"CheckListTable-r\" style=\"width:230px\">");
+        ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 100%; margin:0px 5px 0px 5px;\">");
+        ViewContext.Writer.Write("<div class=\"line\" style=\"width: 100%; margin:0px;\">");
+
+        Html.DevExpress().ListBox(
+        lbsettings =>
+        {
+            lbsettings.Name = "PlaceHolders";
+            lbsettings.Width = 225;
+            lbsettings.Height = 300;
+            lbsettings.Properties.Caption = "Placeholders:";
+            lbsettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            lbsettings.Properties.SelectionMode = ListEditSelectionMode.Single;
+            lbsettings.Properties.ValueField = "ID";
+            lbsettings.Properties.ValueType = typeof(string);
+            lbsettings.Properties.TextField = "Description";
+            lbsettings.Properties.ClientSideEvents.ItemDoubleClick = "OnCLickLetter";
+        }).BindList(EduSpec.GridUtils.getDropdownList("Get_PlaceHolders_PickList 1")).GetHtml();
+
+        ViewContext.Writer.Write("<br />To insert one of the above placeholders place your cursor at the exact position where you need the placeholder to be inserted. By double clicking on the required placeholder the placeholder will be inserted into the document.");
+
+        Html.DevExpress().CheckBox(cbSettings =>
+        {
+            cbSettings.Name = "IsPrintCoverPage";
+            cbSettings.ControlStyle.CssClass = "label";
+            cbSettings.Width = 200;
+            cbSettings.Text = "Print only cover page";
+            cbSettings.ClientVisible = Convert.ToInt32(DataBinder.Eval(Letters, "LetterStatusID")) == 1;
+        }).Bind(DataBinder.Eval(Letters, "IsPrintCoverPage")).GetHtml();
+
+        Html.DevExpress().CheckBox(cbSettings =>
+        {
+            cbSettings.Name = "IsPrintLetterHead";
+            cbSettings.ControlStyle.CssClass = "label";
+            cbSettings.Width = 200;
+            cbSettings.Text = "Print letterhead";
+            cbSettings.ClientVisible = LetterHeadClientVisible;
+        }).Bind(DataBinder.Eval(Letters, "IsPrintLetterHead")).GetHtml();
+
+        Html.DevExpress().Label(cbSettings =>
+        {
+            cbSettings.Name = "Memo";
+            cbSettings.Height = 100;
+            cbSettings.Width = 200;
+            cbSettings.Text = "Changing this setting will effect all exemption letters.";
+            cbSettings.ControlStyle.ForeColor = System.Drawing.Color.Red;
+            cbSettings.ClientVisible = NoteClientVisible;
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</div></div></td></tr></table>");
+
+        ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 100%; margin:0px 5px 0px 5px;\">");
+        ViewContext.Writer.Write("<div class=\"line\" style=\"width: 100%; margin:10px 10px 0px; 10px\">");
+
+        Html.DevExpress().Button(btnSettings =>
+        {
+            btnSettings.Name = "btnUpdate";
+            btnSettings.ControlStyle.CssClass = "button";
+            btnSettings.Text = "Update";
+            if (c.KeyValue == null)
+            {
+                btnSettings.Text = "Save";
+                btnSettings.ClientSideEvents.Click = String.Format("function(s, e) {{{0}.UpdateEdit(); }}", settings.Name);
+            }
+            else
+            {
+                btnSettings.Text = "Update";
+                btnSettings.ClientSideEvents.Click = String.Format("function(s, e) {{{0}.UpdateEdit(); }}", settings.Name);
+            }
+        }).GetHtml();
+
+        Html.DevExpress().Button(btnSettings =>
+        {
+            btnSettings.Name = "btnCancel";
+            btnSettings.ControlStyle.CssClass = "button";
+            btnSettings.Text = "Cancel";
+            btnSettings.ClientSideEvents.Click = String.Format("function(s, e) {{{0}.CancelEdit(); }}", settings.Name);
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</div></div>");
+
+        settings.PreRender = (sender, e) =>
+        {
+            ((MVCxGridView)sender).StartEdit(1);
+        };
+
+    });
+
+}).Bind(Model).GetHtml()
+

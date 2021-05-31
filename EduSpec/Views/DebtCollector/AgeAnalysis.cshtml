@@ -1,0 +1,64 @@
+﻿<script type="text/javascript">
+
+    var cbYearSelectedIndex = -1;
+    var cbInstitutionSelectedIndex = -1;
+
+
+</script>
+
+@Html.DevExpress().Splitter(settings =>
+{
+
+    SplitterUtils.SetSplitterProperties(settings, ViewData["ViewProperties"]);
+
+    MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+    HeaderPane.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div ID=\"ViewInfo\">Age analysis</div>");
+    });
+
+    MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+    MainContentPane.SetContent(() =>
+    {
+
+        Html.DevExpress().Label(tbsettings =>
+        {
+            tbsettings.Name = "AgeAnalysisImportOptions";
+            tbsettings.Properties.ClientInstanceName = "AgeAnalysisImportOptions";
+        }).Render();
+
+        Html.DevExpress().Label(tbsettings =>
+        {
+            tbsettings.Name = "AgeAnalysisMonthID";
+            tbsettings.Properties.ClientInstanceName = "AgeAnalysisMonthID";
+        }).Render();
+
+        Html.RenderAction("AgeAnalysisPartial");
+    });
+
+
+    MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+    FooterPane.Separator.Visible = DefaultBoolean.True;
+    FooterPane.SetContent(() =>
+    {
+
+        Html.RenderAction("AgeAnalysisHistoryPartial");
+
+    });
+
+}).GetHtml()
+
+@Html.DevExpress().LoadingPanel(
+       settings =>
+       {
+           settings.Name = "LoadingPanel";
+           settings.Modal = true;
+           settings.Text = "Processing report...";
+       }
+   ).GetHtml()
+
+<div>
+    @Html.Partial("reportSMSMessageHistory")
+    @Html.Partial("reportEmailHistory")
+    @Html.Partial("reportParentAccountHistory")
+</div>

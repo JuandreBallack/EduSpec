@@ -1,0 +1,309 @@
+﻿@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.Name = "cbpFamilyInfo";
+    settings.CallbackRouteValues = new { Controller = "Shared", Action = "FamilyInfoPartial" };
+    settings.ClientSideEvents.BeginCallback = "function(s, e) { e.customArgs['FamilyInfoFamilyID'] = GridView.GetRowKey(GridView.GetFocusedRowIndex()); e.customArgs['IsUseExemptionID'] = IsUseExemptionID }";
+
+    settings.SetContent(() =>
+    {
+        EduSpecHtmlHelper.TextBox(Html, "", Model, "FamilyID", false, 100, null);
+
+        CustomUtils.CustomUtils.BeginTable(Html, "CheckListTable");
+        CustomUtils.CustomUtils.NewRow(Html);
+        CustomUtils.CustomUtils.NewColumn(Html, "edit_form", 100);
+        CustomUtils.EditorUtils.Label(Html, "boldlabel", "Family Code:", 100);
+        CustomUtils.CustomUtils.EndAndNewColumn(Html, "edit_form" , 100);
+        CustomUtils.EditorUtils.Label(Html, "line", Model, "FamilyCode");
+        CustomUtils.CustomUtils.EndAndNewColumn(Html, "edit_form", 100);
+        CustomUtils.EditorUtils.Label(Html, "boldlabel", "Language:");
+        CustomUtils.CustomUtils.EndAndNewColumn(Html, "edit_form", 100);
+        CustomUtils.EditorUtils.Label(Html, "line", Model, "LanguageDescription");
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 150);
+        EduSpecHtmlHelper.Label(Html, "Account Number:", "boldlabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html);
+        EduSpecHtmlHelper.Label(Html, "line", Model, "ExternalAccNo");
+        CustomUtils.CustomUtils.EndAndNewColumn(Html, "edit_form", 100);
+        CustomUtils.EditorUtils.Label(Html, "boldlabel", "Marital Status:");
+        CustomUtils.CustomUtils.EndAndNewColumn(Html, "edit_form", 100);
+        CustomUtils.EditorUtils.Label(Html, "line", Model, "MaritalStatusDescription");
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 150);
+        EduSpecHtmlHelper.Label(Html, "Billing Cycle:", "boldlabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html);
+        EduSpecHtmlHelper.Label(Html, "line", Model, "BillingCycleDescription");
+        CustomUtils.CustomUtils.EndAndNewColumn(Html, "edit_form", 100);
+        //CustomUtils.EditorUtils.Label(Html, "boldlabel", "Marital Status:");
+        CustomUtils.CustomUtils.EndAndNewColumn(Html, "edit_form", 100);
+        //CustomUtils.EditorUtils.Label(Html, "line", Model, "MaritalStatusDescription");
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.EndRow(Html);
+        EduSpecHtmlHelper.EndTable(Html);
+
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+        EduSpecHtmlHelper.NewRow(Html);
+
+        EduSpecHtmlHelper.NewColumnHeader(Html, "", "InfoTableHeading", 120);
+        EduSpecHtmlHelper.NewColumnHeader(Html, "Primary Parent", "InfoTableHeading", 180);
+        EduSpecHtmlHelper.NewColumnHeader(Html, "Secondary Parent", "InfoTableHeading", 180);
+        EduSpecHtmlHelper.NewColumnHeader(Html, "Alternative Parent", "InfoTableHeading", 180);
+
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+
+        // ********************* General info Heading *********************
+
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form");
+        EduSpecHtmlHelper.Label(Html, "General Info", "boldlabel");
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+
+        // ********************* Title *********************
+
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "Title:", "line");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "PrimaryParentTitle");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "SecondaryParentTitle");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Fourth column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "AlternativeParentTitle");
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+
+        // ********************* Initials *********************
+
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "Initials:", "line");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "PrimaryParentInitials");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "SecondaryParentInitials");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Fourth column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "AlternativeParentInitials");
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+
+        // ********************* Name *********************
+
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "Name:", "line");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "PrimaryParentFullName");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "SecondaryParentFullName");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Fourth column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "AlternativeParentFullName");
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+
+        // ********************* Surname *********************
+
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "Surname:", "line");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "PrimaryParentSurname");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "SecondaryParentSurname");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Fourth column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "AlternativeParentSurname");
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+
+        // ********************* ID Number *********************
+
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "ID Number:", "line");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "PrimaryParentIDNumber");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "SecondaryParentIDNumber");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Fourth column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "AlternativeParentIDNumber");
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+
+        // ********************* Gender *********************
+
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "Gender:", "line");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "PrimaryParentGender");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "SecondaryParentGender");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Fourth column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "AlternativeParentGender");
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+
+        // ********************* Relation *********************
+
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "Relation:", "line");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "PrimaryParentRelation");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "SecondaryParentRelation");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Fourth column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "AlternativeParentRelation");
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+
+        // ********************* Contact Details Heading *********************
+
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form");
+        EduSpecHtmlHelper.Label(Html, "Contact Detail", "boldlabel");
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+
+        // ********************* Home Telephone *********************
+
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "Home Telephone:", "line");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "PrimaryParentTelHome");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "SecondaryParentTelHome");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Fourth column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "AlternativeParentTelHome");
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+
+        // ********************* Work Telephone *********************
+
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "Work Telephone:", "line");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "PrimaryParentTelWork");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "SecondaryParentTelWork");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Fourth column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "AlternativeParentTelWork");
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+
+        // ********************* Work Fax *********************
+
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "Fax Number:", "line");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "PrimaryParentTelFax");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "SecondaryParentTelFax");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Fourth column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "AlternativeParentTelFax");
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+
+        // ********************* Cellphone Number *********************
+
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "Cellphone Number:", "line");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "PrimaryParentTelCell");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "SecondaryParentTelCell");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Fourth column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "AlternativeParentTelCell");
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+
+        // ********************* Alternative Number *********************
+
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "Alternative Number:", "line");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "PrimaryParentTelAlternative");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "SecondaryParentTelAlternative");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Fourth column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "AlternativeParentTelAlternative");
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+
+        // ********************* Email *********************
+
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "Email:", "line");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "PrimaryParentEmail");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "SecondaryParentEmail");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Fourth column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "AlternativeParentEmail");
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+
+        // ********************* Email Work *********************
+
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "Work Email:", "line");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "PrimaryParentEmailWork");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "SecondaryParentEmailWork");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Fourth column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "AlternativeParentEmailWork");
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+
+        // ********************* Address Heading *********************
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form");
+        EduSpecHtmlHelper.Label(Html, "Physical Address", "boldlabel");
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+
+        // ********************* Physical Address*********************
+
+        EduSpecHtmlHelper.NewColumn(Html); // First column
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "PrimaryParentStreetAddress1");
+        EduSpecHtmlHelper.Label(Html, "line", Model, "PrimaryParentStreetAddress2");
+        EduSpecHtmlHelper.Label(Html, "line", Model, "PrimaryParentStreetAddress3");
+        EduSpecHtmlHelper.Label(Html, "line", Model, "PrimaryParentStreetCode");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "SecondaryParentStreetAddress1");
+        EduSpecHtmlHelper.Label(Html, "line", Model, "SecondaryParentStreetAddress2");
+        EduSpecHtmlHelper.Label(Html, "line", Model, "SecondaryParentStreetAddress3");
+        EduSpecHtmlHelper.Label(Html, "line", Model, "SecondaryParentStreetCode");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Fourth column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "AlternativeParentStreetAddress1");
+        EduSpecHtmlHelper.Label(Html, "line", Model, "AlternativeParentStreetAddress2");
+        EduSpecHtmlHelper.Label(Html, "line", Model, "AlternativeParentStreetAddress3");
+        EduSpecHtmlHelper.Label(Html, "line", Model, "AlternativeParentStreetCode");
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+
+        // ********************* Postal Address Heading *********************
+
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form");
+        EduSpecHtmlHelper.Label(Html, "Postal Address", "boldlabel");
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+
+        // ********************* Postal Address*********************
+
+        EduSpecHtmlHelper.NewColumn(Html); // First column
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "PrimaryParentPostalAddress1");
+        EduSpecHtmlHelper.Label(Html, "line", Model, "PrimaryParentPostalAddress2");
+        EduSpecHtmlHelper.Label(Html, "line", Model, "PrimaryParentPostalAddress3");
+        EduSpecHtmlHelper.Label(Html, "line", Model, "PrimaryParentPostalCode");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "SecondaryParentPostalAddress1");
+        EduSpecHtmlHelper.Label(Html, "line", Model, "SecondaryParentPostalAddress2");
+        EduSpecHtmlHelper.Label(Html, "line", Model, "SecondaryParentPostalAddress3");
+        EduSpecHtmlHelper.Label(Html, "line", Model, "SecondaryParentPostalCode");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Fourth column
+        EduSpecHtmlHelper.Label(Html, "line", Model, "AlternativeParentPostalAddress1");
+        EduSpecHtmlHelper.Label(Html, "line", Model, "AlternativeParentPostalAddress2");
+        EduSpecHtmlHelper.Label(Html, "line", Model, "AlternativeParentPostalAddress3");
+        EduSpecHtmlHelper.Label(Html, "line", Model, "AlternativeParentPostalCode");
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.EndRow(Html);
+        EduSpecHtmlHelper.EndTable(Html);
+    });
+}).GetHtml()

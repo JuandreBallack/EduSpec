@@ -1,0 +1,128 @@
+﻿<table class="CheckListTable">
+    <tr>
+        <td class="CheckListTable-r">
+            <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                    @Html.DevExpress().Label(edtSettings =>
+                   {
+                       edtSettings.ControlStyle.CssClass = "headinglabel";
+                       edtSettings.Width = 200;
+                       edtSettings.Text = "Sytem Administrator User";
+                   }).GetHtml()
+
+                </div><div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                    @Html.DevExpress().Label(lbSettings =>
+                    {
+                        lbSettings.Text = "Name";
+                        lbSettings.ControlStyle.CssClass = "label";                        
+                        lbSettings.Width = 180;
+                    }).GetHtml()
+
+                    @Html.DevExpress().TextBox(tbSettings =>
+                    {
+                        tbSettings.Name = "FullName";
+                        tbSettings.ControlStyle.CssClass = "formeditor";
+                        tbSettings.Width = 200;
+                        tbSettings.Properties.ValidationSettings.EnableCustomValidation = true;
+                        tbSettings.Properties.ValidationSettings.ValidateOnLeave = true;
+                        tbSettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Right;
+                        tbSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                        tbSettings.Properties.ClientSideEvents.Validation = "OnRequiredFieldValidation";
+                        tbSettings.Properties.ClientSideEvents.Init = "function(s,e){FullName.SetFocus()}";
+                        tbSettings.ControlStyle.BackColor = System.Drawing.Color.LightYellow;
+                    }).Bind(DataBinder.Eval(Model, "FullName")).GetHtml()
+
+                </div><div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                    @Html.DevExpress().Label(lbSettings =>
+                    {
+                        lbSettings.Text = "Surname";
+                        lbSettings.ControlStyle.CssClass = "label";
+                        lbSettings.Width = 180;
+                    }).GetHtml()
+
+                    @Html.DevExpress().TextBox(tbSettings =>
+                    {
+                        tbSettings.Name = "Surname";
+                        tbSettings.ControlStyle.CssClass = "formeditor";
+                        tbSettings.Width = 200;
+                    }).Bind(DataBinder.Eval(Model, "Surname")).GetHtml()
+
+                </div><div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                    @Html.DevExpress().Label(lbSettings =>
+                    {
+                        lbSettings.Text = "Email Address (User Name)";
+                        lbSettings.ControlStyle.CssClass = "label";
+                        lbSettings.Width = 180;
+                    }).GetHtml()
+
+                    @Html.DevExpress().TextBox(tbSettings =>
+                    {
+                        tbSettings.Name = "Email";
+                        tbSettings.ControlStyle.CssClass = "formeditor";
+                        tbSettings.Width = 200;
+                        tbSettings.Properties.ValidationSettings.EnableCustomValidation = true;
+                        tbSettings.Properties.ValidationSettings.ValidateOnLeave = true;
+                        tbSettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Right;
+                        tbSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                        tbSettings.Properties.ClientSideEvents.Validation = "OnRequiredFieldEmailValidation";
+                        tbSettings.ControlStyle.BackColor = System.Drawing.Color.LightYellow;
+                    }).Bind(DataBinder.Eval(Model, "Email")).GetHtml()
+
+                </div><div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                    @Html.DevExpress().Label(lbSettings =>
+                    {
+                        lbSettings.Text = "Password";
+                        lbSettings.ControlStyle.CssClass = "label";
+                        lbSettings.Width = 180;
+                    }).GetHtml()
+
+                        @Html.DevExpress().TextBox(tbSettings =>
+                    {
+                        tbSettings.Name = "Password";
+                        tbSettings.ControlStyle.CssClass = "formeditor";
+                        tbSettings.Properties.Password = true;
+                        tbSettings.Properties.ValidationSettings.EnableCustomValidation = true;
+                        tbSettings.Properties.ValidationSettings.ValidateOnLeave = true;
+                        tbSettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Right;
+                        tbSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                        tbSettings.Properties.ClientSideEvents.Validation = "OnPasswordValidation";
+                        tbSettings.ControlStyle.BackColor = System.Drawing.Color.LightYellow;
+                        tbSettings.Width = 100;
+                    }).Bind(DataBinder.Eval(Model, "Password")).GetHtml()
+
+                    </div><div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(lbSettings =>
+                    {
+                        lbSettings.Text = "Confirm Password";
+                        lbSettings.ControlStyle.CssClass = "label";
+                        lbSettings.Width = 180;
+                    }).GetHtml()
+
+                        @Html.DevExpress().TextBox(tbSettings =>
+                    {
+                        tbSettings.Name = "ConfirmPassword";
+                        tbSettings.ControlStyle.CssClass = "formeditor";
+                        tbSettings.Properties.Password = true;
+                        tbSettings.Properties.ValidationSettings.EnableCustomValidation = true;
+                        tbSettings.Properties.ValidationSettings.ValidateOnLeave = true;
+                        tbSettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Right;
+                        tbSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                        tbSettings.Properties.ClientSideEvents.Validation = "OnComparePasswords";
+                        tbSettings.ControlStyle.BackColor = System.Drawing.Color.LightYellow;
+                        tbSettings.Width = 100;
+                    }).GetHtml()
+                        @*}).Bind(DataBinder.Eval(Model, "GuardianFosterIdentityDocument")).GetHtml()*@
+
+                    </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+

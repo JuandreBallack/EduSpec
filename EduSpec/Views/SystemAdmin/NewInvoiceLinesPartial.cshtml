@@ -1,0 +1,73 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["NewInvoiceLinesViewProperties"]);
+
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Amount").DisplayFormat = "c";
+    settings.Settings.ShowFooter = true;
+
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "SystemAdmin", Action = "AddInvoiceItem" };
+    settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "SystemAdmin", Action = "DeleteRowInvoiceItem" };
+
+    settings.SetEditFormTemplateContent(c =>
+    {
+        Dictionary<EduSpec.ComboboxClientSideEvent, string> ContactReasonComboboxValidateRequiredField = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+        ContactReasonComboboxValidateRequiredField.Add(ComboboxClientSideEvent.onValidation, "function(s,e){validateRequiredField(e.value, e);}");
+
+        var Invoice = ViewData["Invoice"] != null ? ViewData["Invoice"] : c.DataItem;
+
+        ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 250px\" style=\"height: 400px ; margin:0px 5px 0px 5px;\">");
+        ViewContext.Writer.Write("<div class=\"line\" style=\"width: 100%; margin:10px 10px 0px; 10px\">");
+
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 80);// First column
+
+        EduSpecHtmlHelper.Label(Html, "Item:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 170);// Second column
+        Dictionary<EduSpec.ComboboxClientSideEvent, string> ItemChangeEvents = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+        ItemChangeEvents.Add(ComboboxClientSideEvent.onSelectedIndexChanged, "function(s, e){ InvoiceItemChange(s,e);  }");
+        EduSpecHtmlHelper.ComboBox(Html, "formeditor", Invoice, "ItemID", 150, "Get_InvoiceItems_PickList", ItemChangeEvents);
+
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 80);
+        EduSpecHtmlHelper.Label(Html, "lbTotalHours", "Total hours:", "editorLabel", false);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 170);
+        EduSpecHtmlHelper.SpinEdit(Html, "formeditor", Invoice, "Quantity", false, 150, 1, 24, true, null);
+
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+        EduSpecHtmlHelper.EndTable(Html);
+
+
+        Html.DevExpress().Button(
+        btnSettings =>
+        {
+            btnSettings.Name = "btnAdd";
+            btnSettings.ControlStyle.CssClass = "button";
+            btnSettings.Text = "Add";
+            btnSettings.ClientSideEvents.Click = String.Format("function(s, e) {{{0}.UpdateEdit(); }}", settings.Name);
+            //btnSettings.ClientSideEvents.Click = "function(s, e) {{ AddNewItem(); }}";
+
+        }).Render();
+
+        Html.DevExpress().Button(
+        btnSettings =>
+        {
+            btnSettings.Name = "btnCancel";
+            btnSettings.ControlStyle.CssClass = "button";
+            btnSettings.Text = "Cancel";
+            btnSettings.ClientSideEvents.Click = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+
+        }).Render();
+        
+
+        settings.PreRender = (sender, e) =>
+        {
+            ((MVCxGridView)sender).StartEdit(1);
+        };
+
+    });
+
+
+}).Bind(Model).GetHtml()

@@ -1,0 +1,116 @@
+﻿@Html.DevExpress().CallbackPanel(cpsettings =>
+{
+    cpsettings.Name = "cbpSendSingleEmail";
+    cpsettings.CallbackRouteValues = new { Controller = "Shared", Action = "SendEmailSingle" };
+
+    cpsettings.SetContent(() =>
+    {
+        Dictionary<EduSpec.ComboboxClientSideEvent, string> EmailcomboboxValidateRequiredField = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+        EmailcomboboxValidateRequiredField.Add(ComboboxClientSideEvent.onValidation, "function(s,e){validateRequiredField(e.value, e);}");
+
+        
+
+        //using (Html.BeginForm("SendEmailSingle", "Shared"))
+        //{
+        Html.DevExpress().PageControl(pcsettings =>
+        {
+            pcsettings.Name = "pcSingleEmailTabControl";
+            pcsettings.Width = Unit.Percentage(100);
+            pcsettings.Height = Unit.Percentage(100);
+            pcsettings.EnableTabScrolling = true;
+            pcsettings.TabAlign = TabAlign.Justify;
+            pcsettings.EnableClientSideAPI = true;
+
+            pcsettings.TabPages.Add("Manual email", "ManualEmail").SetContent(() =>
+            {
+              
+                EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+                EduSpecHtmlHelper.NewDiv(Html, "line");
+                EduSpecHtmlHelper.Label(Html, "To:", "formeditor");
+                EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "PrimaryEmail", true, 500, null);
+                EduSpecHtmlHelper.Label(Html, "Cc:", "formeditor");
+                EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "SecondaryEmail", true, 500, null);
+                EduSpecHtmlHelper.Label(Html, "Subject:", "formeditor");
+                EduSpecHtmlHelper.TextBox(Html, "EmailSubject", "formeditor", true, 500, null);
+
+                EduSpecHtmlHelper.Label(Html, "Upload file:", 80, "editorLabel");
+                Html.RenderPartial("SingleEmailUploadData");
+
+                EduSpecHtmlHelper.EndDiv(Html);
+                EduSpecHtmlHelper.EndDiv(Html);
+                EduSpecHtmlHelper.NewDiv(Html, "line");
+
+                using (Html.BeginForm("SendEmailSingle", "Shared"))
+                {
+                    Html.RenderPartial("EmailBody");
+                }
+                EduSpecHtmlHelper.EndDiv(Html);
+
+                EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+                EduSpecHtmlHelper.NewDiv(Html, "line");
+                Dictionary<EduSpec.ButtonClientSideEvent, string> EmailSingleSendEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+                EmailSingleSendEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){ ImportFile(); }");
+                EduSpecHtmlHelper.Button(Html, "btnEmailSingleSend", "button", "OK", 80, EmailSingleSendEvents);
+
+                Dictionary<EduSpec.ButtonClientSideEvent, string> cancelSingleEmailEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+                cancelSingleEmailEvents.Add(ButtonClientSideEvent.onClick, "function(s,e){pcSendSingleEmail.Hide();}");
+                EduSpecHtmlHelper.Button(Html, "btnCancelSingleEmail", "button", "Cancel", 80, cancelSingleEmailEvents);
+
+                EduSpecHtmlHelper.EndDiv(Html);
+                EduSpecHtmlHelper.EndDiv(Html);
+
+            });
+
+            pcsettings.TabPages.Add("Custom email", "CustomEmail").SetContent(() =>
+            {
+
+                if (Model != null)
+                {
+
+                    EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+                    EduSpecHtmlHelper.NewDiv(Html, "line");
+                    EduSpecHtmlHelper.Label(Html, "To:", "ToCustomEmail", "formeditor");
+                    EduSpecHtmlHelper.TextBox(Html, "formeditor", "PrimaryEmailCustom", Model, "PrimaryEmail", true, 500, null);
+                    EduSpecHtmlHelper.Label(Html, "Cc:", "CcCustomEmail", "formeditor");
+                    EduSpecHtmlHelper.TextBox(Html, "formeditor", "SecondaryEmailCustom", Model, "SecondaryEmail", true, 500, null);
+                    EduSpecHtmlHelper.Label(Html, "Subject:", "SubjectCustomEmail", "formeditor");
+                    EduSpecHtmlHelper.TextBox(Html, "EmailSubjectCustom", "formeditor", true, 500, null);
+                    EduSpecHtmlHelper.Label(Html, "Upload file:", "UploadFileCustom", "editorLabel");
+                    Html.RenderPartial("SingleEmailCustomUploadData");
+
+
+                    // ComboBox 1
+                    EduSpecHtmlHelper.NewDiv(Html, "line");
+                    EduSpecHtmlHelper.Label(Html, DataBinder.Eval(Model, "ComboBoxDescription_2"), 400, "formeditor");
+                    EduSpecHtmlHelper.ComboBox(Html, "ComboBoxListProc_2", "formeditor", 250, DataBinder.Eval(Model, "ComboBoxListProc_2"), EmailcomboboxValidateRequiredField);
+                    EduSpecHtmlHelper.EndDiv(Html);
+
+                    EduSpecHtmlHelper.EndDiv(Html);
+                    EduSpecHtmlHelper.EndDiv(Html);
+
+                    EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+                    EduSpecHtmlHelper.NewDiv(Html, "line");
+                    Dictionary<EduSpec.ButtonClientSideEvent, string> EmailSingleCustomSendEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+                    EmailSingleCustomSendEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){ ImportFileEmailCustom(); }");
+                    EduSpecHtmlHelper.Button(Html, "btnEmailSingleCustomSend", "button", "OK", 80, EmailSingleCustomSendEvents);
+
+                    Dictionary<EduSpec.ButtonClientSideEvent, string> cancelSingleEmailEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+                    cancelSingleEmailEvents.Add(ButtonClientSideEvent.onClick, "function(s,e){pcSendSingleEmail.Hide();}");
+                    EduSpecHtmlHelper.Button(Html, "btnCancelSingleEmailCustom", "button", "Cancel", 80, cancelSingleEmailEvents);
+
+                    EduSpecHtmlHelper.EndDiv(Html);
+                    EduSpecHtmlHelper.EndDiv(Html);
+
+                }
+
+
+            });
+
+        }).GetHtml();
+
+    //}
+
+
+
+    });
+}).GetHtml()

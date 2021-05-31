@@ -1,0 +1,207 @@
+﻿@model EduSpec.Models.Get_Exemptions_ApplicationInformationResult
+
+<script type="text/javascript">
+
+    function onInformation(Result) {
+
+        if (Result == "mrOk") {
+            cbpSubmitApplicationInfo.PerformCallback({ ApplicationNumber: ApplicationNumber.GetText() });
+            tbApplicationNumber.SetFocus();
+        }
+    }
+
+    function SaveApplication(IsSaveApplication) {
+
+        $.ajax({
+            type: 'POST',
+            url: '/Exemptions/Set_SaveSubmitApplication',
+            dataType: 'json',
+            async: false,
+            data: {
+                ExemptionID: ExemptionID.GetText(),
+                ApplicationNumber: ApplicationNumber.GetText(),
+                Note: Note.GetText(),
+                ApplParentTypeID: ApplParentTypeID.GetValue(),
+                ParentIdentityDocument: ParentIdentityDocument.GetValue(),
+                SpouseIdentityDocument: SpouseIdentityDocument.GetValue(),
+                GuardianFosterIdentityDocument: GuardianFosterIdentityDocument.GetValue(),
+                ApplMaritalStatusID: ApplMaritalStatusID.GetValue(),
+                ParentIncomeTypeID: ParentIncomeTypeID.GetValue(),
+                SpouseIncomeTypeID: SpouseIncomeTypeID.GetValue(),
+                ParentPayslip: ParentPayslip.GetValue(),
+                SpousePaySlip: SpousePaySlip.GetValue(),
+                DeathCertificate: DeathCertificate.GetValue(),
+                ParentBankStatements: ParentBankStatements.GetValue(),
+                SpouseBankStatements: SpouseBankStatements.GetValue(),
+                ParentRetrenchedProof: ParentRetrenchedProof.GetValue(),
+                SpouseRetrenchedProof: SpouseRetrenchedProof.GetValue(),
+                ParentUnemploymentProof: ParentUnemploymentProof.GetValue(),
+                SpouseUnemploymentProof: SpouseUnemploymentProof.GetValue(),
+                ParentWelfareGrand: ParentWelfareGrand.GetValue(),
+                SpouseWelfareGrand: SpouseWelfareGrand.GetValue(),
+                SpouseContactDetails: SpouseContactDetails.GetValue(),
+                ParentSARS: ParentSARS.GetValue(),
+                SpouseSARS: SpouseSARS.GetValue(),
+                AffidavitNoContact: AffidavitNoContact.GetValue(),
+                DivorceOrder: DivorceOrder.GetValue(),
+                LearnerBirthCertificateOtherSchools: LearnerBirthCertificateOtherSchools.GetValue(),
+                MarriageCertificate: MarriageCertificate.GetValue(),
+                VISA: VISA.GetValue(),
+                IsIncomplete: IsIncomplete.GetValue(),
+                RequireRentBond: RequireRentBond.GetValue(),
+                RequireMunicipalAccount: RequireMunicipalAccount.GetValue(),
+                RequireFurnitureAccounts: RequireFurnitureAccounts.GetValue(),
+                RequireVehicleFinance: RequireVehicleFinance.GetValue(),
+                RequireCreditCardAccount: RequireCreditCardAccount.GetValue(),
+                RequireClothingAccount: RequireClothingAccount.GetValue(),
+                RequireRevolvingCreditAccount: RequireRevolvingCreditAccount.GetValue(),
+                RequireTelephoneAccount: RequireTelephoneAccount.GetValue(),
+                RequireCellPhoneAccount: RequireCellPhoneAccount.GetValue(),
+                ProofofGuardianFosterCare: ProofofGuardianFosterCare.GetValue(),
+                LearnerBirthCertificate: LearnerBirthCertificate.GetValue(),
+                IsSaveApplication: IsSaveApplication
+            },
+            success: function (result) {
+                if (result.Success === true) {
+                    if (result.Url === "") {
+                        pcInformationlbMessage.SetText("Application information was saved.");
+                        pcInformation.Show();
+                    }
+                    else {
+                        window.open(result.Url, '_Blank');
+                    }
+                }
+                else {
+                    pcErrorlbMessage.SetText(result.Message);
+                    pcError.Show();
+                }
+
+            }
+        });
+    }
+
+    function CheckPrintAffidavit(s, e, ApplicationQuestionAnswers)
+    {
+        cbpAffidavitQuestions.PerformCallback({ ApplicationNumber: ApplicationNumber.GetText() });
+        pcAffidavitSpouseDetails.Show();
+    }
+
+    function AddAffidavitQuestions(s, e) {
+
+        $.ajax({
+            type: 'POST',
+            url: '/Exemptions/SetAffidavitSpouseQuestions',
+            dataType: 'json',
+            async: false,
+            data: {
+                ExemptionID: ExemptionID.GetValue(),
+                KnowWareabouts: rbWareabouts.GetValue(),
+                HaveContact: rbContact.GetValue(),
+                UnwillingToApply: rbUnwilling.GetValue()
+            },
+            success: function (result) {
+                if (result.Success === true)
+                {
+                    PrintAffidavit();
+                    pcAffidavitSpouseDetails.Hide();
+                }
+            }
+        });
+    }
+
+    function PrintAffidavit(s, e) {
+
+        $.ajax({
+            type: 'POST',
+            url: '/Exemptions/PrintAffidavitReport',
+            dataType: 'json',
+            async: false,
+            data: {
+                ExemptionID: ExemptionID.GetValue(),
+                LanguageID: LanguageID.GetValue(),
+            },
+            success: function (response) {
+                window.open(response.Url, '_Blank');
+            }
+        });
+    }
+
+    function PrintAffidavitRefuses(s, e) {
+
+        $.ajax({
+            type: 'POST',
+            url: '/Exemptions/PrintAffidavitRefusesReport',
+            dataType: 'json',
+            async: false,
+            data: {
+                ExemptionID: ExemptionID.GetValue()
+            },
+            success: function (response) {
+                window.open(response.Url, '_Blank');
+            }
+        });
+    }
+
+
+</script>
+
+
+@Html.DevExpress().Splitter(settings =>
+    {
+        SplitterUtils.SetSplitterProperties(settings, true, 63, false, 0);
+
+        MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+        HeaderPane.SetContent(() =>
+        {
+            ViewContext.Writer.Write(
+                "<div ID=\"ViewInfo\">Submit Applications - " + HttpContext.Current.Session["InstitutionName"] + "</div><div style=\"margin:2px\">");
+
+            Html.RenderPartial("MenuButtonsPartialView", ViewData["ViewProperties"]);
+        });
+
+        MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+        MainContentPane.ScrollBars = ScrollBars.Vertical;
+        MainContentPane.SetContent(() =>
+        {
+            Html.RenderPartial("SubmitApplicationInfo", Model);
+        });
+
+        MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+        FooterPane.Separator.Visible = DefaultBoolean.True;
+        FooterPane.SetContent(() =>
+        {
+
+        });
+
+    }).GetHtml()
+
+@EduSpec.MessageDlg.ShowMessageDlg("pcConfirmSave", Html, "Are you sure you want to save the changes?", new BtnType[] { BtnType.mbYes, BtnType.mbNo }, MessageType.mConfirmation, "onBtnConfirmationClick")
+@EduSpec.MessageDlg.ShowMessageDlg("pcInformation", Html, "", new BtnType[] { BtnType.mbOK }, MessageType.mInformation, "onInformation")
+@EduSpec.MessageDlg.ShowMessageDlg("pcWarning", Html, "The Application does not Exist.", new BtnType[] { BtnType.mbOK }, MessageType.mWarning, "onBtnWarningClick")
+@EduSpec.MessageDlg.ShowMessageDlg("pcError", Html, "", new BtnType[] { BtnType.mbOK }, MessageType.mError)
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcAffidavitSpouseDetails", "Affidavit spouse details");
+    settings.Width = 400;
+    settings.SetContent(() =>
+    {
+        Html.RenderPartial("AffidavitQuestions");
+
+        EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+        EduSpecHtmlHelper.NewDiv(Html, "line");
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> saveButtonEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        saveButtonEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){ AddAffidavitQuestions() ;}");
+        EduSpecHtmlHelper.Button(Html, "btnUpdateAffidavitInfo", "button", "OK", 80, saveButtonEvents);
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> closeButtonEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        closeButtonEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){pcAffidavitSpouseDetails.Hide();}");
+        EduSpecHtmlHelper.Button(Html, "btnCancel", "button", "Cancel", 80, closeButtonEvents);
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+
+
+    });
+}).GetHtml()

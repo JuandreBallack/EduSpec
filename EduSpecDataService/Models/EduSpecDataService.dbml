@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="EduSpec Data" Class="EduSpecDataServiceDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=JUANDRE-HP\SQL2017;Initial Catalog=&quot;EduSpec Data&quot;;Integrated Security=True" SettingsObjectName="EduSpecDataService.Properties.Settings" SettingsPropertyName="EduSpec_DataConnectionString1" Provider="System.Data.SqlClient" />
+  <Function Name="dbo.Get_Account_NewInstitutions_View" Method="Get_Account_NewInstitutions_View">
+    <ElementType Name="Get_Account_NewInstitutions_ViewResult">
+      <Column Name="InstID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MasterInstID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="EMISNo" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="QuintileID" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="PhaseID" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="PhysAddress1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PhysAddress2" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PhysAddress3" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PhysProvinceID" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="PhysCode" Type="System.String" DbType="VarChar(7)" CanBeNull="true" />
+      <Column Name="PosAddress1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PosAddress2" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PosAddress3" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PosProvinceID" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="PosCode" Type="System.String" DbType="VarChar(7)" CanBeNull="true" />
+      <Column Name="Telephone" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="Cell" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="Fax" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="InstEmail" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="PrincipalID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FinancialSecretoryID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GoverningBodyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GoverningFinanceID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="FullName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Surname" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="IsRequestEvaluation" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="CorrespondenceLanguageID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GradeFromID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GradeToID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IntegrationTypeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Integration_SASAMS_ClearImportTables" Method="Integration_SASAMS_ClearImportTables">
+    <Parameter Name="InstID" Parameter="instID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.fn_Get_SysParams" Method="fn_Get_SysParams" IsComposable="true">
+    <ElementType Name="fn_Get_SysParamsResult">
+      <Column Name="VAT" Type="System.Decimal" DbType="Decimal(6,3)" CanBeNull="true" />
+      <Column Name="VATNumber" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="InstID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AccessDatabaseFilePath" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="AccessDatabaseProvider" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="SASAMS_Password" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="SQL_Server" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="SQL_Database" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SQL_User" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SQL_Password" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.EduspecData_SASAMS_ClearImportTables" Method="EduspecData_SASAMS_ClearImportTables">
+    <Parameter Name="InstID" Parameter="instID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+</Database>

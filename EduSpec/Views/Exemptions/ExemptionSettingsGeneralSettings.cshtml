@@ -1,0 +1,363 @@
+﻿@using (Html.BeginForm("SetExemptionSettingsGeneralSettings", "Exemptions"))
+{
+
+    @Html.DevExpress().Button(btnSettings =>
+                    {
+                        btnSettings.Name = "btnSaveGeneralSettings";
+                        btnSettings.Text = "Save";
+                        btnSettings.UseSubmitBehavior = true;
+                    }).GetHtml()
+
+    @*<div style="height: 100%;overflow-y: scroll;overflow-x:hidden;">*@
+
+    <table class="CheckListTable">
+        @*<tr>
+                <th class="ReqDocTable-l"><h3><strong>Required documentation</strong></h3></th>
+                <th class="ReqDocTable-r"><h3>Description that will appear on letter</h3></th>
+            </tr>*@
+
+        @*============================================= Principal =============================================*@
+
+        <tr>
+            <td class="ReqDocTable-l" style="border-bottom: none; width: 110px">
+
+                @Html.DevExpress().Label(lbsettings =>
+                     {
+                         lbsettings.ControlStyle.CssClass = "label";
+                         lbsettings.Text = "Management";
+                         lbsettings.ControlStyle.Font.Bold = true;
+                         lbsettings.ControlStyle.ForeColor = System.Drawing.Color.Blue;
+                         lbsettings.ControlStyle.Font.Size = 10;
+                         lbsettings.Width = 300;
+                     }).GetHtml()
+            </td>
+            <td class="ReqDocTable-c" style="border-bottom: none;"></td>
+            <td class="ReqDocTable-r" style="border-bottom: none;"></td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                                 {
+                                     edtSettings.ControlStyle.CssClass = "editorLabel";
+                                     edtSettings.Width = 180;
+                                     edtSettings.Text = "Principal:";
+                                 }).GetHtml()
+
+                        @Html.DevExpress().Label(edtSettings =>
+                                 {
+                                     edtSettings.ControlStyle.CssClass = "editorLabel";
+                                     edtSettings.Width = 180;
+                                     edtSettings.Text = "Governing body:";
+                                 }).GetHtml()
+
+                        @Html.DevExpress().Label(edtSettings =>
+                                 {
+                                     edtSettings.ControlStyle.CssClass = "editorLabel";
+                                     edtSettings.Width = 180;
+                                     edtSettings.Text = "Governing finance:";
+                                 }).GetHtml()
+
+                        @Html.DevExpress().Label(edtSettings =>
+                                 {
+                                     edtSettings.ControlStyle.CssClass = "editorLabel";
+                                     edtSettings.Width = 180;
+                                     edtSettings.Text = "Financial secretary:";
+                                 }).GetHtml()
+
+                        @Html.DevExpress().Label(edtSettings =>
+                                 {
+                                     edtSettings.ControlStyle.CssClass = "editorLabel";
+                                     edtSettings.Width = 180;
+                                     edtSettings.Text = "Bursar title:";
+                                 }).GetHtml()
+
+
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-c">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                                 {
+                                     edtSettings.ControlStyle.CssClass = "label";
+                                     edtSettings.Width = 45;
+                                     edtSettings.Text = "Title:";
+                                 }).GetHtml()
+
+                        @Html.DevExpress().ComboBox(edtSettings =>
+                             {
+                                 edtSettings.Name = "PrincipalTitleID";
+                                 edtSettings.ControlStyle.CssClass = "formeditor";
+                                 edtSettings.ShowModelErrors = true;
+                                 edtSettings.Properties.TextField = "Description";
+                                 edtSettings.Properties.ValueField = "ID";
+                                 edtSettings.Properties.ValueType = typeof(int);
+                                 edtSettings.Width = 80;
+                             }).BindList(GridUtils.getDropdownList("Get_Title_PickList")).Bind(DataBinder.Eval(Model, "PrincipalTitleID")).GetHtml()
+
+                        @Html.DevExpress().Label(edtSettings =>
+                                 {
+                                     edtSettings.ControlStyle.CssClass = "label";
+                                     edtSettings.Width = 45;
+                                     edtSettings.Text = "Title: ";
+                                 }).GetHtml()
+
+                        @Html.DevExpress().ComboBox(edtSettings =>
+                            {
+                                edtSettings.Name = "GoverningBodyTitleID";
+                                edtSettings.ControlStyle.CssClass = "formeditor";
+                                edtSettings.ShowModelErrors = true;
+                                edtSettings.Properties.TextField = "Description";
+                                edtSettings.Properties.ValueField = "ID";
+                                edtSettings.Properties.ValueType = typeof(int);
+                                edtSettings.Width = 80;
+                            }).BindList(GridUtils.getDropdownList("Get_Title_PickList")).Bind(DataBinder.Eval(Model, "GoverningBodyTitleID")).GetHtml()
+
+                        @Html.DevExpress().Label(edtSettings =>
+                                 {
+                                     edtSettings.ControlStyle.CssClass = "label";
+                                     edtSettings.Width = 45;
+                                     edtSettings.Text = "Title:";
+                                 }).GetHtml()
+
+                        @Html.DevExpress().ComboBox(edtSettings =>
+                            {
+                                edtSettings.Name = "GoverningFinanceTitleID";
+                                edtSettings.ControlStyle.CssClass = "formeditor";
+                                edtSettings.ShowModelErrors = true;
+                                edtSettings.Properties.TextField = "Description";
+                                edtSettings.Properties.ValueField = "ID";
+                                edtSettings.Properties.ValueType = typeof(int);
+                                edtSettings.Width = 80;
+                            }).BindList(GridUtils.getDropdownList("Get_Title_PickList")).Bind(DataBinder.Eval(Model, "GoverningFinanceTitleID")).GetHtml()
+
+                        @Html.DevExpress().Label(edtSettings =>
+                                 {
+                                     edtSettings.ControlStyle.CssClass = "label";
+                                     edtSettings.Width = 45;
+                                     edtSettings.Text = "Title:";
+                                 }).GetHtml()
+
+                        @Html.DevExpress().ComboBox(edtSettings =>
+                            {
+                                edtSettings.Name = "FinancialSecretaryTitleID";
+                                edtSettings.ControlStyle.CssClass = "formeditor";
+                                edtSettings.ShowModelErrors = true;
+                                edtSettings.Properties.TextField = "Description";
+                                edtSettings.Properties.ValueField = "ID";
+                                edtSettings.Properties.ValueType = typeof(int);
+                                edtSettings.Width = 80;
+                            }).BindList(GridUtils.getDropdownList("Get_Title_PickList")).Bind(DataBinder.Eval(Model, "FinancialSecretaryTitleID")).GetHtml()
+
+                        @Html.DevExpress().Label(edtSettings =>
+                                 {
+                                     edtSettings.ControlStyle.CssClass = "label";
+                                     edtSettings.Width = 45;
+                                     edtSettings.Text = "Title: ";
+                                 }).GetHtml()
+
+                        @Html.DevExpress().ComboBox(edtSettings =>
+                            {
+                                edtSettings.Name = "BursarTitleID";
+                                edtSettings.ControlStyle.CssClass = "formeditor";
+                                edtSettings.ShowModelErrors = true;
+                                edtSettings.Properties.TextField = "Description";
+                                edtSettings.Properties.ValueField = "ID";
+                                edtSettings.Properties.ValueType = typeof(int);
+                                edtSettings.Width = 80;
+                            }).BindList(GridUtils.getDropdownList("Get_Title_PickList")).Bind(DataBinder.Eval(Model, "BursarTitleID")).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+
+                        @Html.DevExpress().Label(edtSettings =>
+                             {
+                                 edtSettings.ControlStyle.CssClass = "label";
+                                 edtSettings.Width = 80;
+                                 edtSettings.Text = "Full name: ";
+                             }).GetHtml()
+
+                        @Html.DevExpress().TextBox(edtSettings =>
+                             {
+                                 edtSettings.Name = "Principal";
+                                 edtSettings.ControlStyle.CssClass = "formeditor";
+                                 edtSettings.ShowModelErrors = true;
+                             }).Bind(DataBinder.Eval(Model, "Principal")).GetHtml()
+
+                        @Html.DevExpress().Label(edtSettings =>
+                             {
+                                 edtSettings.ControlStyle.CssClass = "label";
+                                 edtSettings.Width = 80;
+                                 edtSettings.Text = "Full name: ";
+                             }).GetHtml()
+
+                        @Html.DevExpress().TextBox(edtSettings =>
+                             {
+                                 edtSettings.Name = "GoverningBody";
+                                 edtSettings.ControlStyle.CssClass = "formeditor";
+                                 edtSettings.ShowModelErrors = true;
+                             }).Bind(DataBinder.Eval(Model, "GoverningBody")).GetHtml()
+
+                        @Html.DevExpress().Label(edtSettings =>
+                             {
+                                 edtSettings.ControlStyle.CssClass = "label";
+                                 edtSettings.Width = 80;
+                                 edtSettings.Text = "Full name: ";
+                             }).GetHtml()
+
+                        @Html.DevExpress().TextBox(edtSettings =>
+                             {
+                                 edtSettings.Name = "GoverningFinance";
+                                 edtSettings.ControlStyle.CssClass = "formeditor";
+                                 edtSettings.ShowModelErrors = true;
+                             }).Bind(DataBinder.Eval(Model, "GoverningFinance")).GetHtml()
+
+                        @Html.DevExpress().Label(edtSettings =>
+                             {
+                                 edtSettings.ControlStyle.CssClass = "label";
+                                 edtSettings.Width = 80;
+                                 edtSettings.Text = "Full name: ";
+                             }).GetHtml()
+
+                        @Html.DevExpress().TextBox(edtSettings =>
+                             {
+                                 edtSettings.Name = "FinancialSecretary";
+                                 edtSettings.ControlStyle.CssClass = "formeditor";
+                                 edtSettings.ShowModelErrors = true;
+                             }).Bind(DataBinder.Eval(Model, "FinancialSecretary")).GetHtml()
+
+                        @Html.DevExpress().Label(edtSettings =>
+                             {
+                                 edtSettings.ControlStyle.CssClass = "label";
+                                 edtSettings.Width = 80;
+                                 edtSettings.Text = "Full name: ";
+                             }).GetHtml()
+
+                        @Html.DevExpress().TextBox(edtSettings =>
+                             {
+                                 edtSettings.Name = "Bursar";
+                                 edtSettings.ControlStyle.CssClass = "formeditor";
+                                 edtSettings.ShowModelErrors = true;
+                             }).Bind(DataBinder.Eval(Model, "Bursar")).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l" style="border-bottom: none; width: 110px">
+
+                @Html.DevExpress().Label(lbsettings =>
+                     {
+                         lbsettings.ControlStyle.CssClass = "label";
+                         lbsettings.Text = "Management to appear on the left";
+                         lbsettings.ControlStyle.Font.Bold = true;
+                         lbsettings.ControlStyle.ForeColor = System.Drawing.Color.Blue;
+                         lbsettings.ControlStyle.Font.Size = 10;
+                         lbsettings.Width = 300;
+                     }).GetHtml()
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().RadioButtonList(rbsettings =>
+                   {
+                       rbsettings.Name = "CalculationLetterLeftPerson";
+                       rbsettings.Properties.ValueType = typeof(int);
+                       rbsettings.Properties.TextField = "Marital status";
+                       rbsettings.Width = Unit.Pixel(330);
+                       rbsettings.Properties.Items.Add("Principal", 1);
+                       rbsettings.Properties.Items.Add("Governing body", 2);
+                       rbsettings.Properties.Items.Add("Governing finance", 3);
+                       rbsettings.Properties.Items.Add("Financial secretary", 4);
+                       rbsettings.Properties.Items.Add("Bursar", 5);
+                       rbsettings.Properties.RepeatLayout = RepeatLayout.Table;
+                       rbsettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+                       rbsettings.Properties.RepeatColumns = 2;
+                       rbsettings.ControlStyle.Border.BorderStyle = BorderStyle.Solid;
+                       rbsettings.ControlStyle.Border.BorderColor = System.Drawing.Color.LightGray;
+                   }).Bind(DataBinder.Eval(Model, "ManagementLeftID")).GetHtml()
+                   
+
+                      
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+                                              
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l" style="border-bottom: none; width: 110px">
+
+                @Html.DevExpress().Label(lbsettings =>
+                     {
+                         lbsettings.ControlStyle.CssClass = "label";
+                         lbsettings.Text = "Mangagenent to appear on the right.";
+                         lbsettings.ControlStyle.Font.Bold = true;
+                         lbsettings.ControlStyle.ForeColor = System.Drawing.Color.Blue;
+                         lbsettings.ControlStyle.Font.Size = 10;
+                         lbsettings.Width = 300;
+                     }).GetHtml()
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().RadioButtonList(rbsettings =>
+                   {
+                       rbsettings.Name = "CalculationLetterRightPerson";
+                       rbsettings.Properties.ValueType = typeof(int);
+                       rbsettings.Properties.TextField = "Marital status";
+                       rbsettings.Width = Unit.Pixel(330);
+                       rbsettings.Properties.Items.Add("None", 6);
+                       rbsettings.Properties.Items.Add("Principal", 1);
+                       rbsettings.Properties.Items.Add("Governing body", 2);
+                       rbsettings.Properties.Items.Add("Governing finance", 3);
+                       rbsettings.Properties.Items.Add("Financial secretary", 4);
+                       rbsettings.Properties.Items.Add("Bursar", 5);
+                       rbsettings.Properties.RepeatLayout = RepeatLayout.Table;
+                       rbsettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+                       rbsettings.Properties.RepeatColumns = 2;
+                       rbsettings.ControlStyle.Border.BorderStyle = BorderStyle.Solid;
+                       rbsettings.ControlStyle.Border.BorderColor = System.Drawing.Color.LightGray;
+                   }).Bind(DataBinder.Eval(Model, "ManagementRightID")).GetHtml()
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                       
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+    </table>
+    @*</div>*@
+}

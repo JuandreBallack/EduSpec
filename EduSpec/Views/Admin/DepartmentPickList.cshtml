@@ -1,0 +1,34 @@
+﻿@if (Model != null && Model is System.Int32)
+{
+    @Html.DevExpress().ComboBox(settings =>
+    {
+        settings.Name = "DepartmentID";
+        settings.CallbackRouteValues = new { Controller = "Admin", Action = "DepartmentPickList" };
+        settings.Properties.ValueType = typeof(Int32);
+        settings.Properties.TextField = "Description";
+        settings.Properties.ValueField = "ID";
+        settings.Properties.CallbackPageSize = 20;
+        settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+        settings.Properties.ClientSideEvents.Validation = "function(s,e){validateRequiredField(e.value, e);}";
+        settings.Width = 150;
+        settings.Properties.ClientSideEvents.BeginCallback = "function(s, e) { e.customArgs['AccessLevelID'] = AccessLevelID.GetValue(); }";
+    }).BindList(EduSpec.Controllers.AdminController.getInstitutionDepartments(Convert.ToInt32(ViewData["AccessLevelID"]))).Bind(Model).GetHtml()
+}
+else
+{
+    @Html.DevExpress().ComboBox(settings =>
+    {
+        settings.Name = "DepartmentID";
+        settings.CallbackRouteValues = new { Controller = "Admin", Action = "DepartmentPickList" };
+        settings.Properties.ValueType = typeof(Int32);
+        settings.Properties.TextField = "Description";
+        settings.Properties.ValueField = "ID";
+        settings.Properties.CallbackPageSize = 20;
+        settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+        settings.Properties.ClientSideEvents.Validation = "function(s,e){validateRequiredField(e.value, e);}";
+        settings.Width = 150;
+        settings.Properties.ClientSideEvents.BeginCallback = "function(s, e) { e.customArgs['AccessLevelID'] = AccessLevelID.GetValue(); }";
+    }).BindList(EduSpec.Controllers.AdminController.getInstitutionDepartments(Convert.ToInt32(ViewData["AccessLevelID"]))).Bind(Model, "DepartmentID").GetHtml()
+
+}
+

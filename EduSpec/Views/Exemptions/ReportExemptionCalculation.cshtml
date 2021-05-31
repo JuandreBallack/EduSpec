@@ -1,0 +1,13 @@
+﻿@model DevExpress.XtraReports.UI.XtraReport
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcExemptionCalculation", "Exemption Calculation");
+    settings.CallbackRouteValues = new { Controller = "Exemptions", Action = "ReportExemptionCalculation" };
+    settings.ClientSideEvents.EndCallback = "function(s, e) {  LoadingPanel.Hide(); s.Show(); }";
+    settings.SetContent(() =>
+    {
+        Html.RenderPartial("DocumentViewer", Model, new ViewDataDictionary { { "Name", "ExemptionCalculation" } });
+    });
+}).GetHtml()
+

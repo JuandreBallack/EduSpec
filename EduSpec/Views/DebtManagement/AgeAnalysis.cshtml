@@ -1,0 +1,541 @@
+﻿@model EduSpec.Models.Get_DebtManagement_AgeAnalysis_ViewResult
+
+<script type="text/javascript">
+
+    var cbYearSelectedIndex = -1;
+    var ContactReasonID = 0;
+    var NewNoteFileName = '';
+
+    function SetEmailValues(values) {
+        Recipient.SetText(values[0]);
+        CcEmail.SetText(values[1]);
+        tbFamilyIDEmail.SetText(values[2]);
+        tbAgeStatusIDEmail.SetText(values[3]);
+        pcSendSingleEmail.Show();
+    }
+
+    function SetPrintLetterValues(values) {
+        tbFamilyIDLetter.SetText(values[0]);
+        tbAgeStatusIDLetter.SetText(values[1]);
+        pcPrintLetters.Show();
+    }
+
+    function SetAgeLetterPrint() {
+        $.ajax({
+            type: 'POST',
+            url: '/DebtManagement/printAgeAnalysisReport',
+            dataType: 'json',
+            async: false,
+            data: {
+                FamilyID: tbFamilyIDLetter.GetValue(),
+                IsPrintLetterhead: true,
+                AgeStatusID: tbAgeStatusIDLetter.GetValue(),
+                LetterID: cbInstLetterID.GetValue(),
+                IsBulkLetter: false
+            },
+            success: function (response) {
+                var s = response.Url;
+                s.target = "_Blank"
+                window.open(s);
+                pcPrintLetters.Hide()
+            }
+        });
+    }
+
+    function SetAgeLetterBulkValues() {
+        $.ajax({
+            type: 'POST',
+            url: '/DebtManagement/SetLetterQueue',
+            dataType: 'json',
+            async: false,
+            data: {
+                AgeStatusID: AgeStatusBulk.GetValue(),
+                LetterID: cbInstBulkLetterID.GetValue(),
+                FamilyID: 0,
+                IsPrintLetterhead: true,
+                IsBulkLetter: true
+            },
+            success: function (response) {
+                //var s = response.Url;
+                //s.target = "_Blank"
+                //window.open(s);
+                pcPrintBulkLetters.Hide()
+            }
+        });
+    }
+
+    function SetContactDetailsNoteValues(s, e) {
+        var ArrangementDate;
+
+        if (noteArrangementDate.GetDate() !== null)
+            ArrangementDate = noteArrangementDate.GetDate().toISOString();
+
+        if (ASPxClientEdit.AreEditorsValid())
+            $.ajax({
+                type: 'POST',
+                url: '/DebtManagement/AddContactDetailsNote',
+                dataType: 'json',
+                async: false,
+                data: {
+                    FamilyID: GridView.GetRowKey(GridView.GetFocusedRowIndex()),
+                    AgeStatusID: AgeStatusIDNote.GetValue(),
+                    ContactTypeID: cbContactType.GetValue(),
+                    ContactName: tbContactName.GetValue(),
+                    ContactReasonID: cbContactReason.GetValue(),
+                    Amount: noteArrangeAmount.GetValue(),
+                    ArrangementDate,
+                    NumberOfMonthsPaying: noteNumberOfMonths.GetValue(),
+                    Note: memoNote.GetValue(),
+                    YearID: cbYear.GetValue(),
+                    FileName: NewNoteFileName,
+                },
+                success: function (response) {
+                    pcDebtManagemenNote.Hide();
+                    GridView.PerformCallback();
+                    LeftNavBar.PerformCallback();
+                }
+            });
+    }
+
+    function onFamilyManagementCloseUp(s, e) {
+        //Add this function to all view were "AccountInformation" is used.
+        //This is to have custom code when Family management form is close.
+        cbpLegalNote.PerformCallback();
+    }
+
+    function SetAgeSummaryReportPrint() {
+        $.ajax({
+            type: 'POST',
+            url: '/DebtManagement/printAgeSummaryReport',
+            dataType: 'json',
+            async: false,
+            data: {
+                AgeStatusID: AgesummaryStatusID.GetValue(),
+                YearID: AgesummaryYearID.GetValue()
+            },
+            success: function (response) {
+                var s = response.Url;
+                s.target = "_Blank"
+                window.open(s);
+                pcPrintAgeSummary.Hide()
+            }
+        });
+    }
+
+    function ContactReasonIDChange(s, e) {
+        var ContactReasonID = s.GetValue();
+        if (ContactReasonID === 1) {
+            lbnoteAmount.SetVisible(true);
+            lbnoteArrangementDate.SetVisible(true);
+            lbnoteNumberOfMonths.SetVisible(true);
+            noteArrangeAmount.SetVisible(true);
+            noteArrangementDate.SetVisible(true);
+            noteNumberOfMonths.SetVisible(true);
+        }
+        else if (ContactReasonID === 2 || ContactReasonID === 3 || ContactReasonID === 4) {
+            lbnoteAmount.SetVisible(false);
+            lbnoteArrangementDate.SetVisible(true);
+            lbnoteNumberOfMonths.SetVisible(false);
+            noteArrangeAmount.SetVisible(false);
+            noteArrangementDate.SetVisible(true);
+            noteNumberOfMonths.SetVisible(false);
+        }
+        else {
+            lbnoteAmount.SetVisible(false);
+            lbnoteArrangementDate.SetVisible(false);
+            lbnoteNumberOfMonths.SetVisible(false);
+            noteArrangeAmount.SetVisible(false);
+            noteArrangementDate.SetVisible(false);
+            noteNumberOfMonths.SetVisible(false);
+        }
+
+    }
+
+    function onStartLegal() {
+        LegalActionGridView.GetSelectedFieldValues("AgeAnalysisID", doStartLegal);
+    }
+
+    function doStartLegal(values) {
+        AgeList = values.join(',');
+
+        $.ajax({
+            type: 'POST',
+            url: '/DebtManagement/SetLegalProcess',
+            dataType: 'json',
+            async: false,
+            data: {
+                AgeList: AgeList,
+                DebtCollectorID: cbDebtCollector.GetValue()
+            },
+            success: function (response) {
+                LegalActionGridView.UnselectRows();
+                pcLegalProcess.Hide();
+                pcBulkEmailSent.Show();
+                GridView.PerformCallback();
+            },
+            error: function () { alert("error"); }
+        });
+    }
+
+    function SetSMSMessageHistoryReportPrint() {
+        $.ajax({
+            type: 'POST',
+            url: '/DebtManagement/reportSMSMessageHistory',
+            dataType: 'json',
+            async: false,
+            data: {
+                DateFrom: SMSHistoryDateFrom.GetDate().toISOString(),
+                DateTo: SMSHistoryDateTo.GetDate().toISOString()
+            },
+            success: function (response) {
+                var s = response.Url;
+                s.target = "_Blank"
+                window.open(s);
+                pcPrintSMSMessageHistory.Hide()
+            }
+        });
+    }
+
+    function onGenerateRegisteredEmail() {
+        Section41GridView.GetSelectedFieldValues("ParentID", doGenerateRegisteredEmail);
+    }
+
+    function doGenerateRegisteredEmail(values) {
+        ParentIDList = values.join(',');
+
+        $.ajax({
+            type: 'POST',
+            url: '/DebtManagement/SetSection41Letters',
+            dataType: 'json',
+            async: false,
+            data: {
+                ParentIDList: ParentIDList,
+                InstEmailID: cbSection41Message.GetValue(),
+                InstLetterID: cbSection41Letter.GetValue(),
+                EmailSubject: tbSection41EmailSubject.GetValue()
+            },
+            success: function (response) {
+                Section41GridView.UnselectRows();
+                pcRegisteredEmails.Hide();
+                pcBulkEmailSent.Show();
+                GridView.PerformCallback();
+            },
+            error: function () { alert("error"); }
+        });
+    }
+
+    function onErrorTerminationOKClick(Result) {
+        if (Result == "mrOK") {
+            pcErrorTerminationNotSelected.Hide();
+        }
+    }
+
+    function onErrorLeftSchoolOKClick(Result) {
+        if (Result == "mrOK") {
+            pcErrorLeftSchoolNotSelected.Hide();
+        }
+    }
+
+    function SaveNote(s, e) {
+        if (ucNoteFile.GetText() === '') {
+            SetContactDetailsNoteValues();
+        }
+        else {
+            ucNoteFile.Upload();
+        }
+    }
+
+    function onUploadControlNoteFileUploadComplete(s, e) {
+        if (e.isValid) {
+
+            NewNoteFileName = e.callbackData;
+
+        }
+    }
+
+</script>
+
+@Html.DevExpress().Splitter(settings =>
+{
+
+    SplitterUtils.SetSplitterProperties(settings, ViewData["ViewProperties"]);
+
+    MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+    HeaderPane.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div ID=\"ViewInfo\">Age analysis</div>");
+    });
+
+    MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+    MainContentPane.SetContent(() =>
+    {
+
+        Html.DevExpress().Label(tbsettings =>
+        {
+            tbsettings.Name = "AgeAnalysisImportOptions";
+            tbsettings.Properties.ClientInstanceName = "AgeAnalysisImportOptions";
+        }).Render();
+
+        Html.DevExpress().Label(tbsettings =>
+        {
+            tbsettings.Name = "AgeAnalysisMonthID";
+            tbsettings.Properties.ClientInstanceName = "AgeAnalysisMonthID";
+        }).Render();
+
+        Html.RenderAction("AgeAnalysisPartial");
+    });
+
+
+    MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+    FooterPane.Separator.Visible = DefaultBoolean.True;
+    FooterPane.SetContent(() =>
+    {
+
+        Html.RenderAction("DebtManagementHistoryPartial");
+
+    });
+
+}).GetHtml()
+
+@Html.Partial("SMSForms")
+@Html.Partial("EmailForms")
+@Html.Partial("AccountInformation", "false")
+@Html.Partial("DebtManagementLegalProcess")
+@Html.Partial("DebtManagementRegisteredEmails")
+
+@MessageDlg.ShowMessageDlg("pcInform", Html, "", new BtnType[] { BtnType.mbOK }, MessageType.mInformation)
+@MessageDlg.ShowMessageDlg("pcSMSBundle", Html, "", new BtnType[] { BtnType.mbOK }, MessageType.mInformation)
+@MessageDlg.ShowMessageDlg("pcSMSSent", Html, "Your SMS is being prepared and will be sent shortly.", new BtnType[] { BtnType.mbOK }, MessageType.mInformation)
+@MessageDlg.ShowMessageDlg("pcEmailSent", Html, "Your email is being prepared and will be sent shortly.", new BtnType[] { BtnType.mbOK }, MessageType.mInformation)
+@MessageDlg.ShowMessageDlg("pcBulkEmailSent", Html, "The emails are being queued. Please go to the Bulk Emails page under Enquiries to complete the sending process.", new BtnType[] { BtnType.mbOK }, MessageType.mConfirmation)
+@MessageDlg.ShowMessageDlg("pcErrorTerminationNotSelected", Html, "Please make sure that the Termination Date is set when grade/class has been changed to 'Left School'.", new BtnType[] { BtnType.mbOK }, MessageType.mInformation, "onErrorTerminationOKClick")
+@MessageDlg.ShowMessageDlg("pcErrorLeftSchoolNotSelected", Html, "Please make sure that the Grade/Class has been set to 'Left School' when a termination date is set.", new BtnType[] { BtnType.mbOK }, MessageType.mInformation, "onErrorLeftSchoolOKClick")
+
+<div>
+    @Html.Partial("reportParentAccountHistory")
+    @Html.Partial("reportDebtManagementSummary")
+    @Html.Partial("reportPaymentArrangements")
+    @Html.Partial("reportPaymentArrangementsFamily")
+    @Html.Partial("reportSMSMessageHistory")
+    @Html.Partial("reportEmailHistory")
+    @Html.Partial("reportRegisteredMail")
+</div>
+
+
+@Html.DevExpress().LoadingPanel(settings =>
+{
+    settings.Name = "LoadingPanel";
+    settings.Modal = true;
+    settings.Text = "Preparing report.";
+}).GetHtml()
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcPrintBulkLetters", "Print bulk letters");
+
+
+    settings.SetContent(() =>
+    {
+            ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 300px\"><div class=\"line\">");
+
+            Html.DevExpress().Label(lbsettings =>
+            {
+                lbsettings.Name = "lbAgeAnalysisStatusBulkLetter";
+                lbsettings.Text = "Age status:";
+                lbsettings.ControlStyle.CssClass = "editor";
+                lbsettings.Width = 80;
+            }).Render();
+
+            @Html.DevExpress().ComboBox(edtSettings =>
+            {
+                edtSettings.Name = "AgeStatusBulk";
+                edtSettings.ControlStyle.CssClass = "formeditor";
+                edtSettings.Properties.TextField = "Description";
+                edtSettings.Properties.ValueField = "ID";
+                edtSettings.Properties.ValueType = typeof(Int16);
+            }).BindList(GridUtils.getDropdownList("Get_AgeAnalysisStatus_PickList")).GetHtml();
+
+            ViewContext.Writer.Write("</div><div class=\"line\">");
+
+            Html.DevExpress().Label(lbsettings =>
+            {
+                lbsettings.Name = "lbLetterBulk";
+                lbsettings.Text = "Letter:";
+                lbsettings.ControlStyle.CssClass = "editor";
+                lbsettings.Width = 80;
+            }).Render();
+
+            @Html.DevExpress().ComboBox(edtSettings =>
+            {
+                edtSettings.Name = "cbInstBulkLetterID";
+                edtSettings.ControlStyle.CssClass = "formeditor";
+                edtSettings.Properties.TextField = "Description";
+                edtSettings.Properties.ValueField = "ID";
+                edtSettings.Properties.ValueType = typeof(Int16);
+            }).BindList(GridUtils.getDropdownList("Get_InstitutionDebtManagementLetters_PickList" + " " + @Session["InstID"].ToString())).GetHtml();
+
+            ViewContext.Writer.Write("</div><div class=\"line\">");
+
+            Html.DevExpress().Button(buttonSettings =>
+            {
+                buttonSettings.Name = "btnLetterBulkSend";
+                buttonSettings.ControlStyle.CssClass = "button";
+                buttonSettings.Width = 80;
+                buttonSettings.Text = "Send";
+                buttonSettings.ClientSideEvents.Click = "function(s,e){ SetAgeLetterBulkValues();}";
+            }).Render();
+
+            Html.DevExpress().Button(buttonSettings =>
+            {
+                buttonSettings.Name = "btnLetterBulkCancel";
+                buttonSettings.ControlStyle.CssClass = "button";
+                buttonSettings.Width = 80;
+                buttonSettings.Text = "Cancel";
+                buttonSettings.ClientSideEvents.Click = "function(s, e){ pcPrintBulkLetters.Hide(); }";
+            }).Render();
+
+            ViewContext.Writer.Write("</div></div><b class=\"Clear\"></b>");
+
+
+        });
+    }).GetHtml()
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcPrintLetters", "Print letters");
+
+    settings.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 300px\"><div class=\"line\">");
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        Html.DevExpress().TextBox(textBoxSettings =>
+        {
+            textBoxSettings.Name = "tbFamilyIDLetter";
+            textBoxSettings.ControlStyle.CssClass = "editor";
+            textBoxSettings.ClientVisible = false;
+            textBoxSettings.Width = 300;
+
+        }).Render();
+
+        Html.DevExpress().TextBox(textBoxSettings =>
+        {
+            textBoxSettings.Name = "tbAgeStatusIDLetter";
+            textBoxSettings.ControlStyle.CssClass = "editor";
+            textBoxSettings.ClientVisible = false;
+            textBoxSettings.Width = 300;
+
+        }).Render();
+
+        Html.DevExpress().Label(lbsettings =>
+        {
+            lbsettings.Name = "lbLetter";
+            lbsettings.Text = "Letter:";
+            lbsettings.ControlStyle.CssClass = "editor";
+            lbsettings.Width = 80;
+        }).Render();
+
+        @Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "cbInstLetterID";
+            edtSettings.ControlStyle.CssClass = "formeditor";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "ID";
+            edtSettings.Properties.ValueType = typeof(Int16);
+        }).BindList(GridUtils.getDropdownList("Get_InstitutionDebtManagementLetters_PickList" + " " + @Session["InstID"].ToString())).GetHtml();
+
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        Html.DevExpress().Button(buttonSettings =>
+        {
+            buttonSettings.Name = "btnLetterSend";
+            buttonSettings.ControlStyle.CssClass = "button";
+            buttonSettings.Width = 80;
+            buttonSettings.Text = "Print";
+            buttonSettings.ClientSideEvents.Click = "function(s,e){ SetAgeLetterPrint();}";
+        }).Render();
+
+        Html.DevExpress().Button(buttonSettings =>
+        {
+            buttonSettings.Name = "btnLetterCancel";
+            buttonSettings.ControlStyle.CssClass = "button";
+            buttonSettings.Width = 80;
+            buttonSettings.Text = "Cancel";
+            buttonSettings.ClientSideEvents.Click = "function(s, e){ pcPrintLetters.Hide(); }";
+        }).Render();
+
+        ViewContext.Writer.Write("</div></div><b class=\"Clear\"></b>");
+
+
+    });
+}).GetHtml()
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcDebtManagemenNote", "Family note");
+    settings.Width = 600;
+    settings.SetContent(() =>
+    {
+        Html.RenderAction("DebtManagementNote", "DebtManagement");
+    });
+}).GetHtml()
+
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcPrintAgeSummary", "Age analysis summary");
+    settings.Width = 200;
+    settings.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 200px\"><div class=\"line\">");
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        EduSpecHtmlHelper.Label(Html, "Age status:", 80, "formeditor");
+        EduSpecHtmlHelper.ComboBox(Html, "AgesummaryStatusID", "formeditor", 100, "Get_AgeAnalysisStatus_SummaryReport_PickList", null);
+        EduSpecHtmlHelper.Label(Html, "Year:", 80, "formeditor");
+        EduSpecHtmlHelper.ComboBox(Html, "AgesummaryYearID", "formeditor", 100, "Get_Year_AgeAnalysisSummaryReport_PickList", null);
+
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> saveButtonSummaryReportEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        saveButtonSummaryReportEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){SetAgeSummaryReportPrint(); }");
+        EduSpecHtmlHelper.Button(Html, "btnGenerateAgeSummaryReport", "button", "Generate", 80, saveButtonSummaryReportEvents);
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> closeSummaryReportButtonEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        closeSummaryReportButtonEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){pcPrintAgeSummary.Hide();}");
+        EduSpecHtmlHelper.Button(Html, "btnCancel", "button", "Cancel", 80, closeSummaryReportButtonEvents);
+
+
+        ViewContext.Writer.Write("</div></div><b class=\"Clear\"></b>");
+    });
+}).GetHtml()
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcPrintSMSMessageHistory", "SMS message history");
+    settings.Width = 200;
+    settings.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 200px\"><div class=\"line\">");
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        EduSpecHtmlHelper.Label(Html, "Date from:", 80, "formeditor");
+        EduSpecHtmlHelper.DateEdit(Html, "SMSHistoryDateFrom", "formeditor", 100, null);
+        EduSpecHtmlHelper.Label(Html, "Date to:", 80, "formeditor");
+        EduSpecHtmlHelper.DateEdit(Html, "SMSHistoryDateTo", "formeditor", 100, null);
+
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> saveButtonSMSHistoryEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        saveButtonSMSHistoryEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){; pcPrintSMSMessageHistory.Hide(); }");
+        EduSpecHtmlHelper.Button(Html, "btnGenerateSMSMessageHistoryReport", "button", "Generate", 80, saveButtonSMSHistoryEvents);
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> closeButtonSMSHistoryEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        closeButtonSMSHistoryEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){pcPrintSMSMessageHistory.Hide();}");
+        EduSpecHtmlHelper.Button(Html, "btnSMSHistoryCancel", "button", "Cancel", 80, closeButtonSMSHistoryEvents);
+
+
+        ViewContext.Writer.Write("</div></div><b class=\"Clear\"></b>");
+    });
+}).GetHtml()
+

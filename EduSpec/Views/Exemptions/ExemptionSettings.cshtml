@@ -1,0 +1,194 @@
+﻿<script type="text/javascript">
+
+    var FocusMessage_SMS;
+    var FocusMessage_Letter;
+
+    function OnCLickLetter(s, e) {
+
+        var x = s.GetSelectedItems();
+        if (FocusMessage_Letter === "A")
+        {
+            Body_AFR.RestoreSelection();
+            Body_AFR.ExecuteCommand(ASPxClientCommandConsts.PASTEHTML_COMMAND, x[0].text, true);
+        }
+        else
+        {
+            Body_ENG.RestoreSelection();
+            Body_ENG.ExecuteCommand(ASPxClientCommandConsts.PASTEHTML_COMMAND, x[0].text, true);
+        }
+    }
+
+    function OnCLickEmail(s, e) {
+
+        var x = s.GetSelectedItems();
+        if (FocusMessage_Email === "A") {
+            EmailBody_AFR.RestoreSelection();
+            EmailBody_AFR.ExecuteCommand(ASPxClientCommandConsts.PASTEHTML_COMMAND, x[0].text, true);
+        }
+        else {
+            EmailBody_ENG.RestoreSelection();
+            EmailBody_ENG.ExecuteCommand(ASPxClientCommandConsts.PASTEHTML_COMMAND, x[0].text, true);
+        }
+    }
+
+    function CopyToAll(s, e) {
+        var YearID = AnnualParametersGridView.GetRowKey(AnnualParametersGridView.GetFocusedRowIndex());
+        var AutoID = SchoolFeesGridView.GetRowKey(SchoolFeesGridView.GetFocusedRowIndex());
+
+        $.ajax({
+            type: 'POST',
+            url: '/Exemptions/SchoolFeesAllUpdate',
+            dataType: 'json',
+            async: false,
+            data: {
+                YearID: YearID,
+                AutoID: AutoID
+            }
+            //success: function (result) {
+            //    if (result.Success === true) {
+            //        SchoolFeesGridView.PerformCallback({ YearID: result.YearID });
+            //    }
+            //}
+        }).done(function (result) {
+            SchoolFeesGridView.PerformCallback({ YearID: result.YearID });
+        });
+    }
+
+    function onConfirmation(Result) {
+        if (Result == "mrYes") {
+            var YearID = AnnualParametersGridView.GetRowKey(AnnualParametersGridView.GetFocusedRowIndex());
+            var AutoID = SchoolFeesGridView.GetRowKey(SchoolFeesGridView.GetFocusedRowIndex());
+
+            $.ajax({
+                type: 'POST',
+                url: '/Exemptions/SchoolFeesAllUpdate',
+                dataType: 'json',
+                async: false,
+                data: {
+                    YearID: YearID,
+                    AutoID: AutoID
+                }
+                //success: function (result) {
+                //    if (result.Success === true) {
+                //        SchoolFeesGridView.PerformCallback({ YearID: result.YearID });
+                //    }
+                //}
+            }).done(function (result) {
+                SchoolFeesGridView.PerformCallback({ YearID: result.YearID });
+            });
+        }
+    }
+
+    function OnCLickSMSBulk(s, e) {
+
+        var x = s.GetSelectedItems();
+
+        if (FocusMessage_SMS === "A") {
+            Message_AFR.RestoreSelection();
+            Message_AFR.ExecuteCommand(ASPxClientCommandConsts.PASTEHTML_COMMAND, x[0].text, true);
+        }
+        else {
+            Message_ENG.RestoreSelection();
+            Message_ENG.ExecuteCommand(ASPxClientCommandConsts.PASTEHTML_COMMAND, x[0].text, true);
+        }
+        
+        
+    }
+
+    function onGotFocus_SMS(s, e) {
+
+        if (s.name === "Message_AFR")
+            FocusMessage_SMS = "A";
+
+        if (s.name === "Message_ENG")
+            FocusMessage_SMS = "E";
+    }
+
+    function onGotFocus_Letter(s, e) {
+
+        if (s.name === "Body_AFR")
+            FocusMessage_Letter = "A";
+
+        if (s.name === "Body_ENG")
+            FocusMessage_Letter = "E";
+    }
+
+    function onGotFocus_Email(s, e) {
+
+        if (s.name === "EmailBody_AFR")
+            FocusMessage_Email = "A";
+
+        if (s.name === "EmailBody_ENG")
+            FocusMessage_Email = "E";
+    }
+    
+
+</script>
+
+@Html.DevExpress().Splitter(settings =>
+    {
+        SplitterUtils.SetSplitterProperties(settings, true, 0, false, 0);
+
+        MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+        HeaderPane.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<div ID=\"ViewInfo\">Exemptions settings</div>");
+        });
+
+        MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+        MainContentPane.ScrollBars = ScrollBars.Vertical;
+        MainContentPane.SetContent(() =>
+        {
+            Html.DevExpress().PageControl(pcsettings =>
+            {
+                pcsettings.Name = "pcExemptionSettings";
+                pcsettings.Width = Unit.Percentage(100);
+                pcsettings.Height = Unit.Percentage(100);
+                pcsettings.EnableTabScrolling = true;
+                pcsettings.TabAlign = TabAlign.Justify;
+                pcsettings.EnableClientSideAPI = true;
+
+                pcsettings.TabPages.Add("Annual Parameters", "AnnualParameters").SetContent(() =>
+                {
+                    Html.RenderAction("ExemptionSettingsAnnualParam");
+                    
+                });
+
+                pcsettings.TabPages.Add("Documentation", "Documentation").SetContent(() =>
+                {
+                    Html.RenderAction("ExemptionSettingsRequiredDocuments");
+                });
+
+                pcsettings.TabPages.Add("Letters", "Letters").SetContent(() =>
+                {
+                    Html.RenderAction("ExemptionSettingsLetters");
+                });
+
+                pcsettings.TabPages.Add("SMS's", "SMSs").SetContent(() =>
+                {
+                    Html.RenderAction("ExemptionSettingsSMS");
+                });
+
+                pcsettings.TabPages.Add("Emails", "Emails").SetContent(() =>
+                {
+                    Html.RenderAction("ExemptionSettingsEmails");
+                });
+
+                pcsettings.TabPages.Add("General settings", "GeneralSettings").SetContent(() =>
+                {
+                    Html.RenderAction("ExemptionSettingsGeneralSettings");
+                });
+
+            }).GetHtml();
+        });
+
+        MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+        FooterPane.Separator.Visible = DefaultBoolean.True;
+        FooterPane.SetContent(() =>
+        {
+
+        });
+
+    }).GetHtml()
+
+@MessageDlg.ShowMessageDlg("pcConfirm", Html, "Are you sure you want to copy the selected fees to all the grades?", new BtnType[] { BtnType.mbYes, BtnType.mbNo }, MessageType.mConfirmation, "onConfirmation")

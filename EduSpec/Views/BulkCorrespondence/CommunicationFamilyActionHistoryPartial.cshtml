@@ -1,0 +1,39 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["FamilyActionHistoryViewProperties"]);
+
+    settings.Columns.Add(column =>
+    {
+        column.Name = "Documents";
+        //column.FieldName = "IsDealerApplicationUploaded";
+        column.Caption = "Document";
+        column.UnboundType = DevExpress.Data.UnboundColumnType.String;
+        column.Visible = true;
+        column.Width = 70;
+        column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        column.SetDataItemTemplateContent(c =>
+        {
+
+            Html.DevExpress().HyperLink(settingsBtn =>
+            {
+
+                settingsBtn.Name = "cb_" + c.KeyValue.ToString();
+
+                if (DataBinder.Eval(c.DataItem, "FileName") != null)
+                {
+                    settingsBtn.Properties.ImageUrl = "~/Content/GridImages/FileType_PDF.png";
+                    settingsBtn.NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "BulkCorrespondence", Action = "getDocument", returnUrl = DataBinder.Eval(c.DataItem, "FileName").ToString() });
+                    settingsBtn.Properties.Target = "_blank";
+                }
+
+                settingsBtn.Width = 60;
+
+            }).GetHtml();
+        });
+    });
+
+    settings.Settings.ShowPreview = true;
+    settings.PreviewEncodeHtml = false;
+    settings.PreviewFieldName = "MessageBody";
+
+}).Bind(Model).GetHtml()

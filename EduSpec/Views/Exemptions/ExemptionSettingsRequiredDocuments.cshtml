@@ -1,0 +1,2952 @@
+﻿@using (Html.BeginForm("setExemptionSettingsRequiredDocuments", "Exemptions"))
+{
+    @Html.DevExpress().Button(btnSettings =>
+                {
+                    btnSettings.Name = "btnSave";
+                    btnSettings.Text = "Save";
+                    btnSettings.UseSubmitBehavior = true;
+                }).GetHtml()
+
+
+<div style="height: 100%;overflow-y: scroll;overflow-x:hidden;">
+    
+    <table class="CheckListTable">
+        <tr>
+            <th class="ReqDocTable-l"><h3><strong>Required documentation</strong></h3></th>
+            <th class="ReqDocTable-r"><h3>Description that will appear on letter</h3></th>
+        </tr>
+        @*============================================= Learners =============================================*@
+
+        <tr>
+            <td class="ReqDocTable-l" style="border-bottom: none;">
+
+                @Html.DevExpress().Label(lbsettings =>
+                                           {
+                                               lbsettings.ControlStyle.CssClass = "label";
+                                               lbsettings.Text = "Learners";
+                                               lbsettings.ControlStyle.Font.Bold = true;
+                                               lbsettings.ControlStyle.ForeColor = System.Drawing.Color.Blue;
+                                               lbsettings.ControlStyle.Font.Size = 10;
+                                               lbsettings.Width = 300;
+                                           }).GetHtml()
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().CheckBoxList(cbsettings =>
+                                       {
+                                           cbsettings.Name = "LearnersRequiredDocs";
+                                           cbsettings.Properties.ValueType = typeof(int);
+                                           cbsettings.Width = Unit.Pixel(340);
+                                           cbsettings.Properties.Items.Add("Learner birth certificate", 1);
+                                           cbsettings.Properties.Items.Add("Learner birth certificate in other school", 2);
+                                           cbsettings.Properties.RepeatLayout = RepeatLayout.Table;
+                                           cbsettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+                                           cbsettings.Properties.RepeatColumns = 1;
+                                           cbsettings.ControlStyle.Border.BorderStyle = BorderStyle.Solid;
+                                           cbsettings.ControlStyle.Border.BorderColor = System.Drawing.Color.LightGray;
+                                           cbsettings.PreRender = (sender, e) =>
+                                           {
+                                               ASPxCheckBoxList cbl = (ASPxCheckBoxList)sender;
+                                               if (DataBinder.Eval(Model, "LearnersRequiredDocs") != null)
+                                               {
+                                                   string stringlist = DataBinder.Eval(Model, "LearnersRequiredDocs").ToString() ?? "";
+                                                   IList<int> list = stringlist.Split(',').Select(int.Parse).ToList();
+                                                   foreach (ListEditItem item in cbl.Items)
+                                                   {
+                                                       item.Selected = list.Contains((int)item.Value);
+                                                   }
+                                               }
+                                           };
+                                              //cbsettings.Properties.ClientSideEvents.SelectedIndexChanged = "setIncomeRequirements";
+                                              //cbsettings.Properties.ClientSideEvents.Init = "setIncomeRequirements";
+                                          }).GetHtml()
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l" style="border-bottom: none;">
+
+                @Html.DevExpress().Label(lbsettings =>
+                    {
+                        lbsettings.ControlStyle.CssClass = "label";
+                        lbsettings.Text = "Report descriptions";
+                        lbsettings.ControlStyle.Font.Bold = true;
+                        lbsettings.Width = 300;
+                    }).GetHtml()
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                           {
+                               edtSettings.ControlStyle.CssClass = "formeditor300";
+                               edtSettings.Width = 350;
+                               edtSettings.Text = "Learner birth certificate";
+                           }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                           {
+                               edtSettings.Name = "lbLearnerBirthCertificateDescription_ENG";
+                               edtSettings.ControlStyle.CssClass = "label";
+                               edtSettings.Width = 80;
+                               edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3);
+                               edtSettings.Text = "English";
+                           }).GetHtml()
+
+                        @Html.DevExpress().TextBox(edtSettings =>
+                           {
+                               edtSettings.Name = "LearnerBirthCertificateDescription_ENG";
+                               edtSettings.ControlStyle.CssClass = "formeditor300";
+                               edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3);
+                               edtSettings.ShowModelErrors = true;
+                           }).Bind(DataBinder.Eval(Model, "LearnerBirthCertificateDescription_ENG")).GetHtml()
+
+                        @Html.DevExpress().Label(edtSettings =>
+                           {
+                               edtSettings.Name = "lbLearnerBirthCertificateDescription_AFR";
+                               edtSettings.ControlStyle.CssClass = "label";
+                               edtSettings.Width = 80;
+                               edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2);
+                               edtSettings.Text = "Afrikaans";
+                           }).GetHtml()
+
+                        @Html.DevExpress().TextBox(edtSettings =>
+                           {
+                               edtSettings.Name = "LearnerBirthCertificateDescription_AFR";
+                               edtSettings.ControlStyle.CssClass = "formeditor300";
+                               edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2);
+                               edtSettings.ShowModelErrors = true;
+                           }).Bind(DataBinder.Eval(Model, "LearnerBirthCertificateDescription_AFR")).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                           {
+                               edtSettings.ControlStyle.CssClass = "formeditor300";
+                               edtSettings.Width = 300;
+                               edtSettings.Text = "Learner birth certificate: In other school/s";
+                           }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                           {
+                               edtSettings.Name = "lbLearnerBirthCertificateOtherSchoolsDescription_ENG";
+                               edtSettings.ControlStyle.CssClass = "label";
+                               edtSettings.Width = 80;
+                               edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3);
+                               edtSettings.Text = "English";
+                           }).GetHtml()
+
+                        @Html.DevExpress().TextBox(edtSettings =>
+                           {
+                               edtSettings.Name = "LearnerBirthCertificateOtherSchoolsDescription_ENG";
+                               edtSettings.ControlStyle.CssClass = "formeditor300";
+                               edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3);
+                               edtSettings.ShowModelErrors = true;
+                           }).Bind(DataBinder.Eval(Model, "LearnerBirthCertificateDescription_ENG")).GetHtml()
+
+                        @Html.DevExpress().Label(edtSettings =>
+                           {
+                               edtSettings.Name = "lbLearnerBirthCertificateOtherSchoolsDescription_AFR";
+                               edtSettings.ControlStyle.CssClass = "label";
+                               edtSettings.Width = 80;
+                               edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2);
+                               edtSettings.Text = "Afrikaans";
+                           }).GetHtml()
+
+                        @Html.DevExpress().TextBox(edtSettings =>
+                           {
+                               edtSettings.Name = "LearnerBirthCertificateOtherSchoolsDescription_AFR";
+                               edtSettings.ControlStyle.CssClass = "formeditor300";
+                               edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2);
+                               edtSettings.ShowModelErrors = true;
+                           }).Bind(DataBinder.Eval(Model, "LearnerBirthCertificateOtherSchoolsDescription_AFR")).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+        @*============================================= Marital Status =============================================*@
+
+        <tr>
+            <td class="ReqDocTable-l" style="border-bottom: none;">
+
+                @Html.DevExpress().Label(lbsettings =>
+                                           {
+                                               lbsettings.ControlStyle.CssClass = "label";
+                                               lbsettings.Text = "Marital Status";
+                                               lbsettings.ControlStyle.Font.Bold = true;
+                                               lbsettings.ControlStyle.ForeColor = System.Drawing.Color.Blue;
+                                               lbsettings.ControlStyle.Font.Size = 10;
+                                               lbsettings.Width = 300;
+                                           }).GetHtml()
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(lbsettings =>
+                                       {
+                                           lbsettings.ControlStyle.CssClass = "label";
+                                           lbsettings.Width = 300;
+                                           lbsettings.ControlStyle.Font.Bold = true;
+                                           lbsettings.Text = "Single (Contact with Biological Spouse):";
+                                       }).GetHtml()
+
+                        @Html.DevExpress().CheckBoxList(cbsettings =>
+                          {
+                              cbsettings.Name = "SingleContactRequiredDocs";
+                              cbsettings.Properties.ValueType = typeof(int);
+                              cbsettings.Width = Unit.Pixel(340);
+                              cbsettings.Properties.Items.Add("Parent ID document", 1);
+                              cbsettings.Properties.Items.Add("Spouse ID document", 2);
+                              cbsettings.Properties.Items.Add("Copy of divorce order", 3);
+                              cbsettings.Properties.Items.Add("Copy of death certificate", 4);
+                              cbsettings.Properties.Items.Add("Contact details of spouse", 5);
+                              cbsettings.Properties.Items.Add("Affidavit confirming no contact", 6);
+                              cbsettings.Properties.Items.Add("Copy of marriage certificate", 7);
+                              cbsettings.Properties.Items.Add("Copy of VISA", 8);
+                              cbsettings.Properties.RepeatLayout = RepeatLayout.Table;
+                              cbsettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+                              cbsettings.Properties.RepeatColumns = 1;
+                              cbsettings.ControlStyle.Border.BorderStyle = BorderStyle.Solid;
+                              cbsettings.ControlStyle.Border.BorderColor = System.Drawing.Color.LightGray;
+                              cbsettings.PreRender = (sender, e) =>
+                              {
+                                  ASPxCheckBoxList cbl = (ASPxCheckBoxList)sender;
+                                  if (DataBinder.Eval(Model, "SingleContactRequiredDocs") != null)
+                                  {
+                                      string stringlist = DataBinder.Eval(Model, "SingleContactRequiredDocs").ToString() ?? "";
+                                      IList<int> list = stringlist.Split(',').Select(int.Parse).ToList();
+                                      foreach (ListEditItem item in cbl.Items)
+                                      {
+                                          item.Selected = list.Contains((int)item.Value);
+                                      }
+                                  }
+                              };
+                                 //cbsettings.Properties.ClientSideEvents.SelectedIndexChanged = "setIncomeRequirements";
+                                 //cbsettings.Properties.ClientSideEvents.Init = "setIncomeRequirements";
+                             }).GetHtml()
+
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(lbsettings =>
+                     {
+                         lbsettings.ControlStyle.CssClass = "label";
+                         lbsettings.Width = 300;
+                         lbsettings.ControlStyle.Font.Bold = true;
+                         lbsettings.Text = "Single (No Contact with Biological Spouse):";
+                     }).GetHtml()
+
+                        @Html.DevExpress().CheckBoxList(cbsettings =>
+                          {
+                              cbsettings.Name = "SingleNoContactRequiredDocs";
+                              cbsettings.Properties.ValueType = typeof(int);
+                              cbsettings.Width = Unit.Pixel(340);
+                              cbsettings.Properties.Items.Add("Parent ID document", 1);
+                              cbsettings.Properties.Items.Add("Spouse ID document", 2);
+                              cbsettings.Properties.Items.Add("Copy of divorce order", 3);
+                              cbsettings.Properties.Items.Add("Copy of death certificate", 4);
+                              cbsettings.Properties.Items.Add("Contact details of spouse", 5);
+                              cbsettings.Properties.Items.Add("Affidavit confirming no contact", 6);
+                              cbsettings.Properties.Items.Add("Copy of marriage certificate", 7);
+                              cbsettings.Properties.Items.Add("Copy of VISA", 8);
+                              cbsettings.Properties.RepeatLayout = RepeatLayout.Table;
+                              cbsettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+                              cbsettings.Properties.RepeatColumns = 1;
+                              cbsettings.ControlStyle.Border.BorderStyle = BorderStyle.Solid;
+                              cbsettings.ControlStyle.Border.BorderColor = System.Drawing.Color.LightGray;
+                              cbsettings.PreRender = (sender, e) =>
+                              {
+                                  ASPxCheckBoxList cbl = (ASPxCheckBoxList)sender;
+                                  if (DataBinder.Eval(Model, "SingleNoContactRequiredDocs") != null)
+                                  {
+                                      string stringlist = DataBinder.Eval(Model, "SingleNoContactRequiredDocs").ToString() ?? "";
+                                      IList<int> list = stringlist.Split(',').Select(int.Parse).ToList();
+                                      foreach (ListEditItem item in cbl.Items)
+                                      {
+                                          item.Selected = list.Contains((int)item.Value);
+                                      }
+                                  }
+                              };
+                          }).GetHtml()
+
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(lbsettings =>
+                     {
+                         lbsettings.ControlStyle.CssClass = "label";
+                         lbsettings.Width = 300;
+                         lbsettings.ControlStyle.Font.Bold = true;
+                         lbsettings.Text = "Married:";
+                     }).GetHtml()
+
+                        @Html.DevExpress().CheckBoxList(cbsettings =>
+                          {
+                              cbsettings.Name = "MarriedRequiredDocs";
+                              cbsettings.Properties.ValueType = typeof(int);
+                              cbsettings.Width = Unit.Pixel(340);
+                              cbsettings.Properties.Items.Add("Parent ID document", 1);
+                              cbsettings.Properties.Items.Add("Spouse ID document", 2);
+                              cbsettings.Properties.Items.Add("Copy of divorce order", 3);
+                              cbsettings.Properties.Items.Add("Copy of death certificate", 4);
+                              cbsettings.Properties.Items.Add("Contact details of spouse", 5);
+                              cbsettings.Properties.Items.Add("Affidavit confirming no contact", 6);
+                              cbsettings.Properties.Items.Add("Copy of marriage certificate", 7);
+                              cbsettings.Properties.Items.Add("Copy of VISA", 8);
+                              cbsettings.Properties.RepeatLayout = RepeatLayout.Table;
+                              cbsettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+                              cbsettings.Properties.RepeatColumns = 1;
+                              cbsettings.ControlStyle.Border.BorderStyle = BorderStyle.Solid;
+                              cbsettings.ControlStyle.Border.BorderColor = System.Drawing.Color.LightGray;
+                              cbsettings.PreRender = (sender, e) =>
+                              {
+                                  ASPxCheckBoxList cbl = (ASPxCheckBoxList)sender;
+                                  if (DataBinder.Eval(Model, "MarriedRequiredDocs") != null)
+                                  {
+                                      string stringlist = DataBinder.Eval(Model, "MarriedRequiredDocs").ToString() ?? "";
+                                      IList<int> list = stringlist.Split(',').Select(int.Parse).ToList();
+                                      foreach (ListEditItem item in cbl.Items)
+                                      {
+                                          item.Selected = list.Contains((int)item.Value);
+                                      }
+                                  }
+                              };
+                                 //cbsettings.Properties.ClientSideEvents.SelectedIndexChanged = "setIncomeRequirements";
+                                 //cbsettings.Properties.ClientSideEvents.Init = "setIncomeRequirements";
+                             }).GetHtml()
+
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(lbsettings =>
+                              {
+                                  lbsettings.ControlStyle.CssClass = "label";
+                                  lbsettings.Width = 300;
+                                  lbsettings.ControlStyle.Font.Bold = true;
+                                  lbsettings.Text = "Divorced (Contact with Biological Spouse):";
+                              }).GetHtml()
+
+                        @Html.DevExpress().CheckBoxList(cbsettings =>
+                      {
+                          cbsettings.Name = "DivorcedContactRequiredDocs";
+                          cbsettings.Properties.ValueType = typeof(int);
+                          cbsettings.Width = Unit.Pixel(340);
+                          cbsettings.Properties.Items.Add("Parent ID document", 1);
+                          cbsettings.Properties.Items.Add("Spouse ID document", 2);
+                          cbsettings.Properties.Items.Add("Copy of divorce order", 3);
+                          cbsettings.Properties.Items.Add("Copy of death certificate", 4);
+                          cbsettings.Properties.Items.Add("Contact details of spouse", 5);
+                          cbsettings.Properties.Items.Add("Affidavit confirming no contact", 6);
+                          cbsettings.Properties.Items.Add("Copy of marriage certificate", 7);
+                          cbsettings.Properties.Items.Add("Copy of VISA", 8);
+                          cbsettings.Properties.RepeatLayout = RepeatLayout.Table;
+                          cbsettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+                          cbsettings.Properties.RepeatColumns = 1;
+                          cbsettings.ControlStyle.Border.BorderStyle = BorderStyle.Solid;
+                          cbsettings.ControlStyle.Border.BorderColor = System.Drawing.Color.LightGray;
+                          cbsettings.PreRender = (sender, e) =>
+                          {
+                              ASPxCheckBoxList cbl = (ASPxCheckBoxList)sender;
+                              if (DataBinder.Eval(Model, "DivorcedContactRequiredDocs") != null)
+                              {
+                                  string stringlist = DataBinder.Eval(Model, "DivorcedContactRequiredDocs").ToString() ?? "";
+                                  IList<int> list = stringlist.Split(',').Select(int.Parse).ToList();
+                                  foreach (ListEditItem item in cbl.Items)
+                                  {
+                                      item.Selected = list.Contains((int)item.Value);
+                                  }
+                              }
+                          };
+                             //cbsettings.Properties.ClientSideEvents.SelectedIndexChanged = "setIncomeRequirements";
+                             //cbsettings.Properties.ClientSideEvents.Init = "setIncomeRequirements";
+                         }).GetHtml()
+
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(lbsettings =>
+                     {
+                         lbsettings.ControlStyle.CssClass = "label";
+                         lbsettings.Width = 300;
+                         lbsettings.ControlStyle.Font.Bold = true;
+                         lbsettings.Text = "Divorced (No Contact with Biological Spouse):";
+                     }).GetHtml()
+
+                        @Html.DevExpress().CheckBoxList(cbsettings =>
+                          {
+                              cbsettings.Name = "DivorcedNoContactRequiredDocs";
+                              cbsettings.Properties.ValueType = typeof(int);
+                              cbsettings.Width = Unit.Pixel(340);
+                              cbsettings.Properties.Items.Add("Parent ID document", 1);
+                              cbsettings.Properties.Items.Add("Spouse ID document", 2);
+                              cbsettings.Properties.Items.Add("Copy of divorce order", 3);
+                              cbsettings.Properties.Items.Add("Copy of death certificate", 4);
+                              cbsettings.Properties.Items.Add("Contact details of spouse", 5);
+                              cbsettings.Properties.Items.Add("Affidavit confirming no contact", 6);
+                              cbsettings.Properties.Items.Add("Copy of marriage certificate", 7);
+                              cbsettings.Properties.Items.Add("Copy of VISA", 8);
+                              cbsettings.Properties.RepeatLayout = RepeatLayout.Table;
+                              cbsettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+                              cbsettings.Properties.RepeatColumns = 1;
+                              cbsettings.ControlStyle.Border.BorderStyle = BorderStyle.Solid;
+                              cbsettings.ControlStyle.Border.BorderColor = System.Drawing.Color.LightGray;
+                              cbsettings.PreRender = (sender, e) =>
+                              {
+                                  ASPxCheckBoxList cbl = (ASPxCheckBoxList)sender;
+                                  if (DataBinder.Eval(Model, "DivorcedNoContactRequiredDocs") != null)
+                                  {
+                                      string stringlist = DataBinder.Eval(Model, "DivorcedNoContactRequiredDocs").ToString() ?? "";
+                                      IList<int> list = stringlist.Split(',').Select(int.Parse).ToList();
+                                      foreach (ListEditItem item in cbl.Items)
+                                      {
+                                          item.Selected = list.Contains((int)item.Value);
+                                      }
+                                  }
+                              };
+                                 //cbsettings.Properties.ClientSideEvents.SelectedIndexChanged = "setIncomeRequirements";
+                                 //cbsettings.Properties.ClientSideEvents.Init = "setIncomeRequirements";
+                             }).GetHtml()
+
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(lbsettings =>
+                     {
+                         lbsettings.ControlStyle.CssClass = "label";
+                         lbsettings.Width = 300;
+                         lbsettings.ControlStyle.Font.Bold = true;
+                         lbsettings.Text = "Widow/er:";
+                     }).GetHtml()
+
+                        @Html.DevExpress().CheckBoxList(cbsettings =>
+                          {
+                              cbsettings.Name = "WidowRequiredDocs";
+                              cbsettings.Properties.ValueType = typeof(int);
+                              cbsettings.Width = Unit.Pixel(340);
+                              cbsettings.Properties.Items.Add("Parent ID document", 1);
+                              cbsettings.Properties.Items.Add("Spouse ID document", 2);
+                              cbsettings.Properties.Items.Add("Copy of divorce order", 3);
+                              cbsettings.Properties.Items.Add("Copy of death certificate", 4);
+                              cbsettings.Properties.Items.Add("Contact details of spouse", 5);
+                              cbsettings.Properties.Items.Add("Affidavit confirming no contact", 6);
+                              cbsettings.Properties.Items.Add("Copy of marriage certificate", 7);
+                              cbsettings.Properties.Items.Add("Copy of VISA", 8);
+                              cbsettings.Properties.RepeatLayout = RepeatLayout.Table;
+                              cbsettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+                              cbsettings.Properties.RepeatColumns = 1;
+                              cbsettings.ControlStyle.Border.BorderStyle = BorderStyle.Solid;
+                              cbsettings.ControlStyle.Border.BorderColor = System.Drawing.Color.LightGray;
+                              cbsettings.PreRender = (sender, e) =>
+                              {
+                                  ASPxCheckBoxList cbl = (ASPxCheckBoxList)sender;
+                                  if (DataBinder.Eval(Model, "WidowRequiredDocs") != null)
+                                  {
+                                      string stringlist = DataBinder.Eval(Model, "WidowRequiredDocs").ToString() ?? "";
+                                      IList<int> list = stringlist.Split(',').Select(int.Parse).ToList();
+                                      foreach (ListEditItem item in cbl.Items)
+                                      {
+                                          item.Selected = list.Contains((int)item.Value);
+                                      }
+                                  }
+                              };
+                                 //cbsettings.Properties.ClientSideEvents.SelectedIndexChanged = "setIncomeRequirements";
+                                 //cbsettings.Properties.ClientSideEvents.Init = "setIncomeRequirements";
+                             }).GetHtml()
+
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(lbsettings =>
+                     {
+                         lbsettings.ControlStyle.CssClass = "label";
+                         lbsettings.Width = 300;
+                         lbsettings.ControlStyle.Font.Bold = true;
+                         lbsettings.Text = "Foreigners:";
+                     }).GetHtml()
+
+                        @Html.DevExpress().CheckBoxList(cbsettings =>
+                          {
+                              cbsettings.Name = "ForeignersRequiredDocs";
+                              cbsettings.Properties.ValueType = typeof(int);
+                              cbsettings.Width = Unit.Pixel(340);
+                              cbsettings.Properties.Items.Add("Parent ID document", 1);
+                              cbsettings.Properties.Items.Add("Spouse ID document", 2);
+                              cbsettings.Properties.Items.Add("Copy of divorce order", 3);
+                              cbsettings.Properties.Items.Add("Copy of death certificate", 4);
+                              cbsettings.Properties.Items.Add("Contact details of spouse", 5);
+                              cbsettings.Properties.Items.Add("Affidavit confirming no contact", 6);
+                              cbsettings.Properties.Items.Add("Copy of marriage certificate", 7);
+                              cbsettings.Properties.Items.Add("Copy of VISA", 8);
+                              cbsettings.Properties.RepeatLayout = RepeatLayout.Table;
+                              cbsettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+                              cbsettings.Properties.RepeatColumns = 1;
+                              cbsettings.ControlStyle.Border.BorderStyle = BorderStyle.Solid;
+                              cbsettings.ControlStyle.Border.BorderColor = System.Drawing.Color.LightGray;
+                              cbsettings.PreRender = (sender, e) =>
+                              {
+                                  ASPxCheckBoxList cbl = (ASPxCheckBoxList)sender;
+                                  if (DataBinder.Eval(Model, "ForeignersRequiredDocs") != null)
+                                  {
+                                      string stringlist = DataBinder.Eval(Model, "ForeignersRequiredDocs").ToString() ?? "";
+                                      IList<int> list = stringlist.Split(',').Select(int.Parse).ToList();
+                                      foreach (ListEditItem item in cbl.Items)
+                                      {
+                                          item.Selected = list.Contains((int)item.Value);
+                                      }
+                                  }
+                              };
+                          }).GetHtml()
+
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+        @*============================================= Parents =============================================*@
+
+        <tr>
+            <td class="ReqDocTable-l" style="border-bottom: none;">
+
+                @Html.DevExpress().Label(lbsettings =>
+                    {
+                        lbsettings.ControlStyle.CssClass = "label";
+                        lbsettings.Text = "Report descriptions";
+                        lbsettings.ControlStyle.Font.Bold = true;
+                        lbsettings.Width = 300;
+                    }).GetHtml()
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                                                   {
+                                                       edtSettings.ControlStyle.CssClass = "formeditor";
+                                                       edtSettings.Width = 200;
+                                                       edtSettings.Text = "Parent ID Document";
+                                                   }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "English";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "ParentIDDescription_ENG";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "ParentIDDescription_ENG")).GetHtml();
+                        }
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "Afrikaans";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "ParentIDDescription_AFR";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "ParentIDDescription_AFR")).GetHtml();
+                        }
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                                                   {
+                                                       edtSettings.ControlStyle.CssClass = "formeditor";
+                                                       edtSettings.Width = 200;
+                                                       edtSettings.Text = "Spouse ID Document";
+                                                   }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "English";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "SpouseIDDescription_ENG";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "SpouseIDDescription_ENG")).GetHtml();
+                        }
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "Afrikaans";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "SpouseIDDescription_AFR";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "SpouseIDDescription_AFR")).GetHtml();
+                        }
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                                                   {
+                                                       edtSettings.ControlStyle.CssClass = "formeditor300";
+                                                       edtSettings.Width = 200;
+                                                       edtSettings.Text = "Death certiicate";
+                                                   }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "English";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "DeathCertificateDescription_ENG";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "DeathCertificateDescription_ENG")).GetHtml();
+                        }
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "Afrikaans";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "DeathCertificateDescription_AFR";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+
+                            }).Bind(DataBinder.Eval(Model, "DeathCertificateDescription_AFR")).GetHtml();
+                        }
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                                                   {
+                                                       edtSettings.ControlStyle.CssClass = "formeditor300";
+                                                       edtSettings.Width = 200;
+                                                       edtSettings.Text = "Divorce order";
+                                                   }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                              {
+                                  edtSettings.Name = "lbDivorceOrderDecription_ENG";
+                                  edtSettings.ControlStyle.CssClass = "label";
+                                  edtSettings.Width = 80;
+                                  edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3);
+                                  edtSettings.Text = "English";
+                              }).GetHtml()
+
+                        @Html.DevExpress().TextBox(edtSettings =>
+                              {
+                                  edtSettings.Name = "DivorceOrderDecription_ENG";
+                                  edtSettings.ControlStyle.CssClass = "formeditor300";
+                                  edtSettings.ShowModelErrors = true;
+                                  edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3);
+                              }).Bind(DataBinder.Eval(Model, "DivorceOrderDecription_ENG")).GetHtml()
+
+                        @Html.DevExpress().Label(edtSettings =>
+                              {
+                                  edtSettings.Name = "lbDivorceOrderDecription_AFR";
+                                  edtSettings.ControlStyle.CssClass = "label";
+                                  edtSettings.Width = 80;
+                                  edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2);
+                                  edtSettings.Text = "Afrikaans";
+                              }).GetHtml()
+
+                        @Html.DevExpress().TextBox(edtSettings =>
+                        {
+                            edtSettings.Name = "DivorceOrderDecription_AFR";
+                            edtSettings.ControlStyle.CssClass = "formeditor300";
+                            edtSettings.ShowModelErrors = true;
+                            edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2);
+                        }).Bind(DataBinder.Eval(Model, "DivorceOrderDecription_AFR")).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                        {
+                            edtSettings.ControlStyle.CssClass = "formeditor300";
+                            edtSettings.Width = 200;
+                            edtSettings.Text = "Spouse contact details";
+                        }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                              {
+                                  edtSettings.Name = "lbSpouseContactDescription_ENG";
+                                  edtSettings.ControlStyle.CssClass = "label";
+                                  edtSettings.Width = 80;
+                                  edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3);
+                                  edtSettings.Text = "English";
+                              }).GetHtml()
+
+                        @Html.DevExpress().TextBox(edtSettings =>
+                              {
+                                  edtSettings.Name = "SpouseContactDescription_ENG";
+                                  edtSettings.ControlStyle.CssClass = "formeditor300";
+                                  edtSettings.ShowModelErrors = true;
+                                  edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3);
+                              }).Bind(DataBinder.Eval(Model, "SpouseContactDescription_ENG")).GetHtml()
+
+                        @Html.DevExpress().Label(edtSettings =>
+                              {
+                                  edtSettings.Name = "lbSpouseContactDescription_AFR";
+                                  edtSettings.ControlStyle.CssClass = "label";
+                                  edtSettings.Width = 80;
+                                  edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2);
+                                  edtSettings.Text = "Afrikaans";
+                              }).GetHtml()
+
+                        @Html.DevExpress().TextBox(edtSettings =>
+                              {
+                                  edtSettings.Name = "SpouseContactDescription_AFR";
+                                  edtSettings.ControlStyle.CssClass = "formeditor300";
+                                  edtSettings.ShowModelErrors = true;
+                                  edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2);
+                              }).Bind(DataBinder.Eval(Model, "SpouseContactDescription_AFR")).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                        {
+                            edtSettings.ControlStyle.CssClass = "formeditor300";
+                            edtSettings.Width = 200;
+                            edtSettings.Text = "Affidavit confirming no contact";
+                        }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                              {
+                                  edtSettings.Name = "lbAffidavitNoContactDescription_ENG";
+                                  edtSettings.ControlStyle.CssClass = "label";
+                                  edtSettings.Width = 80;
+                                  edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3);
+                                  edtSettings.Text = "English";
+                              }).GetHtml()
+
+                        @Html.DevExpress().TextBox(edtSettings =>
+                              {
+                                  edtSettings.Name = "AffidavitNoContactDescription_ENG";
+                                  edtSettings.ControlStyle.CssClass = "formeditor300";
+                                  edtSettings.ShowModelErrors = true;
+                                  edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3);
+                              }).Bind(DataBinder.Eval(Model, "AffidavitNoContactDescription_ENG")).GetHtml()
+
+                        @Html.DevExpress().Label(edtSettings =>
+                              {
+                                  edtSettings.Name = "lbAffidavitNoContactDescription_AFR";
+                                  edtSettings.ControlStyle.CssClass = "label";
+                                  edtSettings.Width = 80;
+                                  edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2);
+                                  edtSettings.Text = "Afrikaans";
+                              }).GetHtml()
+
+                        @Html.DevExpress().TextBox(edtSettings =>
+                              {
+                                  edtSettings.Name = "AffidavitNoContactDescription_AFR";
+                                  edtSettings.ControlStyle.CssClass = "formeditor300";
+                                  edtSettings.ShowModelErrors = true;
+                                  edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2);
+                              }).Bind(DataBinder.Eval(Model, "AffidavitNoContactDescription_AFR")).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.Width = 200;
+                                edtSettings.Text = "Marriage Certificate";
+                            }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                              {
+                                  edtSettings.Name = "lbMarriageCertificateDescription_ENG";
+                                  edtSettings.ControlStyle.CssClass = "label";
+                                  edtSettings.Width = 80;
+                                  edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3);
+                                  edtSettings.Text = "English";
+                              }).GetHtml()
+
+                        @Html.DevExpress().TextBox(edtSettings =>
+                              {
+                                  edtSettings.Name = "MarriageCertificateDescription_ENG";
+                                  edtSettings.ControlStyle.CssClass = "formeditor300";
+                                  edtSettings.ShowModelErrors = true;
+                                  edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3);
+                              }).Bind(DataBinder.Eval(Model, "MarriageCertificateDescription_ENG")).GetHtml()
+
+                        @Html.DevExpress().Label(edtSettings =>
+                              {
+                                  edtSettings.Name = "lbMarriageCertificateDescription_AFR";
+                                  edtSettings.ControlStyle.CssClass = "label";
+                                  edtSettings.Width = 80;
+                                  edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2);
+                                  edtSettings.Text = "Afrikaans";
+                              }).GetHtml()
+
+                        @Html.DevExpress().TextBox(edtSettings =>
+                              {
+                                  edtSettings.Name = "MarriageCertificateDescription_AFR";
+                                  edtSettings.ControlStyle.CssClass = "formeditor300";
+                                  edtSettings.ShowModelErrors = true;
+                                  edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2);
+                              }).Bind(DataBinder.Eval(Model, "MarriageCertificateDescription_AFR")).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.Width = 200;
+                                edtSettings.Text = "VISA";
+                            }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                              {
+                                  edtSettings.Name = "lbVISADescription_ENG";
+                                  edtSettings.ControlStyle.CssClass = "label";
+                                  edtSettings.Width = 80;
+                                  edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3);
+                                  edtSettings.Text = "English";
+                              }).GetHtml()
+
+                        @Html.DevExpress().TextBox(edtSettings =>
+                              {
+                                  edtSettings.Name = "VISADescription_ENG";
+                                  edtSettings.ControlStyle.CssClass = "formeditor300";
+                                  edtSettings.ShowModelErrors = true;
+                                  edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3);
+                              }).Bind(DataBinder.Eval(Model, "VISADescription_ENG")).GetHtml()
+
+                        @Html.DevExpress().Label(edtSettings =>
+                              {
+                                  edtSettings.Name = "lbVISADescription_AFR";
+                                  edtSettings.ControlStyle.CssClass = "label";
+                                  edtSettings.Width = 80;
+                                  edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2);
+                                  edtSettings.Text = "Afrikaans";
+                              }).GetHtml()
+
+                        @Html.DevExpress().TextBox(edtSettings =>
+                              {
+                                  edtSettings.Name = "VISADescription_AFR";
+                                  edtSettings.ControlStyle.CssClass = "formeditor300";
+                                  edtSettings.ShowModelErrors = true;
+                                  edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2);
+                              }).Bind(DataBinder.Eval(Model, "VISADescription_AFR")).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+        @*============================================= Guardian/Foster care =============================================*@
+        <tr>
+            <td class="ReqDocTable-l" style="border-bottom: none;">
+
+                @Html.DevExpress().Label(lbsettings =>
+                                           {
+                                               lbsettings.ControlStyle.CssClass = "label";
+                                               lbsettings.Text = "Guardian/Foster Care";
+                                               lbsettings.ControlStyle.Font.Bold = true;
+                                               lbsettings.ControlStyle.ForeColor = System.Drawing.Color.Blue;
+                                               lbsettings.ControlStyle.Font.Size = 10;
+                                               lbsettings.Width = 300;
+                                           }).GetHtml()
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(lbsettings =>
+                                                  {
+                                                      lbsettings.ControlStyle.CssClass = "label";
+                                                      lbsettings.Width = 150;
+                                                      lbsettings.ControlStyle.Font.Bold = true;
+                                                      lbsettings.Text = "Required Documants:";
+                                                  }).GetHtml()
+
+                        @Html.DevExpress().CheckBoxList(cbsettings =>
+                                       {
+                                           cbsettings.Name = "GuardianFosterRequiredDocs";
+                                           cbsettings.Properties.ValueType = typeof(int);
+                                           cbsettings.Width = Unit.Pixel(340);
+                                           cbsettings.Properties.Items.Add("Guardian/Foster Parent ID Document", 1);
+                                           cbsettings.Properties.Items.Add("Legal proof of Guardian/Foster", 2);
+                                           cbsettings.Properties.RepeatLayout = RepeatLayout.Table;
+                                           cbsettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+                                           cbsettings.Properties.RepeatColumns = 1;
+                                           cbsettings.ControlStyle.Border.BorderStyle = BorderStyle.Solid;
+                                           cbsettings.ControlStyle.Border.BorderColor = System.Drawing.Color.LightGray;
+                                           cbsettings.PreRender = (sender, e) =>
+                                           {
+                                               ASPxCheckBoxList cbl = (ASPxCheckBoxList)sender;
+                                               if (DataBinder.Eval(Model, "GuardianFosterRequiredDocs") != null)
+                                               {
+                                                   string stringlist = DataBinder.Eval(Model, "GuardianFosterRequiredDocs").ToString() ?? "";
+                                                   IList<int> list = stringlist.Split(',').Select(int.Parse).ToList();
+                                                   foreach (ListEditItem item in cbl.Items)
+                                                   {
+                                                       item.Selected = list.Contains((int)item.Value);
+                                                   }
+                                               }
+                                           };
+                                              //cbsettings.Properties.ClientSideEvents.SelectedIndexChanged = "setIncomeRequirements";
+                                              //cbsettings.Properties.ClientSideEvents.Init = "setIncomeRequirements";
+                                          }).GetHtml()
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l" style="border-bottom: none;">
+                @Html.DevExpress().Label(lbsettings =>
+                    {
+                        lbsettings.ControlStyle.CssClass = "label";
+                        lbsettings.Text = "Report descriptions";
+                        lbsettings.ControlStyle.Font.Bold = true;
+                        lbsettings.Width = 300;
+                    }).GetHtml()
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "formeditor";
+                                edtSettings.Width = 200;
+                                edtSettings.Text = "Guardian/Foster ID Document";
+                            }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "English";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "GuardianFosterIDDescription_ENG";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "GuardianFosterIDDescription_ENG")).GetHtml();
+                        }
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "Afrikaans";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "GuardianFosterIDDescription_AFR";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "GuardianFosterIDDescription_AFR")).GetHtml();
+                        }
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.Width = 200;
+                                edtSettings.Text = "Proof of guardian/foster care";
+                            }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "English";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "ProofofGuardianFosterCareDescription_ENG";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "ProofofGuardianFosterCareDescription_ENG")).GetHtml();
+                        }
+
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "Afrikaans";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "ProofofGuardianFosterCareDescription_AFR";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "ProofofGuardianFosterCareDescription_AFR")).GetHtml();
+                        }
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+
+        @*============================================= Income =============================================*@
+
+        <tr>
+            <td class="ReqDocTable-l" style="border-bottom: none;">
+                @Html.DevExpress().Label(lbsettings =>
+                    {
+                        lbsettings.ControlStyle.CssClass = "label";
+                        lbsettings.Text = "Income categories";
+                        lbsettings.ControlStyle.Font.Bold = true;
+                        lbsettings.ControlStyle.ForeColor = System.Drawing.Color.Blue;
+                        lbsettings.ControlStyle.Font.Size = 10;
+                        lbsettings.Width = 300;
+                    }).GetHtml()
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(lbsettings =>
+                                                  {
+                                                      lbsettings.ControlStyle.CssClass = "label";
+                                                      lbsettings.Width = 100;
+                                                      lbsettings.ControlStyle.Font.Bold = true;
+                                                      lbsettings.Text = "Employed:";
+                                                  }).GetHtml()
+
+                        @Html.DevExpress().CheckBoxList(cbsettings =>
+                                       {
+                                           cbsettings.Name = "EmployedRequiredDocs";
+                                           cbsettings.Properties.ValueType = typeof(int);
+                                           cbsettings.Width = Unit.Pixel(340);
+                                           cbsettings.Properties.Items.Add("Payslip", 1);
+                                           cbsettings.Properties.Items.Add("Affidavit for unemployment", 2);
+                                           cbsettings.Properties.Items.Add("Bank statements", 3);
+                                           cbsettings.Properties.Items.Add("Proof of retrenchment", 4);
+                                           cbsettings.Properties.Items.Add("SARS EMPS", 5);
+                                           cbsettings.Properties.Items.Add("Proof of welfare grant", 6);
+                                           cbsettings.Properties.RepeatLayout = RepeatLayout.Table;
+                                           cbsettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+                                           cbsettings.Properties.RepeatColumns = 2;
+                                           cbsettings.ControlStyle.Border.BorderStyle = BorderStyle.Solid;
+                                           cbsettings.ControlStyle.Border.BorderColor = System.Drawing.Color.LightGray;
+                                           cbsettings.PreRender = (sender, e) =>
+                                           {
+                                               ASPxCheckBoxList cbl = (ASPxCheckBoxList)sender;
+                                               if (DataBinder.Eval(Model, "EmployedRequiredDocs") != null)
+                                               {
+                                                   string stringlist = DataBinder.Eval(Model, "EmployedRequiredDocs").ToString() ?? "";
+                                                   IList<int> list = stringlist.Split(',').Select(int.Parse).ToList();
+                                                   foreach (ListEditItem item in cbl.Items)
+                                                   {
+                                                       item.Selected = list.Contains((int)item.Value);
+                                                   }
+                                               }
+                                           };
+                                              //cbsettings.Properties.ClientSideEvents.SelectedIndexChanged = "setIncomeRequirements";
+                                              //cbsettings.Properties.ClientSideEvents.Init = "setIncomeRequirements";
+                                          }).GetHtml()
+
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(lbsettings =>
+                                              {
+                                                  lbsettings.ControlStyle.CssClass = "label";
+                                                  lbsettings.Width = 300;
+                                                  lbsettings.ControlStyle.Font.Bold = true;
+                                                  lbsettings.Text = "Employed and Welfare Grant:";
+                                              }).GetHtml()
+
+                        @Html.DevExpress().CheckBoxList(cbsettings =>
+                                       {
+                                           cbsettings.Name = "EmployedandWelfareGrandDocs";
+                                           cbsettings.Properties.ValueType = typeof(int);
+                                           cbsettings.Width = Unit.Pixel(340);
+                                           cbsettings.Properties.Items.Add("Payslip", 1);
+                                           cbsettings.Properties.Items.Add("Affidavit for unemployment", 2);
+                                           cbsettings.Properties.Items.Add("Bank statements", 3);
+                                           cbsettings.Properties.Items.Add("Proof of retrenchment", 4);
+                                           cbsettings.Properties.Items.Add("SARS EMPS", 5);
+                                           cbsettings.Properties.Items.Add("Proof of welfare grant", 6);
+                                           cbsettings.Properties.RepeatLayout = RepeatLayout.Table;
+                                           cbsettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+                                           cbsettings.Properties.RepeatColumns = 2;
+                                           cbsettings.ControlStyle.Border.BorderStyle = BorderStyle.Solid;
+                                           cbsettings.ControlStyle.Border.BorderColor = System.Drawing.Color.LightGray;
+                                           cbsettings.PreRender = (sender, e) =>
+                                           {
+                                               ASPxCheckBoxList cbl = (ASPxCheckBoxList)sender;
+                                               if (DataBinder.Eval(Model, "EmployedandWelfareGrandDocs") != null)
+                                               {
+                                                   string stringlist = DataBinder.Eval(Model, "EmployedandWelfareGrandDocs").ToString() ?? "";
+                                                   IList<int> list = stringlist.Split(',').Select(int.Parse).ToList();
+                                                   foreach (ListEditItem item in cbl.Items)
+                                                   {
+                                                       item.Selected = list.Contains((int)item.Value);
+                                                   }
+                                               }
+                                           };
+                                              //cbsettings.Properties.ClientSideEvents.SelectedIndexChanged = "setIncomeRequirements";
+                                              //cbsettings.Properties.ClientSideEvents.Init = "setIncomeRequirements";
+                                          }).GetHtml()
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(lbsettings =>
+                              {
+                                  lbsettings.ControlStyle.CssClass = "label";
+                                  lbsettings.Width = 100;
+                                  lbsettings.ControlStyle.Font.Bold = true;
+                                  lbsettings.Text = "Self Employed:";
+                              }).GetHtml()
+
+                        @Html.DevExpress().CheckBoxList(cbsettings =>
+                              {
+                                  cbsettings.Name = "SelfEmployedRequiredDocs";
+                                  cbsettings.Properties.ValueType = typeof(int);
+                                  cbsettings.Width = Unit.Pixel(340);
+                                  cbsettings.Properties.Items.Add("Payslip", 1);
+                                  cbsettings.Properties.Items.Add("Affidavit for unemployment", 2);
+                                  cbsettings.Properties.Items.Add("Bank statements", 3);
+                                  cbsettings.Properties.Items.Add("Proof of retrenchment", 4);
+                                  cbsettings.Properties.Items.Add("SARS EMPS", 5);
+                                  cbsettings.Properties.Items.Add("Proof of welfare grant", 6);
+                                  cbsettings.Properties.RepeatLayout = RepeatLayout.Table;
+                                  cbsettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+                                  cbsettings.Properties.RepeatColumns = 2;
+                                  cbsettings.ControlStyle.Border.BorderStyle = BorderStyle.Solid;
+                                  cbsettings.ControlStyle.Border.BorderColor = System.Drawing.Color.LightGray;
+                                  cbsettings.PreRender = (sender, e) =>
+                                  {
+                                      ASPxCheckBoxList cbl = (ASPxCheckBoxList)sender;
+                                      if (DataBinder.Eval(Model, "SelfEmployedRequiredDocs") != null)
+                                      {
+                                          string stringlist = DataBinder.Eval(Model, "SelfEmployedRequiredDocs").ToString() ?? "";
+                                          IList<int> list = stringlist.Split(',').Select(int.Parse).ToList();
+                                          foreach (ListEditItem item in cbl.Items)
+                                          {
+                                              item.Selected = list.Contains((int)item.Value);
+                                          }
+                                      }
+                                  };
+                              }).GetHtml()
+
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(lbsettings =>
+                                                  {
+                                                      lbsettings.ControlStyle.CssClass = "label";
+                                                      lbsettings.Width = 100;
+                                                      lbsettings.ControlStyle.Font.Bold = true;
+                                                      lbsettings.Text = "Unemployed:";
+                                                  }).GetHtml()
+
+                        @Html.DevExpress().CheckBoxList(cbsettings =>
+                                       {
+                                           cbsettings.Name = "UnemployedRequiredDocs";
+                                           cbsettings.Properties.ValueType = typeof(int);
+                                           cbsettings.Width = Unit.Pixel(340);
+                                           cbsettings.Properties.Items.Add("Payslip", 1);
+                                           cbsettings.Properties.Items.Add("Affidavit for unemployment", 2);
+                                           cbsettings.Properties.Items.Add("Bank statements", 3);
+                                           cbsettings.Properties.Items.Add("Proof of retrenchment", 4);
+                                           cbsettings.Properties.Items.Add("SARS EMPS", 5);
+                                           cbsettings.Properties.Items.Add("Proof of welfare grant", 6);
+                                           cbsettings.Properties.RepeatLayout = RepeatLayout.Table;
+                                           cbsettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+                                           cbsettings.Properties.RepeatColumns = 2;
+                                           cbsettings.ControlStyle.Border.BorderStyle = BorderStyle.Solid;
+                                           cbsettings.ControlStyle.Border.BorderColor = System.Drawing.Color.LightGray;
+                                           cbsettings.PreRender = (sender, e) =>
+                                           {
+                                               ASPxCheckBoxList cbl = (ASPxCheckBoxList)sender;
+                                               if (DataBinder.Eval(Model, "UnemployedRequiredDocs") != null)
+                                               {
+                                                   string stringlist = DataBinder.Eval(Model, "UnemployedRequiredDocs").ToString() ?? "";
+                                                   IList<int> list = stringlist.Split(',').Select(int.Parse).ToList();
+                                                   foreach (ListEditItem item in cbl.Items)
+                                                   {
+                                                       item.Selected = list.Contains((int)item.Value);
+                                                   }
+                                               }
+                                           };
+                                              //cbsettings.Properties.ClientSideEvents.SelectedIndexChanged = "setIncomeRequirements";
+                                              //cbsettings.Properties.ClientSideEvents.Init = "setIncomeRequirements";
+                                          }).GetHtml()
+
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(lbsettings =>
+                                                  {
+                                                      lbsettings.ControlStyle.CssClass = "label";
+                                                      lbsettings.Width = 100;
+                                                      lbsettings.ControlStyle.Font.Bold = true;
+                                                      lbsettings.Text = "Welfare Grant:";
+                                                  }).GetHtml()
+
+                        @Html.DevExpress().CheckBoxList(cbsettings =>
+                                       {
+                                           cbsettings.Name = "WelfareGrandRequiredDocs";
+                                           cbsettings.Properties.ValueType = typeof(int);
+                                           cbsettings.Width = Unit.Pixel(340);
+                                           cbsettings.Properties.Items.Add("Payslip", 1);
+                                           cbsettings.Properties.Items.Add("Affidavit for unemployment", 2);
+                                           cbsettings.Properties.Items.Add("Bank statements", 3);
+                                           cbsettings.Properties.Items.Add("Proof of retrenchment", 4);
+                                           cbsettings.Properties.Items.Add("SARS EMPS", 5);
+                                           cbsettings.Properties.Items.Add("Proof of welfare grant", 6);
+                                           cbsettings.Properties.RepeatLayout = RepeatLayout.Table;
+                                           cbsettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+                                           cbsettings.Properties.RepeatColumns = 2;
+                                           cbsettings.ControlStyle.Border.BorderStyle = BorderStyle.Solid;
+                                           cbsettings.ControlStyle.Border.BorderColor = System.Drawing.Color.LightGray;
+                                           cbsettings.PreRender = (sender, e) =>
+                                           {
+                                               ASPxCheckBoxList cbl = (ASPxCheckBoxList)sender;
+                                               if (DataBinder.Eval(Model, "WelfareGrandRequiredDocs") != null)
+                                               {
+                                                   string stringlist = DataBinder.Eval(Model, "WelfareGrandRequiredDocs").ToString() ?? "";
+                                                   IList<int> list = stringlist.Split(',').Select(int.Parse).ToList();
+                                                   foreach (ListEditItem item in cbl.Items)
+                                                   {
+                                                       item.Selected = list.Contains((int)item.Value);
+                                                   }
+                                               }
+                                           };
+                                              //cbsettings.Properties.ClientSideEvents.SelectedIndexChanged = "setIncomeRequirements";
+                                              //cbsettings.Properties.ClientSideEvents.Init = "setIncomeRequirements";
+                                          }).GetHtml()
+
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(lbsettings =>
+                                                  {
+                                                      lbsettings.ControlStyle.CssClass = "label";
+                                                      lbsettings.Width = 100;
+                                                      lbsettings.ControlStyle.Font.Bold = true;
+                                                      lbsettings.Text = "Retrenched:";
+                                                  }).GetHtml()
+
+                        @Html.DevExpress().CheckBoxList(cbsettings =>
+                                       {
+                                           cbsettings.Name = "RetrenchedRequiredDocs";
+                                           cbsettings.Properties.ValueType = typeof(int);
+                                           cbsettings.Width = Unit.Pixel(340);
+                                           cbsettings.Properties.Items.Add("Payslip", 1);
+                                           cbsettings.Properties.Items.Add("Affidavit for unemployment", 2);
+                                           cbsettings.Properties.Items.Add("Bank statements", 3);
+                                           cbsettings.Properties.Items.Add("Proof of retrenchment", 4);
+                                           cbsettings.Properties.Items.Add("SARS EMPS", 5);
+                                           cbsettings.Properties.Items.Add("Proof of welfare grant", 6);
+                                           cbsettings.Properties.RepeatLayout = RepeatLayout.Table;
+                                           cbsettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+                                           cbsettings.Properties.RepeatColumns = 2;
+                                           cbsettings.ControlStyle.Border.BorderStyle = BorderStyle.Solid;
+                                           cbsettings.ControlStyle.Border.BorderColor = System.Drawing.Color.LightGray;
+                                           cbsettings.PreRender = (sender, e) =>
+                                           {
+                                               ASPxCheckBoxList cbl = (ASPxCheckBoxList)sender;
+                                               if (DataBinder.Eval(Model, "RetrenchedRequiredDocs") != null)
+                                               {
+                                                   string stringlist = DataBinder.Eval(Model, "RetrenchedRequiredDocs").ToString() ?? "";
+                                                   IList<int> list = stringlist.Split(',').Select(int.Parse).ToList();
+                                                   foreach (ListEditItem item in cbl.Items)
+                                                   {
+                                                       item.Selected = list.Contains((int)item.Value);
+                                                   }
+                                               }
+                                           };
+                                              //cbsettings.Properties.ClientSideEvents.SelectedIndexChanged = "setIncomeRequirements";
+                                              //cbsettings.Properties.ClientSideEvents.Init = "setIncomeRequirements";
+                                          }).GetHtml()
+
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l" style="border-bottom: none;">
+                @Html.DevExpress().Label(lbsettings =>
+                    {
+                        lbsettings.ControlStyle.CssClass = "label";
+                        lbsettings.Text = "Report descriptions";
+                        lbsettings.ControlStyle.Font.Bold = true;
+                        lbsettings.Width = 300;
+                    }).GetHtml()
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "formeditor";
+                                edtSettings.Width = 200;
+                                edtSettings.Text = "Parent Payslip";
+                            }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                                            {
+                                                edtSettings.Name = "lbParentPayslipDescription_ENG";
+                                                edtSettings.ControlStyle.CssClass = "label";
+                                                edtSettings.Width = 80;
+                                                edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3);
+                                                edtSettings.Text = "English";
+                                            }).GetHtml()
+
+                        @Html.DevExpress().TextBox(edtSettings =>
+                                            {
+                                                edtSettings.Name = "ParentPayslipDescription_ENG";
+                                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                                edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3);
+                                                edtSettings.ShowModelErrors = true;
+                                            }).Bind(DataBinder.Eval(Model, "ParentPayslipDescription_ENG")).GetHtml()
+
+                        @Html.DevExpress().Label(edtSettings =>
+                                            {
+                                                edtSettings.Name = "lbParentPayslipDescription_AFR";
+                                                edtSettings.ControlStyle.CssClass = "label";
+                                                edtSettings.Width = 80;
+                                                edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2);
+                                                edtSettings.Text = "Afrikaans";
+                                            }).GetHtml()
+
+                        @Html.DevExpress().TextBox(edtSettings =>
+                                            {
+                                                edtSettings.Name = "ParentPayslipDescription_AFR";
+                                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                                edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2);
+                                                edtSettings.ShowModelErrors = true;
+                                            }).Bind(DataBinder.Eval(Model, "ParentPayslipDescription_AFR")).GetHtml()
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "formeditor";
+                                edtSettings.Width = 200;
+                                edtSettings.Text = "Spouse Payslip";
+                            }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                                            {
+                                                edtSettings.Name = "lbSpousePayslipDescription_ENG";
+                                                edtSettings.ControlStyle.CssClass = "label";
+                                                edtSettings.Width = 80;
+                                                edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3);
+                                                edtSettings.Text = "English";
+                                            }).GetHtml()
+
+                        @Html.DevExpress().TextBox(edtSettings =>
+                                            {
+                                                edtSettings.Name = "SpousePayslipDescription_ENG";
+                                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                                edtSettings.ShowModelErrors = true;
+                                                edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3);
+                                            }).Bind(DataBinder.Eval(Model, "SpousePayslipDescription_ENG")).GetHtml()
+
+
+
+                        @Html.DevExpress().Label(edtSettings =>
+                                            {
+                                                edtSettings.Name = "lbSpousePayslipDescription_AFR";
+                                                edtSettings.ControlStyle.CssClass = "label";
+                                                edtSettings.Width = 80;
+                                                edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2);
+                                                edtSettings.Text = "Afrikaans";
+                                            }).GetHtml()
+
+                        @Html.DevExpress().TextBox(edtSettings =>
+                                            {
+                                                edtSettings.Name = "SpousePayslipDescription_AFR";
+                                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                                edtSettings.ShowModelErrors = true;
+                                                edtSettings.ClientVisible = edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2);
+                                            }).Bind(DataBinder.Eval(Model, "SpousePayslipDescription_AFR")).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.Width = 200;
+                                edtSettings.Text = "Parent bank statements";
+                            }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "English";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "ParentBankStratementsDescription_ENG";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "ParentBankStratementsDescription_ENG")).GetHtml();
+                        }
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "Afrikaans";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "ParentBankStratementsDescription_AFR";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "ParentBankStratementsDescription_AFR")).GetHtml();
+                        }
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.Width = 200;
+                                edtSettings.Text = "Spouse bank statements";
+                            }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "English";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "SpouseBankStatementsDescription_ENG";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "SpouseBankStatementsDescription_ENG")).GetHtml();
+                        }
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "Afrikaans";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "SpouseBankStatementsDescription_AFR";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "SpouseBankStatementsDescription_AFR")).GetHtml();
+                        }
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.Width = 200;
+                                edtSettings.Text = "Proof of parent retrenchment";
+                            }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "English";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "ParentRetrenchedProofDescription_ENG";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                                        //edtSettings.Width = 250;
+                                    }).Bind(DataBinder.Eval(Model, "ParentRetrenchedProofDescription_ENG")).GetHtml();
+                        }
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "Afrikaans";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "ParentRetrenchedProofDescription_AFR";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "ParentRetrenchedProofDescription_AFR")).GetHtml();
+                        }
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.Width = 200;
+                                edtSettings.Text = "Proof of spouse retrenchment";
+                            }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "English";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "SpouseRetrenchedProofDescription_ENG";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "SpouseRetrenchedProofDescription_ENG")).GetHtml();
+                        }
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "Afrikaans";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "SpouseRetrenchedProofDescription_AFR";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "SpouseRetrenchedProofDescription_AFR")).GetHtml();
+                        }
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.Width = 200;
+                                edtSettings.Text = "Proof of parent unemployment";
+                            }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "English";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "ParentUnemploymentProofDescription_ENG";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "ParentUnemploymentProofDescription_ENG")).GetHtml();
+                        }
+
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "Afrikaans";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "ParentUnemploymentProofDescription_AFR";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "ParentUnemploymentProofDescription_AFR")).GetHtml();
+                        }
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.Width = 200;
+                                edtSettings.Text = "Proof of spouse unemployment";
+                            }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "English";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "SpouseUnemploymentProofDescription_ENG";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "SpouseUnemploymentProofDescription_ENG")).GetHtml();
+                        }
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "Afrikaans";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "SpouseUnemploymentProofDescription_AFR";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "SpouseUnemploymentProofDescription_AFR")).GetHtml();
+                        }
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.Width = 200;
+                                edtSettings.Text = "Parent welfare grant";
+                            }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "English";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "ParentWelfareGrandProofDescription_ENG";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "ParentWelfareGrandProofDescription_ENG")).GetHtml();
+                        }
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "Afrikaans";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "ParentWelfareGrandProofDescription_AFR";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "ParentWelfareGrandProofDescription_AFR")).GetHtml();
+                        }
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.Width = 200;
+                                edtSettings.Text = "Spouse welfare grant";
+                            }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "English";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "SpouseWelfareGrandDescription_ENG";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "SpouseWelfareGrandDescription_ENG")).GetHtml();
+                        }
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "Afrikaans";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "SpouseWelfareGrandDescription_AFR";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "SpouseWelfareGrandDescription_AFR")).GetHtml();
+                        }
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "formeditor";
+                                edtSettings.Width = 200;
+                                edtSettings.Text = "Parent SARS";
+                            }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                                            {
+                                                edtSettings.Name = "lbParentSARSDescription_ENG";
+                                                edtSettings.ControlStyle.CssClass = "label";
+                                                edtSettings.Width = 80;
+                                                edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3);
+                                                edtSettings.Text = "English";
+                                            }).GetHtml()
+
+                        @Html.DevExpress().TextBox(edtSettings =>
+                                            {
+                                                edtSettings.Name = "ParentSARSDescription_ENG";
+                                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                                edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3);
+                                                edtSettings.ShowModelErrors = true;
+                                            }).Bind(DataBinder.Eval(Model, "ParentSARSDescription_ENG")).GetHtml()
+
+                        @Html.DevExpress().Label(edtSettings =>
+                                            {
+                                                edtSettings.Name = "lbParentSARSDescription_AFR";
+                                                edtSettings.ControlStyle.CssClass = "label";
+                                                edtSettings.Width = 80;
+                                                edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2);
+                                                edtSettings.Text = "Afrikaans";
+                                            }).GetHtml()
+
+                        @Html.DevExpress().TextBox(edtSettings =>
+                                            {
+                                                edtSettings.Name = "ParentSARSDescription_AFR";
+                                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                                edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2);
+                                                edtSettings.ShowModelErrors = true;
+                                            }).Bind(DataBinder.Eval(Model, "ParentSARSDescription_AFR")).GetHtml()
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "formeditor";
+                                edtSettings.Width = 200;
+                                edtSettings.Text = "Spouse SARS";
+                            }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                                            {
+                                                edtSettings.Name = "lbSpouseSARSDescription_ENG";
+                                                edtSettings.ControlStyle.CssClass = "label";
+                                                edtSettings.Width = 80;
+                                                edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3);
+                                                edtSettings.Text = "English";
+                                            }).GetHtml()
+
+                        @Html.DevExpress().TextBox(edtSettings =>
+                                            {
+                                                edtSettings.Name = "SpouseSARSDescription_ENG";
+                                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                                edtSettings.ShowModelErrors = true;
+                                                edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3);
+                                            }).Bind(DataBinder.Eval(Model, "SpouseSARSDescription_ENG")).GetHtml()
+
+
+                        @Html.DevExpress().Label(edtSettings =>
+                                            {
+                                                edtSettings.Name = "lbSpouseSARSDescription_AFR";
+                                                edtSettings.ControlStyle.CssClass = "label";
+                                                edtSettings.Width = 80;
+                                                edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2);
+                                                edtSettings.Text = "Afrikaans";
+                                            }).GetHtml()
+
+                        @Html.DevExpress().TextBox(edtSettings =>
+                                            {
+                                                edtSettings.Name = "SpouseSARSDescription_AFR";
+                                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                                edtSettings.ShowModelErrors = true;
+                                                edtSettings.ClientVisible = edtSettings.ClientVisible = (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2);
+                                            }).Bind(DataBinder.Eval(Model, "SpouseSARSDescription_AFR")).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+        @*============================================= Guardian/Foster care =============================================*@
+        <tr>
+            <td class="ReqDocTable-l" style="border-bottom: none;">
+                @Html.DevExpress().Label(lbsettings =>
+                                           {
+                                               lbsettings.ControlStyle.CssClass = "label";
+                                               lbsettings.Text = "Monthly Expenses";
+                                               lbsettings.ControlStyle.Font.Bold = true;
+                                               lbsettings.ControlStyle.ForeColor = System.Drawing.Color.Blue;
+                                               lbsettings.ControlStyle.Font.Size = 10;
+                                               lbsettings.Width = 300;
+                                           }).GetHtml()
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(lbsettings =>
+                                                  {
+                                                      lbsettings.ControlStyle.CssClass = "label";
+                                                      lbsettings.Width = 150;
+                                                      lbsettings.ControlStyle.Font.Bold = true;
+                                                      lbsettings.Text = "Required Documents:";
+                                                  }).GetHtml()
+
+                        @Html.DevExpress().CheckBoxList(cbsettings =>
+                                       {
+                                           cbsettings.Name = "ExpenceRequiredDocs";
+                                           cbsettings.Properties.ValueType = typeof(int);
+                                           cbsettings.Width = Unit.Pixel(340);
+                                           cbsettings.Properties.Items.Add("Rent bond", 1);
+                                           cbsettings.Properties.Items.Add("Municipal account", 2);
+                                           cbsettings.Properties.Items.Add("Furniture accounts", 3);
+                                           cbsettings.Properties.Items.Add("Vehicle finance statement ", 4);
+                                           cbsettings.Properties.Items.Add("Credit card account", 5);
+                                           cbsettings.Properties.Items.Add("Clothing accounts", 6);
+                                           cbsettings.Properties.Items.Add("Revolving credit account statement", 7);
+                                           cbsettings.Properties.Items.Add("Telephone account", 8);
+                                           cbsettings.Properties.Items.Add("Cellphone account", 9);
+                                           cbsettings.Properties.RepeatLayout = RepeatLayout.Table;
+                                           cbsettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+                                           cbsettings.Properties.RepeatColumns = 1;
+                                           cbsettings.ControlStyle.Border.BorderStyle = BorderStyle.Solid;
+                                           cbsettings.ControlStyle.Border.BorderColor = System.Drawing.Color.LightGray;
+                                           cbsettings.PreRender = (sender, e) =>
+                                           {
+                                               ASPxCheckBoxList cbl = (ASPxCheckBoxList)sender;
+                                               if (DataBinder.Eval(Model, "ExpenceRequiredDocs") != null)
+                                               {
+                                                   string stringlist = DataBinder.Eval(Model, "ExpenceRequiredDocs").ToString() ?? "";
+                                                   IList<int> list = stringlist.Split(',').Select(int.Parse).ToList();
+                                                   foreach (ListEditItem item in cbl.Items)
+                                                   {
+                                                       item.Selected = list.Contains((int)item.Value);
+                                                   }
+                                               }
+                                           };
+                                              //cbsettings.Properties.ClientSideEvents.SelectedIndexChanged = "setIncomeRequirements";
+                                              //cbsettings.Properties.ClientSideEvents.Init = "setIncomeRequirements";
+                                          }).GetHtml()
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l" style="border-bottom: none;">
+                @Html.DevExpress().Label(lbsettings =>
+                    {
+                        lbsettings.ControlStyle.CssClass = "label";
+                        lbsettings.Text = "Report descriptions";
+                        lbsettings.ControlStyle.Font.Bold = true;
+                        lbsettings.Width = 300;
+                    }).GetHtml()
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.Width = 200;
+                                edtSettings.Text = "Rent bond";
+                            }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "English";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "RentBondDescription_ENG";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "RentBondDescription_ENG")).GetHtml();
+                        }
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "Afrikaans";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "RentBondDescription_AFR";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "RentBondDescription_AFR")).GetHtml();
+                        }
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.Width = 200;
+                                edtSettings.Text = "Municipal account";
+                            }).GetHtml();
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "English";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "MunicipalAccountDescription_ENG";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "MunicipalAccountDescription_ENG")).GetHtml();
+                        }
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "Afrikaans";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "MunicipalAccountDescription_AFR";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "MunicipalAccountDescription_AFR")).GetHtml();
+                        }
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.Width = 200;
+                                edtSettings.Text = "Furniture accounts";
+                            }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "English";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "FurnitureAccountsDescription_ENG";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "FurnitureAccountsDescription_ENG")).GetHtml();
+                        }
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "Afrikaans";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "FurnitureAccountsDescription_AFR";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                                        //edtSettings.Width = 250;
+                                    }).Bind(DataBinder.Eval(Model, "FurnitureAccountsDescription_AFR")).GetHtml();
+                        }
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.Width = 200;
+                                edtSettings.Text = "Vehical finance";
+                            }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "English";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "VehicleFinanceDescription_ENG";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "VehicleFinanceDescription_ENG")).GetHtml();
+                        }
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "Afrikaans";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "VehicleFinanceDescription_AFR";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "VehicleFinanceDescription_AFR")).GetHtml();
+                        }
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.Width = 200;
+                                edtSettings.Text = "Credit card account";
+                            }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                        {
+                            edtSettings.ControlStyle.CssClass = "label";
+                            edtSettings.Width = 80;
+                            edtSettings.Text = "English";
+                        }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "CreditCardAccountDescription_ENG";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "CreditCardAccountDescription_ENG")).GetHtml();
+                        }
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "Afrikaans";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "CreditCardAccountDescription_AFR";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "CreditCardAccountDescription_AFR")).GetHtml();
+                        }
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.Width = 200;
+                                edtSettings.Text = "Clothing account";
+                            }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "English";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "ClothingAccountDescription_ENG";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "ClothingAccountDescription_ENG")).GetHtml();
+                        }
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "Afrikaans";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "ClothingAccountDescription_AFR";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "ClothingAccountDescription_AFR")).GetHtml();
+                        }
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.Width = 200;
+                                edtSettings.Text = "Revolving credit card account";
+                            }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "English";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "RevolvingCreditAccountDescription_ENG";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "RevolvingCreditAccountDescription_ENG")).GetHtml();
+                        }
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "Afrikaans";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "RevolvingCreditAccountDescription_AFR";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "RevolvingCreditAccountDescription_AFR")).GetHtml();
+                        }
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.Width = 200;
+                                edtSettings.Text = "Telephone account";
+                            }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "English";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "TelephoneAccountDescription_ENG";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "TelephoneAccountDescription_ENG")).GetHtml();
+                        }
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "Afrikaans";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "TelephoneAccountDescription_AFR";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "TelephoneAccountDescription_AFR")).GetHtml();
+                        }
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="ReqDocTable-l">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.Width = 200;
+                                edtSettings.Text = "Cellphone account";
+                            }).GetHtml()
+
+                    </div>
+                </div>
+            </td>
+            <td class="ReqDocTable-r">
+                <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                    <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 3)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "English";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "CellPhoneAccountDescription_ENG";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "CellPhoneAccountDescription_ENG")).GetHtml();
+                        }
+
+                        @if (Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 1 || Convert.ToInt32(DataBinder.Eval(Model, "CorrespondenceLanguageID")) == 2)
+                        {
+                            Html.DevExpress().Label(edtSettings =>
+                            {
+                                edtSettings.ControlStyle.CssClass = "label";
+                                edtSettings.Width = 80;
+                                edtSettings.Text = "Afrikaans";
+                            }).GetHtml();
+
+                            Html.DevExpress().TextBox(edtSettings =>
+                            {
+                                edtSettings.Name = "CellPhoneAccountDescription_AFR";
+                                edtSettings.ControlStyle.CssClass = "formeditor300";
+                                edtSettings.ShowModelErrors = true;
+                            }).Bind(DataBinder.Eval(Model, "CellPhoneAccountDescription_AFR")).GetHtml();
+                        }
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+}

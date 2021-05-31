@@ -1,0 +1,199 @@
+﻿@model System.Collections.IEnumerable
+
+<script type="text/javascript">
+
+    function GenerateQuotation() {
+
+        var ItemID;
+
+        if (cbApplicationPacks.GetValue() === null)
+            ItemID = -1
+        else
+            ItemID = cbApplicationPacks.GetValue();
+
+        $.ajax({
+            type: 'POST',
+            url: '/Admin/Set_GenerateQuotation',
+            dataType: 'json',
+            async: false,
+            data: {
+                ItemID: ItemID,
+                PackageID: cbEduSpecPackage.GetValue()
+            },
+            success: function (result) {
+                if (result.Success === true) {
+                    pcQuotation.Hide();
+                    window.open(result.Url, '_Blank');
+                    QuotationGridView.PerformCallback();
+                }
+                else {
+                    pcErrorlbMessage.SetText(result.Message);
+                    pcError.Show();
+                }
+            }
+        });
+    }
+
+    function onBtnAcceptQuotationClick(Result) {
+
+        if (Result == "mrYes") {
+
+            var QuotationID = QuotationGridView.GetRowKey(QuotationGridView.GetFocusedRowIndex());
+
+            $.ajax({
+                type: 'POST',
+                url: '/Admin/Set_AcceptQuotation',
+                dataType: 'json',
+                async: false,
+                data: {
+                    QuotationID: QuotationID
+                },
+                success: function (response) {
+                    window.open(response.Url, '_Blank');
+                }
+            });
+
+            QuotationGridView.PerformCallback();
+            pcAcceptQuotation.Hide();
+            GridView.PerformCallback();
+        }
+    }
+
+    function EduspecPackageChange(s, e) {
+        var x = s.GetValue();
+        if (x == 3 || x == 5) {
+            lbApplicationPacks.SetVisible(false);
+            cbApplicationPacks.SetVisible(false);
+        }
+        else {
+            lbApplicationPacks.SetVisible(true);
+            cbApplicationPacks.SetVisible(true);
+        }
+         
+    }
+
+</script>
+
+@Html.DevExpress().Splitter(settings =>
+{
+    SplitterUtils.SetSplitterProperties(settings, false, 0, false, 0);
+
+    settings.ClientSideEvents.PaneResized = "function(s, e) { if(e.pane.name == 'ViewMainContentPane') {GridView.SetHeight(e.pane.GetClientHeight() - 45); QuotationGridView.SetHeight(e.pane.GetClientHeight() - 45)}}";
+
+    MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+    HeaderPane.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div ID=\"ViewInfo\">Institution Invoices</div>");
+
+    });
+
+    MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+    MainContentPane.SetContent(() =>
+    {
+        //if (Convert.ToBoolean(HttpContext.Current.Session["IsEvaluation"]) == true)
+        //{
+
+        Html.DevExpress().PageControl(pcsettings =>
+        {
+            pcsettings.Name = "pcFinances";
+            pcsettings.Width = Unit.Percentage(100);
+            pcsettings.Height = Unit.Percentage(100);
+            pcsettings.EnableTabScrolling = true;
+            pcsettings.TabAlign = TabAlign.Justify;
+            pcsettings.EnableClientSideAPI = true;
+
+            pcsettings.TabPages.Add("Invoices", "Invoices").SetContent(() =>
+            {
+                Html.RenderAction("FinanceInvoicePartial");
+            });
+
+            pcsettings.TabPages.Add("Quotations", "Quotations").SetContent(() =>
+            {
+                Html.RenderAction("FinanceQuotationPartial");
+            });
+
+        }).GetHtml();
+        //}
+        //else
+        //{
+        //    Html.RenderAction("FinanceInvoicePartial");
+        //};
+
+    });
+
+    MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+    FooterPane.SetContent(() =>
+    {
+
+    });
+
+}).GetHtml()
+
+@MessageDlg.ShowMessageDlg("pcAcceptQuotation", Html, "Are you sure you want to accept selected quotation?", new BtnType[] { BtnType.mbYes, BtnType.mbNo }, MessageType.mConfirmation, "onBtnAcceptQuotationClick")
+
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcQuotation", "Quotation");
+    settings.Width = 400;
+    settings.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 100%; margin:0px 5px 0px 5px;\">");
+        ViewContext.Writer.Write("<div class=\"line\" style=\"width: 100%; margin:10px 10px 0px; 10px\">");
+        
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        EduSpecHtmlHelper.Label(Html, "Please select the EduSpec package that you would require.", "label");
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "cbEduSpecPackage";
+            edtSettings.ControlStyle.CssClass = "formeditor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "ID";
+            edtSettings.Properties.ClientSideEvents.SelectedIndexChanged = "EduspecPackageChange";
+            edtSettings.Properties.ValueType = typeof(int);
+            edtSettings.Width = 320;
+        }).BindList(GridUtils.getDropdownList("Get_EduSpecPackages_PickList")).GetHtml();
+
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        EduSpecHtmlHelper.Label(Html, "lbApplicationPacks", "Please select the quantity on application packs you would require.", "label", false);
+
+        ViewContext.Writer.Write("<br />");
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "cbApplicationPacks";
+            edtSettings.ControlStyle.CssClass = "formeditor";
+            edtSettings.ShowModelErrors = true;
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "ID";
+            edtSettings.Properties.ValueType = typeof(int);
+            edtSettings.ClientVisible = false;
+            edtSettings.Width = 320;
+        }).BindList(GridUtils.getDropdownList("Get_ApplicationPacks_PickList")).GetHtml();
+        
+        Html.DevExpress().Button(btnSettings =>
+        {
+            btnSettings.Name = "btnGenerateQuotation";
+            btnSettings.ControlStyle.CssClass = "button";
+            btnSettings.Text = "Generate Quotation";
+            btnSettings.ClientSideEvents.Click = "function(s, e){ GenerateQuotation() }";
+
+        }).Render();
+
+        Html.DevExpress().Button(btnSettings =>
+        {
+            btnSettings.Name = "btnGenerateQuotationCancel";
+            btnSettings.ControlStyle.CssClass = "button";
+            btnSettings.Text = "Cancel";
+            btnSettings.ClientSideEvents.Click = "function(s, e){ pcQuotation.Hide(); }";
+
+        }).Render();
+
+        ViewContext.Writer.Write("</div></div>");
+    });
+}).GetHtml()

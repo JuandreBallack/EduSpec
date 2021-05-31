@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XtraReportsLayoutSerializer SerializerVersion="18.1.4.0" Ref="1" ControlType="DevExpress.XtraReports.UI.XtraReport, DevExpress.XtraReports.v18.1, Version=18.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Name="Exemptions" Landscape="true" Margins="30, 30, 40, 30" PaperKind="A4" PageWidth="1169" PageHeight="827" Version="18.1" DataMember="RPT_ExemptionSummary" DataSource="#Ref-0">
+  <FormattingRuleSheet>
+    <Item1 Ref="2" Name="formattingRule1" DataMember="RPT_ExemptionSummary">
+      <Formatting Ref="3" BorderStyle="Inset" StringFormat="Near;Near;0;None;Character;Default" />
+    </Item1>
+  </FormattingRuleSheet>
+  <Parameters>
+    <Item1 Ref="6" Description="Year" LookUpSettings="#Ref-4" ValueInfo="0" Name="Year" Type="#Ref-5" />
+    <Item2 Ref="8" Description="Exemption Status" LookUpSettings="#Ref-7" ValueInfo="-2" Name="ExemptionStatus" Type="#Ref-5" />
+  </Parameters>
+  <Bands>
+    <Item1 Ref="9" ControlType="DetailBand" Name="Detail" HeightF="20.375" TextAlignment="TopLeft" Padding="0,0,0,0,100">
+      <Controls>
+        <Item1 Ref="10" ControlType="XRLabel" Name="xrLabel1" Multiline="true" TextAlignment="MiddleLeft" SizeF="74.99994,20.375" LocationFloat="0, 0" Font="Arial, 8pt" Padding="2,2,0,0,100" Borders="None">
+          <DataBindings>
+            <Item1 Ref="11" PropertyName="Text" DataMember="RPT_ExemptionSummary.ApplicationNumber" />
+          </DataBindings>
+          <StylePriority Ref="12" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item1>
+        <Item2 Ref="13" ControlType="XRLabel" Name="xrLabel3" Multiline="true" TextAlignment="MiddleLeft" SizeF="75,20.375" LocationFloat="74.99994, 0" Font="Arial, 8pt" Padding="2,2,0,0,100" Borders="None">
+          <DataBindings>
+            <Item1 Ref="14" PropertyName="Text" DataMember="RPT_ExemptionSummary.ExternalAccNo" />
+          </DataBindings>
+          <StylePriority Ref="15" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item2>
+        <Item3 Ref="16" ControlType="XRLabel" Name="xrLabel4" TextAlignment="MiddleLeft" SizeF="262.5109,20.375" LocationFloat="150, 0" Font="Arial, 8pt" Padding="2,2,0,0,100" Borders="None">
+          <DataBindings>
+            <Item1 Ref="17" PropertyName="Text" DataMember="RPT_ExemptionSummary.ParentsName" />
+          </DataBindings>
+          <StylePriority Ref="18" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item3>
+        <Item4 Ref="19" ControlType="XRLabel" Name="xrLabel5" TextAlignment="MiddleLeft" SizeF="386.4892,20.375" LocationFloat="412.5107, 0" Font="Arial, 8pt" Padding="2,2,0,0,100" Borders="None">
+          <DataBindings>
+            <Item1 Ref="20" PropertyName="Text" DataMember="RPT_ExemptionSummary.LearnersNames" />
+          </DataBindings>
+          <StylePriority Ref="21" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item4>
+        <Item5 Ref="22" ControlType="XRLabel" Name="xrLabel8" TextFormatString="{0:R ### ##0.00}" TextAlignment="MiddleRight" SizeF="100,20.375" LocationFloat="798.9999, 0" Font="Arial, 8pt" Padding="2,2,0,0,100" Borders="None">
+          <DataBindings>
+            <Item1 Ref="23" PropertyName="Text" DataMember="RPT_ExemptionSummary.SchoolFees" />
+          </DataBindings>
+          <StylePriority Ref="24" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item5>
+        <Item6 Ref="25" ControlType="XRLabel" Name="xrLabel17" Multiline="true" TextAlignment="MiddleRight" SizeF="100,20.375" LocationFloat="898.9999, 0" Font="Arial, 8pt" Padding="2,2,0,0,100" Borders="None">
+          <DataBindings>
+            <Item1 Ref="26" FormatString="{0:c}" PropertyName="Text" DataMember="RPT_ExemptionSummary.AmountExempted" />
+          </DataBindings>
+          <StylePriority Ref="27" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item6>
+        <Item7 Ref="28" ControlType="XRLabel" Name="xrLabel18" Multiline="true" TextAlignment="MiddleRight" SizeF="110,20.375" LocationFloat="998.9999, 0" Font="Arial, 8pt" Padding="2,2,0,0,100" Borders="None">
+          <DataBindings>
+            <Item1 Ref="29" FormatString="{0:c}" PropertyName="Text" DataMember="RPT_ExemptionSummary.AmountPayable" />
+          </DataBindings>
+          <StylePriority Ref="30" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item7>
+      </Controls>
+    </Item1>
+    <Item2 Ref="31" ControlType="TopMarginBand" Name="TopMargin" HeightF="40" TextAlignment="TopLeft" Padding="0,0,0,0,100" />
+    <Item3 Ref="32" ControlType="BottomMarginBand" Name="BottomMargin" HeightF="30" TextAlignment="TopLeft" Padding="0,0,0,0,100">
+      <Controls>
+        <Item1 Ref="33" ControlType="XRPageInfo" Name="xrPageInfo2" TextFormatString="Page {0} of {1}" TextAlignment="MiddleCenter" SizeF="83.07898,22.83465" LocationFloat="1025.921, 0" Font="Arial, 8pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="34" UseFont="false" UseTextAlignment="false" />
+        </Item1>
+        <Item2 Ref="35" ControlType="XRLabel" Name="xrLabel35" Text="Printed by EduSpec ©" TextAlignment="MiddleLeft" SizeF="177.0833,22.83465" LocationFloat="0, 2" Font="Arial, 8pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="36" UseFont="false" UseTextAlignment="false" />
+        </Item2>
+      </Controls>
+    </Item3>
+    <Item4 Ref="37" ControlType="GroupHeaderBand" Name="GroupHeader1" HeightF="34.37502" KeepTogether="true">
+      <GroupFields>
+        <Item1 Ref="38" FieldName="ExempStatus" />
+      </GroupFields>
+      <Controls>
+        <Item1 Ref="39" ControlType="XRLabel" Name="xrLabel2" TextAlignment="MiddleLeft" SizeF="1109,23" LocationFloat="0, 3.333346" Font="Arial, 10pt, style=Bold" BackColor="LightGray" Padding="6,2,0,0,100" BorderColor="LightGray">
+          <DataBindings>
+            <Item1 Ref="40" PropertyName="Text" DataMember="RPT_ExemptionSummary.ExempStatus" />
+          </DataBindings>
+          <StylePriority Ref="41" UseFont="false" UseBackColor="false" UsePadding="false" UseBorderColor="false" UseTextAlignment="false" />
+        </Item1>
+      </Controls>
+    </Item4>
+    <Item5 Ref="42" ControlType="GroupFooterBand" Name="GroupFooter1" HeightF="24.04169">
+      <Controls>
+        <Item1 Ref="43" ControlType="XRLabel" Name="xrLabel23" TextAlignment="MiddleLeft" SizeF="177.0833,23" LocationFloat="0, 0" Font="Arial, 9pt" Padding="2,2,0,0,100" Borders="Top">
+          <DataBindings>
+            <Item1 Ref="44" PropertyName="Text" DataMember="RPT_ExemptionSummary.ExempStatus" />
+          </DataBindings>
+          <StylePriority Ref="45" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item1>
+        <Item2 Ref="46" ControlType="XRLabel" Name="xrLabel22" TextAlignment="MiddleRight" SizeF="109.9995,23" LocationFloat="999.0004, 0" Font="Arial, 8pt, style=Bold" Padding="2,2,0,0,100" Borders="Top">
+          <Summary Ref="47" FormatString="{0:c}" Running="Group" />
+          <DataBindings>
+            <Item1 Ref="48" PropertyName="Text" DataMember="RPT_ExemptionSummary.AmountPayable" />
+          </DataBindings>
+          <StylePriority Ref="49" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item2>
+        <Item3 Ref="50" ControlType="XRLabel" Name="xrLabel21" TextAlignment="MiddleRight" SizeF="100.0001,23" LocationFloat="899.0001, 0" Font="Arial, 8pt, style=Bold" Padding="2,2,0,0,100" Borders="Top">
+          <Summary Ref="51" FormatString="{0:c}" Running="Group" />
+          <DataBindings>
+            <Item1 Ref="52" PropertyName="Text" DataMember="RPT_ExemptionSummary.AmountExempted" />
+          </DataBindings>
+          <StylePriority Ref="53" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item3>
+        <Item4 Ref="54" ControlType="XRLabel" Name="xrLabel20" TextAlignment="MiddleRight" SizeF="99.99994,23" LocationFloat="799.0001, 0" Font="Arial, 8pt, style=Bold" Padding="2,2,0,0,100" Borders="Top">
+          <Summary Ref="55" FormatString="{0:R ### ##0.00}" Running="Group" />
+          <DataBindings>
+            <Item1 Ref="56" PropertyName="Text" DataMember="RPT_ExemptionSummary.SchoolFees" />
+          </DataBindings>
+          <StylePriority Ref="57" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item4>
+        <Item5 Ref="58" ControlType="XRLabel" Name="xrLabel19" Text="fg =" TextAlignment="MiddleLeft" SizeF="621.9166,23" LocationFloat="177.0833, 0" Font="Arial, 9pt" Padding="2,2,0,0,100" Borders="Top">
+          <Summary Ref="59" Running="Group" Func="Count" />
+          <DataBindings>
+            <Item1 Ref="60" PropertyName="Text" DataMember="RPT_ExemptionSummary.ExempStatus" />
+          </DataBindings>
+          <StylePriority Ref="61" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item5>
+      </Controls>
+    </Item5>
+    <Item6 Ref="62" ControlType="PageHeaderBand" Name="PageHeader" HeightF="36">
+      <Controls>
+        <Item1 Ref="63" ControlType="XRLabel" Name="xrLabel11" Multiline="true" Text="Parents&#xD;&#xA;" TextAlignment="BottomLeft" SizeF="262.5107,36" LocationFloat="150, 0" Font="Arial, 9pt, style=Bold" Padding="2,2,0,4,100" Borders="Bottom">
+          <StylePriority Ref="64" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item1>
+        <Item2 Ref="65" ControlType="XRLabel" Name="xrLabel16" Multiline="true" Text="Payable&#xD;&#xA;Amount" TextAlignment="BottomRight" SizeF="110,36" LocationFloat="998.9999, 0" Font="Arial, 9pt, style=Bold" Padding="2,2,0,4,100" Borders="Bottom">
+          <StylePriority Ref="66" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item2>
+        <Item3 Ref="67" ControlType="XRLabel" Name="xrLabel15" Multiline="true" Text="Exemption&#xD;&#xA;Amount" TextAlignment="BottomRight" SizeF="100,36" LocationFloat="898.9999, 0" Font="Arial, 9pt, style=Bold" Padding="2,2,0,4,100" Borders="Bottom">
+          <StylePriority Ref="68" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item3>
+        <Item4 Ref="69" ControlType="XRLabel" Name="xrLabel14" Text=" School Fees" TextAlignment="BottomRight" SizeF="100,36" LocationFloat="798.9999, 0" Font="Arial, 9pt, style=Bold" Padding="2,2,0,4,100" Borders="Bottom">
+          <StylePriority Ref="70" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item4>
+        <Item5 Ref="71" ControlType="XRLabel" Name="xrLabel12" Text="Learners" TextAlignment="BottomLeft" SizeF="386.4892,36" LocationFloat="412.5107, 0" Font="Arial, 9pt, style=Bold" Padding="2,2,0,4,100" Borders="Bottom">
+          <StylePriority Ref="72" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item5>
+        <Item6 Ref="73" ControlType="XRLabel" Name="xrLabel10" Multiline="true" Text="Acc.&#xD;&#xA;Number" TextAlignment="BottomLeft" SizeF="75,36" LocationFloat="74.99994, 0" Font="Arial, 9pt, style=Bold" Padding="2,2,0,4,100" Borders="Bottom">
+          <StylePriority Ref="74" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item6>
+        <Item7 Ref="75" ControlType="XRLabel" Name="xrLabel9" Multiline="true" Text="Appl.&#xD;&#xA;Number" TextAlignment="BottomLeft" SizeF="74.99994,36" LocationFloat="0, 0" Font="Arial, 9pt, style=Bold" Padding="2,2,0,4,100" Borders="Bottom">
+          <StylePriority Ref="76" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item7>
+      </Controls>
+    </Item6>
+    <Item7 Ref="77" ControlType="ReportHeaderBand" Name="ReportHeader" HeightF="45.83333">
+      <Controls>
+        <Item1 Ref="78" ControlType="XRLabel" Name="xrLabel7" Text="EXEMPTIONS [Year]" TextAlignment="MiddleCenter" SizeF="1109,39.62498" LocationFloat="0, 0" Font="Arial, 12pt, style=Bold" ForeColor="White" BackColor="DimGray" Padding="2,2,0,0,100">
+          <StylePriority Ref="79" UseFont="false" UseForeColor="false" UseBackColor="false" UseTextAlignment="false" />
+        </Item1>
+      </Controls>
+    </Item7>
+    <Item8 Ref="80" ControlType="PageFooterBand" Name="PageFooter" HeightF="5.208333">
+      <Controls>
+        <Item1 Ref="81" ControlType="XRLine" Name="xrLine1" SizeF="1109,5.208333" LocationFloat="0.0001589457, 0" />
+      </Controls>
+    </Item8>
+  </Bands>
+  <ComponentStorage>
+    <Item1 Ref="0" ObjectType="DevExpress.DataAccess.Sql.SqlDataSource,DevExpress.DataAccess.v18.1" Name="sqlDataSource1" Base64="PFNxbERhdGFTb3VyY2U+PE5hbWU+c3FsRGF0YVNvdXJjZTE8L05hbWU+PENvbm5lY3Rpb24gTmFtZT0iRWR1U3BlY0Nvbm5lY3Rpb25TdHJpbmciIEZyb21BcHBDb25maWc9InRydWUiIC8+PFF1ZXJ5IFR5cGU9IlN0b3JlZFByb2NRdWVyeSIgTmFtZT0iUlBUX0V4ZW1wdGlvblN1bW1hcnkiPjxQYXJhbWV0ZXIgTmFtZT0iQEluc3RJRCIgVHlwZT0iU3lzdGVtLkludDMyIj44MzwvUGFyYW1ldGVyPjxQYXJhbWV0ZXIgTmFtZT0iQFllYXJJRCIgVHlwZT0iRGV2RXhwcmVzcy5EYXRhQWNjZXNzLkV4cHJlc3Npb24iPihTeXN0ZW0uSW50MzIsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OSkoW1BhcmFtZXRlcnMuWWVhcl0pPC9QYXJhbWV0ZXI+PFBhcmFtZXRlciBOYW1lPSJARXhlbXB0U3RhdHVzSUQiIFR5cGU9IkRldkV4cHJlc3MuRGF0YUFjY2Vzcy5FeHByZXNzaW9uIj4oU3lzdGVtLkludDMyLCBtc2NvcmxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkpKFtQYXJhbWV0ZXJzLkV4ZW1wdGlvblN0YXR1c10pPC9QYXJhbWV0ZXI+PFByb2NOYW1lPlJQVF9FeGVtcHRpb25TdW1tYXJ5PC9Qcm9jTmFtZT48L1F1ZXJ5PjxRdWVyeSBUeXBlPSJTdG9yZWRQcm9jUXVlcnkiIE5hbWU9IkdldF9SZXBvcnRzRXhlbXB0aW9uU3RhdHVzX1BpY2tMaXN0Ij48UHJvY05hbWU+R2V0X1JlcG9ydHNFeGVtcHRpb25TdGF0dXNfUGlja0xpc3Q8L1Byb2NOYW1lPjwvUXVlcnk+PFF1ZXJ5IFR5cGU9IlN0b3JlZFByb2NRdWVyeSIgTmFtZT0iR2V0X1JlcG9ydHNZZWFyX1BpY2tMaXN0Ij48UHJvY05hbWU+R2V0X1JlcG9ydHNZZWFyX1BpY2tMaXN0PC9Qcm9jTmFtZT48L1F1ZXJ5PjxSZXN1bHRTY2hlbWE+PERhdGFTZXQgTmFtZT0ic3FsRGF0YVNvdXJjZTEiPjxWaWV3IE5hbWU9IlJQVF9FeGVtcHRpb25TdW1tYXJ5Ij48RmllbGQgTmFtZT0iQXBwbGljYXRpb25OdW1iZXIiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iRXh0ZXJuYWxBY2NObyIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJQYXJlbnRzTmFtZSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJMZWFybmVyc05hbWVzIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkV4ZW1wU3RhdHVzIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlNjaG9vbEZlZXMiIFR5cGU9IkRlY2ltYWwiIC8+PEZpZWxkIE5hbWU9IkFtb3VudEV4ZW1wdGVkIiBUeXBlPSJEZWNpbWFsIiAvPjxGaWVsZCBOYW1lPSJBbW91bnRQYXlhYmxlIiBUeXBlPSJEZWNpbWFsIiAvPjxGaWVsZCBOYW1lPSJZZWFyIiBUeXBlPSJTdHJpbmciIC8+PC9WaWV3PjxWaWV3IE5hbWU9IkdldF9SZXBvcnRzRXhlbXB0aW9uU3RhdHVzX1BpY2tMaXN0Ij48RmllbGQgTmFtZT0iSUQiIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJEZXNjcmlwdGlvbiIgVHlwZT0iU3RyaW5nIiAvPjwvVmlldz48VmlldyBOYW1lPSJHZXRfUmVwb3J0c1llYXJfUGlja0xpc3QiPjxGaWVsZCBOYW1lPSJJRCIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9IkRlc2NyaXB0aW9uIiBUeXBlPSJTdHJpbmciIC8+PC9WaWV3PjwvRGF0YVNldD48L1Jlc3VsdFNjaGVtYT48Q29ubmVjdGlvbk9wdGlvbnMgQ2xvc2VDb25uZWN0aW9uPSJ0cnVlIiAvPjwvU3FsRGF0YVNvdXJjZT4=" />
+  </ComponentStorage>
+  <ObjectStorage>
+    <Item1 Ref="4" ObjectType="DevExpress.XtraReports.Parameters.DynamicListLookUpSettings, DevExpress.Printing.v18.1.Core" DataSource="#Ref-0" DataMember="Get_ReportsYear_PickList" ValueMember="ID" DisplayMember="Description" />
+    <Item2 ObjectType="DevExpress.XtraReports.Serialization.ObjectStorageInfo, DevExpress.XtraReports.v18.1" Ref="5" Content="System.Int32" Type="System.Type" />
+    <Item3 Ref="7" ObjectType="DevExpress.XtraReports.Parameters.DynamicListLookUpSettings, DevExpress.Printing.v18.1.Core" DataSource="#Ref-0" DataMember="Get_ReportsExemptionStatus_PickList" ValueMember="ID" DisplayMember="Description" />
+  </ObjectStorage>
+</XtraReportsLayoutSerializer>

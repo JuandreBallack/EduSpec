@@ -1,0 +1,44 @@
+﻿@Html.DevExpress().CallbackPanel(settings =>
+{
+
+    settings.Name = "cbpCorrespondenceListItems";
+    settings.CallbackRouteValues = new { Controller = "BulkCorrespondence", Action = "CorrespondenceListItems" };
+    settings.ClientSideEvents.BeginCallback = "function(s, e) { e.customArgs['ItemID'] = cbCorrespondenceList.GetValue(); }";
+
+
+    settings.SetContent(() =>
+    {
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 91);// First column
+        EduSpecHtmlHelper.Label(Html, "Grade:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 160);// Second column
+        Dictionary<EduSpec.ComboboxClientSideEvent, string> GradeIDEvents = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+        GradeIDEvents.Add(ComboboxClientSideEvent.onSelectedIndexChanged, "function(s,e){ClassID.PerformCallback();}");
+        EduSpecHtmlHelper.ComboBox(Html, "formeditor", Model, "NewListGrade", 150, string.Format("Get_LearnersGrade_PickList {0}", HttpContext.Current.Session["InstID"]), GradeIDEvents);
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 91);// First column
+        EduSpecHtmlHelper.Label(Html, "Class:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 160);// Second column
+        Html.RenderAction("LearnerClassPickList", "BulkCorrespondence", new { GradeID = Convert.ToInt32(ViewData["GradeID"]), ClassID = Convert.ToInt32(ViewData["ClassID"]) });
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 91);// First column
+        EduSpecHtmlHelper.Label(Html, "Gender:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 160);// Second column
+        EduSpecHtmlHelper.ComboBox(Html, "formeditor", Model, "NewListGender", 150, "Get_Gender_PickList", null);
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+        EduSpecHtmlHelper.EndTable(Html);
+
+    });
+}).GetHtml()

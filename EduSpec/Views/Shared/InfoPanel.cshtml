@@ -1,0 +1,96 @@
+﻿@Html.DevExpress().CallbackPanel(
+    settings =>
+    {
+        settings.Name = "cbpInfoPanel";
+        settings.CallbackRouteValues = new { Controller = "Shared", Action = "InfoPanel" };
+        settings.Width = Unit.Percentage(100);
+
+        settings.SetContent(() =>
+        {
+            Html.DevExpress().RoundPanel(rpSettings =>
+            {
+                rpSettings.Name = "gbInfoPanel";
+                rpSettings.HeaderText = "Services Summary";
+                rpSettings.Width = Unit.Percentage(100);
+                rpSettings.Height = Unit.Percentage(100);
+
+                rpSettings.SetContent(() =>
+                {
+
+                    EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+                    EduSpecHtmlHelper.NewRow(Html);
+                    //EduSpecHtmlHelper.NewColumnHeader(Html, "Information", "InfoTableHeading", 180);
+                    //EduSpecHtmlHelper.EndAndNewRow(Html);
+                    EduSpecHtmlHelper.NewColumn(Html, "edit_form");
+                    EduSpecHtmlHelper.Label(Html, "Application Packs", "boldlabel");
+                    EduSpecHtmlHelper.EndColumn(Html);
+                    EduSpecHtmlHelper.EndAndNewRow(Html);
+                    EduSpecHtmlHelper.NewColumn(Html, "edit_form");
+                    EduSpecHtmlHelper.Label(Html, "infoPanelLine", Model, "PackageDescription");
+                    EduSpecHtmlHelper.EndColumn(Html);
+                    EduSpecHtmlHelper.EndAndNewRow(Html);
+                    EduSpecHtmlHelper.NewColumn(Html, "edit_form");
+                    EduSpecHtmlHelper.Label(Html, "infoPanelLine", Model, "ApplicationsUsed");
+                    EduSpecHtmlHelper.EndColumn(Html);
+                    EduSpecHtmlHelper.EndAndNewRow(Html);
+                    EduSpecHtmlHelper.NewColumn(Html, "edit_form");
+                    EduSpecHtmlHelper.Label(Html, "infoPanelLine", Model, "ApplicationBalance");
+                    EduSpecHtmlHelper.EndColumn(Html);
+                    EduSpecHtmlHelper.EndAndNewRow(Html);
+                    EduSpecHtmlHelper.NewColumn(Html, "edit_form");
+                    EduSpecHtmlHelper.Label(Html, "SMS's", "boldlabel");
+                    EduSpecHtmlHelper.EndColumn(Html);
+                    EduSpecHtmlHelper.EndAndNewRow(Html);
+                    EduSpecHtmlHelper.NewColumn(Html, "edit_form");
+                    EduSpecHtmlHelper.Label(Html, "infoPanelLine", Model, "BundleDescription");
+                    EduSpecHtmlHelper.EndColumn(Html);
+                    EduSpecHtmlHelper.EndAndNewRow(Html);
+                    EduSpecHtmlHelper.NewColumn(Html, "edit_form");
+                    EduSpecHtmlHelper.Label(Html, "infoPanelLine", Model, "SMSsUsed");
+                    EduSpecHtmlHelper.EndColumn(Html);
+                    EduSpecHtmlHelper.EndAndNewRow(Html);
+                    EduSpecHtmlHelper.NewColumn(Html, "edit_form");
+                    EduSpecHtmlHelper.Label(Html, "infoPanelLine", Model, "SMSsBalance");
+
+                    if (Convert.ToInt32(HttpContext.Current.Session["ImpersonateInstUserID"]) != -1)
+                    {
+                        EduSpecHtmlHelper.EndColumn(Html);
+                        EduSpecHtmlHelper.EndAndNewRow(Html);
+                        EduSpecHtmlHelper.NewColumn(Html, "edit_form");
+                        EduSpecHtmlHelper.Label(Html, "User details", "boldlabel");
+                        EduSpecHtmlHelper.EndColumn(Html);
+                        EduSpecHtmlHelper.EndAndNewRow(Html);
+                        EduSpecHtmlHelper.NewColumn(Html, "edit_form");
+                        EduSpecHtmlHelper.Label(Html, "infoPanelLine", Model, "UserName");
+                        EduSpecHtmlHelper.EndColumn(Html);
+                        EduSpecHtmlHelper.EndAndNewRow(Html);
+                        EduSpecHtmlHelper.NewColumn(Html, "edit_form");
+                        EduSpecHtmlHelper.Label(Html, "infoPanelLine", Model, "Telephone");
+                        EduSpecHtmlHelper.EndColumn(Html);
+                        EduSpecHtmlHelper.EndAndNewRow(Html);
+                        EduSpecHtmlHelper.NewColumn(Html, "edit_form");
+                        EduSpecHtmlHelper.Label(Html, "infoPanelLine", Model, "Cell");
+                        EduSpecHtmlHelper.EndColumn(Html);
+                        EduSpecHtmlHelper.EndAndNewRow(Html);
+                        EduSpecHtmlHelper.NewColumn(Html, "edit_form");
+                        EduSpecHtmlHelper.Label(Html, "infoPanelLine", Model, "Email");
+                        EduSpecHtmlHelper.EndColumn(Html);
+                        EduSpecHtmlHelper.EndRow(Html);
+                        EduSpecHtmlHelper.EndTable(Html);
+                    }
+                    else
+                    {
+                        EduSpecHtmlHelper.EndColumn(Html);
+                        EduSpecHtmlHelper.EndRow(Html);
+                        EduSpecHtmlHelper.EndTable(Html);
+                    }
+
+
+
+                });
+
+            }).GetHtml();
+
+        });
+    }).GetHtml()
+

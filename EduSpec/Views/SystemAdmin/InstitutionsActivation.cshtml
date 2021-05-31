@@ -1,0 +1,57 @@
+﻿@model System.Collections.IEnumerable
+
+<script type="text/javascript">
+
+    function OnUserNameValidation(s, e) {
+        e.isValid = true;
+        validateRequiredField(e.value, e);
+
+        if (e.isValid)
+            validateEmail(e.value, e);
+
+        if (e.isValid)
+            validateUserName(e.value, e)
+
+        if (e.isValid)
+            validateUserNameLength(e.value, e)
+    }
+
+</script>
+
+@Html.DevExpress().Splitter(settings =>
+    {
+        SplitterUtils.SetSplitterProperties(settings, ViewData["ViewProperties"]);
+
+        MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+        HeaderPane.SetContent(() =>
+        {
+            ViewContext.Writer.Write(
+                "<div ID=\"ViewInfo\">Active Clients</div><div style=\"margin:2px\">");
+
+        });
+
+        MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+        MainContentPane.SetContent(() =>
+        {
+            Html.RenderAction("InstitutionsActivationPartial");
+        });
+
+        MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+        FooterPane.SetContent(() =>
+        {
+
+        });
+
+    }).GetHtml()
+
+@Html.DevExpress().PopupControl(settings =>
+    {
+        PopupUtils.SetPopupViewProperties(settings, "pcChangePassword", "Change Password");
+        settings.ClientSideEvents.PopUp = "function(s, e){ NewPassword.SetFocus();}";
+
+        settings.SetContent(() =>
+        {
+            Html.RenderPartial("PasswordChange", new EduSpec.Models.ChangePasswordModel());
+        });
+
+    }).GetHtml()

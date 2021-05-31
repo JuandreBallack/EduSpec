@@ -1,0 +1,134 @@
+﻿@Html.DevExpress().CallbackPanel(
+    settings =>
+    {
+        settings.Name = "cbpApplicationCalculation";
+        settings.CallbackRouteValues = new { Controller = "Exemptions", Action = "CalculationPartial" };
+        settings.Width = Unit.Percentage(100);
+
+        settings.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<div ID=\"RoundPanel\">");
+            Html.DevExpress().RoundPanel(rpSettings =>
+            {
+                rpSettings.Name = "rpCalulation";
+                rpSettings.HeaderText = "Calculation";
+                rpSettings.Width = Unit.Percentage(100);
+
+                rpSettings.SetContent(() =>
+                {
+                    ViewContext.Writer.Write("<table style=\"width:100%\"><tr><td width=\"450px\">");
+                    ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 100%; margin:0px 5px 0px 5px;\">");
+                    ViewContext.Writer.Write("<div class=\"line\" style=\"width: 100%; margin:0px 10px 10px 0px;\">");
+
+                    Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.Name = "ExemptionTypeID";
+                        edtSettings.Width = 160;
+                        edtSettings.ClientVisible = false;
+                    }).Bind(DataBinder.Eval(Model, "ExemptionTypeID")).Render();
+                    
+                    Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "formlabel";
+                        edtSettings.Width = 160;
+                        edtSettings.Text = "Combined Gross Salary:";
+                    }).Render();
+
+                    Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.Name = "CombinedGrossSalary";
+                        edtSettings.ControlStyle.CssClass = "formlabelbold";
+                        edtSettings.Width = 160;
+                        edtSettings.Text = String.Format("{0:C}", DataBinder.Eval(Model, "CombinedGrossSalary") ?? 0);
+                    }).GetHtml();
+
+                    Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "formlabel";
+                        edtSettings.Width = 160;
+                        edtSettings.Text = "Amount Exempt:";
+                    }).Render();
+
+                    Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.Name = "AmountExempted";
+                        edtSettings.ControlStyle.CssClass = "formlabelbold";
+                        edtSettings.Width = 160;
+                        edtSettings.Text = String.Format("{0:C}", DataBinder.Eval(Model, "AmountExempted") ?? 0);
+                    }).GetHtml();
+
+                    Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "formlabel";
+                        edtSettings.Width = 160;
+                        edtSettings.Text = "Amount Payable:";
+                    }).Render();
+
+                    Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.Name = "AmountPayable";
+                        edtSettings.ControlStyle.CssClass = "formlabelbold";
+                        edtSettings.Text = String.Format("{0:C}", DataBinder.Eval(Model, "AmountPayable") ?? 0);
+                    }).GetHtml();
+
+                    Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "formlabel";
+                        edtSettings.Width = 160;
+                        edtSettings.Text = "Exemption Type:";
+                    }).Render();
+
+                    Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.Name = "ExemptionType";
+                        edtSettings.ControlStyle.CssClass = "formlabelbold";
+                        edtSettings.Width = 300;
+                    }).Bind(DataBinder.Eval(Model, "ExemptionType") ?? "None").GetHtml();
+
+                    Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "formlabel";
+                        edtSettings.Width = 160;
+                        edtSettings.Text = "Total Offer Amount:";
+                    }).Render();
+
+                    Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.Name = "OfferAmount";
+                        edtSettings.ControlStyle.CssClass = "formlabelbold";
+                        edtSettings.Width = 160;
+                        edtSettings.Text = String.Format("{0:C}", DataBinder.Eval(Model, "OfferAmount") ?? 0);
+                    }).GetHtml();
+
+                    ViewContext.Writer.Write("</div></div>");
+                    ViewContext.Writer.Write("</td><td>");
+
+                    Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "formlabel";
+                        edtSettings.Width = 80;
+                        edtSettings.Text = "E =";
+                        edtSettings.ControlStyle.Font.Size = 30;
+                        edtSettings.ControlStyle.ForeColor = System.Drawing.Color.Maroon;
+                    }).Render();
+
+                    Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.Name = "E";
+                        edtSettings.ControlStyle.CssClass = "formlabel";
+                        edtSettings.ControlStyle.Font.Size = 30;
+                        edtSettings.ControlStyle.ForeColor = System.Drawing.Color.Maroon;
+                        edtSettings.ControlStyle.Border.BorderStyle = BorderStyle.Solid;
+                        edtSettings.ControlStyle.Border.BorderWidth = 1;
+                        edtSettings.Style["padding"] = "5px 10px 5px 10px";
+                    }).Bind(DataBinder.Eval(Model, "E") ?? "0.0").GetHtml();
+
+                    ViewContext.Writer.Write("</td></tr></table>");
+
+                });
+            }).Render();
+            ViewContext.Writer.Write("</div>");
+
+        });
+
+    }).GetHtml()

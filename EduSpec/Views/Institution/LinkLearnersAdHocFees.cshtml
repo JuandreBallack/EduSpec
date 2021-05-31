@@ -1,0 +1,45 @@
+﻿@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcAdHocFees", "Add Ad Hoc fees");
+    settings.Width = 845;
+    settings.SetContent(() =>
+    {
+
+        EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+        EduSpecHtmlHelper.NewDiv(Html, "line");
+
+        EduSpecHtmlHelper.Label(Html, "Select Ad Hoc fee", "boldlabel");
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+
+        EduSpecHtmlHelper.NewRow(Html); //********** Row 1
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form",100); // First column
+        EduSpecHtmlHelper.Label(Html, "Ad Hoc fee:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        Dictionary<EduSpec.ComboboxClientSideEvent, string> comboboxValidateRequiredField = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+        comboboxValidateRequiredField.Add(ComboboxClientSideEvent.onValidation, "function(s,e){validateRequiredField(e.value, e);}");
+        EduSpecHtmlHelper.ComboBox(Html,"cbAdHocFees", "formeditor", 220, "Get_AdHocFees_PickList " + HttpContext.Current.Session["InstID"], comboboxValidateRequiredField);
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+
+        EduSpecHtmlHelper.EndTable(Html);
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+
+        Html.RenderAction("LearnerAdHocFees", "Institution");
+
+        EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+        EduSpecHtmlHelper.NewDiv(Html, "line");
+        Dictionary<EduSpec.ButtonClientSideEvent, string> saveButtonEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        saveButtonEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){ if (cbAdHocFees.GetIsValid()) onAddLearnerAdHocFees();}");
+        EduSpecHtmlHelper.Button(Html, "btnSaveAdHocFees", "button", "Save", 80, saveButtonEvents);
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> closeButtonEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        closeButtonEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){ pcAdHocFees.Hide(); }");
+        EduSpecHtmlHelper.Button(Html, "btnCancelAdHocFees", "button", "Cancel", 80, closeButtonEvents);
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+    });
+}).GetHtml()

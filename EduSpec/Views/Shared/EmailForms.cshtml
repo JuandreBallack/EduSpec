@@ -1,0 +1,44 @@
+﻿<script type="text/javascript">
+    
+    function onFileUploadComplete(e) {
+        if (e.callbackData) {
+            pcInform.Show();
+        }
+    }
+
+</script>
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcSendSingleEmail", "Send Email");
+
+    settings.SetContent(() =>
+    {
+
+        Html.RenderPartial("SendEmailSingle");
+
+    });
+
+}).GetHtml()
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcSendBulkEmails", "Send bulk emails");
+    settings.SetContent(() =>
+    {
+        Html.RenderPartial("SendEmailBulk");
+
+        EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+        EduSpecHtmlHelper.NewDiv(Html, "line");
+        Dictionary<EduSpec.ButtonClientSideEvent, string> EmailBulkSendEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        EmailBulkSendEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){ ImportBulkEmailFile(); }");
+        EduSpecHtmlHelper.Button(Html, "btnEmailBulkSend", "button", "Queue Emails", 80, EmailBulkSendEvents);
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> cancelBullEmailEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        cancelBullEmailEvents.Add(ButtonClientSideEvent.onClick, "function(s,e){pcSendBulkEmails.Hide();}");
+        EduSpecHtmlHelper.Button(Html, "btnCancelBulkEmail", "button", "Cancel", 80, cancelBullEmailEvents);
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+});
+}).GetHtml()

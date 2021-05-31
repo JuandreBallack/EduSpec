@@ -1,0 +1,173 @@
+﻿@*NEW APPLICATION FORM-------------------------------------------------*@
+@Html.DevExpress().CallbackPanel(cbpsettings =>
+{
+
+    cbpsettings.Name = "cbpApplicantToApplyOrReprintInfo";
+    cbpsettings.CallbackRouteValues = new { Controller = "Shared", Action = "ApplicantToApplyOrReprint" };
+
+    cbpsettings.SetContent(() =>
+    {
+        var ShowExternalAccountNr = Convert.ToBoolean(DataBinder.Eval(Model, "ShowExternalAccountNr"));
+        var ShowLanguage = Convert.ToBoolean(DataBinder.Eval(Model, "ShowLanguage"));
+
+        if (ShowExternalAccountNr == null && ShowLanguage == null)
+        {
+            ShowExternalAccountNr = true;
+            ShowLanguage = false;
+        }
+
+        EduSpecHtmlHelper.EditForm(Html);
+        EduSpecHtmlHelper.Line(Html);
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+
+        EduSpecHtmlHelper.Label(Html, Model, "SingleContactRequiredDocsApply", " ", "editorLabel", false);
+        EduSpecHtmlHelper.Label(Html, Model, "SingleNoContactRequiredDocsApply", " ", "editorLabel", false);
+        EduSpecHtmlHelper.Label(Html, Model, "MarriedRequiredDocsApply", " ", "editorLabel", false);
+        EduSpecHtmlHelper.Label(Html, Model, "DivorcedContactRequiredDocsApply", " ", "editorLabel", false);
+        EduSpecHtmlHelper.Label(Html, Model, "DivorcedNoContactRequiredDocsApply", " ", "editorLabel", false);
+        EduSpecHtmlHelper.Label(Html, Model, "WidowRequiredDocsApply", " ", "editorLabel", false);
+        EduSpecHtmlHelper.Label(Html, Model, "ForeignersRequiredDocsApply", " ", "editorLabel", false);
+
+        EduSpecHtmlHelper.NewRow(Html); // Row 1
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 180); // First column
+        EduSpecHtmlHelper.Label(Html, "Account", "boldlabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.EndAndNewRow(Html); //Row 2
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "ApplicationExternalAccNo", "External Acc No:", "editorLabel", ShowExternalAccountNr);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "ApplicantExternalAccNo", ShowExternalAccountNr, 80, null);
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.EndAndNewRow(Html); //Row 3
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "ApplyLanguage", "Language:", "editorLabel", ShowLanguage);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        EduSpecHtmlHelper.ComboBox(Html, "formeditor", Model, "LanguageID", ShowLanguage, 80, "Get_CorrespondenceLanguage_PickList", null);
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.EndAndNewRow(Html); //Row 4
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "Marital Status:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        Dictionary<EduSpec.ComboboxClientSideEvent, string> applMaritalStatus = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+        applMaritalStatus.Add(ComboboxClientSideEvent.onSelectedIndexChanged, "MaritalStatusIDChange");
+        applMaritalStatus.Add(ComboboxClientSideEvent.onInit, "MaritalStatusIDChange");
+        EduSpecHtmlHelper.ComboBox(Html, "formeditor", Model, "ApplicantMaritalStatusID", 270, "Get_ApplicationMaritalStatus_PickList", applMaritalStatus);
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.EndAndNewRow(Html); //Row 5
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "Print seperate applications:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        EduSpecHtmlHelper.CheckBox(Html, "formeditor", Model, "ApplicantIsSingleApplication", 270, null);
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.EndAndNewRow(Html); //Row 6
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "lWareabouts", "Do you know the wareabouts of the spouse?", "editorLabel", false);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 10); // Second column
+
+        @Html.DevExpress().RadioButtonList(rbsettings =>
+        {
+            rbsettings.Name = "rbWareabouts";
+            rbsettings.Properties.ValueType = typeof(int);
+            rbsettings.Width = Unit.Pixel(100);
+            rbsettings.ClientVisible = false;
+            rbsettings.Properties.Items.Add("Yes", 2);
+            rbsettings.Properties.Items.Add("No", 1);
+            rbsettings.Properties.RepeatLayout = RepeatLayout.Table;
+            rbsettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+            rbsettings.Properties.RepeatColumns = 2;
+            rbsettings.ControlStyle.Border.BorderStyle = BorderStyle.None;
+        }).Bind(DataBinder.Eval(Model, "AffidavitSpouseWareabouts")).GetHtml();
+
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.EndAndNewRow(Html); //Row 5
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "lContactWithSpouse", "Do you have contact with the spouse?", "editorLabel", false);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 10); // Second column
+
+        @Html.DevExpress().RadioButtonList(rbsettings =>
+        {
+            rbsettings.Name = "rbContact";
+            rbsettings.Properties.ValueType = typeof(int);
+            rbsettings.Width = Unit.Pixel(100);
+            rbsettings.ClientVisible = false;
+            rbsettings.Properties.Items.Add("Yes", 4);
+            rbsettings.Properties.Items.Add("No", 3);
+            rbsettings.Properties.RepeatLayout = RepeatLayout.Table;
+            rbsettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+            rbsettings.Properties.RepeatColumns = 2;
+            rbsettings.ControlStyle.Border.BorderStyle = BorderStyle.None;
+        }).Bind(DataBinder.Eval(Model, "AffidavitSpouseContact")).GetHtml();
+
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.EndAndNewRow(Html); //Row 5
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "lSpouseUnwilling", "Is the spouse unwilling or uncooperative to apply for an exemption?", "editorLabel", false);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 10); // Second column
+
+        @Html.DevExpress().RadioButtonList(rbsettings =>
+        {
+            rbsettings.Name = "rbUnwilling";
+            rbsettings.Properties.ValueType = typeof(int);
+            rbsettings.Width = Unit.Pixel(100);
+            rbsettings.ClientVisible = false;
+            rbsettings.Properties.Items.Add("Yes", 5);
+            rbsettings.Properties.Items.Add("No", 6);
+            rbsettings.Properties.RepeatLayout = RepeatLayout.Table;
+            rbsettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+            rbsettings.Properties.RepeatColumns = 2;
+            rbsettings.ControlStyle.Border.BorderStyle = BorderStyle.None;
+        }).Bind(DataBinder.Eval(Model, "AffidavitSpouseWilling")).GetHtml();
+
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndAndNewRow(Html); //Row 5
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        EduSpecHtmlHelper.Label(Html, "Attach COVID-19 form:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 10); // Second column
+        EduSpecHtmlHelper.CheckBox(Html, "cbIsAttachCovidForm", "formeditor", 10, null);
+
+
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+
+        EduSpecHtmlHelper.EndTable(Html);
+
+        if (ShowExternalAccountNr == true)
+        {
+            Dictionary<EduSpec.ButtonClientSideEvent, string> saveButtonEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+            saveButtonEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){ApplyForExemption(); pcGenerateApplication.Hide(); cbpInfoPanel.PerformCallback();}");
+            //saveButtonEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){LoadingPanel.Show(); pcExemptionApplication.PerformCallback(); pcGenerateApplication.Hide(); cbpInfoPanel.PerformCallback();}");
+            EduSpecHtmlHelper.Button(Html, "btnApplyForExemption", "button", "Apply", 80, saveButtonEvents);
+        }
+        else
+        {
+            Dictionary<EduSpec.ButtonClientSideEvent, string> saveButtonReCreateEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+            saveButtonReCreateEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){ ReCreateApplication(); pcGenerateApplication.Hide();}");
+            EduSpecHtmlHelper.Button(Html, "btnApplyForExemption", "button", "Re-create", 80, saveButtonReCreateEvents);
+        }
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> closeButtonEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        closeButtonEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){pcGenerateApplication.Hide();}");
+        EduSpecHtmlHelper.Button(Html, "btnCancel", "button", "Cancel", 80, closeButtonEvents);
+
+        if (ShowExternalAccountNr == true)
+        {
+            Dictionary<EduSpec.ButtonClientSideEvent, string> EditAccButtonEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+            EditAccButtonEvents.Add(ButtonClientSideEvent.onClick, "function(s,e){ShowFamilyEditForm(false, false, false, GridView.GetRowKey(GridView.GetFocusedRowIndex()));}");
+            EduSpecHtmlHelper.Button(Html, "btnEditApplicantInfo", "button", "Edit Account Info", 80, EditAccButtonEvents);
+        }
+
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+
+    });
+}).GetHtml()

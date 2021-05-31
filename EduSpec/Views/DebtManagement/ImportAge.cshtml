@@ -1,0 +1,57 @@
+﻿@using (Html.BeginForm())
+{
+    ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 400px\"><div class=\"line\">");
+
+    ViewContext.Writer.Write("</div><div class=\"line\">");
+
+    Html.DevExpress().UploadControl(
+    ucsettings =>
+    {
+        ucsettings.Name = "ucImportAge";
+        ucsettings.CallbackRouteValues = new { Controller = "DebtManagement", Action = "ImportAgeAnalysis" };
+        ucsettings.ClientSideEvents.FileUploadComplete = "function(s, e) { onFileUploadComplete(e); }";
+        ucsettings.ControlStyle.CssClass = "editorArea";
+        ucsettings.Width = 350;
+        ucsettings.ShowProgressPanel = true;
+        ucsettings.BrowseButton.Text = ". . .";
+        ucsettings.UploadMode = UploadControlUploadMode.Advanced;
+        //ucsettings.ClientSideEvents.FileUploadComplete = "function(s, e){ pcImportAgeAnalysis.Hide(); GridView.PerformCallback()}";
+
+    }).Render();
+
+    ViewContext.Writer.Write("</div><div class=\"line\"><br/>");
+
+    EduSpec.EduSpecHtmlHelper.Label(Html, "Import type", "editorLabel");
+    EduSpec.EduSpecHtmlHelper.ComboBox(Html, "cbImportType", "editorArea", 250, "Get_AgeAnalysisImportType_PickList", null);
+
+    ViewContext.Writer.Write("</div><div class=\"line\"><br/>");
+
+    EduSpec.EduSpecHtmlHelper.Label(Html, "Month", "editorLabel");
+    EduSpec.EduSpecHtmlHelper.ComboBox(Html, "cbMonth", "editorArea", 100, "Get_AgeMonths_PickList", null);
+
+    ViewContext.Writer.Write("</div><div class=\"line\"><br/>");
+
+    Html.RenderAction("DebtManagementPastelCategoriesPartial");
+
+    ViewContext.Writer.Write("</div><div class=\"line\">");
+
+    Html.DevExpress().Button(settings =>
+    {
+        settings.Name = "btnImport";
+        settings.Text = "Import";
+        settings.ControlStyle.CssClass = "button";
+        settings.Width = 100;
+        settings.ClientSideEvents.Click = "ImportFromExcel";
+    }).GetHtml();
+
+    Html.DevExpress().Button(settings =>
+    {
+        settings.Name = "btnCancel";
+        settings.ControlStyle.CssClass = "button";
+        settings.Text = "Cancel";
+        settings.ClientSideEvents.Click = "function(s, e) {pcImportAgeAnalysis.Hide(); }";
+    }).GetHtml();
+
+    ViewContext.Writer.Write("</div></div>");
+}
+

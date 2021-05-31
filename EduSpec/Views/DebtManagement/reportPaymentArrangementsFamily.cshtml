@@ -1,0 +1,13 @@
+﻿@model DevExpress.XtraReports.UI.XtraReport
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcPaymentArrangementsFamily", "Payment arrangements");
+    settings.CallbackRouteValues = new {Controller = "DebtManagement", Action = "reportPaymentArrangementsFamily" };
+    settings.ClientSideEvents.BeginCallback = "function(s, e) { e.customArgs['YearID'] = cbYear.GetValue(); e.customArgs['FamilyID'] = GridView.GetRowKey(GridView.GetFocusedRowIndex()); }";
+    settings.ClientSideEvents.EndCallback = "function(s, e) {  LoadingPanel.Hide(); s.Show(); }";
+    settings.SetContent(() =>
+    {
+        Html.RenderPartial("DocumentViewer", Model, new ViewDataDictionary { { "Name", "PaymentArrangementsFamily" } });
+    });
+}).GetHtml()

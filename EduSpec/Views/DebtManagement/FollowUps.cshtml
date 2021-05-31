@@ -1,0 +1,69 @@
+﻿@model System.Collections.IEnumerable
+
+<script type="text/javascript">
+
+    var cbYearSelectedIndex = -1;
+    var ContactReasonID = 0;
+
+    //function SetContactReasonID(values)
+    //{
+    //    ContactReasonID = values;
+    //    cbpResolveFollowUp.PerformCallback({ ContactReasonID: ContactReasonID });
+    //    pcResoloveFollowUp.Show();
+    //}
+    
+
+</script>
+
+
+@Html.DevExpress().Splitter(settings =>
+{
+    SplitterUtils.SetSplitterProperties(settings, ViewData["ViewProperties"]);
+
+    MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+    HeaderPane.SetContent(() =>
+    {
+
+        ViewContext.Writer.Write("<div ID=\"ViewInfo\">Follow up</div>");
+
+    });
+
+    MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+    MainContentPane.SetContent(() =>
+    {
+
+       Html.RenderAction("FollowUpsPartial");
+
+    });
+
+    MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+    FooterPane.Separator.Visible = DefaultBoolean.True;
+    FooterPane.SetContent(() =>
+    {
+
+
+    });
+
+}).GetHtml()
+
+
+
+@Html.Partial("SMSForms")
+
+@Html.DevExpress().LoadingPanel(settings =>
+{
+    settings.Name = "LoadingPanel";
+    settings.Modal = true;
+    settings.Text = "Preparing report.";
+}).GetHtml()
+
+
+@*@Html.DevExpress().PopupControl(settings =>
+    {
+        PopupUtils.SetPopupViewProperties(settings, "pcResoloveFollowUp", "Resolve Follow up note");
+        settings.SetContent(() =>
+        {
+            Html.RenderPartial("FollowUpsResolvePartial");
+
+        });
+    }).GetHtml()*@

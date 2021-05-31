@@ -1,0 +1,156 @@
+﻿
+@Html.DevExpress().CallbackPanel(cbpsettings =>
+{
+
+    cbpsettings.Name = "cbpSingleEmailExemption";
+    cbpsettings.CallbackRouteValues = new { Controller = "Exemptions", Action = "SendSingleEmailExemptions" };
+    cbpsettings.ClientSideEvents.BeginCallback = "function(s, e) { e.customArgs['ExemptionID'] = GridView.GetRowKey(GridView.GetFocusedRowIndex());}";
+
+    cbpsettings.SetContent(() =>
+    {
+
+        //ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 650px\"><div class=\"line\">");
+        EduSpecHtmlHelper.EditForm(Html);
+
+        Html.DevExpress().TextBox(textBoxSettings =>
+        {
+            textBoxSettings.Name = "tbExemptionIDEmail";
+            textBoxSettings.ControlStyle.CssClass = "editor";
+            textBoxSettings.ClientVisible = false;
+            textBoxSettings.Width = 300;
+        }).Bind(DataBinder.Eval(Model, "ExemptionID")).GetHtml();
+
+
+        Html.DevExpress().TextBox(textBoxSettings =>
+        {
+            textBoxSettings.Name = "tbExemptionStatusIDEmail";
+            textBoxSettings.ControlStyle.CssClass = "editor";
+            textBoxSettings.ClientVisible = false;
+            textBoxSettings.Width = 300;
+        }).Bind(DataBinder.Eval(Model, "ExemptStatusID")).GetHtml();
+
+        Html.DevExpress().Label(lbsettings =>
+        {
+            lbsettings.Name = "lblRecipient";
+            lbsettings.Text = "To:";
+            lbsettings.ControlStyle.CssClass = "editor";
+            lbsettings.Width = 80;
+        }).Render();
+
+        Html.DevExpress().TextBox(textBoxSettings =>
+        {
+            textBoxSettings.Name = "Recipient";
+            textBoxSettings.ControlStyle.CssClass = "editor";
+            textBoxSettings.Width = 300;
+        }).Bind(DataBinder.Eval(Model, "PrimaryEmail")).GetHtml();
+
+        EduSpecHtmlHelper.Line(Html);
+
+        Html.DevExpress().Label(lbsettings =>
+        {
+            lbsettings.Name = "lblCcEmail";
+            lbsettings.Text = "Cc:";
+            lbsettings.ControlStyle.CssClass = "editor";
+            lbsettings.Width = 80;
+        }).Render();
+
+        Html.DevExpress().TextBox(textBoxSettings =>
+        {
+            textBoxSettings.Name = "CcEmail";
+            textBoxSettings.ControlStyle.CssClass = "editor";
+            textBoxSettings.Width = 300;
+        }).Bind(DataBinder.Eval(Model, "SecondaryEmail")).GetHtml();
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.Line(Html);
+
+        Html.DevExpress().Label(lbsettings =>
+        {
+            lbsettings.Name = "lblSubject";
+            lbsettings.Text = "Subject:";
+            lbsettings.ControlStyle.CssClass = "editor";
+            lbsettings.Width = 80;
+        }).Render();
+
+        Html.DevExpress().TextBox(textBoxSettings =>
+        {
+            textBoxSettings.Name = "Subject";
+            textBoxSettings.ControlStyle.CssClass = "editor";
+            textBoxSettings.Width = 300;
+        }).Render();
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.Line(Html);
+
+        //Html.DevExpress().UploadControl(
+        //ucsettings =>
+        //{
+        //    ucsettings.Name = "ucUploadData";
+        //    ucsettings.CallbackRouteValues = new { Controller = "Exemptions", Action = "CallbacksFileUpload" };
+        //    ucsettings.ControlStyle.CssClass = "editorArea";
+        //    ucsettings.Width = 300;
+        //    ucsettings.ShowProgressPanel = true;
+        //    ucsettings.BrowseButton.Text = ". . .";
+        //    ucsettings.UploadMode = UploadControlUploadMode.Advanced;
+        //    ucsettings.ClientSideEvents.FileUploadComplete = "function(s, e) { onFileUploadComplete(e); }";
+        //    //ucsettings.ClientSideEvents.FileUploadComplete = "function(s, e){ SetAgeEmailSend; }";
+        //}).GetHtml();
+
+        //Html.DevExpress().Button(btnsettings =>
+        //{
+        //    btnsettings.Name = "btnUpload";
+        //    btnsettings.Text = "Load";
+        //    btnsettings.Width = 100;
+        //    btnsettings.ClientSideEvents.Click = "function(s, e) {{ ImportEmailAttachment(); }}";
+        //    //btnsettings.ClientSideEvents.Click = "function(s, e) {{ ImportEmailAttachment();}}";
+        //}).GetHtml();
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.Line(Html);
+
+        Html.DevExpress().Label(lbsettings =>
+        {
+            lbsettings.Name = "lblMessageEmail";
+            lbsettings.Text = "Message";
+            lbsettings.ControlStyle.CssClass = "editor";
+        }).Render();
+
+
+        Html.DevExpress().Memo(mSettings =>
+        {
+            mSettings.Name = "MessageEmail";
+            mSettings.ControlStyle.CssClass = "editor";
+            mSettings.Width = 650;
+            mSettings.Height = 360;
+        }).Render();
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.Line(Html);
+
+        Html.DevExpress().Button(buttonSettings =>
+        {
+            buttonSettings.Name = "btnEmailSend";
+            buttonSettings.ControlStyle.CssClass = "button";
+            buttonSettings.Width = 80;
+            buttonSettings.Text = "Send";
+            buttonSettings.ClientSideEvents.Click = "function(s, e) { SetExemptionEmailSend(); }";
+        }).Render();
+
+        Html.DevExpress().Button(buttonSettings =>
+        {
+            buttonSettings.Name = "btnEmailCancel";
+            buttonSettings.ControlStyle.CssClass = "button";
+            buttonSettings.Width = 80;
+            buttonSettings.Text = "Cancel";
+            buttonSettings.ClientSideEvents.Click = "function(s, e){ pcSingleEmailExemptions.Hide(); }";
+        }).Render();
+
+        //ViewContext.Writer.Write("</div></div><b class=\"Clear\"></b>");
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+
+
+
+    });
+}).GetHtml()
+

@@ -1,0 +1,10 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["ViewProperties"]);
+
+    settings.Settings.ShowPreview = true;
+    settings.PreviewEncodeHtml = false;
+    settings.PreviewFieldName = "MessageSent";
+
+
+}).Bind(Model).GetHtml()

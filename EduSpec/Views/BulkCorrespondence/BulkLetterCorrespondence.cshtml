@@ -1,0 +1,74 @@
+﻿@model System.Collections.IEnumerable
+
+<script type="text/javascript">
+
+    var cbYearSelectedIndex = -1;
+
+    function SetDeleteButton(s, e) {
+        GridView.GetRowValues(GridView.GetFocusedRowIndex(), "BulkLetterStatusID", _setLetterDeleteButton);
+    }
+
+    function _setLetterDeleteButton(values) {
+        var Button = GridView.GetToolbar(0);
+
+        if (values == 2)
+            SettingsMenuButton(Button.GetItemByName("Btn_DeleteLetter"), true, "CancelSmall.png")
+        else
+            SettingsMenuButton(Button.GetItemByName("Btn_DeleteLetter"), false, "CancelSmallGrey.png")
+
+    }
+
+    function onBtnConfirmDeleteLetterClick(Result) {
+
+        if (Result == "mrYes") {
+
+            $.ajax({
+                type: 'POST',
+                url: '/BulkCorrespondence/DeleteBulkLetter',
+                dataType: 'json',
+                async: false,
+                data: {
+                    LetterTrackingKey: GridView.GetRowKey(GridView.GetFocusedRowIndex())
+                },
+                success: function (result) {
+                    if (result.Success === true) {
+                        GridView.PerformCallback();
+                    }
+                }
+            });
+        }
+    }
+
+</script>
+
+@Html.DevExpress().Splitter(settings =>
+{
+    SplitterUtils.SetSplitterProperties(settings, ViewData["ViewProperties"]);
+
+    MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+    HeaderPane.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div ID=\"ViewInfo\">Bulk Letters</div>");
+        
+    });
+
+    MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+    MainContentPane.SetContent(() =>
+    {
+
+        Html.RenderAction("BulkLetterCorrespondencePartial");
+
+    });
+
+    MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+    FooterPane.Separator.Visible = DefaultBoolean.True;
+    FooterPane.SetContent(() =>
+    {
+
+        Html.RenderAction("BulkLetterTrackingHistoryPartial");
+
+    });
+
+}).GetHtml()
+
+@MessageDlg.ShowMessageDlg("pcDeleteLetter", Html, "Are you sure you want to delete the letter?", new BtnType[] { BtnType.mbYes, BtnType.mbNo }, MessageType.mConfirmation, "onBtnConfirmDeleteLetterClick")

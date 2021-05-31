@@ -1,0 +1,106 @@
+﻿@model System.Collections.IEnumerable
+
+<script type="text/javascript">
+
+    function onBtnAddAplicationPackClick(Result) {
+
+        if (Result == "mrYes") {
+            var PackID = OrderApplicationGridView.GetRowKey(OrderApplicationGridView.GetFocusedRowIndex());
+            $.ajax({
+                type: 'POST',
+                url: '/Admin/ApplicationPacksAddNewOrder',
+                dataType: 'json',
+                async: false,
+                data: {
+                    PackID: PackID
+                },
+                success: function (response) {
+                    window.open(response.Url, '_Blank');
+                }
+            });
+
+            OrderApplicationGridView.PerformCallback();
+            pcPurchasePackage.Hide();
+            GridView.PerformCallback();
+        }
+    }
+
+    function onBtnConfirmationClick(Result) {
+
+        if (Result == "mrOk") {
+            pcPurchasePackage.Hide();
+        }
+    }
+
+    function onConfirmOrderSubmit(values) {
+        pcSubmitOrderlbMessage.SetText("Are you sure you want to order the following application pack? </br></br><b>Package " + values[0] + " at R" + values[1] + ".00</b>");
+        pcSubmitOrder.Show();
+    }
+
+    function GetMessageValues(values) {
+        OrderApplicationGridView.GetRowValues(OrderApplicationGridView.GetFocusedRowIndex(), "Package;Price", onConfirmOrderSubmit);
+    }
+
+</script>
+
+@Html.DevExpress().Splitter(settings =>
+    {
+        SplitterUtils.SetSplitterProperties(settings, ViewData["ViewProperties"]);
+
+        MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+        HeaderPane.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<div ID=\"ViewInfo\">Application Packs</div>");
+        });
+
+        MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+        MainContentPane.SetContent(() =>
+        {
+            Html.RenderAction("ApplicationPacksPartial");
+        });
+
+        MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+        FooterPane.SetContent(() =>
+        {
+            
+        });
+        
+    }).GetHtml()
+
+@MessageDlg.ShowMessageDlg("pcSubmitOrder", Html, "Are you sure you want to order selected package?", new BtnType[] { BtnType.mbYes, BtnType.mbNo }, MessageType.mConfirmation, "onBtnAddAplicationPackClick")
+@MessageDlg.ShowMessageDlg("pcOrderSubmitted", Html, "The selected package has been ordered.", new BtnType[] { BtnType.mbOK }, MessageType.mInformation, "onBtnConfirmationClick")
+
+@Html.DevExpress().PopupControl(settings =>
+    {
+        PopupUtils.SetPopupViewProperties(settings, "pcPurchasePackage", "Application Packages");
+        //settings.Height = 50;
+        //settings.ClientSideEvents.PopUp = "function(s,e) {ReportViewerCallbackPanel.PerformCallback();}";
+        settings.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 300px\">");
+            Html.RenderAction("ApplicationPacksOrderPartial", "Admin");
+
+            Html.DevExpress().Button(buttonSettings =>
+            {
+                buttonSettings.Name = "btnOrderApplicationPack";
+                buttonSettings.ControlStyle.CssClass = "button";
+                buttonSettings.Width = 80;
+                buttonSettings.Text = "Order";
+                buttonSettings.ClientSideEvents.Click = "function(s,e) { GetMessageValues(); }";
+            }).Render();
+            
+            Html.DevExpress().Button(buttonSettings =>
+            {
+                buttonSettings.Name = "btnOrderViewerClose";
+                buttonSettings.ControlStyle.CssClass = "button";
+                buttonSettings.Width = 80;
+                buttonSettings.Text = "Close";
+                buttonSettings.ClientSideEvents.Click = "function(s,e) { pcPurchasePackage.Hide(); }";
+            }).Render();
+
+            ViewContext.Writer.Write("</div><b class=\"Clear\"></b>");
+        });
+
+    }).GetHtml()
+
+

@@ -1,0 +1,140 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["EmailsViewProperties"]);
+
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Exemptions", Action = "EmailMessageUpdate" };
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Exemptions", Action = "EmailMessageAdd" };
+
+    settings.SetEditFormTemplateContent(c =>
+    {
+        var Emails = ViewData["Emails"] != null ? ViewData["Emails"] : c.DataItem;
+
+        List<Int32> checkValuesLetterHead = new List<Int32> { 1, 2, 3, 4 };
+
+
+        ViewContext.Writer.Write("<table class=\"CheckListTable\">");
+        ViewContext.Writer.Write("<tr><td class=\"CheckListTable-l\" style=\"width:600px\">");
+        ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 100%; margin:0px 3px 0px 5px;\">");
+        ViewContext.Writer.Write("<div class=\"line\" style=\"width: 100%; margin:0px;\">");
+
+        ViewData["InstEmailID"] = DataBinder.Eval(Emails, "InstEmailID");
+
+        Html.DevExpress().Label(cbSettings =>
+        {
+            cbSettings.Name = "EmailDescription";
+            cbSettings.ControlStyle.CssClass = "label";
+            cbSettings.Text = "Email description: ";
+        }).GetHtml();
+
+        @Html.DevExpress().TextBox(edtSettings =>
+        {
+            edtSettings.Name = "Description";
+            edtSettings.ControlStyle.CssClass = "formeditor";
+            edtSettings.Height = 20;
+            edtSettings.ShowModelErrors = true;
+        }).Bind(DataBinder.Eval(Emails, "Description")).GetHtml();
+
+        ViewContext.Writer.Write("<div class=\"line\" style=\"width: 100%; margin:0px;\">");
+
+
+        using (Html.BeginForm())
+        {
+            Html.DevExpress().PageControl(pcsettings =>
+            {
+                pcsettings.Name = "pcExemptionEmails";
+                pcsettings.Width = Unit.Percentage(100);
+                pcsettings.Height = Unit.Percentage(100);
+                pcsettings.EnableTabScrolling = true;
+                pcsettings.TabAlign = TabAlign.Justify;
+                pcsettings.EnableClientSideAPI = true;
+
+                pcsettings.TabPages.Add("English", "EnglishEmails").SetContent(() =>
+                {
+
+                    if (DataBinder.Eval(Emails, "EmailBody_ENG") == null)
+                        Html.RenderPartial("EmailEditorExemptions_ENG", "");
+                    else
+                        Html.RenderPartial("EmailEditorExemptions_ENG", DataBinder.Eval(Emails, "EmailBody_ENG"));
+
+                });
+
+                pcsettings.TabPages.Add("Afrikaans", "AfrikaansEmails").SetContent(() =>
+                {
+
+                    if (DataBinder.Eval(Emails, "EmailBody_AFR") == null)
+                        Html.RenderPartial("EmailEditorExemptions_AFR", "");
+                    else
+                        Html.RenderPartial("EmailEditorExemptions_AFR", DataBinder.Eval(Emails, "EmailBody_AFR"));
+                });
+
+
+            }).GetHtml();
+
+        }
+
+        ViewContext.Writer.Write("</div></div></td>");
+        ViewContext.Writer.Write("<td class=\"CheckListTable-r\" style=\"width:230px\">");
+        ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 100%; margin:0px 5px 0px 5px;\">");
+        ViewContext.Writer.Write("<div class=\"line\" style=\"width: 100%; margin:0px;\">");
+
+
+        Html.DevExpress().ListBox(
+        lbsettings =>
+        {
+            lbsettings.Name = "PlaceHolders";
+            lbsettings.Width = 225;
+            lbsettings.Height = 300;
+            lbsettings.Properties.Caption = "Placeholders:";
+            lbsettings.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+            lbsettings.Properties.SelectionMode = ListEditSelectionMode.Single;
+            lbsettings.Properties.ValueField = "ID";
+            lbsettings.Properties.ValueType = typeof(string);
+            lbsettings.Properties.TextField = "Description";
+            lbsettings.Properties.ClientSideEvents.ItemDoubleClick = "OnCLickEmail";
+        }).BindList(EduSpec.GridUtils.getDropdownList("Get_PlaceHolders_PickList 3")).GetHtml();
+
+        ViewContext.Writer.Write("<br />To insert one of the above placeholders place your cursor at the exact position where you need the placeholder to be inserted. By double clicking on the required placeholder the placeholder will be inserted into the document.");
+
+        ViewContext.Writer.Write("</div></div></td></tr></table>");
+
+        ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 100%; margin:0px 5px 0px 5px;\">");
+        ViewContext.Writer.Write("<div class=\"line\" style=\"width: 100%; margin:10px 10px 0px; 10px\">");
+
+        Html.DevExpress().Button(btnSettings =>
+        {
+            btnSettings.Name = "btnUpdate";
+            btnSettings.ControlStyle.CssClass = "button";
+            btnSettings.Text = "Update";
+            if (c.KeyValue == null)
+            {
+                btnSettings.Text = "Save";
+                btnSettings.ClientSideEvents.Click = String.Format("function(s, e) {{{0}.UpdateEdit(); EmailGridView.PerformCallback();}}", settings.Name);
+            }
+            else
+            {
+                btnSettings.Text = "Update";
+                btnSettings.ClientSideEvents.Click = String.Format("function(s, e) {{{0}.UpdateEdit();}}", settings.Name);
+            }
+        }
+        ).Render();
+
+        Html.DevExpress().Button(btnSettings =>
+        {
+            btnSettings.Name = "btnCancel";
+            btnSettings.ControlStyle.CssClass = "button";
+            btnSettings.Text = "Cancel";
+            btnSettings.ClientSideEvents.Click = String.Format("function(s, e) {{{0}.CancelEdit(); }}", settings.Name);
+        }).GetHtml();
+
+        ViewContext.Writer.Write("</div></div>");
+
+        settings.PreRender = (sender, e) =>
+        {
+            ((MVCxGridView)sender).StartEdit(1);
+        };
+
+    });
+
+}).Bind(Model).GetHtml()
+
+

@@ -1,0 +1,20 @@
+﻿@Html.DevExpress().CallbackPanel(settings =>
+{
+
+    settings.Name = "cbpLedgerTypePicklist";
+    settings.CallbackRouteValues = new { Controller = "SystemAdmin", Action = "LedgerTypePickList" };
+    settings.ClientSideEvents.BeginCallback = "function(s,e){{ e.customArgs[\"LedgerTypeID\"] = cbLedgerTypeInvoice.GetValue();}}";
+
+
+    settings.Width = Unit.Percentage(100);
+    settings.SetContent(() =>
+    {
+
+        Dictionary<EduSpec.ComboboxClientSideEvent, string> LedgerTypeChangeEvents = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+        //LedgerTypeChangeEvents.Add(ComboboxClientSideEvent.onSelectedIndexChanged, "function(s, e){ SetLedgerID();  }");
+        LedgerTypeChangeEvents.Add(ComboboxClientSideEvent.onSelectedIndexChanged, "function(s, e){ cbpLedgerTypePicklist.PerformCallback();  }");
+        EduSpecHtmlHelper.ComboBox(Html, "cbLedgerTypeInvoice", "formeditor", 150, "Get_ClientLedgerType_Picklist", LedgerTypeChangeEvents);
+
+
+    });
+}).GetHtml()

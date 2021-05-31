@@ -1,0 +1,86 @@
+﻿<table class="CheckListTable">
+    <tr>
+        <td class="CheckListTable-r" style="width: 100%;">
+            <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                    @Html.DevExpress().Captcha(settings =>
+           {
+               settings.Name = "captcha";
+               settings.CallbackRouteValues = new
+               {
+                   Controller = "Overview",
+                   Action = "CaptchaPartial"
+               };
+               settings.CodeLength = 7;
+               settings.TextBox.Position =
+                DevExpress.Web.Captcha.ControlPosition.Bottom;
+               settings.ValidationSettings.ErrorText = "The code is incorrect";
+           }).GetHtml()
+
+                    @Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "headinglabel";
+                        edtSettings.Width = 200;
+                        edtSettings.Text = "Request evaluation.";
+                    }).GetHtml()
+
+                </div><div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                    @Html.DevExpress().CheckBox(tbSettings =>
+                    {
+                        tbSettings.Name = "IsRequestEvaluation";
+                        tbSettings.ControlStyle.CssClass = "formeditor";
+                        tbSettings.EncodeHtml = false;
+                        tbSettings.Text = "I would like to request an evaluation period.";
+                        tbSettings.Width = Unit.Percentage(100);
+                    }).Bind(DataBinder.Eval(Model, "IsRequestEvaluation")).GetHtml()
+
+                </div><div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                    @Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "headinglabel";
+                        edtSettings.Width = 200;
+                        edtSettings.Text = "Terms and conditions";
+                    }).GetHtml()
+                
+                </div><div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                    @Html.DevExpress().CheckBox(tbSettings =>
+                    {
+                        tbSettings.Name = "TermsAndConditions";
+                        tbSettings.ControlStyle.CssClass = "formeditor";
+                        tbSettings.EncodeHtml = false;
+                        tbSettings.Text = "I have read the <a href=\"javascript:pcTermsAndConditions.Show()\">Terms & Conditions</a> and hereby acknowledge that I understand and agree to them.";
+                        tbSettings.Width = Unit.Percentage(100);
+                        tbSettings.Properties.ClientSideEvents.CheckedChanged = "function(s,e){if(s.GetChecked()){ btnRegister.SetEnabled(true)} else {btnRegister.SetEnabled(false)}}";
+                    }).GetHtml()
+                        
+                <br />
+                
+                    @Html.DevExpress().Button(btnsettings =>
+                    {
+                        btnsettings.Name = "btnRegister";
+                        btnsettings.Text = "Register";
+                        btnsettings.ClientSideEvents.Click = "Register";
+                        btnsettings.ClientEnabled = false;
+                    }).GetHtml()
+
+                    @Html.DevExpress().Button(btnsettings =>
+                    {
+                        btnsettings.Name = "btnCancel";
+                        btnsettings.Text = "Cancel";
+                        btnsettings.RouteValues = new { Controller = "Account", Action = "Login" };
+                        btnsettings.CausesValidation = false;
+                    }).GetHtml()
+
+                </div>
+            </div>
+        </td>        
+    </tr>
+</table>
+
+
+
+

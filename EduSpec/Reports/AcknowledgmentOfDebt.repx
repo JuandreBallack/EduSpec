@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XtraReportsLayoutSerializer SerializerVersion="19.1.3.0" Ref="1" ControlType="DevExpress.XtraReports.UI.XtraReport, DevExpress.XtraReports.v19.1, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Name="AcknowledgmentOfDebt" SnapGridSize="33.0729179" ReportUnit="TenthsOfAMillimeter" Margins="191, 191, 254, 254" PaperKind="A4" PageWidth="2100" PageHeight="2970" Version="19.1" DataMember="RPT_AcknowledgmentOfDebtInstitution" DataSource="#Ref-0" Dpi="254" Font="Arial, 9.75pt">
+  <Bands>
+    <Item1 Ref="2" ControlType="TopMarginBand" Name="TopMargin" HeightF="254" Dpi="254" />
+    <Item2 Ref="3" ControlType="BottomMarginBand" Name="BottomMargin" HeightF="254" Dpi="254" />
+    <Item3 Ref="4" ControlType="DetailBand" Name="Detail" HeightF="0" Dpi="254">
+      <HierarchyPrintOptions Ref="5" Indent="20" />
+    </Item3>
+    <Item4 Ref="6" ControlType="ReportHeaderBand" Name="ReportHeader" HeightF="526.5208" Dpi="254">
+      <Controls>
+        <Item1 Ref="7" ControlType="XRLabel" Name="xrLabel17" Multiline="true" Text="AND" TextAlignment="MiddleCenter" SizeF="1718.00012,116.416809" LocationFloat="0, 367.876617" Dpi="254" Font="Arial, 12pt, style=Bold, charSet=0" Padding="2,2,0,0,96">
+          <StylePriority Ref="8" UseFont="false" UseTextAlignment="false" />
+        </Item1>
+        <Item2 Ref="9" ControlType="XRLabel" Name="xrLabel4" Multiline="true" Text="xrLabel4" TextAlignment="MiddleCenter" SizeF="1717.99976,58.4199677" LocationFloat="0, 251.036667" Dpi="254" Font="Arial, 14.25pt, style=Bold, charSet=0" Padding="5,5,0,0,254">
+          <DataBindings>
+            <Item1 Ref="10" PropertyName="Text" DataMember="RPT_AcknowledgmentOfDebtInstitution.InstitutionName" />
+          </DataBindings>
+          <StylePriority Ref="11" UseFont="false" UseTextAlignment="false" />
+        </Item2>
+        <Item3 Ref="12" ControlType="XRLabel" Name="xrLabel3" Multiline="true" Text="(the “creditor”)" TextAlignment="MiddleCenter" SizeF="1717.99976,58.4199829" LocationFloat="0, 309.456665" Dpi="254" Padding="5,5,0,0,254">
+          <StylePriority Ref="13" UseTextAlignment="false" />
+        </Item3>
+        <Item4 Ref="14" ControlType="XRLabel" Name="xrLabel2" Multiline="true" Text="ENTERED INTO BETWEEN" TextAlignment="MiddleCenter" SizeF="1717.99976,121.602631" LocationFloat="0, 71.64914" Dpi="254" Font="Arial, 12pt, charSet=0" Padding="5,5,0,0,254">
+          <StylePriority Ref="15" UseFont="false" UseTextAlignment="false" />
+        </Item4>
+        <Item5 Ref="16" ControlType="XRLabel" Name="xrLabel1" Multiline="true" Text="ACKNOWLEDGMENT OF DEBT" TextAlignment="MiddleCenter" SizeF="1717.99976,71.64912" LocationFloat="0, 0" Dpi="254" Font="Arial, 18pt, style=Bold, Underline, charSet=0" Padding="5,5,0,0,254">
+          <StylePriority Ref="17" UseFont="false" UseTextAlignment="false" />
+        </Item5>
+      </Controls>
+    </Item4>
+    <Item5 Ref="18" ControlType="DetailReportBand" Name="DetailReport" Level="0" DataMember="RPT_AcknowledgmentOfDebtParents" DataSource="#Ref-0" Dpi="254">
+      <Bands>
+        <Item1 Ref="19" ControlType="DetailBand" Name="Detail1" HeightF="361.235748" Dpi="254">
+          <HierarchyPrintOptions Ref="20" Indent="50.8000031" />
+          <Controls>
+            <Item1 Ref="21" ControlType="XRLabel" Name="xrLabel9" Multiline="true" Text="ID NUMBER" TextAlignment="TopCenter" SizeF="1717.99976,58.41992" LocationFloat="0, 302.815826" Dpi="254" Font="Arial, 8.25pt, style=Italic, charSet=0" Padding="5,5,0,0,254">
+              <StylePriority Ref="22" UseFont="false" UseTextAlignment="false" />
+            </Item1>
+            <Item2 Ref="23" ControlType="XRLabel" Name="xrLabel8" Multiline="true" TextAlignment="MiddleCenter" SizeF="1717.99976,69.9999847" LocationFloat="0, 232.815887" Dpi="254" Font="Arial, 12pt, charSet=0" Padding="5,5,0,0,254">
+              <DataBindings>
+                <Item1 Ref="24" PropertyName="Text" DataMember="RPT_AcknowledgmentOfDebtParents.IDNumber" />
+              </DataBindings>
+              <StylePriority Ref="25" UseFont="false" UseTextAlignment="false" />
+            </Item2>
+            <Item3 Ref="26" ControlType="XRLabel" Name="xrLabel7" Multiline="true" Text="NAME AND SURNAME" TextAlignment="TopCenter" SizeF="1717.99976,58.4199677" LocationFloat="0, 174.395691" Dpi="254" Font="Arial, 8.25pt, style=Italic, charSet=0" Padding="5,5,0,0,254">
+              <StylePriority Ref="27" UseFont="false" UseTextAlignment="false" />
+            </Item3>
+            <Item4 Ref="28" ControlType="XRLabel" Name="xrLabel6" Multiline="true" Text="xrLabel6" TextAlignment="MiddleCenter" SizeF="1717.99976,70" LocationFloat="0, 104.39576" Dpi="254" Font="Arial, 12pt, charSet=0" Padding="5,5,0,0,254">
+              <DataBindings>
+                <Item1 Ref="29" PropertyName="Text" DataMember="RPT_AcknowledgmentOfDebtParents.ParentName" />
+              </DataBindings>
+              <StylePriority Ref="30" UseFont="false" UseTextAlignment="false" />
+            </Item4>
+            <Item5 Ref="31" ControlType="XRLabel" Name="xrLabel5" Multiline="true" Text="xrLabel5" TextAlignment="MiddleCenter" SizeF="1717.99976,104.395844" LocationFloat="0.000242233276, 0" Dpi="254" Font="Arial, 9.75pt, style=Bold, charSet=0" Padding="5,5,0,0,254">
+              <DataBindings>
+                <Item1 Ref="32" PropertyName="Text" DataMember="RPT_AcknowledgmentOfDebtParents.Parent" />
+              </DataBindings>
+              <StylePriority Ref="33" UseFont="false" UseTextAlignment="false" />
+            </Item5>
+          </Controls>
+        </Item1>
+      </Bands>
+    </Item5>
+    <Item6 Ref="34" ControlType="DetailReportBand" Name="DetailReport1" Level="1" Dpi="254">
+      <Bands>
+        <Item1 Ref="35" ControlType="DetailBand" Name="Detail2" HeightF="161.201721" Dpi="254">
+          <Controls>
+            <Item1 Ref="36" ControlType="XRLabel" Name="xrLabel16" Multiline="true" Text="The abovementioned debtors chooses the following address as his/her domicilium citandi et executandi:" SizeF="1718.00012,58.4200058" LocationFloat="0, 84.87838" Dpi="254" Padding="5,5,0,0,254" />
+            <Item2 Ref="37" ControlType="XRLabel" Name="xrLabel10" Multiline="true" Text="(the “debtor/s”)" TextAlignment="MiddleCenter" SizeF="1718.00012,84.87838" LocationFloat="0, 0" Dpi="254" Padding="5,5,0,0,254">
+              <StylePriority Ref="38" UseTextAlignment="false" />
+            </Item2>
+          </Controls>
+        </Item1>
+      </Bands>
+    </Item6>
+    <Item7 Ref="39" ControlType="DetailReportBand" Name="DetailReport2" Level="2" DataMember="RPT_AcknowledgmentOfDebtParents" DataSource="#Ref-0" Dpi="254">
+      <Bands>
+        <Item1 Ref="40" ControlType="DetailBand" Name="Detail3" HeightF="274.805267" Dpi="254">
+          <Controls>
+            <Item1 Ref="41" ControlType="XRLabel" Name="xrLabel15" Multiline="true" Text="xrLabel5" TextAlignment="TopLeft" SizeF="515.4372,233.680176" LocationFloat="0.0003229777, 0" Dpi="254" Font="Arial, 9.75pt, style=Bold, charSet=0" Padding="5,5,6,0,254">
+              <DataBindings>
+                <Item1 Ref="42" PropertyName="Text" DataMember="RPT_AcknowledgmentOfDebtParents.Parent" />
+              </DataBindings>
+              <StylePriority Ref="43" UseFont="false" UsePadding="false" UseTextAlignment="false" />
+            </Item1>
+            <Item2 Ref="44" ControlType="XRLabel" Name="xrLabel14" Multiline="true" Text="xrLabel14" TextAlignment="MiddleLeft" SizeF="1202.56226,58.4199829" LocationFloat="515.4375, 175.260132" Dpi="254" Padding="2,2,0,0,96">
+              <DataBindings>
+                <Item1 Ref="45" PropertyName="Text" DataMember="RPT_AcknowledgmentOfDebtParents.StreetCode" />
+              </DataBindings>
+              <StylePriority Ref="46" UseTextAlignment="false" />
+            </Item2>
+            <Item3 Ref="47" ControlType="XRLabel" Name="xrLabel13" Multiline="true" Text="xrLabel13" TextAlignment="MiddleLeft" SizeF="1202.56226,58.4200134" LocationFloat="515.4375, 116.840088" Dpi="254" Padding="2,2,0,0,96">
+              <DataBindings>
+                <Item1 Ref="48" PropertyName="Text" DataMember="RPT_AcknowledgmentOfDebtParents.StreetAddress3" />
+              </DataBindings>
+              <StylePriority Ref="49" UseTextAlignment="false" />
+            </Item3>
+            <Item4 Ref="50" ControlType="XRLabel" Name="xrLabel12" Multiline="true" Text="xrLabel12" TextAlignment="MiddleLeft" SizeF="1202.56226,58.42" LocationFloat="515.4375, 58.4200439" Dpi="254" Padding="2,2,0,0,96">
+              <DataBindings>
+                <Item1 Ref="51" PropertyName="Text" DataMember="RPT_AcknowledgmentOfDebtParents.StreetAddress2" />
+              </DataBindings>
+              <StylePriority Ref="52" UseTextAlignment="false" />
+            </Item4>
+            <Item5 Ref="53" ControlType="XRLabel" Name="xrLabel11" Multiline="true" Text="xrLabel11" TextAlignment="MiddleLeft" SizeF="1202.56226,58.42" LocationFloat="515.4375, 0" Dpi="254" Padding="2,2,0,0,96">
+              <DataBindings>
+                <Item1 Ref="54" PropertyName="Text" DataMember="RPT_AcknowledgmentOfDebtParents.StreetAddress1" />
+              </DataBindings>
+              <StylePriority Ref="55" UseTextAlignment="false" />
+            </Item5>
+          </Controls>
+        </Item1>
+      </Bands>
+    </Item7>
+  </Bands>
+  <ComponentStorage>
+    <Item1 Ref="0" ObjectType="DevExpress.DataAccess.Sql.SqlDataSource,DevExpress.DataAccess.v19.1" Name="sqlDataSource1" Base64="PFNxbERhdGFTb3VyY2UgTmFtZT0ic3FsRGF0YVNvdXJjZTEiPjxDb25uZWN0aW9uIE5hbWU9IkVkdVNwZWMuUHJvcGVydGllcy5TZXR0aW5ncy5FZHVTcGVjQ29ubmVjdGlvblN0cmluZyIgRnJvbUFwcENvbmZpZz0idHJ1ZSIgLz48UXVlcnkgVHlwZT0iU3RvcmVkUHJvY1F1ZXJ5IiBOYW1lPSJSUFRfQWNrbm93bGVkZ21lbnRPZkRlYnRJbnN0aXR1dGlvbiI+PFBhcmFtZXRlciBOYW1lPSJASW5zdElEIiBUeXBlPSJTeXN0ZW0uSW50MzIiPjI1NDwvUGFyYW1ldGVyPjxQcm9jTmFtZT5SUFRfQWNrbm93bGVkZ21lbnRPZkRlYnRJbnN0aXR1dGlvbjwvUHJvY05hbWU+PC9RdWVyeT48UXVlcnkgVHlwZT0iU3RvcmVkUHJvY1F1ZXJ5IiBOYW1lPSJSUFRfQWNrbm93bGVkZ21lbnRPZkRlYnRQYXJlbnRzIj48UGFyYW1ldGVyIE5hbWU9IkBJbnN0SUQiIFR5cGU9IlN5c3RlbS5JbnQzMiI+MjU0PC9QYXJhbWV0ZXI+PFBhcmFtZXRlciBOYW1lPSJARmFtaWx5SUQiIFR5cGU9IlN5c3RlbS5JbnQzMiI+NzEwMjA8L1BhcmFtZXRlcj48UHJvY05hbWU+UlBUX0Fja25vd2xlZGdtZW50T2ZEZWJ0UGFyZW50czwvUHJvY05hbWU+PC9RdWVyeT48UmVzdWx0U2NoZW1hPjxEYXRhU2V0IE5hbWU9InNxbERhdGFTb3VyY2UxIj48VmlldyBOYW1lPSJSUFRfQWNrbm93bGVkZ21lbnRPZkRlYnRJbnN0aXR1dGlvbiI+PEZpZWxkIE5hbWU9Ikluc3RpdHV0aW9uTmFtZSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJCYW5rTmFtZSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJCYW5rQWNjb3VudCIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJCYW5rQnJhbmNoQ29kZSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJCYW5rQWNjVHlwZSIgVHlwZT0iU3RyaW5nIiAvPjwvVmlldz48VmlldyBOYW1lPSJSUFRfQWNrbm93bGVkZ21lbnRPZkRlYnRQYXJlbnRzIj48RmllbGQgTmFtZT0iUGFyZW50IiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlBhcmVudE5hbWUiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iSUROdW1iZXIiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iU3RyZWV0QWRkcmVzczEiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iU3RyZWV0QWRkcmVzczIiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iU3RyZWV0QWRkcmVzczMiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iU3RyZWV0Q29kZSIgVHlwZT0iU3RyaW5nIiAvPjwvVmlldz48L0RhdGFTZXQ+PC9SZXN1bHRTY2hlbWE+PENvbm5lY3Rpb25PcHRpb25zIENsb3NlQ29ubmVjdGlvbj0idHJ1ZSIgLz48L1NxbERhdGFTb3VyY2U+" />
+    <Item2 Ref="56" ObjectType="DevExpress.DataAccess.Sql.SqlDataSource,DevExpress.DataAccess.v19.1" Name="sqlDataSource2" Base64="PFNxbERhdGFTb3VyY2UgTmFtZT0ic3FsRGF0YVNvdXJjZTIiPjxDb25uZWN0aW9uIE5hbWU9IkVkdVNwZWMuUHJvcGVydGllcy5TZXR0aW5ncy5FZHVTcGVjQ29ubmVjdGlvblN0cmluZyIgRnJvbUFwcENvbmZpZz0idHJ1ZSIgLz48UXVlcnkgVHlwZT0iU3RvcmVkUHJvY1F1ZXJ5IiBOYW1lPSJSUFRfQWNrbm93bGVkZ21lbnRPZkRlYnRMZWFybmVycyI+PFBhcmFtZXRlciBOYW1lPSJARmFtaWx5SUQiIFR5cGU9IlN5c3RlbS5JbnQzMiI+NzEwMTY8L1BhcmFtZXRlcj48UHJvY05hbWU+UlBUX0Fja25vd2xlZGdtZW50T2ZEZWJ0TGVhcm5lcnM8L1Byb2NOYW1lPjwvUXVlcnk+PFJlc3VsdFNjaGVtYT48RGF0YVNldCBOYW1lPSJzcWxEYXRhU291cmNlMiI+PFZpZXcgTmFtZT0iUlBUX0Fja25vd2xlZGdtZW50T2ZEZWJ0TGVhcm5lcnMiPjxGaWVsZCBOYW1lPSJMZWFybmVyTmFtZSIgVHlwZT0iU3RyaW5nIiAvPjwvVmlldz48L0RhdGFTZXQ+PC9SZXN1bHRTY2hlbWE+PENvbm5lY3Rpb25PcHRpb25zIENsb3NlQ29ubmVjdGlvbj0idHJ1ZSIgLz48L1NxbERhdGFTb3VyY2U+" />
+  </ComponentStorage>
+</XtraReportsLayoutSerializer>

@@ -1,0 +1,249 @@
+﻿
+<script type="text/javascript">
+
+    var FocusMessage_SMS;
+    var FocusMessage_Letter;
+    var FocusMessage_Email;
+
+    function OnCLickLetter(s, e) {
+
+        var x = s.GetSelectedItems();
+        if (FocusMessage_Letter === "A") {
+            Body_AFR.RestoreSelection();
+            Body_AFR.ExecuteCommand(ASPxClientCommandConsts.PASTEHTML_COMMAND, x[0].text, true);
+        }
+        else {
+            Body_ENG.RestoreSelection();
+            Body_ENG.ExecuteCommand(ASPxClientCommandConsts.PASTEHTML_COMMAND, x[0].text, true);
+        }
+    }
+
+    function OnCLickEmail(s, e) {
+
+        var x = s.GetSelectedItems();
+        if (FocusMessage_Email === "A") {
+            EmailBody_AFR.RestoreSelection();
+            EmailBody_AFR.ExecuteCommand(ASPxClientCommandConsts.PASTEHTML_COMMAND, x[0].text, true);
+        }
+        else {
+            EmailBody_ENG.RestoreSelection();
+            EmailBody_ENG.ExecuteCommand(ASPxClientCommandConsts.PASTEHTML_COMMAND, x[0].text, true);
+        }
+    }
+
+    function OnCLickSMSBulk(s, e) {
+
+        var x = s.GetSelectedItems();
+        if (FocusMessage_SMS === "A") {
+            Message_AFR.RestoreSelection();
+            Message_AFR.ExecuteCommand(ASPxClientCommandConsts.PASTEHTML_COMMAND, x[0].text, true);
+        }
+        else {
+            Message_ENG.RestoreSelection();
+            Message_ENG.ExecuteCommand(ASPxClientCommandConsts.PASTEHTML_COMMAND, x[0].text, true);
+        }
+    }
+
+    function onGotFocus_SMS(s, e) {
+
+        if (s.name === "Message_AFR")
+            FocusMessage_SMS = "A";
+
+        if (s.name === "Message_ENG")
+            FocusMessage_SMS = "E";
+    }
+
+    function onGotFocus_Letter(s, e) {
+
+        if (s.name === "Body_AFR")
+            FocusMessage_Letter = "A";
+
+        if (s.name === "Body_ENG")
+            FocusMessage_Letter = "E";
+    }
+
+    function onGotFocus_Email(s, e) {
+
+        if (s.name === "EmailBody_AFR")
+            FocusMessage_Email = "A";
+
+        if (s.name === "EmailBody_ENG")
+            FocusMessage_Email = "E";
+    }
+
+    function AddNewDebtCollector() {
+        $.ajax({
+            type: 'POST',
+            url: '/DebtManagement/NewDebtCollectorAdd',
+            dataType: 'json',
+            async: false,
+            data: {
+                Name: CollectorName.GetValue(),
+                PhysAddress1: CollectorPhysAddress1.GetValue(),
+                PhysAddress2: CollectorPhysAddress2.GetValue(),
+                PhysAddress3: CollectorPhysAddress3.GetValue(),
+                PhysProvinceID: CollectorPhysProvinceID.GetValue(),
+                PhysCode: CollectorPhysCode.GetValue(),
+                PosAddress1: CollectorPosAddress1.GetValue(),
+                PosAddress2: CollectorPosAddress2.GetValue(),
+                PosAddress3: CollectorPosAddress3.GetValue(),
+                PosProvinceID: CollectorPosProvinceID.GetValue(),
+                PosCode: CollectorPosCode.GetValue(),
+                Telephone: CollectorTelephone.GetValue(),
+                Cell: CollectorCell.GetValue(),
+                Fax: CollectorFax.GetValue(),
+                Email: CollectorEmail.GetValue(),
+                Contact: CollectorContact.GetValue()
+            },
+            success: function (response) {
+                pcAddDebtCollector.Hide();
+                DebtCollectorsGridView.PerformCallback();
+            }
+        });
+    }
+
+    function onBtnDeleteDebtCollectorClick(Result) {
+
+        if (Result == "mrYes") {
+            var DebtCollectorID = DebtCollectorsGridView.GetRowKey(DebtCollectorsGridView.GetFocusedRowIndex());
+
+            $.ajax({
+                type: 'POST',
+                url: '/DebtManagement/DeleteDebtCollector',
+                dataType: 'json',
+                async: false,
+                data: {
+                    DebtCollectorID: DebtCollectorID
+                },
+                success: function (response) {
+                    
+                }
+            });
+            
+            pcDeleteDebtCollector.Hide();
+            DebtCollectorsGridView.PerformCallback();
+        }        
+    }
+
+    function SelectedIndexChanged() {
+
+        if (DebtCollectorID.GetSelectedIndex() == 0) {
+            lbCollectorName.SetVisible(true);
+            CollectorName.SetVisible(true);
+            lbEmail.SetVisible(true);
+            Email.SetVisible(true);
+            lbTelephone.SetVisible(true);
+            Telephone.SetVisible(true);
+            lbCell.SetVisible(true);
+            Cell.SetVisible(true);
+            lbFax.SetVisible(true);
+            Fax.SetVisible(true);
+            lbAddress.SetVisible(true);
+            lbPhysAddress1.SetVisible(true);
+            lbPosAddress1.SetVisible(true);
+            PhysAddress1.SetVisible(true);
+            PhysAddress2.SetVisible(true);
+            PhysAddress3.SetVisible(true);
+            lbPhysProvince.SetVisible(true);            
+            PhysProvinceID.SetVisible(true);
+            PhysCode.SetVisible(true);
+            PosAddress1.SetVisible(true);
+            PosAddress2.SetVisible(true);
+            PosAddress3.SetVisible(true);
+            lbPostProvince.SetVisible(true);            
+            PosProvinceID.SetVisible(true);            
+            PosCode.SetVisible(true);
+        }
+        else {
+            lbCollectorName.SetVisible(false);
+            CollectorName.SetVisible(false);
+            lbEmail.SetVisible(false);
+            Email.SetVisible(false);
+            lbTelephone.SetVisible(false);
+            Telephone.SetVisible(false);
+            lbCell.SetVisible(false);
+            Cell.SetVisible(false);
+            lbFax.SetVisible(false);
+            Fax.SetVisible(false);
+            lbAddress.SetVisible(false);
+            lbPhysAddress1.SetVisible(false);
+            lbPosAddress1.SetVisible(false);
+            PhysAddress1.SetVisible(false);
+            PhysAddress2.SetVisible(false);
+            PhysAddress3.SetVisible(false);
+            lbPhysProvince.SetVisible(false);
+            PhysProvinceID.SetVisible(false);
+            PhysCode.SetVisible(false);
+            PosAddress1.SetVisible(false);
+            PosAddress2.SetVisible(false);
+            PosAddress3.SetVisible(false);
+            lbPostProvince.SetVisible(false);
+            PosProvinceID.SetVisible(false);
+            PosCode.SetVisible(false);
+        }
+            
+    }
+
+</script>
+
+@Html.DevExpress().Splitter(settings =>
+{
+    SplitterUtils.SetSplitterProperties(settings, true, 40, false, 0);
+
+    MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+    HeaderPane.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div ID=\"ViewInfo\">Debt management settings</div>");
+    });
+
+    MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+    MainContentPane.ScrollBars = ScrollBars.Vertical;
+    MainContentPane.SetContent(() =>
+    {
+        Html.DevExpress().PageControl(pcsettings =>
+        {
+            pcsettings.Name = "pcLegalProcessSettings";
+            pcsettings.Width = Unit.Percentage(100);
+            pcsettings.Height = Unit.Percentage(100);
+            pcsettings.EnableTabScrolling = true;
+            pcsettings.TabAlign = TabAlign.Justify;
+            pcsettings.EnableClientSideAPI = true;
+
+            pcsettings.TabPages.Add("General settings", "GeneralSettings").SetContent(() =>
+            {
+                Html.RenderAction("DebtManagementSettingsGeneral");
+            });
+
+            pcsettings.TabPages.Add("Letters", "Letters").SetContent(() =>
+            {
+                Html.RenderAction("DebtManagementSettingsLetters");
+            });
+
+            pcsettings.TabPages.Add("SMS's", "SMS's").SetContent(() =>
+            {
+                Html.RenderAction("DebtManagementSettingsSMSMessages");
+            });
+
+            pcsettings.TabPages.Add("Emails", "Emails").SetContent(() =>
+            {
+                Html.RenderAction("DebtManagementSettingsEmails");
+            });
+
+            pcsettings.TabPages.Add("Debt collectors", "DebtCollectors").SetContent(() =>
+            {
+                Html.RenderAction("DebtManagementSettingsDebtCollectors");
+            });
+
+        }).GetHtml();
+    });
+
+    MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+    FooterPane.Separator.Visible = DefaultBoolean.True;
+    FooterPane.SetContent(() =>
+    {
+
+    });
+
+}).GetHtml()
+
+@MessageDlg.ShowMessageDlg("pcDeleteDebtCollector", Html, "Are you sure you want to delete the debt collector?", new BtnType[] { BtnType.mbYes, BtnType.mbNo }, MessageType.mConfirmation, "onBtnDeleteDebtCollectorClick")

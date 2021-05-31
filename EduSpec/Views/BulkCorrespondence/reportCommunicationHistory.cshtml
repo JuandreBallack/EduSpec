@@ -1,0 +1,12 @@
+﻿@model DevExpress.XtraReports.UI.XtraReport
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcCommunicationHistory", "Communication History");
+    settings.CallbackRouteValues = new { Controller = "BulkCorrespondence", Action = "reportCommunicationHistory" };
+    settings.ClientSideEvents.EndCallback = "function(s, e) {  LoadingPanel.Hide(); s.Show(); }";
+    settings.SetContent(() =>
+    {
+        Html.RenderPartial("DocumentViewer", Model, new ViewDataDictionary { { "Name", "CommunicationHistory" } });
+    });
+}).GetHtml()

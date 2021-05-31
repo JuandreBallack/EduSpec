@@ -1,0 +1,125 @@
+﻿@*@using (Html.BeginForm("SetDebtManagementSettingsGeneralSettings", "DebtManagement"))*@
+@using (Html.BeginForm())
+{
+
+    ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 500px\" style=\"height: 700px ; margin:0px 5px 0px 5px;\">");
+    ViewContext.Writer.Write("<div class=\"line\" style=\"width: 100%; margin:10px 10px 0px; 10px\">");
+    //EduSpecHtmlHelper.Button(Html, "btnSaveGeneralSettings", "", "Save", 100, null);
+
+    Dictionary<EduSpec.ButtonClientSideEvent, string> AddSupportCaseEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+    AddSupportCaseEvents.Add(ButtonClientSideEvent.onClick, "function(s,e){pcConfirmBillingCycleUpdate.Show();}");    
+    EduSpecHtmlHelper.Button(Html, "btnSaveBillingCycle", "button", "Save", 80, AddSupportCaseEvents);
+
+    @*@Html.DevExpress().Button(btnSettings =>
+    {
+        btnSettings.Name = "btnSaveBillingCycle";
+        btnSettings.Text = "Save";
+        //btnSettings.UseSubmitBehavior = true;
+    }).GetHtml()*@
+
+    Dictionary<EduSpec.ComboboxClientSideEvent, string> comboboxSelectedIndexChanged = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+    comboboxSelectedIndexChanged.Add(ComboboxClientSideEvent.onSelectedIndexChanged, "function(s,e){SelectedIndexChanged();}");
+    comboboxSelectedIndexChanged.Add(ComboboxClientSideEvent.onInit, "function(s,e){SelectedIndexChanged();}");
+
+    EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+
+    EduSpecHtmlHelper.EndColumn(Html);
+    EduSpecHtmlHelper.EndRow(Html);
+
+    EduSpecHtmlHelper.NewRow(Html);
+    EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+    EduSpecHtmlHelper.Label(Html, "Billing Cycle:", "editorLabel");
+    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 120);// Second column
+    EduSpecHtmlHelper.ComboBox(Html, "formeditor", Model, "BillingCycleTypeID", 220, "Get_BillingCycleType_PickList", comboboxSelectedIndexChanged);
+    EduSpecHtmlHelper.EndColumn(Html);
+    EduSpecHtmlHelper.EndRow(Html);
+
+    EduSpecHtmlHelper.NewRow(Html);
+    EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+    EduSpecHtmlHelper.Label(Html, "lbAnnually","Annually:", "editorLabel", false);
+    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 120);// Second column
+    EduSpecHtmlHelper.CheckBox(Html, "formeditor", Model, "IsBillingAnnualy", 80, null);
+    EduSpecHtmlHelper.EndColumn(Html);
+    EduSpecHtmlHelper.EndRow(Html);
+
+    EduSpecHtmlHelper.NewRow(Html);
+    EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+    EduSpecHtmlHelper.Label(Html, "lbMonthly", "Monthly:", "editorLabel", false);
+    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 120);// Second column
+    EduSpecHtmlHelper.CheckBox(Html, "formeditor", Model, "IsBillngMonthly", 80, null);
+    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 120);// Third column
+    //EduSpecHtmlHelper.Label(Html, "lbAmount1", "Amount:", "editorLabel", false);
+    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 120);// Forth column
+    //EduSpecHtmlHelper.CurrencyEdit(Html, "formeditor", Model, "Quarter1InvoiceAmount", 100, null);
+    EduSpecHtmlHelper.EndColumn(Html);
+    EduSpecHtmlHelper.EndRow(Html);
+
+    EduSpecHtmlHelper.NewRow(Html);
+    EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+    EduSpecHtmlHelper.Label(Html, "lbQuarterly", "Quarterly:", "editorLabel",false);
+    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 120);// Second column
+    EduSpecHtmlHelper.CheckBox(Html, "formeditor", Model, "IsBillingQuarterly", 80, null);
+    EduSpecHtmlHelper.EndColumn(Html);
+    EduSpecHtmlHelper.EndRow(Html);
+
+    EduSpecHtmlHelper.NewRow(Html);
+    EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+    EduSpecHtmlHelper.Label(Html, "lbInvoiceDates", "Invoice Dates:", "boldlabel", false);
+    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 120);// Second column
+
+    EduSpecHtmlHelper.NewRow(Html);
+    EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+    EduSpecHtmlHelper.Label(Html, "lbFirstQuarter", "First Quarter:", "editorLabel", false);
+    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 120);// Second column
+    EduSpecHtmlHelper.DateEdit(Html, "formeditor", Model, "Quarter1InvoiceDate", 100, null);
+    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 120);// Third column
+    EduSpecHtmlHelper.Label(Html, "lbAmount1", "Amount:", "editorLabel", false);
+    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 120);// Forth column
+    EduSpecHtmlHelper.CurrencyEdit(Html, "formeditor", Model, "Quarter1InvoiceAmount", 100, null);
+    EduSpecHtmlHelper.EndColumn(Html);
+    EduSpecHtmlHelper.EndRow(Html);
+
+    EduSpecHtmlHelper.NewRow(Html);
+    EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+    EduSpecHtmlHelper.Label(Html, "lbSecondQuarter", "Second Quarter:", "editorLabel", false);
+    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 120);// Second column
+    EduSpecHtmlHelper.DateEdit(Html, "formeditor", Model, "Quarter2InvoiceDate", 100, null);
+    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 120);// Third column
+    EduSpecHtmlHelper.Label(Html, "lbAmount2", "Amount:", "editorLabel", false);
+    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 120);// Forth column
+    EduSpecHtmlHelper.CurrencyEdit(Html, "formeditor", Model, "Quarter2InvoiceAmount", 100, null);
+    EduSpecHtmlHelper.EndColumn(Html);
+    EduSpecHtmlHelper.EndRow(Html);
+
+    EduSpecHtmlHelper.NewRow(Html);
+    EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+    EduSpecHtmlHelper.Label(Html, "lbThirdQuarter", "Third Quarter:", "editorLabel", false);
+    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 120);// Second column
+    EduSpecHtmlHelper.DateEdit(Html, "formeditor", Model, "Quarter3InvoiceDate", 100, null);
+    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 120);// Third column
+    EduSpecHtmlHelper.Label(Html, "lbAmount3", "Amount:", "editorLabel", false);
+    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 120);// Forth column
+    EduSpecHtmlHelper.CurrencyEdit(Html, "formeditor", Model, "Quarter3InvoiceAmount", 100, null);
+    EduSpecHtmlHelper.EndColumn(Html);
+    EduSpecHtmlHelper.EndRow(Html);
+
+    EduSpecHtmlHelper.NewRow(Html);
+    EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+    EduSpecHtmlHelper.Label(Html, "lbFouthQuarter", "Fouth Quarter:", "editorLabel", false);
+    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 120);// Second column
+    EduSpecHtmlHelper.DateEdit(Html, "formeditor", Model, "Quarter4InvoiceDate", 100, null);
+    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 120);// Third column
+    EduSpecHtmlHelper.Label(Html, "lbAmount4", "Amount:", "editorLabel", false);
+    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 120);// Forth column
+    EduSpecHtmlHelper.CurrencyEdit(Html, "formeditor", Model, "Quarter4InvoiceAmount", 100, null);
+    EduSpecHtmlHelper.EndColumn(Html);
+    EduSpecHtmlHelper.EndRow(Html);
+
+    EduSpecHtmlHelper.EndTable(Html);
+
+    EduSpecHtmlHelper.EndDiv(Html);
+    EduSpecHtmlHelper.EndDiv(Html);
+
+
+}
+

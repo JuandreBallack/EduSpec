@@ -1,0 +1,91 @@
+﻿@Html.DevExpress().CallbackPanel(cbpsettings =>
+{
+
+    cbpsettings.Name = "cbpAffidavitQuestions";
+    cbpsettings.CallbackRouteValues = new { Controller = "Exemptions", Action = "AffidavitQuestions" };
+    cbpsettings.ClientSideEvents.BeginCallback = "function(s,e){{ e.customArgs[\"ApplicationNumber\"] = tbApplicationNumber.GetText(); }}";
+    //cbpsettings.ClientSideEvents.Init = "function(s, e) { SetRadioButtonValues();}";
+
+    cbpsettings.SetContent(() =>
+    {
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 180);
+        EduSpecHtmlHelper.Label(Html, "lWareabouts", "Do you know the wareabouts of the spouse?", "editorLabel", true);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 100);
+
+        Html.DevExpress().RadioButtonList(rbsettings =>
+        {
+            rbsettings.Name = "rbWareabouts";
+            rbsettings.Properties.ValueType = typeof(int);
+            //rbsettings.Properties.TextField = "Marital status";
+            rbsettings.Width = Unit.Pixel(100);
+            rbsettings.ClientVisible = true;
+            rbsettings.Properties.Items.Add("Yes", 2);
+            rbsettings.Properties.Items.Add("No", 1);
+            rbsettings.Properties.RepeatLayout = RepeatLayout.Table;
+            rbsettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+            rbsettings.Properties.RepeatColumns = 2;
+            rbsettings.ControlStyle.Border.BorderStyle = BorderStyle.None;
+            rbsettings.Properties.ClientSideEvents.Init = "function(s,e){ s.SetSelectedIndex(1); }";
+            //rbsettings.Properties.ClientSideEvents.Init = "function(s,e){{ ; }}";
+            //rbsettings.ControlStyle.Border.BorderColor = System.Drawing.Color.LightGray;
+        }).Bind(DataBinder.Eval(Model, "AffidavitSpouseWareabouts")).GetHtml();
+
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form");
+        EduSpecHtmlHelper.Label(Html, "lContactWithSpouse", "Do you have contact with the spouse?", "editorLabel", true);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 100);
+
+        Html.DevExpress().RadioButtonList(rbsettings =>
+        {
+            rbsettings.Name = "rbContact";
+            rbsettings.Properties.ValueType = typeof(int);
+            //rbsettings.Properties.TextField = "Marital status";
+            rbsettings.Width = Unit.Pixel(100);
+            rbsettings.ClientVisible = true;
+            rbsettings.Properties.Items.Add("Yes", 4);
+            rbsettings.Properties.Items.Add("No", 3);
+            rbsettings.Properties.RepeatLayout = RepeatLayout.Table;
+            rbsettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+            rbsettings.Properties.RepeatColumns = 2;
+            rbsettings.ControlStyle.Border.BorderStyle = BorderStyle.None;
+            rbsettings.Properties.ClientSideEvents.Init = "function(s,e){ s.SetSelectedIndex(1); }";
+            //rbsettings.ControlStyle.Border.BorderColor = System.Drawing.Color.LightGray;
+        }).Bind(DataBinder.Eval(Model, "AffidavitSpouseContact")).GetHtml();
+
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form");
+        EduSpecHtmlHelper.Label(Html, "lSpouseUnwilling", "Is the spouse unwilling or uncooperative to apply for an exemption?", "editorLabel", true);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 100);
+
+        Html.DevExpress().RadioButtonList(rbsettings =>
+        {
+            rbsettings.Name = "rbUnwilling";
+            rbsettings.Properties.ValueType = typeof(int);
+            //rbsettings.Properties.TextField = "Marital status";
+            rbsettings.Width = Unit.Pixel(100);
+            rbsettings.ClientVisible = true;
+            rbsettings.Properties.Items.Add("Yes", 5);
+            rbsettings.Properties.Items.Add("No", 6);
+            rbsettings.Properties.RepeatLayout = RepeatLayout.Table;
+            rbsettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+            rbsettings.Properties.RepeatColumns = 2;
+            rbsettings.ControlStyle.Border.BorderStyle = BorderStyle.None;
+            rbsettings.Properties.ClientSideEvents.Init = "function(s,e){ s.SetSelectedIndex(1); }";
+            //rbsettings.ControlStyle.Border.BorderColor = System.Drawing.Color.LightGray;
+        }).Bind(DataBinder.Eval(Model, "AffidavitSpouseWilling")).GetHtml();
+
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+
+
+        EduSpecHtmlHelper.EndTable(Html);
+
+    });
+}).GetHtml()

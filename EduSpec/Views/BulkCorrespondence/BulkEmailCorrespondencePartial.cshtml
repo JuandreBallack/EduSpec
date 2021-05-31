@@ -1,0 +1,27 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["ViewProperties"]);
+
+    settings.Toolbars[0].Items.Add(i =>
+    {
+
+        i.Alignment = MenuItemAlignment.Right;
+        i.SetTemplateContent(c =>
+        {
+            Html.DevExpress().ComboBox(comboBox =>
+            {
+                comboBox.Name = "cbYear";
+                comboBox.Width = 70;
+                comboBox.ControlStyle.CssClass = "editor";
+                comboBox.Properties.TextField = "Description";
+                comboBox.Properties.ValueField = "ID";
+                comboBox.Properties.ValueType = typeof(int);
+                comboBox.Properties.ClientSideEvents.Init = String.Format("function(s, e) {{if (cbYearSelectedIndex == -1) cbYear.SetValue({0}); else cbYear.SetValue(cbYearSelectedIndex);}}", HttpContext.Current.Session["CurrentYearID"]);
+                comboBox.Properties.ClientSideEvents.SelectedIndexChanged = "function(s, e) {GridView.PerformCallback({ YearID: cbYear.GetValue() });}";
+                comboBox.Properties.Caption = "Year:";
+            }).BindList(GridUtils.getDropdownList("Get_SchoolYear_PickList")).GetHtml();
+
+        });
+    });
+
+}).Bind(Model).GetHtml()

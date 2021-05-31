@@ -1,0 +1,73 @@
+﻿@model System.Collections.IEnumerable
+
+<script type="text/javascript">
+
+    var cbYearSelectedIndex = -1;
+
+    function onAddLearnerAdHocFees() {
+        AdHocFeesGridView.GetSelectedFieldValues("LearnerID", doAddLearnerAdHocFees);
+    }
+
+    function doAddLearnerAdHocFees(values) {
+        LearnerList = values.join(',');
+
+        $.ajax({
+            type: 'POST',
+            url: '/Institution/SetLearnerAdHocFees',
+            dataType: 'json',
+            async: false,
+            data: {
+                LearnerList: LearnerList,
+                AdHocFeesID: cbAdHocFees.GetValue()
+            },
+            success: function (response) {
+                AdHocFeesGridView.UnselectRows();
+                pcAdHocFees.Hide();
+                GridView.PerformCallback();
+            },
+            error: function () { alert("error"); }
+        });
+    }
+
+</script>
+
+
+@Html.DevExpress().Splitter(settings =>
+{
+    SplitterUtils.SetSplitterProperties(settings, ViewData["ViewProperties"]);
+
+    MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+    HeaderPane.SetContent(() =>
+    {
+
+        ViewContext.Writer.Write("<div ID=\"ViewInfo\">Ad Hoc fees</div>");
+
+    });
+
+    MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+    MainContentPane.SetContent(() =>
+    {
+
+       Html.RenderAction("AdHocFeesPartial");
+
+    });
+
+    MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+    FooterPane.Separator.Visible = DefaultBoolean.True;
+    FooterPane.SetContent(() =>
+    {
+
+
+    });
+
+}).GetHtml()
+
+@Html.Partial("LinkLearnersAdHocFees")
+@Html.Partial("reportAdHocFees")
+
+@Html.DevExpress().LoadingPanel(settings =>
+{
+    settings.Name = "LoadingPanel";
+    settings.Modal = true;
+    settings.Text = "Preparing report.";
+}).GetHtml()

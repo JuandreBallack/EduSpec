@@ -1,0 +1,14 @@
+@if (Request.IsAuthenticated)
+{
+
+    @: Welcome <b>@User.Identity.Name</b>!
+    @: |
+    @Html.ActionLink("Logout", "LogOff", "Account")
+
+    if (@User.Identity.IsAuthenticated && Convert.ToInt32(HttpContext.Current.Session["ImpersonateInstUserID"]) != -1)
+    {
+        <div style="margin: 5px 0 0 0">
+            <b>Impersonating User: @HttpContext.Current.Session["ImpersonateInstUserName"] </b> | @Html.ActionLink("End Impersonation", "EndImpersonateInstitution", "Account")
+        </div>
+    }
+}

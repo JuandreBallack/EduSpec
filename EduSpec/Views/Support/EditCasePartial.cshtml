@@ -1,0 +1,157 @@
+﻿@Html.DevExpress().CallbackPanel(settings =>
+{
+    var CurrentUserID = WebSecurity.CurrentUserId;
+    var SupportStatusID = Convert.ToInt32(ViewBag.SupportStatusID);
+
+    settings.Name = "cbpEditSupportCase";
+    settings.CallbackRouteValues = new { Controller = "Support", Action = "EditCasePartial" };
+    settings.ClientSideEvents.BeginCallback = "function(s,e){{ e.customArgs[\"SupportID\"] = GridView.GetRowKey(GridView.GetFocusedRowIndex());  e.customArgs[\"SupportTypeID\"] = rgActions.GetValue();}}";
+
+
+    List<Int32> InProcess = new List<Int32> {2,4,5};
+    List<Int32> Resolution = new List<Int32> { 6 };
+    List<Int32> EditCase = new List<Int32> { 1 };
+    List<Int32> CloseCase = new List<Int32> { 1,2,4,5 };
+
+
+    settings.Width = Unit.Percentage(100);
+    settings.SetContent(() =>
+    {
+
+        using (Html.BeginForm())
+        {
+            Html.DevExpress().PageControl(pcsettings =>
+            {
+                pcsettings.Name = "pcSupport";
+                pcsettings.Width = Unit.Percentage(100);
+                pcsettings.Height = Unit.Percentage(100);
+                pcsettings.EnableTabScrolling = true;
+                pcsettings.TabAlign = TabAlign.Justify;
+                pcsettings.EnableClientSideAPI = true;
+                pcsettings.ShowTabs = false;
+                if (ViewBag.SupportTypeID == null)
+                {
+                    pcsettings.ActiveTabIndex = 0;
+                }
+                else
+                {
+                    pcsettings.ActiveTabIndex = 1;
+                }
+
+                pcsettings.TabPages.Add("", "Admin").SetContent(() =>
+                {
+                    Html.DevExpress().RadioButtonList(cbsettings =>
+                    {
+                        cbsettings.Name = "rgActions";
+                        cbsettings.Properties.ValueType = typeof(int);
+                        cbsettings.Width = Unit.Pixel(300);
+                        if (SupportStatusID != 2 && WebSecurity.CurrentUserId == 1)
+                        {
+                            cbsettings.Properties.Items.Add("Put the case in process", 2);
+                        }
+                        if(SupportStatusID != 3 && WebSecurity.CurrentUserId == 1 && InProcess.Contains(SupportStatusID))
+                        {
+                            cbsettings.Properties.Items.Add("Put the Case On Hold", 3);
+                        }
+                        if (SupportStatusID != 4 && WebSecurity.CurrentUserId == 1 && InProcess.Contains(SupportStatusID))
+                        {
+                            cbsettings.Properties.Items.Add("Put the Case in Pending Workaround stage", 4);
+                        }
+                        if (SupportStatusID != 5 && WebSecurity.CurrentUserId == 1 && InProcess.Contains(SupportStatusID))
+                        {
+                            cbsettings.Properties.Items.Add("Put case in Pending Release", 5);
+                        }
+                        if (SupportStatusID != 6 && WebSecurity.CurrentUserId == 1)
+                        {
+                            cbsettings.Properties.Items.Add("Resolve this Case", 6);
+                        }
+                        if (WebSecurity.CurrentUserId != 1 && SupportStatusID != 6)
+                        {
+                            cbsettings.Properties.Items.Add("Edit this case", 8);
+                        }
+                        if (WebSecurity.CurrentUserId != 1 && CloseCase.Contains(SupportStatusID))
+                        {
+                            cbsettings.Properties.Items.Add("Close case", 9);
+                        }
+                        if (WebSecurity.CurrentUserId != 1 && Resolution.Contains(SupportStatusID))
+                        {
+                            cbsettings.Properties.Items.Add("Re-open case", 7);
+                        }
+
+                        cbsettings.Properties.RepeatLayout = RepeatLayout.Table;
+                        cbsettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+                        cbsettings.Properties.RepeatColumns = 1;
+                        cbsettings.ControlStyle.Border.BorderStyle = BorderStyle.None;
+
+                    }).GetHtml();
+
+                    EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+                    EduSpecHtmlHelper.NewDiv(Html, "line");
+
+                    Dictionary<EduSpec.ButtonClientSideEvent, string> EditSupportCaseEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+                    EditSupportCaseEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){ NextTab(); cbpEditSupportCase.PerformCallback(); }");
+                    EduSpecHtmlHelper.Button(Html, "btnEditSupportCase", "button", "OK", 80, EditSupportCaseEvents);
+
+                    Dictionary<EduSpec.ButtonClientSideEvent, string> cancelSupportCaseEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+                    cancelSupportCaseEvents.Add(ButtonClientSideEvent.onClick, "function(s,e){pcEditSupportCase.Hide();}");
+                    EduSpecHtmlHelper.Button(Html, "btnCancelEditSupportCase", "button", "Cancel", 80, cancelSupportCaseEvents);
+
+
+                    EduSpecHtmlHelper.EndDiv(Html);
+                    EduSpecHtmlHelper.EndDiv(Html);
+
+                });
+
+
+                pcsettings.TabPages.Add("", "Users").SetContent(() =>
+                {
+
+                    EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+                    EduSpecHtmlHelper.NewRow(Html);
+                    EduSpecHtmlHelper.NewColumn(Html, "edit_form", 340);
+                    EduSpecHtmlHelper.Label(Html, "lbuCaseTitle", "Case title:", "editorLabel", EditCase.Contains(Convert.ToInt32(ViewBag.SupportTypeID)));
+                    EduSpecHtmlHelper.TextBox(Html, "editorLabel", Model, "CaseTitle", EditCase.Contains(Convert.ToInt32(ViewBag.SupportTypeID)), 300, null);
+                    EduSpecHtmlHelper.Label(Html, "Case description:", "editorLabel");
+                    EduSpecHtmlHelper.Memo(Html, "mCaseDescription", "formeditor", Model, "CaseDescription", 300, 85, EditCase.Contains(Convert.ToInt32(ViewBag.SupportTypeID)));
+                    EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+                    EduSpecHtmlHelper.NewDiv(Html, "line");
+                    EduSpecHtmlHelper.Label(Html, "lbResolution", "Resolution:", "editorLabel", Resolution.Contains(Convert.ToInt32(ViewBag.SupportTypeID)));
+                    EduSpecHtmlHelper.Memo(Html, "mResolution", "formeditor", 300, 85, Resolution.Contains(Convert.ToInt32(ViewBag.SupportTypeID)));
+                    EduSpecHtmlHelper.Label(Html, "lbResolutionCategory", "Resolution category:", "editorLabel", Resolution.Contains(Convert.ToInt32(ViewBag.SupportTypeID)));
+                    EduSpecHtmlHelper.ComboBox(Html, "cbResolutionCategory", "formeditor", Resolution.Contains(Convert.ToInt32(ViewBag.SupportTypeID)), 150, "Get_ResolutionCategory_PickList", null);
+                    EduSpecHtmlHelper.EndDiv(Html);
+                    EduSpecHtmlHelper.EndDiv(Html);
+                    EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+                    EduSpecHtmlHelper.NewDiv(Html, "line");
+                    EduSpecHtmlHelper.Label(Html, "History comment:", "editorLabel");
+                    EduSpecHtmlHelper.Memo(Html, "mHistoryComment", "formeditor", 300, 85);
+                    EduSpecHtmlHelper.EndDiv(Html);
+                    EduSpecHtmlHelper.EndDiv(Html);
+                    EduSpecHtmlHelper.EndColumn(Html);
+                    EduSpecHtmlHelper.EndRow(Html);
+                    EduSpecHtmlHelper.EndTable(Html);
+
+
+                    EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+                    EduSpecHtmlHelper.NewDiv(Html, "line");
+
+
+                    Dictionary<EduSpec.ButtonClientSideEvent, string> AddNewSupportCaseEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+                    AddNewSupportCaseEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){ EditSupportCase();  }");
+                    EduSpecHtmlHelper.Button(Html, "btnAddNewSupportCase", "button", "OK", 80, AddNewSupportCaseEvents);
+
+                    Dictionary<EduSpec.ButtonClientSideEvent, string> cancelSupportCaseEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+                    cancelSupportCaseEvents.Add(ButtonClientSideEvent.onClick, "function(s,e){pcEditSupportCase.Hide();}");
+                    EduSpecHtmlHelper.Button(Html, "btnCancelSupportCase", "button", "Cancel", 80, cancelSupportCaseEvents);
+
+                    EduSpecHtmlHelper.EndDiv(Html);
+                    EduSpecHtmlHelper.EndDiv(Html);
+
+
+                });
+            }).GetHtml();
+
+        }
+
+    });
+}).GetHtml()

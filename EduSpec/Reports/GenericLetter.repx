@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XtraReportsLayoutSerializer SerializerVersion="20.1.3.0" Ref="1" ControlType="DevExpress.XtraReports.UI.XtraReport, DevExpress.XtraReports.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Name="GenericLetter" Margins="38, 38, 30, 40" PaperKind="A4" PageWidth="827" PageHeight="1169" Version="20.1" DataMember="RPT_GenericLetter" DataSource="#Ref-0">
+  <Bands>
+    <Item1 Ref="2" ControlType="DetailBand" Name="Detail" HeightF="206.75" TextAlignment="TopLeft" Padding="0,0,0,0,100">
+      <Controls>
+        <Item1 Ref="3" ControlType="XRPageInfo" Name="xrPageInfo1" PageInfo="DateTime" TextFormatString="{0:yyyy/MM/dd}" TextAlignment="MiddleCenter" SizeF="100,23" LocationFloat="649.9583,0" Font="Arial, 9.75pt, charSet=0" Padding="2,2,0,0,100">
+          <StylePriority Ref="4" UseFont="false" UseTextAlignment="false" />
+        </Item1>
+        <Item2 Ref="5" ControlType="XRRichText" Name="xrRichText1" SerializableRtfString="ewBcAHIAdABmADEAXABhAG4AcwBpAGMAcABnADEAMgA1ADIADQAKAHsADQAKAFwAZgBvAG4AdAB0AGIAbAANAAoAewBcAGYAMAAgAFQAaQBtAGUAcwAgAE4AZQB3ACAAUgBvAG0AYQBuADsAfQANAAoAewBcAGYAMQAgAEEAcgBpAGEAbAA7AH0ADQAKAH0ADQAKAHsADQAKAFwAYwBvAGwAbwByAHQAYgBsAA0ACgA7AA0ACgBcAHIAZQBkADAAXABnAHIAZQBlAG4AMABcAGIAbAB1AGUAMgA1ADUAOwANAAoAXAByAGUAZAAwAFwAZwByAGUAZQBuADAAXABiAGwAdQBlADAAOwANAAoAfQANAAoAXABuAG8AdQBpAGMAbwBtAHAAYQB0AFwAcwBwAGwAeQB0AHcAbgBpAG4AZQBcAGgAdABtAGEAdQB0AHMAcAB7AFwAcwBlAGMAdABkAFwAcABhAHIAZABcAHAAbABhAGkAbgBcAHEAbAB7AFwAZgAxAFwAZgBzADIAMABcAGMAZgAyACAAeAByAFIAaQBjAGgAVABlAHgAdAAxAH0AXABwAGEAcgB9AA0ACgB9AA0ACgA=" SizeF="685.3752,170.75" LocationFloat="34.37497,36" Font="Arial, 10pt" Padding="0,0,6,0,100">
+          <ExpressionBindings>
+            <Item1 Ref="6" EventName="BeforePrint" PropertyName="Html" Expression="[Body]" />
+          </ExpressionBindings>
+        </Item2>
+      </Controls>
+    </Item1>
+    <Item2 Ref="7" ControlType="TopMarginBand" Name="TopMargin" HeightF="30" TextAlignment="TopLeft" Padding="0,0,0,0,100" />
+    <Item3 Ref="8" ControlType="BottomMarginBand" Name="BottomMargin" HeightF="40" TextAlignment="TopLeft" Padding="0,0,0,0,100">
+      <Controls>
+        <Item1 Ref="9" ControlType="XRLabel" Name="xrLabel35" Text="Printed by EduSpec ©" TextAlignment="MiddleLeft" SizeF="177.0833,22.83465" LocationFloat="0,0" Font="Arial, 8pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="10" UseFont="false" UseTextAlignment="false" />
+        </Item1>
+      </Controls>
+    </Item3>
+    <Item4 Ref="11" ControlType="ReportHeaderBand" Name="ReportHeader" HeightF="139.5834">
+      <Controls>
+        <Item1 Ref="12" ControlType="XRLine" Name="xrLine1" SizeF="749.9583,10.41667" LocationFloat="0,129.1667" />
+        <Item2 Ref="13" ControlType="XRLabel" Name="xrLabel10" Multiline="true" TextAlignment="MiddleCenter" SizeF="620.9167,19.87501" LocationFloat="130.0833,40.20835" Font="Arial, 8pt" Padding="2,2,0,0,100" Borders="None">
+          <ExpressionBindings>
+            <Item1 Ref="14" EventName="BeforePrint" PropertyName="Text" Expression="[RPT_Letterhead.StreetAddress]" />
+          </ExpressionBindings>
+          <StylePriority Ref="15" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item2>
+        <Item3 Ref="16" ControlType="XRLabel" Name="xrLabel3" Multiline="true" TextAlignment="MiddleCenter" SizeF="619.9584,19.87503" LocationFloat="131.0417,79.95839" Font="Arial, 8pt" Padding="2,2,0,0,100" Borders="None">
+          <ExpressionBindings>
+            <Item1 Ref="17" EventName="BeforePrint" PropertyName="Text" Expression="[RPT_Letterhead.Contact]" />
+          </ExpressionBindings>
+          <StylePriority Ref="18" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item3>
+        <Item4 Ref="19" ControlType="XRLabel" Name="xrLabel2" Multiline="true" TextAlignment="MiddleCenter" SizeF="620.9167,19.87502" LocationFloat="130.0833,60.08337" Font="Arial, 8pt" Padding="2,2,0,0,100" Borders="None">
+          <ExpressionBindings>
+            <Item1 Ref="20" EventName="BeforePrint" PropertyName="Text" Expression="[RPT_Letterhead.PostalAddress]" />
+          </ExpressionBindings>
+          <StylePriority Ref="21" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item4>
+        <Item5 Ref="22" ControlType="XRLabel" Name="xrLabel1" TextAlignment="MiddleCenter" SizeF="620.9166,30.20833" LocationFloat="130.0833,10.00001" Font="Times New Roman, 20pt, style=Bold" Padding="2,2,0,0,100">
+          <ExpressionBindings>
+            <Item1 Ref="23" EventName="BeforePrint" PropertyName="Text" Expression="[RPT_Letterhead.InstitutionName]" />
+          </ExpressionBindings>
+          <StylePriority Ref="24" UseFont="false" UseTextAlignment="false" />
+        </Item5>
+        <Item6 Ref="25" ControlType="XRPictureBox" Name="xrPictureBox1" Sizing="Squeeze" ImageAlignment="MiddleCenter" SizeF="130.0833,129.1667" LocationFloat="0,0">
+          <ExpressionBindings>
+            <Item1 Ref="26" EventName="BeforePrint" PropertyName="ImageSource" Expression="[RPT_Letterhead].[Logo]" />
+          </ExpressionBindings>
+        </Item6>
+      </Controls>
+    </Item4>
+  </Bands>
+  <Scripts Ref="27" OnBeforePrint="LetterHead_BeforePrint" />
+  <ComponentStorage>
+    <Item1 Ref="0" ObjectType="DevExpress.DataAccess.Sql.SqlDataSource,DevExpress.DataAccess.v20.1" Name="sqlDataSource" Base64="PFNxbERhdGFTb3VyY2UgTmFtZT0ic3FsRGF0YVNvdXJjZSI+PENvbm5lY3Rpb24gTmFtZT0iRWR1U3BlY0Nvbm5lY3Rpb25TdHJpbmciIEZyb21BcHBDb25maWc9InRydWUiIC8+PFF1ZXJ5IFR5cGU9IlN0b3JlZFByb2NRdWVyeSIgTmFtZT0iUlBUX0dlbmVyaWNMZXR0ZXIiPjxQYXJhbWV0ZXIgTmFtZT0iQEluc3RJRCIgVHlwZT0iU3lzdGVtLkludDMyIj4yMDwvUGFyYW1ldGVyPjxQYXJhbWV0ZXIgTmFtZT0iQEV4ZW1wdGlvbklEIiBUeXBlPSJTeXN0ZW0uSW50MzIiPjExOTQ5PC9QYXJhbWV0ZXI+PFBhcmFtZXRlciBOYW1lPSJAQWdlRmFtaWx5SUQiIFR5cGU9IlN5c3RlbS5JbnQzMiI+MDwvUGFyYW1ldGVyPjxQcm9jTmFtZT5SUFRfR2VuZXJpY0xldHRlcjwvUHJvY05hbWU+PC9RdWVyeT48UXVlcnkgVHlwZT0iU3RvcmVkUHJvY1F1ZXJ5IiBOYW1lPSJSUFRfTGV0dGVyaGVhZCI+PFBhcmFtZXRlciBOYW1lPSJASW5zdElEIiBUeXBlPSJTeXN0ZW0uSW50MzIiPjIwPC9QYXJhbWV0ZXI+PFBhcmFtZXRlciBOYW1lPSJASXNQcmludExldHRlckhlYWQiIFR5cGU9IlN5c3RlbS5Cb29sZWFuIj5UcnVlPC9QYXJhbWV0ZXI+PFByb2NOYW1lPlJQVF9MZXR0ZXJoZWFkPC9Qcm9jTmFtZT48L1F1ZXJ5PjxSZXN1bHRTY2hlbWE+PERhdGFTZXQgTmFtZT0ic3FsRGF0YVNvdXJjZSI+PFZpZXcgTmFtZT0iUlBUX0dlbmVyaWNMZXR0ZXIiPjxGaWVsZCBOYW1lPSJCb2R5IiBUeXBlPSJTdHJpbmciIC8+PC9WaWV3PjxWaWV3IE5hbWU9IlJQVF9MZXR0ZXJoZWFkIj48RmllbGQgTmFtZT0iSW5zdGl0dXRpb25OYW1lIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlN0cmVldEFkZHJlc3MiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iUG9zdGFsQWRkcmVzcyIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJDb250YWN0IiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkxvZ29VcmwiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iTG9nbyIgVHlwZT0iQnl0ZUFycmF5IiAvPjwvVmlldz48L0RhdGFTZXQ+PC9SZXN1bHRTY2hlbWE+PENvbm5lY3Rpb25PcHRpb25zIENsb3NlQ29ubmVjdGlvbj0idHJ1ZSIgLz48L1NxbERhdGFTb3VyY2U+" />
+  </ComponentStorage>
+</XtraReportsLayoutSerializer>

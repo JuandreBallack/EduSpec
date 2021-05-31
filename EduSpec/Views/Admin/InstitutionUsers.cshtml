@@ -1,0 +1,41 @@
+﻿@model System.Collections.IEnumerable
+
+<script type="text/javascript">
+
+</script>
+
+@Html.DevExpress().Splitter(settings =>
+{
+    EduSpec.SplitterUtils.SetSplitterProperties(settings, ViewData["ViewProperties"]);
+    
+    MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+    HeaderPane.SetContent(() =>
+    {
+        ViewContext.Writer.Write(
+            "<div ID=\"ViewInfo\">Users</div><div style=\"margin:2px\">");
+    });
+
+    MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+    MainContentPane.SetContent(() =>
+    {
+        Html.RenderAction("InstitutionUsersPartial");
+    });
+
+    MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+    FooterPane.SetContent(() =>
+    {
+
+    });
+
+}).GetHtml()
+
+@Html.DevExpress().PopupControl(settings =>
+    {
+        PopupUtils.SetPopupViewProperties(settings, "pcChangePassword", "Change Password");
+        settings.SetContent(() =>
+        {
+            Html.RenderPartial("PasswordChange", new EduSpec.Models.ChangePasswordModel());
+        });
+
+    }).GetHtml()
+

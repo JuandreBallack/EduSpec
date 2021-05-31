@@ -1,0 +1,665 @@
+﻿
+<script type="text/javascript">
+
+    var CorrespondenceListSMS;
+    var CorrespondenceListEmails;
+    var CorrespondenceListCustom;
+    var RemoveLearnersList;
+    var AddToContactList;
+    var EmailTypeID; //1 = Custom, 2 = Manual
+    var cbCorrespondenceItemSelectedIndex = -1;
+    var FamilyContactTypeID;
+    var SendSingleParent;
+    var FamilyContactTypeIDEmail;
+    var SendSingleParentEmail;
+    var EmailSubject;
+    var AttachEmailFileTypeID;
+    var InstLetterID;
+    var isVisible = false;
+
+    function AddNewCorrespondenceList() {
+
+        $.ajax({
+            type: 'POST',
+            url: '/BulkCorrespondence/AddNewCorrespondenceList',
+            dataType: 'json',
+            async: false,
+            data: {
+                ListDescription: NewListDescription.GetValue(),
+            },
+            success: function (result) {
+                pcAddNewCorrespondenceItem.Hide();
+                cbCorrespondenceList.PerformCallback();
+            }
+        });
+
+    }
+
+    function UpdateCorrespondenceItem() {
+
+        $.ajax({
+            type: 'POST',
+            url: '/BulkCorrespondence/UpdateCorrespondenceItem',
+            dataType: 'json',
+            async: false,
+            data: {
+                ListID: cbCorrespondenceList.GetValue(),
+                GradeID: NewListGrade.GetValue(),
+                ClassID: ClassID.GetValue(),
+                GenderID: NewListGender.GetValue(),
+            },
+            success: function (result) {
+                pcEditCorrespondenceItem.Hide();
+                GridView.PerformCallback();
+            }
+        });
+
+
+    }
+
+    function SetCorrespondenceListIDChange() {
+
+        $.ajax({
+            type: 'POST',
+            url: '/BulkCorrespondence/CorrespondenceListIDChange',
+            dataType: 'json',
+            async: false,
+            data: {
+                ListID: cbCorrespondenceItem.GetValue()
+            },
+            success: function (result) {
+                GridView.PerformCallback()
+            }
+        });
+    }
+
+    function SetCorrespondenceListIDInit() {
+
+        if (cbCorrespondenceItemSelectedIndex == -1) {
+            cbCorrespondenceItem.SetValue(-2);
+        }
+        else {
+            cbCorrespondenceItem.SetValue(cbYearSelectedIndex);
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/BulkCorrespondence/CorrespondenceListIDInit',
+            dataType: 'json',
+            async: false,
+            data: {
+                ListID: cbCorrespondenceItem.GetValue()
+            },
+            success: function (result) {
+                GridView.PerformCallback()
+            }
+        });
+    }
+
+    function ImportCorrespondenceFileEmailCustom(s, e) {
+        if (ucCorrespondenceEmailCustomUploadData.GetText() === '') {
+            EmailTypeID = 1;
+            EmailSubject = tbCustomEmailSubject.GetValue();
+            QueueEmailList();
+        }
+        else {
+            EmailTypeID = 1;
+            EmailSubject = tbCustomEmailSubject.GetValue();
+            ucCorrespondenceEmailCustomUploadData.Upload();
+        }
+    }
+
+    function ImportCorrespondenceFileEmailManual(s, e) {
+        if (ucCorrespondenceEmailManualUploadData.GetText() === '') {
+            EmailTypeID = 2;
+            EmailSubject = tbManualEmailSubject.GetValue();
+            QueueEmailList();
+        }
+        else {
+            EmailTypeID = 2;
+            EmailSubject = tbManualEmailSubject.GetValue();
+            ucCorrespondenceEmailManualUploadData.Upload();
+        }
+    }
+
+    function QueueEmailList() {
+
+        var FamilyContactTypeCustomEmail = cbFamilyContactTypeCustomEmail.GetValue();
+        var SendSingleParentCustomEmail = cbSendSingleParentCustomEmail.GetValue();
+        var FamilyContactTypeManualEmail = cbFamilyContactTypeManualEmail.GetValue();
+        var SendSingleParentManualEmail = cbSendSingleParentManualEmail.GetValue();
+
+        var AttachEmailFileTypeManual = AttachEmailFileManual.GetValue();
+        var AttachEmailFileTypeCustom = AttachEmailFileCutom.GetValue();
+
+        if (AttachEmailFileTypeCustom == null) {
+            AttachEmailFileTypeID = AttachEmailFileTypeManual;
+            InstLetterID = cbCorrespondenceLetterManual.GetValue();
+        }
+        else if (FamilyContactTypeManualEmail == null) {
+            AttachEmailFileTypeID = AttachEmailFileTypeCustom;
+            InstLetterID = cbCorrespondenceLetterCustom.GetValue();
+        }
+
+        if (FamilyContactTypeCustomEmail == null) {
+            FamilyContactTypeIDEmail = FamilyContactTypeManualEmail;
+            SendSingleParentEmail = SendSingleParentManualEmail;
+        }
+        else if (FamilyContactTypeManualEmail == null) {
+            FamilyContactTypeIDEmail = FamilyContactTypeCustomEmail;
+            SendSingleParentEmail = SendSingleParentCustomEmail;
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/BulkCorrespondence/QueueEmailList',
+            dataType: 'json',
+            async: false,
+            data: {
+                CorrespondenceList: CorrespondenceListEmails,
+                MessageID: cbCorrespondenceEmail.GetValue(),
+                ManualMessage: EmailBodyManual.GetHtml(),
+                EmailSubject: EmailSubject,
+                EmailTypeID: EmailTypeID,
+                FamilyContactTypeID: FamilyContactTypeIDEmail,
+                SendSingleParent: SendSingleParentEmail,
+                AttachEmailFileType: AttachEmailFileTypeID,
+                InstLetter: InstLetterID
+            },
+            success: function (response) {
+                pcSelectEmailMessage.Hide();
+                pcQueueEmail.Show();
+                GridView.PerformCallback();
+                GridView.UnselectRows();
+                LoadingPanel.Hide();
+            },
+            error: function () { alert("error"); }
+        });
+    }
+
+    function SetCorrespondenceListSMS(values) {
+
+        CorrespondenceListSMS = values.join(',');
+
+        if (CorrespondenceListSMS == "") {
+            pcSelectLearners.Show();
+        }
+        else {
+            pcSelectSMSMessage.Show();
+        }
+
+    }
+
+    function QueueSMSList(values) {
+
+        var FamilyContactTypeCustom = cbFamilyContactTypeCustom.GetValue();
+        var SendSingleParentCustom = cbSendSingleParentCustom.GetValue();
+        var FamilyContactTypeManual = cbFamilyContactTypeManual.GetValue();
+        var SendSingleParentManual = cbSendSingleParentManual.GetValue();
+
+        if (FamilyContactTypeCustom == null) {
+            FamilyContactTypeID = FamilyContactTypeManual;
+            SendSingleParent = SendSingleParentManual;
+        }
+        else if (FamilyContactTypeManual == null) {
+            FamilyContactTypeID = FamilyContactTypeCustom;
+            SendSingleParent = SendSingleParentCustom;
+        }
+
+
+        $.ajax({
+            type: 'POST',
+            url: '/BulkCorrespondence/QueueSMSList',
+            dataType: 'json',
+            async: false,
+            data: {
+                CorrespondenceList: CorrespondenceListSMS,
+                MessageID: cbCorrespondenceSMS.GetValue(),
+                ManualMessage: mSMSMessageCorrespondenceList.GetValue(),
+                FamilyContactTypeID: FamilyContactTypeID,
+                SendSingleParent: SendSingleParent,
+            },
+            success: function (response) {
+                pcSelectSMSMessage.Hide();
+                pcQueueSMS.Show();
+                GridView.PerformCallback();
+                GridView.UnselectRows();
+                LoadingPanel.Hide();
+                cbSendSingleParentCustom.SetValue(false);
+                cbSendSingleParentManual.SetValue(false);
+            },
+            error: function () { alert("error"); }
+        });
+    }
+
+    function SetCorrespondenceListEmails(values) {
+
+        CorrespondenceListEmails = values.join(',');
+
+        if (CorrespondenceListEmails == "") {
+            pcSelectLearners.Show();
+        }
+        else {
+            pcSelectEmailMessage.Show();
+        }
+
+    }
+
+    function OnCLickLetter(s, e) {
+
+        var x = s.GetSelectedItems();
+        if (FocusMessage_Letter === "A") {
+            Body_AFR.RestoreSelection();
+            Body_AFR.ExecuteCommand(ASPxClientCommandConsts.PASTEHTML_COMMAND, x[0].text, true);
+        }
+        else {
+            Body_ENG.RestoreSelection();
+            Body_ENG.ExecuteCommand(ASPxClientCommandConsts.PASTEHTML_COMMAND, x[0].text, true);
+        }
+    }
+
+    function OnCLickEmail(s, e) {
+
+        var x = s.GetSelectedItems();
+        if (FocusMessage_Email === "A") {
+            EmailBody_AFR.RestoreSelection();
+            EmailBody_AFR.ExecuteCommand(ASPxClientCommandConsts.PASTEHTML_COMMAND, x[0].text, true);
+        }
+        else {
+            EmailBody_ENG.RestoreSelection();
+            EmailBody_ENG.ExecuteCommand(ASPxClientCommandConsts.PASTEHTML_COMMAND, x[0].text, true);
+        }
+    }
+
+    function OnCLickSMSBulk(s, e) {
+
+        var x = s.GetSelectedItems();
+        if (FocusMessage_SMS === "A") {
+            Message_AFR.RestoreSelection();
+            Message_AFR.ExecuteCommand(ASPxClientCommandConsts.PASTEHTML_COMMAND, x[0].text, true);
+        }
+        else {
+            Message_ENG.RestoreSelection();
+            Message_ENG.ExecuteCommand(ASPxClientCommandConsts.PASTEHTML_COMMAND, x[0].text, true);
+        }
+    }
+
+    function onGotFocus_SMS(s, e) {
+
+        if (s.name === "Message_AFR")
+            FocusMessage_SMS = "A";
+
+        if (s.name === "Message_ENG")
+            FocusMessage_SMS = "E";
+    }
+
+    function onGotFocus_Letter(s, e) {
+
+        if (s.name === "Body_AFR")
+            FocusMessage_Letter = "A";
+
+        if (s.name === "Body_ENG")
+            FocusMessage_Letter = "E";
+    }
+
+    function onGotFocus_Email(s, e) {
+
+        if (s.name === "EmailBody_AFR")
+            FocusMessage_Email = "A";
+
+        if (s.name === "EmailBody_ENG")
+            FocusMessage_Email = "E";
+    }
+
+    function FamilyContactTypeIDCustomChange(s, e) {
+
+        Value = s.GetValue();
+        if (Value == 1) {
+            cbSendSingleParentCustom.SetVisible(true);
+            cbSendSingleParentCustom.SetValue(false);
+        }
+        else if (Value == 2) {
+            cbSendSingleParentCustom.SetVisible(false);
+            cbSendSingleParentCustom.SetValue(false);
+        }
+        else {
+            cbSendSingleParentCustom.SetVisible(true);
+            cbSendSingleParentCustom.SetValue(false);
+        }
+    }
+
+    function FamilyContactTypeIDManualChange(s, e) {
+
+        Value = s.GetValue();
+        if (Value == 1) {
+            cbSendSingleParentManual.SetVisible(true);
+            cbSendSingleParentManual.SetValue(false);
+        }
+        else if (Value == 2) {
+            cbSendSingleParentManual.SetVisible(false);
+            cbSendSingleParentManual.SetValue(false);
+        }
+        else {
+            cbSendSingleParentManual.SetVisible(true);
+            cbSendSingleParentManual.SetValue(false);
+        }
+    }
+
+    function FamilyContactTypeIDCustomChangeEmail(s, e) {
+
+        Value = s.GetValue();
+        if (Value == 1) {
+            cbSendSingleParentCustomEmail.SetVisible(true);
+            cbSendSingleParentCustomEmail.SetValue(false);
+        }
+        else if (Value == 2) {
+            cbSendSingleParentCustomEmail.SetVisible(false);
+            cbSendSingleParentCustomEmail.SetValue(false);
+        }
+        else {
+            cbSendSingleParentCustomEmail.SetVisible(true);
+            cbSendSingleParentCustomEmail.SetValue(false);
+        }
+    }
+
+    function FamilyContactTypeIDManualChangeEmail(s, e) {
+
+        Value = s.GetValue();
+        if (Value == 1) {
+            cbSendSingleParentManualEmail.SetVisible(true);
+            cbSendSingleParentManualEmail.SetValue(false);
+        }
+        else if (Value == 2) {
+            cbSendSingleParentManualEmail.SetVisible(false);
+            cbSendSingleParentManualEmail.SetValue(false);
+        }
+        else {
+            cbSendSingleParentManualEmail.SetVisible(true);
+            cbSendSingleParentManualEmail.SetValue(false);
+        }
+    }
+
+    function CustomEmailUploadFileTypeChange(s, e) {
+        var x = s.GetValue();
+        if (x === 1) {
+            lbEmailLettersCustom.SetVisible(true);
+            cbCorrespondenceLetterCustom.SetVisible(true);
+            lblEmailUploadFileCustom.SetVisible(false);
+            ucCorrespondenceEmailCustomUploadData.SetVisible(false);
+        }
+        else if (x === 2) {
+            lbEmailLettersCustom.SetVisible(false);
+            cbCorrespondenceLetterCustom.SetVisible(false);
+            ucCorrespondenceEmailCustomUploadData.SetVisible(true);
+            lblEmailUploadFileCustom.SetVisible(true);
+        }
+        else {
+            lbEmailLettersCustom.SetVisible(false);
+            cbCorrespondenceLetterCustom.SetVisible(false);
+            ucCorrespondenceEmailCustomUploadData.SetVisible(false);
+            lblEmailUploadFileCustom.SetVisible(false);
+        }
+    }
+
+    function ManualEmailUploadFileTypeChange(s, e) {
+        var x = s.GetValue();
+        if (x === 1) {
+            lbEmailLettersManual.SetVisible(true);
+            cbCorrespondenceLetterManual.SetVisible(true);
+            lblEmailUploadFileManual.SetVisible(false);
+            ucCorrespondenceEmailManualUploadData.SetVisible(false);
+        }
+        else if (x === 2) {
+            lbEmailLettersManual.SetVisible(false);
+            cbCorrespondenceLetterManual.SetVisible(false);
+            ucCorrespondenceEmailManualUploadData.SetVisible(true);
+            lblEmailUploadFileManual.SetVisible(true);
+        }
+        else {
+            lbEmailLettersManual.SetVisible(false);
+            cbCorrespondenceLetterManual.SetVisible(false);
+            ucCorrespondenceEmailManualUploadData.SetVisible(false);
+            lblEmailUploadFileManual.SetVisible(false);
+        }
+    }
+
+    function SetCustomCorrespondenceList(values) {
+
+        CorrespondenceListCustom = values.join(',');
+
+        if (CorrespondenceListCustom == "") {
+            pcSelectLearnersToCreateList.Show();
+        }
+        else {
+            pcCustomCoorespondencList.Show();
+        }
+
+    }
+
+    function AddCustomList() {
+
+        $.ajax({
+            type: 'POST',
+            url: '/BulkCorrespondence/AddCustomList',
+            dataType: 'json',
+            async: false,
+            data: {
+                CustomListDescription: CustomListName.GetValue(),
+                CorrespondenceListCustom: CorrespondenceListCustom
+            },
+            success: function (result) {
+                pcCustomCoorespondencList.Hide();
+                cbCorrespondenceItemLink.PerformCallback();
+                GridView.PerformCallback();
+                GridView.UnselectRows();
+                cbCorrespondenceList.PerformCallback();
+                pcCustomListAdded.Show();
+                cbpLinkCustomList.PerformCallback();
+            }
+        });
+
+    }
+
+    function SetAddToContactList(values) {
+
+        AddToContactList = values.join(',');
+
+        if (AddToContactList == "") {
+            pcSelectLearnersToAddToList.Show();
+        }
+        else {
+            pcLinkCustomList.Show();
+        }
+
+    }
+
+    function LinkToCustomList() {
+
+        $.ajax({
+            type: 'POST',
+            url: '/BulkCorrespondence/LinkToCustomList',
+            dataType: 'json',
+            async: false,
+            data: {
+                CorrespondenceListID: cbCorrespondenceItemLink.GetValue(),
+                AddToContactList: AddToContactList
+            },
+            success: function (result) {
+                pcLinkCustomList.Hide();
+                pcCustomCoorespondencList.Hide();
+                GridView.PerformCallback();
+                GridView.UnselectRows();
+                cbCorrespondenceList.PerformCallback();
+                pcCustomListLinked.Show();
+            }
+        });
+
+    }
+
+    function SetRemoveLearnersList(values) {
+
+        RemoveLearnersList = values.join(',');
+
+        if (RemoveLearnersList == "") {
+            pcSelectLearnersToRemoveFromList.Show();
+        }
+        else {
+            pcRemoveLearnersWaring.Show();
+        }
+
+    }
+
+    function RemoveLearnersFromList(Result) {
+
+        if (Result == "mrYes") {
+
+            $.ajax({
+                type: 'POST',
+                url: '/BulkCorrespondence/RemoveLearnersFromList',
+                dataType: 'json',
+                async: false,
+                data: {
+                    RemoveLearnersList: RemoveLearnersList
+                },
+                success: function (result) {
+                    GridView.UnselectRows();
+                    cbCorrespondenceList.PerformCallback();
+                    GridView.PerformCallback();
+                    pcLearnersRemovedFromList.Show();
+                }
+            });
+
+        }
+    }
+
+    function SetRemoveButton() {
+        var Button = GridView.GetToolbar(0);
+        if (cbCorrespondenceItemSelectedIndex != -1)
+            SettingsMenuButton(Button.GetItemByName("Btn_RemoveLearnersFromList"), true, "DeleteListSmall.png")
+        else
+            SettingsMenuButton(Button.GetItemByName("Btn_RemoveLearnersFromList"), false, "DeleteListSmallGrey.png")
+    }
+
+    function SetAddContactButton() {
+        var Button = GridView.GetToolbar(0);
+        if (cbCorrespondenceItemSelectedIndex == -1)
+            SettingsMenuButton(Button.GetItemByName("Btn_AddToContactList"), true, "AddFileSmall.png")
+        else
+            SettingsMenuButton(Button.GetItemByName("Btn_AddToContactList"), false, "AddFileSmallGrey.png")
+    }
+
+
+</script>
+
+@Html.DevExpress().Splitter(settings =>
+{
+    SplitterUtils.SetSplitterProperties(settings, true, 0, false, 0);
+
+    MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+    HeaderPane.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div ID=\"ViewInfo\">Communication</div>");
+    });
+
+    MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+    MainContentPane.ScrollBars = ScrollBars.Vertical;
+    MainContentPane.SetContent(() =>
+    {
+
+        Html.DevExpress().PageControl(pcsettings =>
+        {
+            pcsettings.Name = "pcLinksSettings";
+            pcsettings.Width = Unit.Percentage(100);
+            pcsettings.Height = Unit.Percentage(100);
+            pcsettings.EnableTabScrolling = true;
+            pcsettings.TabAlign = TabAlign.Justify;
+            pcsettings.EnableClientSideAPI = true;
+
+            pcsettings.TabPages.Add("Send message", "SendMessage").SetContent(() =>
+            {
+                Html.RenderAction("CorrespondenceListPartial");
+            });
+
+            pcsettings.TabPages.Add("Setup SMS", "SetupSMS").SetContent(() =>
+            {
+                Html.RenderAction("CorrespondenceSMsSetupPartial");
+            });
+
+            pcsettings.TabPages.Add("Setup Email", "SetupEmail").SetContent(() =>
+            {
+                Html.RenderAction("CorrespondenceEmailSetupPartial");
+            });
+
+            pcsettings.TabPages.Add("Setup Letters", "SetupLetters").SetContent(() =>
+            {
+                Html.RenderAction("CorrespondenceLetterSetupPartial");
+            });
+
+            //pcsettings.TabPages.Add("Message History", "MessageHistory").SetContent(() =>
+            //{
+            //    Html.RenderAction("CommunicationFamiliesPartial");
+            //});
+
+        }).GetHtml();
+
+
+    });
+
+    MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+    FooterPane.Separator.Visible = DefaultBoolean.True;
+    FooterPane.SetContent(() =>
+    {
+
+
+    });
+
+}).GetHtml()
+
+@MessageDlg.ShowMessageDlg("pcSelectLearners", Html, "Please select learners before you send a message.", new BtnType[] { BtnType.mbOK }, MessageType.mInformation)
+@MessageDlg.ShowMessageDlg("pcSelectLearnersToCreateList", Html, "Please select learners before you create a list.", new BtnType[] { BtnType.mbOK }, MessageType.mInformation)
+@MessageDlg.ShowMessageDlg("pcSelectLearnersToAddToList", Html, "Please select learners before you add to a list.", new BtnType[] { BtnType.mbOK }, MessageType.mInformation)
+@MessageDlg.ShowMessageDlg("pcSelectLearnersToRemoveFromList", Html, "Please select learners before you remove from a list.", new BtnType[] { BtnType.mbOK }, MessageType.mInformation)
+@MessageDlg.ShowMessageDlg("pcCustomListAdded", Html, "Custom list has been created.", new BtnType[] { BtnType.mbOK }, MessageType.mInformation)
+@MessageDlg.ShowMessageDlg("pcCustomListLinked", Html, "Learners has been added to selected list.", new BtnType[] { BtnType.mbOK }, MessageType.mInformation)
+@MessageDlg.ShowMessageDlg("pcRemoveLearnersWaring", Html, "Are you sure that you want to remove the selected learners from the list?", new BtnType[] { BtnType.mbYes, BtnType.mbNo }, MessageType.mConfirmation, "RemoveLearnersFromList")
+@MessageDlg.ShowMessageDlg("pcLearnersRemovedFromList", Html, "The selected learners are removed from the list.", new BtnType[] { BtnType.mbOK }, MessageType.mInformation)
+@MessageDlg.ShowMessageDlg("pcQueueSMS", Html, "The SMS's is being prepared. Please go to 'Bulk SMS' to send the messages.", new BtnType[] { BtnType.mbOK }, MessageType.mInformation)
+@MessageDlg.ShowMessageDlg("pcQueueEmail", Html, "The emails is being prepared. Please go to 'Bulk Emails' to send the emails.", new BtnType[] { BtnType.mbOK }, MessageType.mInformation)
+
+@Html.DevExpress().LoadingPanel(
+       settings =>
+       {
+           settings.Name = "LoadingPanel";
+           settings.Modal = true;
+           settings.Text = "Processing list...";
+       }
+   ).GetHtml()
+
+@Html.Partial("EditCorrespondenceItemPartial")
+@Html.Partial("CustomCorrespondenceList")
+@Html.Partial("LinkCustomListPartial")
+@Html.Partial("AddNewCorrespondenceItemPartial")
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcSelectSMSMessage", "Send SMS");
+
+    settings.SetContent(() =>
+    {
+        Html.RenderAction("CommunicationSendSMSPartial", "BulkCorrespondence");
+
+    });
+
+}).GetHtml()
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcSelectEmailMessage", "Send Emails");
+
+    settings.SetContent(() =>
+    {
+        Html.RenderAction("CommunicationSendEmailPartial", "BulkCorrespondence");
+
+    });
+
+}).GetHtml()

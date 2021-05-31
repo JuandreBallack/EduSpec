@@ -1,0 +1,441 @@
+﻿
+@model EduSpec.Models.Get_Exemptions_Summary_ViewResult
+
+
+<script type="text/javascript">
+
+    var cbYearSelectedIndex = -1;
+
+
+
+    function PringApplicationRegiter(Result) {
+
+        if (Result == "mrOk") {
+            $.ajax({
+                type: 'POST',
+                url: '/Exemptions/printApplicationRegisterReport',
+                dataType: 'json',
+                async: false,
+                data: {
+                    Qty: pcApplicationCounttbInput.GetValue()
+                },
+                success: function (response) {
+                    window.open(response.Url, '_Blank');
+                }
+            });
+        }
+    }
+
+    function SetCorrespondenceMethodValues() {
+        $.ajax({
+            type: 'POST',
+            url: '/Exemptions/SetCorrespondenceMethod',
+            dataType: 'json',
+            async: false,
+            data: {
+                ExemptionID: GridView.GetRowKey(GridView.GetFocusedRowIndex()),
+                CorrespondenceMethodID: CorrespondenceIDEdit.GetValue(),
+                Message: mCorMessage.GetValue()
+            },
+            success: function (response) {
+                pcCorrespondenceMethod.Hide();
+                GridView.PerformCallback();
+            }
+        });
+    }
+
+    function onFamilyManagementCloseUp(s, e) {
+        //Add this function to all view were "AccountInformation" is used.
+        //This is to have custom code when Family management form is close.
+    }
+
+    function SetExemptionEmailSend() {
+        $.ajax({
+            type: 'POST',
+            url: '/Exemptions/EmailSend',
+            dataType: 'json',
+            async: false,
+            data: {
+                ExemptionID: tbExemptionIDEmail.GetValue(),
+                Recipient: Recipient.GetValue(),
+                CcEmail: CcEmail.GetValue(),
+                Subject: Subject.GetValue(),
+                MessageEmail: MessageEmail.GetValue(),
+                StatusID: tbExemptionStatusIDEmail.GetValue(),
+            },
+            success: function (response) {
+                pcSingleEmailExemptions.Hide();
+                pcEmailSent.Show();
+                GridView.PerformCallback();
+
+            }
+        });
+
+    }
+
+    //function ImportFile(s, e) {
+    //    if (ucSingleEmailUploadData.GetText() == '') {
+    //        SendSingleEmail();
+    //    }
+    //    else {
+    //        ucSingleEmailUploadData.Upload();
+    //    }
+    //}
+
+    function onFileUploadComplete(e) {
+        if (e.callbackData) {
+            pcInform.Show();
+        }
+    }
+
+    function GenerateQuotation() {
+
+        var ItemID;
+
+        if (cbApplicationPacks.GetValue() === null)
+            ItemID = -1
+        else
+            ItemID = cbApplicationPacks.GetValue();
+
+        $.ajax({
+            type: 'POST',
+            url: '/Admin/Set_GenerateQuotation',
+            dataType: 'json',
+            async: false,
+            data: {
+                ItemID: ItemID,
+                PackageID: cbEduSpecPackage.GetValue()
+            },
+            success: function (result) {
+                if (result.Success === true) {
+                    pcQuotation.Hide();
+                    window.open(result.Url, '_Blank');
+                    QuotationGridView.PerformCallback();
+                }
+                else {
+                    pcErrorlbMessage.SetText(result.Message);
+                    pcError.Show();
+                }
+            }
+        });
+    }
+
+    function SetDeleteButton(s, e) {
+        GridView.GetRowValues(GridView.GetFocusedRowIndex(), "ExemptStatusID", _setDeleteButton);
+    }
+
+    function _setDeleteButton(values) {
+        var Button = GridView.GetToolbar(0);
+        if ((values == 1))
+            SettingsMenuButton(Button.GetItemByName("Btn_DeleteApplication"), true, "CancelSmall.png")
+        else
+            SettingsMenuButton(Button.GetItemByName("Btn_DeleteApplication"), false, "CancelSmallGrey.png")
+    }
+
+    function onBtnDeleteApplication(Result) {
+
+        if (Result == "mrYes") {
+
+            $.ajax({
+                type: 'POST',
+                url: '/Exemptions/DeletApplication',
+                dataType: 'json',
+                async: false,
+                data: {
+                    ExemptionID: GridView.GetRowKey(GridView.GetFocusedRowIndex())
+                },
+                success: function (result) {
+                    if (result.Success === true) {
+                        GridView.PerformCallback();
+                    }
+                    else {
+                        pcErrorlbMessage.SetText(result.Message);
+                        pcError.Show();
+                    }
+                }
+            });
+        }
+    }
+
+    function SetPrintLetterValues(values) {
+        tbExemptionIDLetter.SetText(values[0]);
+        tbExemptionStatusIDLetter.SetText(values[1]);
+        tbFamilyID.SetText(values[2]);
+        pcPrintLetters.Show();
+    }
+
+    function SetExemptionLetterPrint() {
+        $.ajax({
+            type: 'POST',
+            url: '/Exemptions/printExemptionSingleLetterReport',
+            dataType: 'json',
+            async: false,
+            data: {
+                ExemptionID: tbExemptionIDLetter.GetValue(),
+                FamilyID: tbFamilyID.GetValue(),
+                IsPrintLetterhead: true,
+                ExemptionStatusID: tbExemptionStatusIDLetter.GetValue(),
+                LetterID: cbInstLetterID.GetValue()
+            },
+            success: function (response) {
+                var s = response.Url;
+                s.target = "_Blank"
+                window.open(s);
+                pcPrintLetters.Hide()
+            }
+        });
+    }
+
+    function onErrorTerminationOKClick(Result) {
+        if (Result == "mrOK") {
+            pcErrorTerminationNotSelected.Hide();
+        }
+    }
+
+    function onErrorLeftSchoolOKClick(Result) {
+        if (Result == "mrOK") {
+            pcErrorLeftSchoolNotSelected.Hide();
+        }
+    }
+
+</script>
+
+@Html.DevExpress().Splitter(settings =>
+{
+SplitterUtils.SetSplitterProperties(settings, ViewData["ViewProperties"]);
+MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+HeaderPane.SetContent(() =>
+{
+    ViewContext.Writer.Write("<div ID=\"ViewInfo\">Exemptions - " + HttpContext.Current.Session["InstitutionName"] + "</div>");
+
+    //ViewContext.Writer.Write("<div ID=\"RoundPanel\">");
+
+    //Html.DevExpress().RoundPanel(rpSettings =>
+    //{
+    //    rpSettings.Name = "rpSettings";
+    //    rpSettings.HeaderText = "Settings";
+    //    rpSettings.Width = Unit.Percentage(100);
+    //    rpSettings.SetContent(() =>
+    //    {
+    //        EduSpecHtmlHelper.EditForm(Html);
+    //        EduSpecHtmlHelper.Line(Html);
+
+    //        Html.DevExpress().Label(edtSettings =>
+    //        {
+    //            edtSettings.ControlStyle.CssClass = "label";
+    //            edtSettings.Width = 40;
+    //            edtSettings.Text = "Year:";
+    //        }).Render();
+
+    //        Html.DevExpress().ComboBox(cbSettings =>
+    //        {
+    //            cbSettings.Name = "cbYearss";
+    //            cbSettings.ControlStyle.CssClass = "editor";
+    //            cbSettings.Properties.TextField = "Description";
+    //            cbSettings.Properties.ValueField = "ID";
+    //            cbSettings.Properties.ValueType = typeof(int);
+    //            cbSettings.ShowModelErrors = true;
+    //            cbSettings.Properties.ClientSideEvents.Init = String.Format("function(s, e) {{cbYear.SetValue({0}); }}", HttpContext.Current.Session["CurrentYearID"]);
+    //            cbSettings.Properties.ClientSideEvents.SelectedIndexChanged = "function(s, e) {GridView.PerformCallback({ YearID: cbYear.GetValue() });}";
+    //            cbSettings.Width = 60;
+    //        }).BindList(GridUtils.getDropdownList("Get_SchoolYear_PickList")).Render();
+
+    //        ViewContext.Writer.Write("</div>");
+
+    //    });
+    //}).Render();
+
+    //ViewContext.Writer.Write("</div>");
+});
+
+    MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+    MainContentPane.SetContent(() =>
+    {
+        Html.RenderAction("ExemptionsPartial");
+    });
+
+    MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+    FooterPane.Separator.Visible = DefaultBoolean.True;
+    FooterPane.SetContent(() =>
+    {
+        Html.RenderAction("ExemptionsApplicationHistoryPartial");
+    });
+
+}).GetHtml()
+
+@MessageDlg.ShowMessageDlg("pcInform", Html, "", new BtnType[] { BtnType.mbOK }, MessageType.mInformation)
+@MessageDlg.ShowMessageDlg("pcSMSBundle", Html, "", new BtnType[] { BtnType.mbOK }, MessageType.mInformation)
+@MessageDlg.ShowMessageDlg("pcSMSSent", Html, "Your SMS is being prepared and will be sent shortly.", new BtnType[] { BtnType.mbOK }, MessageType.mInformation)
+@MessageDlg.ShowMessageDlg("pcEmailSent", Html, "Your email is being prepared and will be sent shortly.", new BtnType[] { BtnType.mbOK }, MessageType.mInformation)
+@MessageDlg.ShowImputDlg("pcApplicationCount", "Aplication Register", "Please indicate how many lines to print on the form.", new BtnType[] { BtnType.mbOK, BtnType.mbCancel }, Html, "PringApplicationRegiter")
+@MessageDlg.ShowMessageDlg("pcBulkEmailSent", Html, "The emails are being queued. Please go to the Bulk SMS page under Enquiries to complete the sending process.", new BtnType[] { BtnType.mbOK }, MessageType.mConfirmation)
+@MessageDlg.ShowMessageDlg("pcDeleteApplication", Html, "Are you sure you want to delete the application?", new BtnType[] { BtnType.mbYes, BtnType.mbNo }, MessageType.mConfirmation, "onBtnDeleteApplication")
+@MessageDlg.ShowMessageDlg("pcErrorTerminationNotSelected", Html, "Please make sure that the Termination Date is set when grade/class has been changed to 'Left School'.", new BtnType[] { BtnType.mbOK }, MessageType.mInformation, "onErrorTerminationOKClick")
+@MessageDlg.ShowMessageDlg("pcErrorLeftSchoolNotSelected", Html, "Please make sure that the Grade/Class has been set to 'Left School' when a termination date is set.", new BtnType[] { BtnType.mbOK }, MessageType.mInformation, "onErrorLeftSchoolOKClick")
+
+@Html.Partial("SMSForms")
+@Html.Partial("EmailForms")
+@Html.Partial("AccountInformation", "true")
+@Html.Partial("ApplicationForms")
+
+<div>
+    @Html.Partial("reportCompensation")
+    @Html.Partial("reportExemptionSummary")
+    @Html.Partial("reportExemptionSummaryGrouped")
+    @Html.Partial("reportExemptionProvisionalList")
+    @Html.Partial("reportSMSMessageHistory")
+    @Html.Partial("reportEmailHistory")
+    @Html.Partial("reportExemptionRegister")
+    @Html.Partial("reportCompensation_FreeState")
+    @Html.Partial("reportCOVID19")
+    @*@Html.Partial("reportCOVID19AFR")*@
+</div>
+
+@Html.DevExpress().LoadingPanel(settings =>
+{
+    settings.Name = "LoadingPanel";
+    settings.Modal = true;
+    settings.Text = "Preparing report.";
+}).GetHtml()
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcCorrespondenceMethod", "Edit");
+
+    settings.ClientSideEvents.PopUp = "function(s, e){ CorrespondenceIDEdit.SetSelectedIndex(0); mCorMessage.SetText(''); }";
+    settings.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 350px\"><div class=\"line\">");
+
+        Html.DevExpress().Label(lbsettings =>
+        {
+            lbsettings.Name = "lblCorrespondenceBulkEdit";
+            lbsettings.Text = "Correspondence Method";
+            lbsettings.ControlStyle.CssClass = "editor";
+            lbsettings.Width = 140;
+        }).Render();
+
+        Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "CorrespondenceIDEdit";
+            edtSettings.ControlStyle.CssClass = "formeditor";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "ID";
+            edtSettings.Properties.ValueType = typeof(int);
+        }).BindList(GridUtils.getDropdownList("Get_CorrespondenceMethod_PickList")).Bind(DataBinder.Eval(Model, "CorrespondenceMethodID")).GetHtml();
+
+        Html.DevExpress().Label(lbsettings =>
+        {
+            lbsettings.Name = "lbCorMessage";
+            lbsettings.Text = "Message";
+            lbsettings.ControlStyle.CssClass = "editor";
+        }).Render();
+
+        Html.DevExpress().Memo(mSettings =>
+        {
+            mSettings.Name = "mCorMessage";
+            mSettings.ControlStyle.CssClass = "editor";
+            mSettings.Width = 320;
+            mSettings.Height = 80;
+        }).Render();
+
+        Html.DevExpress().Button(buttonSettings =>
+        {
+            buttonSettings.Name = "btnUpdateMethod";
+            buttonSettings.ControlStyle.CssClass = "button";
+            buttonSettings.Width = 80;
+            buttonSettings.Text = "Update";
+            buttonSettings.ClientSideEvents.Click = "function(s,e){ SetCorrespondenceMethodValues() ;}";
+        }).Render();
+
+        Html.DevExpress().Button(buttonSettings =>
+        {
+            buttonSettings.Name = "btnMethodCancel";
+            buttonSettings.ControlStyle.CssClass = "button";
+            buttonSettings.Width = 80;
+            buttonSettings.Text = "Cancel";
+            buttonSettings.ClientSideEvents.Click = "function(s, e){ pcCorrespondenceMethod.Hide(); }";
+        }).Render();
+
+        ViewContext.Writer.Write("</div></div>");
+    });
+}).GetHtml()
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcPrintLetters", "Print letters");
+
+    settings.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 300px\"><div class=\"line\">");
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        Html.DevExpress().TextBox(textBoxSettings =>
+        {
+            textBoxSettings.Name = "tbExemptionIDLetter";
+            textBoxSettings.ControlStyle.CssClass = "editor";
+            textBoxSettings.ClientVisible = false;
+            textBoxSettings.Width = 300;
+
+        }).Render();
+
+        Html.DevExpress().TextBox(textBoxSettings =>
+        {
+            textBoxSettings.Name = "tbExemptionStatusIDLetter";
+            textBoxSettings.ControlStyle.CssClass = "editor";
+            textBoxSettings.ClientVisible = false;
+            textBoxSettings.Width = 300;
+
+        }).Render();
+
+        Html.DevExpress().TextBox(textBoxSettings =>
+        {
+            textBoxSettings.Name = "tbFamilyID";
+            textBoxSettings.ControlStyle.CssClass = "editor";
+            textBoxSettings.ClientVisible = false;
+            textBoxSettings.Width = 300;
+
+        }).Render();
+
+        Html.DevExpress().Label(lbsettings =>
+        {
+            lbsettings.Name = "lbLetter";
+            lbsettings.Text = "Letter:";
+            lbsettings.ControlStyle.CssClass = "editor";
+            lbsettings.Width = 80;
+        }).Render();
+
+        @Html.DevExpress().ComboBox(edtSettings =>
+        {
+            edtSettings.Name = "cbInstLetterID";
+            edtSettings.ControlStyle.CssClass = "formeditor";
+            edtSettings.Properties.TextField = "Description";
+            edtSettings.Properties.ValueField = "ID";
+            edtSettings.Properties.ValueType = typeof(Int16);
+        }).BindList(GridUtils.getDropdownList("Get_InstitutionExemptionLetters_PickList" + " " + @Session["InstID"].ToString())).GetHtml();
+
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        Html.DevExpress().Button(buttonSettings =>
+        {
+            buttonSettings.Name = "btnLetterSend";
+            buttonSettings.ControlStyle.CssClass = "button";
+            buttonSettings.Width = 80;
+            buttonSettings.Text = "Print";
+            buttonSettings.ClientSideEvents.Click = "function(s,e){ SetExemptionLetterPrint();}";
+        }).Render();
+
+        Html.DevExpress().Button(buttonSettings =>
+        {
+            buttonSettings.Name = "btnLetterCancel";
+            buttonSettings.ControlStyle.CssClass = "button";
+            buttonSettings.Width = 80;
+            buttonSettings.Text = "Cancel";
+            buttonSettings.ClientSideEvents.Click = "function(s, e){ pcPrintLetters.Hide(); }";
+        }).Render();
+
+        ViewContext.Writer.Write("</div></div><b class=\"Clear\"></b>");
+
+
+    });
+}).GetHtml()

@@ -1,0 +1,165 @@
+﻿<table class="CheckListTable">
+    <tr>
+        <td class="CheckListTable-l">
+            @*<div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">*@
+                <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                    @Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "boldlabel_freestanding";
+                        edtSettings.Width = 200;
+                        edtSettings.Text = "Parent";
+                        edtSettings.ControlStyle.Font.Bold = true;
+                    }).GetHtml()
+
+                    <br/><br/>
+                    @Html.DevExpress().Label(lbsettings =>
+                    {
+                        lbsettings.ControlStyle.CssClass = "label";
+                        lbsettings.Width = 100;
+                        lbsettings.Text = "Marital status:";
+                    }).GetHtml()
+
+                    @Html.DevExpress().RadioButtonList(rbsettings =>
+               {
+                   rbsettings.Name = "ApplMaritalStatusID";
+                   rbsettings.Properties.ValueType = typeof(int);
+                   rbsettings.Properties.TextField = "Marital status";
+                   rbsettings.Width = Unit.Pixel(300);
+                   rbsettings.Properties.Items.Add("Single (Contact with Spouse)", 2);
+                   rbsettings.Properties.Items.Add("Single (No Contact with Spouse)", 6);
+                   rbsettings.Properties.Items.Add("Married", 3);
+                   rbsettings.Properties.Items.Add("Divorced (Contact with Spouse)", 4);
+                   rbsettings.Properties.Items.Add("Divorced (No Contact with Spouse)", 7);
+                   rbsettings.Properties.Items.Add("Widow/er", 5);
+                   rbsettings.Properties.Items.Add("Foreigners", 8);
+                   rbsettings.Properties.Items.Add("Foster care", 9);
+                   rbsettings.Properties.RepeatLayout = RepeatLayout.Table;
+                   rbsettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+                   rbsettings.Properties.RepeatColumns = 1;
+                   rbsettings.ControlStyle.Border.BorderStyle = BorderStyle.Solid;
+                   rbsettings.ControlStyle.Border.BorderColor = System.Drawing.Color.LightGray;
+                   if (Model != null)
+                   {
+                       rbsettings.Properties.ClientSideEvents.SelectedIndexChanged = string.Format("function(s, e) {{ setParentSpouseIDType(s, e,'{0}','{1}','{2}','{3}','{4}','{5}','{6}'); }}",
+                                   DataBinder.Eval(Model, "SingleContactRequiredDocs").ToString(),
+                                   DataBinder.Eval(Model, "SingleNoContactRequiredDocs").ToString(),
+                                   DataBinder.Eval(Model, "MarriedRequiredDocs").ToString(),
+                                   DataBinder.Eval(Model, "DivorcedContactRequiredDocs").ToString(),
+                                   DataBinder.Eval(Model, "DivorcedNoContactRequiredDocs").ToString(),
+                                   DataBinder.Eval(Model, "WidowRequiredDocs").ToString(),
+                                   DataBinder.Eval(Model, "ForeignersRequiredDocs").ToString());
+                       //DataBinder.Eval(Model, "GuardianFosterRequiredDocs").ToString());
+                       rbsettings.Properties.ClientSideEvents.Init = string.Format("function(s, e) {{ setParentSpouseIDType(s, e,'{0}','{1}','{2}','{3}','{4}','{5}','{6}'); }}",
+                                    DataBinder.Eval(Model, "SingleContactRequiredDocs").ToString(),
+                                    DataBinder.Eval(Model, "SingleNoContactRequiredDocs").ToString(),
+                                    DataBinder.Eval(Model, "MarriedRequiredDocs").ToString(),
+                                    DataBinder.Eval(Model, "DivorcedContactRequiredDocs").ToString(),
+                                    DataBinder.Eval(Model, "DivorcedNoContactRequiredDocs").ToString(),
+                                    DataBinder.Eval(Model, "WidowRequiredDocs").ToString(),
+                                    DataBinder.Eval(Model, "ForeignersRequiredDocs").ToString());
+                                    //DataBinder.Eval(Model, "GuardianFosterRequiredDocs").ToString());
+                   }
+               }).Bind(DataBinder.Eval(Model, "ApplMaritalStatusID")).GetHtml()
+
+                    @Html.DevExpress().CheckBox(edtSettings =>
+                    {
+                        edtSettings.Name = "ParentIdentityDocument";
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Width = 200;
+                        edtSettings.Text = "Certified Copy of ID Document";
+                    }).Bind(DataBinder.Eval(Model, "ParentIdentityDocument")).GetHtml()
+
+                </div>
+            @*</div>*@
+        </td>
+        <td class="CheckListTable-r">
+            <div class="edit_form" style="width: 335px; margin:0px 5px 0px 5px;">
+                <div class="line" style="width: 335px; margin:0px 10px 0px;">
+
+                    @Html.DevExpress().Label(edtSettings =>
+         {
+             edtSettings.ControlStyle.CssClass = "boldlabel";
+             edtSettings.Width = 200;
+             edtSettings.Text = "Parent Spouse";
+         }).GetHtml()
+
+                    @Html.DevExpress().CheckBox(edtSettings =>
+         {
+             edtSettings.Name = "SpouseIdentityDocument";
+             edtSettings.ControlStyle.CssClass = "label";
+             edtSettings.Width = 200;
+             edtSettings.Text = "Certified Copy of ID Document";
+         }).Bind(DataBinder.Eval(Model, "SpouseIdentityDocument")).GetHtml()
+
+                    @Html.DevExpress().CheckBox(edtSettings =>
+         {
+             edtSettings.Name = "DivorceOrder";
+             edtSettings.ControlStyle.CssClass = "label";
+             edtSettings.Width = 250;
+             edtSettings.Text = "Certified Copy of divorce order";
+         }).Bind(DataBinder.Eval(Model, "DivorceOrder")).GetHtml()
+
+                    @Html.DevExpress().CheckBox(edtSettings =>
+         {
+             edtSettings.Name = "DeathCertificate";
+             edtSettings.ControlStyle.CssClass = "label";
+             edtSettings.Width = 250;
+             edtSettings.Text = "Certified Copy of Death Certificate";
+         }).Bind(DataBinder.Eval(Model, "DeathCertificate")).GetHtml()
+
+                    @Html.DevExpress().CheckBox(edtSettings =>
+         {
+             edtSettings.Name = "SpouseContactDetails";
+             edtSettings.ControlStyle.CssClass = "label";
+             edtSettings.Width = 250;
+             edtSettings.Text = "Contact details of spouse";
+         }).Bind(DataBinder.Eval(Model, "SpouseContactDetails")).GetHtml()
+
+                    @Html.DevExpress().CheckBox(edtSettings =>
+         {
+             edtSettings.Name = "AffidavitNoContact";
+             edtSettings.ControlStyle.CssClass = "label";
+             edtSettings.Width = 250;
+             edtSettings.Text = "Affidavit confirming no contact";
+         }).Bind(DataBinder.Eval(Model, "AffidavitNoContact")).GetHtml()
+
+                    @Html.DevExpress().Button(btnSettings =>
+         {
+             btnSettings.Name = "btnPrintAffidavit";
+             btnSettings.ControlStyle.CssClass = "label";
+             btnSettings.Text = "Print Affidavit";
+             btnSettings.ClientSideEvents.Click = string.Format("function(s, e) {{ CheckPrintAffidavit(s, e,'{0}') ; }}", Session["ApplicationQuestionAnswers"]).ToString();
+             //btnSettings.ClientSideEvents.Click = "PrintAffidavit";
+         }).GetHtml()
+
+                    @Html.DevExpress().CheckBox(edtSettings =>
+          {
+              edtSettings.Name = "MarriageCertificate";
+              edtSettings.ControlStyle.CssClass = "label";
+              edtSettings.Width = 250;
+              edtSettings.Text = "Marriage Certificate";
+          }).Bind(DataBinder.Eval(Model, "MarriageCertificate")).GetHtml()
+
+                    @Html.DevExpress().CheckBox(edtSettings =>
+          {
+              edtSettings.Name = "VISA";
+              edtSettings.ControlStyle.CssClass = "label";
+              edtSettings.Width = 250;
+              edtSettings.Text = "VISA";
+          }).Bind(DataBinder.Eval(Model, "VISA")).GetHtml()
+
+                    @Html.DevExpress().Button(btnSettings =>
+               {
+                   btnSettings.Name = "btnPrintAffidavitRefuses";
+                   btnSettings.ControlStyle.CssClass = "label";
+                   btnSettings.Text = "Print Affidavit Spouse Refuses";
+                   btnSettings.ClientSideEvents.Click = string.Format("function(s, e) {{ CheckPrintAffidavit(s, e,'{0}') ; }}", Session["ApplicationQuestionAnswers"]).ToString();
+                   //btnSettings.ClientSideEvents.Click = "PrintAffidavitRefuses";
+               }).GetHtml()
+
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>

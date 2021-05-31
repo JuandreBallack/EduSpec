@@ -1,0 +1,35 @@
+﻿@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcFamilyManagement", "Account information");
+    settings.ClientSideEvents.PopUp = "onFamilyManagementPopUp";
+    settings.ClientSideEvents.CloseUp = "onFamilyManagementCloseUp";
+    settings.Width = 700;
+    settings.SetContent(() =>
+    {
+        Html.RenderAction("FamilyManagementPartial", "Shared");
+    });
+}).GetHtml()
+
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcFamilyInfo", "Account information");
+    settings.SetContent(() =>
+    {
+    Html.RenderAction("FamilyInfoPartial", "Shared");
+
+    EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+    EduSpecHtmlHelper.NewDiv(Html, "line");
+    Dictionary<EduSpec.ButtonClientSideEvent, string> saveButtonEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+    saveButtonEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){ pcFamilyInfo.Hide(); GridView.PerformCallback();}");
+    EduSpecHtmlHelper.Button(Html, "btnCloseInfo", "button", "OK", 80, saveButtonEvents);
+
+    Dictionary<EduSpec.ButtonClientSideEvent, string> EditAccButtonEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+    EditAccButtonEvents.Add(ButtonClientSideEvent.onClick, "function(s,e){ ShowFamilyEditForm(false, true, " + Model + ", FormFamilyID);}");
+    EduSpecHtmlHelper.Button(Html, "btnEditAccountInfoFromInfo", "button", "Edit Account Info", 80, EditAccButtonEvents);
+    
+    EduSpecHtmlHelper.EndDiv(Html);
+    EduSpecHtmlHelper.EndDiv(Html);
+});
+}).GetHtml()
+

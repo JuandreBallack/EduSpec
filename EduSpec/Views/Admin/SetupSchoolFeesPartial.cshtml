@@ -1,0 +1,156 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+
+    @GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["ViewProperties"]);
+
+    @settings.Columns.Add(column =>
+            {
+                column.Name = "CopyAll";
+                column.FieldName = "CopyToAll";
+                column.Caption = "Copy to<br/>all grades";
+                column.UnboundType = DevExpress.Data.UnboundColumnType.String;
+                column.Visible = true;
+                column.Width = 74;
+                column.SetDataItemTemplateContent(c =>
+                {
+                    Html.DevExpress().Button(settingsBtn =>
+                    {
+                        settingsBtn.Name = c.KeyValue.ToString();
+                        settingsBtn.Text = "...";
+                        settingsBtn.Width = 58;
+                        settingsBtn.ClientSideEvents.Click = "function(s,e){pcConfirm.Show();}";
+                    }).Render();
+                });
+            });
+
+    @settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Admin", Action = "SchoolFeesUpdate" };
+
+    @settings.SetEditFormTemplateContent(c =>
+    {
+        var SchoolFees = ViewData["SchoolFees"] != null ? ViewData["SchoolFees"] : c.DataItem;
+        var lbWidth = 160;
+        var editorWidth = 120;
+
+        ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 350px; margin:0px 5px 0px 5px;\">");
+        ViewContext.Writer.Write("<div class=\"line\" style=\"width: 100%; margin:10px 10px 0px; 10px\">");
+
+        Html.DevExpress().Label(lbsettings =>
+        {
+            lbsettings.ControlStyle.CssClass = "label";
+            lbsettings.Text = "Please note: The amount entered here should be your annual school fees excluding the initial fee.";
+            lbsettings.Width = 300;
+        }).GetHtml();
+
+        Html.DevExpress().Label(lbsettings =>
+        {
+            lbsettings.ControlStyle.CssClass = "label";
+            lbsettings.Text = "Annual school fees";
+            lbsettings.ControlStyle.Font.Bold = true;
+            lbsettings.ControlStyle.ForeColor = System.Drawing.Color.Blue;
+            lbsettings.ControlStyle.Font.Size = 10;
+            lbsettings.Width = 300;
+        }).GetHtml();
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = "First learner";
+            edtSettings.Width = lbWidth;
+        }).Render();
+
+        Html.DevExpress().SpinEdit(edtSettings =>
+        {
+            edtSettings.Name = "SchoolFees1";
+            edtSettings.ControlStyle.CssClass = "formeditor";
+            edtSettings.Properties.NumberFormat = SpinEditNumberFormat.Currency;
+            edtSettings.Properties.MaxValue = 10000000;
+            edtSettings.Properties.MinValue = 0;
+            edtSettings.Properties.DecimalPlaces = 2;
+            edtSettings.Properties.DisplayFormatString = "c";
+            edtSettings.Width = editorWidth;
+            edtSettings.Properties.SpinButtons.ShowIncrementButtons = false;
+        }).Bind(DataBinder.Eval(SchoolFees, "SchoolFees1")).Render();
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = "Second learner:";
+            edtSettings.Width = lbWidth;
+        }).Render();
+
+        Html.DevExpress().SpinEdit(edtSettings =>
+        {
+            edtSettings.Name = "SchoolFees2";
+            edtSettings.ControlStyle.CssClass = "formeditor";
+            edtSettings.Properties.NumberFormat = SpinEditNumberFormat.Currency;
+            edtSettings.Properties.MaxValue = 10000000;
+            edtSettings.Properties.MinValue = 0;
+            edtSettings.Properties.DecimalPlaces = 2;
+            edtSettings.Properties.DisplayFormatString = "c";
+            edtSettings.Width = editorWidth;
+            edtSettings.Properties.SpinButtons.ShowIncrementButtons = false;
+        }).Bind(DataBinder.Eval(SchoolFees, "SchoolFees2")).Render();
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = "Third learner:";
+            edtSettings.Width = lbWidth;
+        }).Render();
+
+        Html.DevExpress().SpinEdit(edtSettings =>
+        {
+            edtSettings.Name = "SchoolFees3";
+            edtSettings.ControlStyle.CssClass = "formeditor";
+            edtSettings.Properties.NumberFormat = SpinEditNumberFormat.Currency;
+            edtSettings.Properties.MaxValue = 10000000;
+            edtSettings.Properties.MinValue = 0;
+            edtSettings.Properties.DecimalPlaces = 2;
+            edtSettings.Properties.DisplayFormatString = "c";
+            edtSettings.Width = editorWidth;
+            edtSettings.Properties.SpinButtons.ShowIncrementButtons = false;
+        }).Bind(DataBinder.Eval(SchoolFees, "SchoolFees3")).Render();
+
+        Html.DevExpress().CheckBox(cbSettings =>
+        {
+            cbSettings.Name = "IsIncludeInExemptions";
+            cbSettings.ControlStyle.CssClass = "label";
+            cbSettings.Width = 300;
+            cbSettings.Text = "Include in exemptions:";
+        }).Bind(DataBinder.Eval(SchoolFees, "IsIncludeInExemptions")).GetHtml();
+
+
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        Html.DevExpress().Button(
+            btnSettings =>
+            {
+                btnSettings.Name = "btnUpdate";
+                btnSettings.ControlStyle.CssClass = "button";
+                btnSettings.Text = "Update";
+                btnSettings.ClientSideEvents.Click = String.Format("function(s, e) {{{0}.UpdateEdit(); }}", settings.Name);
+            }
+        )
+        .Render();
+        Html.DevExpress().Button(
+            btnSettings =>
+            {
+                btnSettings.Name = "btnCancel";
+                btnSettings.ControlStyle.CssClass = "button";
+                btnSettings.Text = "Cancel";
+                btnSettings.ClientSideEvents.Click = String.Format("function(s, e) {{{0}.CancelEdit(); }}", settings.Name);
+
+            }
+        )
+        .Render();
+
+        ViewContext.Writer.Write("</div></div>");
+
+        settings.PreRender = (sender, e) =>
+        {
+            ((MVCxGridView)sender).StartEdit(1);
+        };
+
+    });
+
+}).Bind(Model).GetHtml()

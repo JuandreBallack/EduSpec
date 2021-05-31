@@ -1,0 +1,241 @@
+﻿@using (Html.BeginForm())
+{
+    ViewContext.Writer.Write("<div ID=\"RoundPanel\">");
+    Html.DevExpress().RoundPanel(rpSettings =>
+    {
+
+        rpSettings.Name = "rpApplicationFinalise";
+        rpSettings.HeaderText = "Finalise";
+        rpSettings.Width = Unit.Percentage(100);
+        //rpSettings.ClientSideEvents.Init = "function(s,e){rbFullExemption.SetChecked(true);}";
+
+        rpSettings.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 100%; margin:0px 5px 0px 5px;\">");
+            ViewContext.Writer.Write("<div class=\"line\" style=\"width: 100%; margin:0px 10px 10px 0px;\">");
+
+            Html.DevExpress().RadioButton(edtSettings =>
+            {
+                edtSettings.Name = "rbNoExemption";
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Width = 200;
+                edtSettings.Checked = true;
+                edtSettings.Text = "No Exemption";
+                edtSettings.GroupName = "Finalise";
+                edtSettings.Properties.ClientSideEvents.CheckedChanged = "SetExemptionTypeID";
+            }).Render();
+            
+            Html.DevExpress().RadioButton(edtSettings =>
+            {
+                edtSettings.Name = "rbAutomaticExemption";
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Width = 200;
+                edtSettings.Text = "Automatic Exemption";
+                edtSettings.GroupName = "Finalise";
+                edtSettings.Properties.ClientSideEvents.CheckedChanged = "SetExemptionTypeID";
+            }).Render();
+
+            Html.DevExpress().RadioButton(edtSettings =>
+            {
+                edtSettings.Name = "rbFullExemption";
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Width = 200;
+                edtSettings.Text = "Full Exemption";
+                edtSettings.GroupName = "Finalise";
+                edtSettings.Properties.ClientSideEvents.CheckedChanged = "SetExemptionTypeID";
+            }).Render();
+
+            Html.DevExpress().RadioButton(edtSettings =>
+            {
+                edtSettings.Name = "rbConditionalFullExemption";
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Width = 200;
+                edtSettings.Text = "Conditional Full Exemption";
+                edtSettings.GroupName = "Finalise";
+                edtSettings.Properties.ClientSideEvents.CheckedChanged = "SetExemptionTypeID";
+            }).Render();
+
+            Html.DevExpress().RadioButton(edtSettings =>
+            {
+                edtSettings.Name = "rbPartialExemption";
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Width = 200;
+                edtSettings.Text = "Partial Exemption";
+                edtSettings.GroupName = "Finalise";
+                edtSettings.Properties.ClientSideEvents.CheckedChanged = "SetExemptionTypeID";
+            }).Render();
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Width = 150;
+                edtSettings.Text = "Exemption Amount:";
+                edtSettings.Style["padding"] = "5px 10px 5px 30px";
+            }).Render();
+
+            Html.DevExpress().SpinEdit(seSettings =>
+            {
+                seSettings.Name = "tbExemtionAmount";
+                seSettings.Properties.MaxValue = 100000;
+                seSettings.Number = 0;
+                seSettings.Properties.MinValue = 0;
+                seSettings.ControlStyle.CssClass = "editor";
+                seSettings.Properties.SpinButtons.ShowIncrementButtons = false;
+                seSettings.Width = 100;
+                seSettings.Properties.DisplayFormatString = "c";
+                seSettings.Properties.DecimalPlaces = 2;
+                seSettings.ControlStyle.HorizontalAlign = HorizontalAlign.Right;
+            }).Render();
+
+            Html.DevExpress().RadioButton(edtSettings =>
+            {
+                edtSettings.Name = "rbConditionalPartialExemption";
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Width = 200;
+                edtSettings.Text = "Conditional Partial Exemption";
+                edtSettings.GroupName = "Finalise";
+                edtSettings.Properties.ClientSideEvents.CheckedChanged = "SetExemptionTypeID";
+            }).Render();
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Width = 150;
+                edtSettings.Text = "Exemption Amount:";
+                edtSettings.Style["padding"] = "5px 10px 5px 30px";
+            }).Render();
+
+            Html.DevExpress().SpinEdit(seSettings =>
+            {
+                seSettings.Name = "tbConditionalExemtionAmount";
+                seSettings.Properties.MaxValue = 100000;
+                seSettings.Number = 0;
+                seSettings.Properties.MinValue = 0;
+                seSettings.ControlStyle.CssClass = "editor";
+                seSettings.Properties.SpinButtons.ShowIncrementButtons = false;
+                seSettings.Width = 100;
+                seSettings.Properties.DisplayFormatString = "c";
+                seSettings.Properties.DecimalPlaces = 2;
+                seSettings.ControlStyle.HorizontalAlign = HorizontalAlign.Right;
+            }).Render();
+            
+            Html.DevExpress().RadioButton(edtSettings =>
+            {
+                edtSettings.Name = "rbAcceptOffer";
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Width = 200;
+                edtSettings.Text = "Accept Applicant/s Offer";
+                edtSettings.GroupName = "Finalise";
+                edtSettings.Properties.ClientSideEvents.CheckedChanged = "SetExemptionTypeID";
+            }).Render();
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Width = 150;
+                edtSettings.Text = "Monthly Amount Offered:";
+                edtSettings.Style["padding"] = "5px 10px 5px 30px";
+            }).Render();
+
+            Html.DevExpress().SpinEdit(seSettings =>
+            {
+                seSettings.Name = "tbOfferedAmount";
+                seSettings.Properties.MaxValue = 100000;
+                seSettings.Number = 0;
+                seSettings.Properties.MinValue = 0;
+                seSettings.ControlStyle.CssClass = "editor";
+                seSettings.Properties.SpinButtons.ShowIncrementButtons = false;
+                seSettings.Width = 100;
+                seSettings.Properties.DisplayFormatString = "c";
+                seSettings.Properties.DecimalPlaces = 2;
+                seSettings.ControlStyle.HorizontalAlign = HorizontalAlign.Right;
+            }).Render();
+
+            Html.DevExpress().RadioButton(edtSettings =>
+            {
+                edtSettings.Name = "rbIncomplete";
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Width = 200;
+                edtSettings.Text = "Application Incomplete";
+                edtSettings.GroupName = "Finalise";
+                edtSettings.Properties.ClientSideEvents.CheckedChanged = "SetExemptionTypeID";
+            }).Render();
+            
+            Html.DevExpress().RadioButton(edtSettings =>
+            {
+                edtSettings.Name = "rbRequestInterview";
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Width = 350;
+                edtSettings.Text = "Request interview with parent/s.";
+                edtSettings.GroupName = "Finalise";
+                edtSettings.Properties.ClientSideEvents.CheckedChanged = "SetExemptionTypeID";
+            }).Render();
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Width = 150;
+                edtSettings.Text = "Date of interview:";
+                edtSettings.Style["padding"] = "5px 10px 5px 30px";
+            }).Render();
+
+            Html.DevExpress().DateEdit(edtSettings =>
+            {
+                edtSettings.Name = "deInterviewDate";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Width = 100;
+                edtSettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            }).Render();
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Width = 150;
+                edtSettings.Text = "Start time of interview:";
+                edtSettings.Style["padding"] = "5px 10px 5px 30px";
+            }).Render();
+
+            Html.DevExpress().TimeEdit(edtSettings =>
+            {
+                edtSettings.Name = "teInterviewStartTime";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Width = 100;
+                edtSettings.Properties.EditFormatString = "HH:mm";
+                edtSettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            }).Render();
+
+            Html.DevExpress().Label(edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Width = 150;
+                edtSettings.Text = "End time of interview:";
+                edtSettings.Style["padding"] = "5px 10px 5px 30px";
+            }).Render();
+
+            Html.DevExpress().TimeEdit(edtSettings =>
+            {
+                edtSettings.Name = "teInterviewEndTime";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.Width = 100;
+                edtSettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            }).Render();
+
+            Html.DevExpress().RadioButton(edtSettings =>
+            {
+                edtSettings.Name = "rbApplicationDecline";
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Width = 200;
+                edtSettings.Text = "Application Decline";
+                edtSettings.GroupName = "Finalise";
+                edtSettings.Properties.ClientSideEvents.CheckedChanged = "SetExemptionTypeID";
+            }).Render();
+
+            ViewContext.Writer.Write("</div></div>");
+
+        });
+    }).Render();
+    ViewContext.Writer.Write("</div>");
+
+}
+
+

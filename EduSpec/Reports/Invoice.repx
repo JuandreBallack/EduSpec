@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XtraReportsLayoutSerializer SerializerVersion="18.1.4.0" Ref="1" ControlType="DevExpress.XtraReports.UI.XtraReport, DevExpress.XtraReports.v18.1, Version=18.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Name="Invoice" PageColor="LightCyan" SnapGridSize="25" ReportUnit="TenthsOfAMillimeter" Margins="83, 192, 93, 23" PaperKind="Custom" PageWidth="2108" PageHeight="2129" Version="18.1" DataMember="RPT_Invoice" DataSource="#Ref-0" Dpi="254" Borders="Left, Top, Right">
+  <Bands>
+    <Item1 Ref="2" ControlType="DetailBand" Name="Detail" HeightF="62.5" TextAlignment="TopLeft" Dpi="254" BackColor="White" Padding="0,0,0,0,254">
+      <Controls>
+        <Item1 Ref="3" ControlType="XRLabel" Name="xrLabel6" Multiline="true" Text="xrLabel6" AnchorHorizontal="Both" TextAlignment="MiddleCenter" SizeF="103.6406,62.5" LocationFloat="1086.062, 0" Dpi="254" Font="Arial, 8.25pt, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="None">
+          <ExpressionBindings>
+            <Item1 Ref="4" Expression="[Quantity]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+          <StylePriority Ref="5" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item1>
+        <Item2 Ref="6" ControlType="XRLabel" Name="xrLabel7" TextFormatString="{0:c}" Multiline="true" Text="xrLabel6" AnchorHorizontal="Both" TextAlignment="MiddleRight" SizeF="209.4797,62.5" LocationFloat="1189.703, 0" Dpi="254" Font="Arial, 8.25pt, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="None">
+          <ExpressionBindings>
+            <Item1 Ref="7" Expression="[UnitPriceExcl]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+          <StylePriority Ref="8" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item2>
+        <Item3 Ref="9" ControlType="XRLabel" Name="xrLabel8" TextFormatString="{0:c}" Multiline="true" Text="xrLabel6" AnchorHorizontal="Both" TextAlignment="MiddleRight" SizeF="188.0214,62.5" LocationFloat="1399.182, 0" Dpi="254" Font="Arial, 8.25pt, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="None">
+          <ExpressionBindings>
+            <Item1 Ref="10" Expression="[Tax]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+          <StylePriority Ref="11" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item3>
+        <Item4 Ref="12" ControlType="XRLabel" Name="xrLabel9" TextFormatString="{0:c}" Multiline="true" Text="xrLabel6" AnchorHorizontal="Both" TextAlignment="MiddleRight" SizeF="242.151,62.5" LocationFloat="1587.203, 0" Dpi="254" Font="Arial, 8.25pt, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="None">
+          <ExpressionBindings>
+            <Item1 Ref="13" Expression="[QuantityLineTotIncl]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+          <StylePriority Ref="14" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item4>
+        <Item5 Ref="15" ControlType="XRLabel" Name="xrLabel10" Multiline="true" AnchorHorizontal="Both" TextAlignment="MiddleLeft" SizeF="1083.416,62.5" LocationFloat="2.645803, 0" Dpi="254" Font="Arial, 8.25pt, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="None">
+          <ExpressionBindings>
+            <Item1 Ref="16" Expression="[Description]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+          <StylePriority Ref="17" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item5>
+      </Controls>
+      <StylePriority Ref="18" UseBackColor="false" />
+    </Item1>
+    <Item2 Ref="19" ControlType="TopMarginBand" Name="TopMargin" HeightF="93.44832" TextAlignment="TopLeft" Dpi="254" BackColor="LightGray" Padding="0,0,0,0,254">
+      <Controls>
+        <Item1 Ref="20" ControlType="XRLabel" Name="xrLabel32" Multiline="true" Text="TAX INVOICE" TextAlignment="MiddleRight" SizeF="287.1042,60.85417" LocationFloat="762.8958, 32.59415" Dpi="254" Font="Arial, 9.75pt, style=Bold, charSet=0" BackColor="Transparent" Padding="5,5,0,0,254" BorderColor="Transparent">
+          <StylePriority Ref="21" UseFont="false" UseBackColor="false" UseBorderColor="false" UseTextAlignment="false" />
+        </Item1>
+      </Controls>
+      <StylePriority Ref="22" UseBackColor="false" />
+    </Item2>
+    <Item3 Ref="23" ControlType="BottomMarginBand" Name="BottomMargin" HeightF="23" TextAlignment="TopLeft" Dpi="254" Padding="0,0,0,0,254" />
+    <Item4 Ref="24" ControlType="ReportHeaderBand" Name="ReportHeader" HeightF="1031.236" Dpi="254">
+      <Controls>
+        <Item1 Ref="25" ControlType="XRLabel" Name="xrLabel53" Multiline="true" SizeF="1831,69.5" LocationFloat="0, 804.1042" Dpi="254" BackColor="PaleTurquoise" Padding="5,5,0,0,254">
+          <StylePriority Ref="26" UseBackColor="false" />
+        </Item1>
+        <Item2 Ref="27" ControlType="XRLabel" Name="xrLabel52" Multiline="true" Text="ISER (PTY) Ltd" TextAlignment="MiddleLeft" SizeF="325.1322,50.3726" LocationFloat="25.00001, 28.83576" Dpi="254" Font="Arial, 8.25pt, style=Bold, charSet=0" Padding="5,5,0,0,254" Borders="None">
+          <StylePriority Ref="28" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item2>
+        <Item3 Ref="29" ControlType="XRLabel" Name="xrLabel34" Multiline="true" CanGrow="false" Text="xrLabel34" SizeF="1052.542,52.5" LocationFloat="0, 420.1835" Dpi="254" Font="Arial, 9pt, style=Bold, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="Left, Top, Right">
+          <ExpressionBindings>
+            <Item1 Ref="30" Expression="[RPT_InvoiceHeader].[DealerName]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+          <StylePriority Ref="31" UseFont="false" UseBackColor="false" UseBorders="false" />
+        </Item3>
+        <Item4 Ref="32" ControlType="XRLabel" Name="xrLabel31" Multiline="true" Text="Delivery Method" TextAlignment="MiddleLeft" SizeF="456.2499,79.20834" LocationFloat="1374.75, 316.8334" Dpi="254" Font="Arial, 8.25pt, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="Top, Right, Bottom">
+          <ExpressionBindings>
+            <Item1 Ref="33" Expression="[RPT_InvoiceHeader].[DeliveryMethod]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+          <StylePriority Ref="34" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item4>
+        <Item5 Ref="35" ControlType="XRLabel" Name="xrLabel30" Multiline="true" Text="Account No&#xD;" TextAlignment="MiddleLeft" SizeF="456.2499,79.20834" LocationFloat="1374.75, 237.625" Dpi="254" Font="Arial, 8.25pt, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="Top, Right">
+          <ExpressionBindings>
+            <Item1 Ref="36" Expression="[RPT_InvoiceHeader].[AccountNumber]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+          <StylePriority Ref="37" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item5>
+        <Item6 Ref="38" ControlType="XRLabel" Name="xrLabel29" TextFormatString="{0:yyyy/MM/dd}" Multiline="true" Text="Date" TextAlignment="MiddleLeft" SizeF="456.2499,79.20834" LocationFloat="1374.75, 158.4167" Dpi="254" Font="Arial, 8.25pt, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="Top, Right">
+          <ExpressionBindings>
+            <Item1 Ref="39" Expression="[RPT_InvoiceHeader].[InvoiceDate]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+          <StylePriority Ref="40" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item6>
+        <Item7 Ref="41" ControlType="XRLabel" Name="xrLabel28" Multiline="true" Text="Order No&#xD;" TextAlignment="MiddleLeft" SizeF="456.2499,79.20834" LocationFloat="1374.75, 79.20834" Dpi="254" Font="Arial, 8.25pt, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="Top, Right">
+          <ExpressionBindings>
+            <Item1 Ref="42" Expression="[RPT_InvoiceHeader].[OrderNumber]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+          <StylePriority Ref="43" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item7>
+        <Item8 Ref="44" ControlType="XRLabel" Name="xrLabel27" Multiline="true" Text="Invoice No&#xD;" TextAlignment="MiddleLeft" SizeF="456.2499,79.20834" LocationFloat="1374.75, 0" Dpi="254" Font="Arial, 8.25pt, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="Top, Right">
+          <ExpressionBindings>
+            <Item1 Ref="45" Expression="[RPT_InvoiceHeader].[InvoiceNumber]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+          <StylePriority Ref="46" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item8>
+        <Item9 Ref="47" ControlType="XRLabel" Name="xrLabel26" Multiline="true" Text="Delivery Method" TextAlignment="MiddleLeft" SizeF="288.6873,79.20834" LocationFloat="1086.062, 316.8333" Dpi="254" Font="Arial, 8.25pt, style=Bold, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="Left, Top, Bottom">
+          <StylePriority Ref="48" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item9>
+        <Item10 Ref="49" ControlType="XRLabel" Name="xrLabel25" Multiline="true" Text="Account No&#xD;" TextAlignment="MiddleLeft" SizeF="288.6873,79.20834" LocationFloat="1086.062, 237.625" Dpi="254" Font="Arial, 8.25pt, style=Bold, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="Left, Top">
+          <StylePriority Ref="50" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item10>
+        <Item11 Ref="51" ControlType="XRLabel" Name="xrLabel24" Multiline="true" Text="Date" TextAlignment="MiddleLeft" SizeF="288.6873,79.20834" LocationFloat="1086.062, 158.4167" Dpi="254" Font="Arial, 8.25pt, style=Bold, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="Left, Top">
+          <StylePriority Ref="52" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item11>
+        <Item12 Ref="53" ControlType="XRLabel" Name="xrLabel23" Multiline="true" Text="Order No&#xD;" TextAlignment="MiddleLeft" SizeF="288.6873,79.20834" LocationFloat="1086.062, 79.20834" Dpi="254" Font="Arial, 8.25pt, style=Bold, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="Left, Top">
+          <StylePriority Ref="54" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item12>
+        <Item13 Ref="55" ControlType="XRLabel" Name="xrLabel5" Multiline="true" Text="Tax" TextAlignment="MiddleRight" SizeF="188.0214,69.5" LocationFloat="1399.182, 873.6042" Dpi="254" Font="Arial, 8.25pt, style=Bold, charSet=0" ForeColor="Black" BackColor="White" Padding="5,5,0,0,254" Borders="Bottom">
+          <StylePriority Ref="56" UseFont="false" UseForeColor="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item13>
+        <Item14 Ref="57" ControlType="XRLabel" Name="xrLabel4" Multiline="true" Text="Price (Excl)" TextAlignment="MiddleRight" SizeF="209.4799,69.5" LocationFloat="1189.703, 873.6042" Dpi="254" Font="Arial, 8.25pt, style=Bold, charSet=0" ForeColor="Black" BackColor="White" Padding="5,5,0,0,254" Borders="Bottom">
+          <StylePriority Ref="58" UseFont="false" UseForeColor="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item14>
+        <Item15 Ref="59" ControlType="XRLabel" Name="xrLabel3" Multiline="true" Text="Total (Incl)" TextAlignment="MiddleRight" SizeF="243.7968,69.49994" LocationFloat="1587.203, 873.6042" Dpi="254" Font="Arial, 8.25pt, style=Bold, charSet=0" ForeColor="Black" BackColor="White" Padding="5,5,0,0,254" Borders="Right, Bottom">
+          <StylePriority Ref="60" UseFont="false" UseForeColor="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item15>
+        <Item16 Ref="61" ControlType="XRLabel" Name="xrLabel1" Multiline="true" Text="Item Description" TextAlignment="MiddleLeft" SizeF="1086.062,69.49994" LocationFloat="0, 873.6042" Dpi="254" Font="Arial, 8.25pt, style=Bold, charSet=0" ForeColor="Black" BackColor="White" Padding="5,5,0,0,254" Borders="Left, Bottom">
+          <StylePriority Ref="62" UseFont="false" UseForeColor="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item16>
+        <Item17 Ref="63" ControlType="XRLabel" Name="xrLabel2" Multiline="true" Text="Qty" TextAlignment="MiddleCenter" SizeF="103.6406,69.5" LocationFloat="1086.062, 873.6042" Dpi="254" Font="Arial, 8.25pt, style=Bold, charSet=0" ForeColor="Black" BackColor="White" Padding="5,5,0,0,254" Borders="Bottom">
+          <StylePriority Ref="64" UseFont="false" UseForeColor="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item17>
+        <Item18 Ref="65" ControlType="XRLabel" Name="xrLabel22" Multiline="true" Text="Invoice No&#xD;" TextAlignment="MiddleLeft" SizeF="288.6873,79.20834" LocationFloat="1086.062, 0" Dpi="254" Font="Arial, 8.25pt, style=Bold, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="Left, Top">
+          <StylePriority Ref="66" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item18>
+        <Item19 Ref="67" ControlType="XRLabel" Name="xrLabel33" Multiline="true" Text="Co. Reg. No. 1999/028410/07&#xD;&#xA;VAT Reg. No. 4170188314" TextAlignment="MiddleLeft" SizeF="474.9583,94.41672" LocationFloat="25.00001, 301.625" Dpi="254" Font="Arial, 6.75pt, charSet=0" Padding="5,5,0,0,254" Borders="None">
+          <StylePriority Ref="68" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item19>
+        <Item20 Ref="69" ControlType="XRLabel" Name="xrLabel21" Multiline="true" CanGrow="false" Text="&#xD;&#xA;266 Louis Botha Avenue&#xD;&#xA;Orange Grove&#xD;&#xA;2119&#xD;&#xA;&#xD;&#xA;Tel: 011 727 7100&#xD;&#xA;Fax: 0118532808" SizeF="474.9583,260.5974" LocationFloat="25.00001, 41.02766" Dpi="254" Font="Arial, 8.25pt, charSet=0" Padding="5,5,0,0,254" BorderColor="Transparent">
+          <StylePriority Ref="70" UseFont="false" UseBorderColor="false" />
+        </Item20>
+        <Item21 Ref="71" ControlType="XRPictureBox" Name="xrPictureBox1" ImageUrl="D:\Development\Iser\IserDealerOrders\IserDealerOrders\Content\Images\newlogo.png" Sizing="StretchImage" ImageAlignment="MiddleCenter" SizeF="498.7911,201.0834" LocationFloat="499.9583, 100.5416" Dpi="254" BorderColor="Transparent">
+          <StylePriority Ref="72" UseBorderColor="false" />
+        </Item21>
+        <Item22 Ref="73" ControlType="XRLabel" Name="xrLabel35" Multiline="true" CanGrow="false" Text="xrLabel34" SizeF="1052.542,52.5" LocationFloat="0, 472.6835" Dpi="254" Font="Arial, 9pt, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="Left, Right">
+          <ExpressionBindings>
+            <Item1 Ref="74" Expression="[RPT_InvoiceHeader].[Address1BillTo]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+          <StylePriority Ref="75" UseFont="false" UseBackColor="false" UseBorders="false" />
+        </Item22>
+        <Item23 Ref="76" ControlType="XRLabel" Name="xrLabel36" Multiline="true" CanGrow="false" Text="xrLabel34" SizeF="1052.542,52.5" LocationFloat="0, 525.1835" Dpi="254" Font="Arial, 9pt, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="Left, Right">
+          <ExpressionBindings>
+            <Item1 Ref="77" Expression="[RPT_InvoiceHeader].[AddressAreaBillTo]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+          <StylePriority Ref="78" UseFont="false" UseBackColor="false" UseBorders="false" />
+        </Item23>
+        <Item24 Ref="79" ControlType="XRLabel" Name="xrLabel37" Multiline="true" CanGrow="false" Text="xrLabel34" SizeF="1052.542,52.5" LocationFloat="0, 577.6835" Dpi="254" Font="Arial, 9pt, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="Left, Right">
+          <ExpressionBindings>
+            <Item1 Ref="80" Expression="[RPT_InvoiceHeader].[AddressCityBillTo]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+          <StylePriority Ref="81" UseFont="false" UseBackColor="false" UseBorders="false" />
+        </Item24>
+        <Item25 Ref="82" ControlType="XRLabel" Name="xrLabel38" Multiline="true" CanGrow="false" Text="xrLabel34" SizeF="1052.542,52.5" LocationFloat="0, 630.1835" Dpi="254" Font="Arial, 9pt, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="Left, Right">
+          <ExpressionBindings>
+            <Item1 Ref="83" Expression="[RPT_InvoiceHeader].[ProvincesDescriptionBillTo]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+          <StylePriority Ref="84" UseFont="false" UseBackColor="false" UseBorders="false" />
+        </Item25>
+        <Item26 Ref="85" ControlType="XRLabel" Name="xrLabel39" Multiline="true" CanGrow="false" SizeF="1052.542,52.5" LocationFloat="0, 682.6835" Dpi="254" Font="Arial, 9pt, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="Left, Right">
+          <ExpressionBindings>
+            <Item1 Ref="86" Expression="[RPT_InvoiceHeader].[CountryBillTo]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+          <StylePriority Ref="87" UseFont="false" UseBackColor="false" UseBorders="false" />
+        </Item26>
+        <Item27 Ref="88" ControlType="XRLabel" Name="xrLabel40" Multiline="true" CanGrow="false" Text="xrLabel34" TextAlignment="TopLeft" SizeF="1052.542,52.5" LocationFloat="0, 735.1835" Dpi="254" Font="Arial, 9pt, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="Left, Right, Bottom">
+          <ExpressionBindings>
+            <Item1 Ref="89" Expression="[RPT_InvoiceHeader].[VATNumberBillTo]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+          <StylePriority Ref="90" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item27>
+        <Item28 Ref="91" ControlType="XRLabel" Name="xrLabel41" Multiline="true" Text="Delivery Adress :" TextAlignment="BottomLeft" SizeF="744.938,52.5" LocationFloat="1086.062, 420.1835" Dpi="254" Font="Arial, 9pt, style=Bold, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="Left, Top, Right">
+          <StylePriority Ref="92" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item28>
+        <Item29 Ref="93" ControlType="XRLabel" Name="xrLabel42" Multiline="true" Text="xrLabel34" TextAlignment="BottomLeft" SizeF="744.938,52.5" LocationFloat="1086.062, 472.6835" Dpi="254" Font="Arial, 9pt, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="Left, Right">
+          <ExpressionBindings>
+            <Item1 Ref="94" Expression="[RPT_InvoiceHeader].[DeliveryAddress1]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+          <StylePriority Ref="95" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item29>
+        <Item30 Ref="96" ControlType="XRLabel" Name="xrLabel43" Multiline="true" Text="xrLabel34" TextAlignment="BottomLeft" SizeF="744.938,52.5" LocationFloat="1086.062, 525.1835" Dpi="254" Font="Arial, 9pt, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="Left, Right">
+          <ExpressionBindings>
+            <Item1 Ref="97" Expression="[RPT_InvoiceHeader].[AreaDeliveryAddress]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+          <StylePriority Ref="98" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item30>
+        <Item31 Ref="99" ControlType="XRLabel" Name="xrLabel44" Multiline="true" Text="xrLabel34" TextAlignment="BottomLeft" SizeF="744.938,52.5" LocationFloat="1086.062, 577.6835" Dpi="254" Font="Arial, 9pt, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="Left, Right">
+          <ExpressionBindings>
+            <Item1 Ref="100" Expression="[RPT_InvoiceHeader].[CityDeliveryAddress]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+          <StylePriority Ref="101" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item31>
+        <Item32 Ref="102" ControlType="XRLabel" Name="xrLabel45" Multiline="true" Text="xrLabel34" TextAlignment="BottomLeft" SizeF="744.938,52.5" LocationFloat="1086.062, 630.1835" Dpi="254" Font="Arial, 9pt, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="Left, Right">
+          <ExpressionBindings>
+            <Item1 Ref="103" Expression="[RPT_InvoiceHeader].[ProvinceDeliveryAddress]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+          <StylePriority Ref="104" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item32>
+        <Item33 Ref="105" ControlType="XRLabel" Name="xrLabel47" Multiline="true" TextAlignment="MiddleLeft" SizeF="744.938,52.5" LocationFloat="1086.062, 735.1835" Dpi="254" Font="Arial, 9pt, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="Left, Right, Bottom">
+          <StylePriority Ref="106" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item33>
+        <Item34 Ref="107" ControlType="XRLabel" Name="xrLabel54" Multiline="true" SizeF="1831,69.50012" LocationFloat="0, 961.7358" Dpi="254" BackColor="PaleTurquoise" Padding="5,5,0,0,254" Borders="None">
+          <StylePriority Ref="108" UseBackColor="false" UseBorders="false" />
+        </Item34>
+        <Item35 Ref="109" ControlType="XRPanel" Name="xrPanel1" SizeF="1051.376,396.0417" LocationFloat="1.16584, 0" Dpi="254" BackColor="White" Borders="All">
+          <StylePriority Ref="110" UseBackColor="false" UseBorders="false" />
+        </Item35>
+        <Item36 Ref="111" ControlType="XRLabel" Name="xrLabel46" Multiline="true" Text="xrLabel34" TextAlignment="BottomLeft" SizeF="744.938,52.5" LocationFloat="1086.062, 682.6835" Dpi="254" Font="Arial, 9pt, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="Left, Right">
+          <ExpressionBindings>
+            <Item1 Ref="112" Expression="[RPT_InvoiceHeader].[CountryDeliveryAddress]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+          <StylePriority Ref="113" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item36>
+      </Controls>
+    </Item4>
+    <Item5 Ref="114" ControlType="ReportFooterBand" Name="ReportFooter" HeightF="429.5052" KeepTogether="true" Dpi="254">
+      <Controls>
+        <Item1 Ref="115" ControlType="XRLine" Name="xrLine4" LineStyle="DashDot" SizeF="680.9485,25.18629" LocationFloat="246.1602, 121.5362" Dpi="254" Borders="None">
+          <StylePriority Ref="116" UseBorders="false" />
+        </Item1>
+        <Item2 Ref="117" ControlType="XRLine" Name="xrLine3" LineStyle="DashDot" SizeF="680.9485,25.18631" LocationFloat="246.1602, 205.7223" Dpi="254" Borders="None">
+          <StylePriority Ref="118" UseBorders="false" />
+        </Item2>
+        <Item3 Ref="119" ControlType="XRLine" Name="xrLine2" LineStyle="DashDot" SizeF="680.9485,22.89661" LocationFloat="246.1602, 289.8257" Dpi="254" Borders="None">
+          <StylePriority Ref="120" UseBorders="false" />
+        </Item3>
+        <Item4 Ref="121" ControlType="XRLine" Name="xrLine1" LineStyle="DashDot" SizeF="680.9485,20.60699" LocationFloat="246.1602, 370.4165" Dpi="254" Borders="None">
+          <StylePriority Ref="122" UseBorders="false" />
+        </Item4>
+        <Item5 Ref="123" ControlType="XRLabel" Name="xrLabel51" Multiline="true" Text="Signature" SizeF="201.4904,58.3726" LocationFloat="44.66993, 340.4675" Dpi="254" Font="Arial, 6.75pt, charSet=0" Padding="5,5,0,0,254" Borders="None">
+          <StylePriority Ref="124" UseFont="false" UseBorders="false" />
+        </Item5>
+        <Item6 Ref="125" ControlType="XRLabel" Name="xrLabel50" Multiline="true" Text="Date" SizeF="201.4904,58.3726" LocationFloat="44.66993, 265.0949" Dpi="254" Font="Arial, 6.75pt, charSet=0" Padding="5,5,0,0,254" Borders="None">
+          <StylePriority Ref="126" UseFont="false" UseBorders="false" />
+        </Item6>
+        <Item7 Ref="127" ControlType="XRLabel" Name="xrLabel49" Multiline="true" Text="ID no" SizeF="201.4904,58.3726" LocationFloat="44.66993, 188.7224" Dpi="254" Font="Arial, 6.75pt, charSet=0" Padding="5,5,0,0,254" Borders="None">
+          <StylePriority Ref="128" UseFont="false" UseBorders="false" />
+        </Item7>
+        <Item8 Ref="129" ControlType="XRLabel" Name="xrLabel48" Multiline="true" Text="Received by" SizeF="201.4904,58.3726" LocationFloat="44.66993, 110.3497" Dpi="254" Font="Arial, 6.75pt, charSet=0" Padding="5,5,0,0,254" Borders="None">
+          <StylePriority Ref="130" UseFont="false" UseBorders="false" />
+        </Item8>
+        <Item9 Ref="131" ControlType="XRLabel" Name="xrLabel20" Multiline="true" Text="Total (Excl)" TextAlignment="MiddleLeft" SizeF="287.6611,78.49999" LocationFloat="1299.542, 18.72215" Dpi="254" Font="Arial, 8.25pt, charSet=0" BackColor="PaleTurquoise" Padding="5,5,0,0,254" Borders="Left">
+          <StylePriority Ref="132" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item9>
+        <Item10 Ref="133" ControlType="XRLabel" Name="xrLabel19" Multiline="true" Text="Tax" TextAlignment="MiddleLeft" SizeF="287.6611,78.49999" LocationFloat="1299.542, 97.22218" Dpi="254" Font="Arial, 8.25pt, charSet=0" BackColor="PaleTurquoise" Padding="5,5,0,0,254" Borders="Left">
+          <StylePriority Ref="134" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item10>
+        <Item11 Ref="135" ControlType="XRLabel" Name="xrLabel18" Multiline="true" Text="Total (Incl)" TextAlignment="MiddleLeft" SizeF="287.6611,78.49999" LocationFloat="1299.542, 175.7222" Dpi="254" Font="Arial, 8.25pt, style=Bold, charSet=0" BackColor="PaleTurquoise" Padding="5,5,0,0,254" Borders="Left">
+          <StylePriority Ref="136" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item11>
+        <Item12 Ref="137" ControlType="XRLabel" Name="xrLabel17" Multiline="true" Text="Discount" TextAlignment="MiddleLeft" SizeF="287.6611,78.49999" LocationFloat="1299.542, 254.222" Dpi="254" Font="Arial, 8.25pt, charSet=0" BackColor="PaleTurquoise" Padding="5,5,0,0,254" Borders="Left, Bottom">
+          <StylePriority Ref="138" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item12>
+        <Item13 Ref="139" ControlType="XRLabel" Name="xrLabel16" Multiline="true" Text="Total (Incl)" TextAlignment="MiddleLeft" SizeF="287.6613,63.5" LocationFloat="1299.542, 349.9969" Dpi="254" Font="Arial, 8.25pt, style=Bold, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="Left, Top, Bottom">
+          <StylePriority Ref="140" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item13>
+        <Item14 Ref="141" ControlType="XRLabel" Name="xrLabel15" TextFormatString="{0:c}" Multiline="true" TextAlignment="MiddleRight" SizeF="244.7968,63.5" LocationFloat="1587.203, 349.9969" Dpi="254" Font="Arial, 9pt, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="All">
+          <ExpressionBindings>
+            <Item1 Ref="142" Expression="[RPT_Invoice_Totals].[TotalInclTax]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+          <StylePriority Ref="143" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item14>
+        <Item15 Ref="144" ControlType="XRLabel" Name="xrLabel14" TextFormatString="{0:c}" Multiline="true" TextAlignment="MiddleLeft" SizeF="244.7966,78.49999" LocationFloat="1587.203, 254.222" Dpi="254" Font="Arial, 8.25pt, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="Left, Right, Bottom">
+          <StylePriority Ref="145" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item15>
+        <Item16 Ref="146" ControlType="XRLabel" Name="xrLabel13" TextFormatString="{0:c}" Multiline="true" TextAlignment="MiddleRight" SizeF="244.7966,78.49999" LocationFloat="1587.203, 175.7222" Dpi="254" Font="Arial, 8.25pt, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="Left, Right, Bottom">
+          <ExpressionBindings>
+            <Item1 Ref="147" Expression="[RPT_Invoice_Totals].[TotalInclTax]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+          <StylePriority Ref="148" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item16>
+        <Item17 Ref="149" ControlType="XRLabel" Name="xrLabel12" TextFormatString="{0:c}" Multiline="true" TextAlignment="MiddleRight" SizeF="244.7966,78.49999" LocationFloat="1587.203, 97.22218" Dpi="254" Font="Arial, 8.25pt, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="Left, Right, Bottom">
+          <ExpressionBindings>
+            <Item1 Ref="150" Expression="[RPT_Invoice_Totals].[TotalTax]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+          <StylePriority Ref="151" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item17>
+        <Item18 Ref="152" ControlType="XRPanel" Name="xrPanel2" SizeF="1261.648,367.7331" LocationFloat="0.0003256918, 45.76369" Dpi="254" BackColor="PaleTurquoise" Borders="All">
+          <StylePriority Ref="153" UseBackColor="false" UseBorders="false" />
+        </Item18>
+        <Item19 Ref="154" ControlType="XRLabel" Name="xrLabel11" TextFormatString="{0:c}" Multiline="true" TextAlignment="MiddleRight" SizeF="244.7968,78.49998" LocationFloat="1587.203, 18.72215" Dpi="254" Font="Arial, 8.25pt, charSet=0" BackColor="White" Padding="5,5,0,0,254" Borders="Left, Right, Bottom">
+          <ExpressionBindings>
+            <Item1 Ref="155" Expression="[RPT_Invoice_Totals].[TotalExclVat]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+          <StylePriority Ref="156" UseFont="false" UseBackColor="false" UseBorders="false" UseTextAlignment="false" />
+        </Item19>
+      </Controls>
+    </Item5>
+  </Bands>
+  <CrossBandControls>
+    <Item1 Ref="157" ControlType="XRCrossBandBox" Name="xrCrossBandBox1" BorderWidth="1" WidthF="1832" LocationFloat="0, 961.7358" StartBand="#Ref-24" EndBand="#Ref-114" StartPointFloat="0, 961.7358" EndPointFloat="0, 18.72208" LockedInUserDesigner="true" Dpi="254" />
+  </CrossBandControls>
+  <ComponentStorage>
+    <Item1 Ref="0" ObjectType="DevExpress.DataAccess.Sql.SqlDataSource,DevExpress.DataAccess.v18.1" Name="sqlDataSource1" Base64="PFNxbERhdGFTb3VyY2U+PE5hbWU+c3FsRGF0YVNvdXJjZTE8L05hbWU+PENvbm5lY3Rpb24gTmFtZT0ibG9jYWxob3N0X0lzZXJEZWFsZXJPcmRlcnNfQ29ubmVjdGlvbiIgUHJvdmlkZXJLZXk9Ik1TU3FsU2VydmVyIj48UGFyYW1ldGVycz48UGFyYW1ldGVyIE5hbWU9InNlcnZlciIgVmFsdWU9IjE5Ny4yNDIuMTU1LjMwXE1BUlZBTFNSVlNRTCIgLz48UGFyYW1ldGVyIE5hbWU9ImRhdGFiYXNlIiBWYWx1ZT0iSXNlckRlYWxlck9yZGVycyIgLz48UGFyYW1ldGVyIE5hbWU9InVzZUludGVncmF0ZWRTZWN1cml0eSIgVmFsdWU9IkZhbHNlIiAvPjxQYXJhbWV0ZXIgTmFtZT0icmVhZCBvbmx5IiBWYWx1ZT0iMSIgLz48UGFyYW1ldGVyIE5hbWU9ImdlbmVyYXRlQ29ubmVjdGlvbkhlbHBlciIgVmFsdWU9ImZhbHNlIiAvPjwvUGFyYW1ldGVycz48L0Nvbm5lY3Rpb24+PFF1ZXJ5IFR5cGU9IlN0b3JlZFByb2NRdWVyeSIgTmFtZT0iUlBUX0ludm9pY2UiPjxQYXJhbWV0ZXIgTmFtZT0iQEludm9pY2VJRCIgVHlwZT0iU3lzdGVtLkludDMyIj4xNjEyMTM8L1BhcmFtZXRlcj48UHJvY05hbWU+UlBUX0ludm9pY2U8L1Byb2NOYW1lPjwvUXVlcnk+PFF1ZXJ5IFR5cGU9IlN0b3JlZFByb2NRdWVyeSIgTmFtZT0iUlBUX0ludm9pY2VfVG90YWxzIj48UGFyYW1ldGVyIE5hbWU9IkBJbnZvaWNlSUQiIFR5cGU9IlN5c3RlbS5JbnQzMiI+MTYxMjEzPC9QYXJhbWV0ZXI+PFByb2NOYW1lPlJQVF9JbnZvaWNlX1RvdGFsczwvUHJvY05hbWU+PC9RdWVyeT48UXVlcnkgVHlwZT0iU3RvcmVkUHJvY1F1ZXJ5IiBOYW1lPSJSUFRfSW52b2ljZUhlYWRlciI+PFBhcmFtZXRlciBOYW1lPSJASW52b2ljZUlEIiBUeXBlPSJTeXN0ZW0uSW50MzIiPjE2MTIxMzwvUGFyYW1ldGVyPjxQcm9jTmFtZT5SUFRfSW52b2ljZUhlYWRlcjwvUHJvY05hbWU+PC9RdWVyeT48UmVzdWx0U2NoZW1hPjxEYXRhU2V0IE5hbWU9InNxbERhdGFTb3VyY2UxIj48VmlldyBOYW1lPSJSUFRfSW52b2ljZSI+PEZpZWxkIE5hbWU9Ikl0ZW1JRCIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9IkRlc2NyaXB0aW9uIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlF1YW50aXR5IiBUeXBlPSJJbnQzMiIgLz48RmllbGQgTmFtZT0iVW5pdFByaWNlRXhjbCIgVHlwZT0iRG91YmxlIiAvPjxGaWVsZCBOYW1lPSJUYXgiIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iUXVhbnRpdHlMaW5lVG90SW5jbCIgVHlwZT0iRG91YmxlIiAvPjxGaWVsZCBOYW1lPSJTb3J0SUQiIFR5cGU9IkludDMyIiAvPjwvVmlldz48VmlldyBOYW1lPSJSUFRfSW52b2ljZV9Ub3RhbHMiPjxGaWVsZCBOYW1lPSJJbnZvaWNlSUQiIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJUb3RhbEV4Y2xWYXQiIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iVG90YWxUYXgiIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iVG90YWxJbmNsVGF4IiBUeXBlPSJEb3VibGUiIC8+PC9WaWV3PjxWaWV3IE5hbWU9IlJQVF9JbnZvaWNlSGVhZGVyIj48RmllbGQgTmFtZT0iSW52b2ljZURhdGUiIFR5cGU9IkRhdGVUaW1lIiAvPjxGaWVsZCBOYW1lPSJEZWFsZXJOYW1lIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkFkZHJlc3MxQmlsbFRvIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkFkZHJlc3NBcmVhQmlsbFRvIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkFkZHJlc3NDaXR5QmlsbFRvIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlByb3ZpbmNlc0Rlc2NyaXB0aW9uQmlsbFRvIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkNvdW50cnlCaWxsVG8iIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iVkFUTnVtYmVyQmlsbFRvIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkRlbGl2ZXJ5TWV0aG9kIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkRlbGl2ZXJ5QWRkcmVzczEiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iQXJlYURlbGl2ZXJ5QWRkcmVzcyIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJDaXR5RGVsaXZlcnlBZGRyZXNzIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlByb3ZpbmNlRGVsaXZlcnlBZGRyZXNzIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkNvdW50cnlEZWxpdmVyeUFkZHJlc3MiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iSW52b2ljZU51bWJlciIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJPcmRlck51bWJlciIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJBY2NvdW50TnVtYmVyIiBUeXBlPSJTdHJpbmciIC8+PC9WaWV3PjwvRGF0YVNldD48L1Jlc3VsdFNjaGVtYT48Q29ubmVjdGlvbk9wdGlvbnMgQ2xvc2VDb25uZWN0aW9uPSJ0cnVlIiAvPjwvU3FsRGF0YVNvdXJjZT4=" />
+  </ComponentStorage>
+</XtraReportsLayoutSerializer>

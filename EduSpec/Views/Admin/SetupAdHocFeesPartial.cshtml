@@ -1,0 +1,138 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["AdHocFeesViewProperties"]);
+
+    settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Admin", Action = "AdHocFeesAdd" };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Admin", Action = "AdHocFeesUpdate" };
+       
+    settings.SetEditFormTemplateContent(c =>
+    {
+        var AdhocFees = ViewData["AdhocFees"] != null ? ViewData["AdhocFees"] : c.DataItem;
+
+        ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 400px; margin:0px 5px 0px 5px;\">");
+        ViewContext.Writer.Write("<div class=\"line\" style=\"width: 100%; margin:10px 10px 0px; 10px\">");
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 150);// First column
+        EduSpecHtmlHelper.Label(Html, "Description:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 250);// Second column
+        EduSpecHtmlHelper.TextBox(Html, "formeditor", AdhocFees, "Description", true, 230, null);
+
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 150);// First column
+        EduSpecHtmlHelper.Label(Html, "Reference:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 250);// Second column
+        EduSpecHtmlHelper.TextBox(Html, "formeditor", AdhocFees, "AgeReference", true, 230, null);
+
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form");
+        EduSpecHtmlHelper.Label(Html, "Is value percentage?:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form");
+
+        if(DataBinder.Eval(AdhocFees, "IsPercentage") == null)
+        {
+            Dictionary<EduSpec.CheckBoxClientSideEvent, string> IsPercentageEvents = new Dictionary<EduSpec.CheckBoxClientSideEvent, string>();
+            IsPercentageEvents.Add(CheckBoxClientSideEvent.onInit, "function(s,e){s.SetChecked(false);}");
+            EduSpecHtmlHelper.CheckBox(Html, "formeditor", AdhocFees, "IsPercentage", "", 150, IsPercentageEvents);
+        }
+        else
+            EduSpecHtmlHelper.CheckBox(Html, "formeditor", AdhocFees, "IsPercentage", "", 150, null);
+
+
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form");
+        EduSpecHtmlHelper.Label(Html, "Amount/Percentage:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form");
+        EduSpecHtmlHelper.SpinEdit(Html, "formeditor", AdhocFees, "Value", 50, 1, 100000, false, null);
+
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form");
+        EduSpecHtmlHelper.Label(Html, "Months payable:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form");
+        EduSpecHtmlHelper.SpinEdit(Html, "formeditor", AdhocFees, "MonthsPayableAdhocFees", 50, 0, 12, false, null);
+
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form");
+        EduSpecHtmlHelper.Label(Html, "Effective date:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form");
+        EduSpecHtmlHelper.DateEdit(Html, "formeditor", AdhocFees, "EffectiveDate", 100, null);
+
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form");
+        EduSpecHtmlHelper.Label(Html, "Credit:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form");
+
+        if (DataBinder.Eval(AdhocFees, "IsCredit") == null)
+        {
+            Dictionary<EduSpec.CheckBoxClientSideEvent, string> IsCreditEvents = new Dictionary<EduSpec.CheckBoxClientSideEvent, string>();
+            IsCreditEvents.Add(CheckBoxClientSideEvent.onInit, "function(s,e){s.SetChecked(false);}");
+            EduSpecHtmlHelper.CheckBox(Html, "formeditor", AdhocFees, "IsCredit", "", 150, IsCreditEvents);
+        }
+        else
+            EduSpecHtmlHelper.CheckBox(Html, "formeditor", AdhocFees, "IsCredit", "", 150, null);
+
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form");
+        EduSpecHtmlHelper.Label(Html, "On school fees account:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form");
+
+        if (DataBinder.Eval(AdhocFees, "IsOnSchoolFeesAccount") == null)
+        {
+            Dictionary<EduSpec.CheckBoxClientSideEvent, string> CheckBoxEvents = new Dictionary<EduSpec.CheckBoxClientSideEvent, string>();
+            CheckBoxEvents.Add(CheckBoxClientSideEvent.onInit, "function(s,e){s.SetChecked(false);}");
+            EduSpecHtmlHelper.CheckBox(Html, "formeditor", AdhocFees, "IsOnSchoolFeesAccount", "", 150, CheckBoxEvents);
+        }
+        else
+            EduSpecHtmlHelper.CheckBox(Html, "formeditor", AdhocFees, "IsOnSchoolFeesAccount", "", 150, null);
+
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form");
+        EduSpecHtmlHelper.Label(Html, "Apply to school fees:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form");
+
+        if (DataBinder.Eval(AdhocFees, "IsApplyToSchoolFees") == null)
+        {
+            Dictionary<EduSpec.CheckBoxClientSideEvent, string> IsApplyToSchoolFeesEvents = new Dictionary<EduSpec.CheckBoxClientSideEvent, string>();
+            IsApplyToSchoolFeesEvents.Add(CheckBoxClientSideEvent.onInit, "function(s,e){s.SetChecked(false);}");
+            EduSpecHtmlHelper.CheckBox(Html, "formeditor", AdhocFees, "IsApplyToSchoolFees", "", 150, IsApplyToSchoolFeesEvents);
+        }
+        else
+            EduSpecHtmlHelper.CheckBox(Html, "formeditor", AdhocFees, "IsApplyToSchoolFees", "", 150, null);
+
+        EduSpecHtmlHelper.EndRow(Html);
+        EduSpecHtmlHelper.EndTable(Html);
+
+
+        Html.DevExpress().Button(btnSettings =>
+        {
+            btnSettings.Name = "btnUpdate";
+            btnSettings.ControlStyle.CssClass = "button";
+            if (c.KeyValue == null)
+                btnSettings.Text = "Save";
+            else
+                btnSettings.Text = "Update";
+
+            btnSettings.ClientSideEvents.Click = String.Format("function(s, e) {{{0}.UpdateEdit(); }}", settings.Name);
+        }).Render();
+
+        Html.DevExpress().Button(btnSettings =>
+        {
+            btnSettings.Name = "btnCancel";
+            btnSettings.ControlStyle.CssClass = "button";
+            btnSettings.Text = "Cancel";
+            btnSettings.ClientSideEvents.Click = String.Format("function(s, e) {{{0}.CancelEdit(); }}", settings.Name);
+
+        }).Render();
+
+        //ViewContext.Writer.Write("</div></div>");
+
+        settings.PreRender = (sender, e) =>
+        {
+            ((MVCxGridView)sender).StartEdit(1);
+        };
+    });
+}).Bind(Model).GetHtml()
+

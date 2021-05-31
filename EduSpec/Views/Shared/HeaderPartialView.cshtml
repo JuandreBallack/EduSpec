@@ -1,0 +1,52 @@
+<div class="headerTop">
+    <table style="width:100%; height:100%; table-layout:fixed;">
+        <tr style="margin:2px,0px,2px,0px">
+            <td style="width:200px; height:50px">
+                <div class="HeaderImage" style="background-image: url(/Content/Images/MainLogo.png); "></div>
+            </td>
+            <td align="center" style="text-align:center" >
+                @*@if (Convert.ToBoolean(HttpContext.Current.Session["IsEvaluation"]) == true)
+                {
+                    //<h2 style="margin:0px;"><a href="javascript:pcQuotation.Show()">Request Quotation</a> </h2>
+
+                    var x = Convert.ToBoolean(HttpContext.Current.Session["IsInstQuotationActive"]);
+
+                            @Html.DevExpress().HyperLink(
+                            settings =>
+                            {
+                                settings.Name = "hyperLink1";
+                                settings.NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Admin", Action = "getInstitutionQuotation", returnUrl = "~/Quotations/" + HttpContext.Current.Session["QuotationFileName"] });
+                                settings.Properties.Target = "_blank";
+                                settings.Properties.Text = "View Quotation";
+                                settings.ClientVisible = (Convert.ToBoolean(HttpContext.Current.Session["IsInstQuotationActive"]));
+                                
+                            }).GetHtml()
+                 }*@
+                                
+
+            </td>
+            <td align="right" style="width:400px">
+                <div class="loginControl">
+                    @Html.Partial("LogOnPartialView")
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+@*@Html.Partial("Quotation");*@
+
+@*<div class="headerTop">
+    <div class="headerTop">
+        <div class="HeaderImage" style="background-image: url(/Content/Images/MainLogo.png); "></div>
+
+        <div class="qoutation" align="center">
+            <a href="javascript:pcQuotation.Show()">Request Quotation</a>
+            @Html.Partial("Quotation")
+        </div>
+        <div class="loginControl">
+            @Html.Partial("LogOnPartialView")
+        </div>
+    </div>
+</div>*@

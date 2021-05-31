@@ -1,0 +1,136 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="SiteMaster" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EduSpec</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" /> 
+    <link href="~/Content/Site.css" rel="stylesheet" /> 
+
+    <script type="text/javascript" src="/Scripts/jquery-1.12.2.min.js"></script>
+    <script type="text/javascript" src="/Scripts/bootstrap.min.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+    <form runat="server">
+        <nav class="navbar navbar-inverse navbar-fixed-top" style="margin:0px">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topMenu">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/Default.aspx">EduSpec</a>
+                </div>
+                
+                <div class="collapse navbar-collapse" id="topMenu">
+                    <dx:BootstrapMenu ID="TopMenu" runat="server" ShowPopOutImages="True" ItemAutoWidth="false" ClientInstanceName="topMenu">
+                        <CssClasses Control="top-menu" Menu="navbar-nav" />
+                        <Items>
+                            <dx:BootstrapMenuItem Text="HOME" Name="Home" NavigateUrl="/Default.aspx">
+                            </dx:BootstrapMenuItem>
+                            <dx:BootstrapMenuItem Text="EXEMPTIONS" Name="Exemptions" NavigateUrl="Exemptions.aspx">
+                            </dx:BootstrapMenuItem>
+                            <dx:BootstrapMenuItem Text="DEBT MANAGEMENT" Name="Legal" NavigateUrl="Legal.aspx">
+                            </dx:BootstrapMenuItem>
+                            <dx:BootstrapMenuItem Text="PRICING" Name="Pricing" NavigateUrl="Pricing.aspx">
+                            </dx:BootstrapMenuItem>                            
+                            <dx:BootstrapMenuItem Text="CONTACT US" Name="ContactUs" NavigateUrl="Contact.aspx">
+                            </dx:BootstrapMenuItem>
+                        </Items>
+                    </dx:BootstrapMenu>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="container" style="width:100%; background-color:#FFF2CC; padding:10px 0px 10px 0px; margin-bottom:20px; border-bottom:solid; border-bottom-color:#339085">
+            <div class="container">
+                <img class="img-responsive" src="/Content/Images/Logo Small.png" alt="Chania" width="250" height="71"/>
+            </div>
+        </div>
+        
+        <div class="container">
+            <asp:ContentPlaceHolder ID="Content" runat="server">
+            </asp:ContentPlaceHolder>           
+           
+        </div>
+       
+        <div class="container" style="width:100%; background-color:#FFF2CC; padding:10px 0px 0px 0px; margin:0px; border-top:solid; border-top-color:#339085">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h3 class="Eduspec_Green">About Company</h3>
+                        <blockquote class="Orange_Line">
+                            <p class="footer_text"><b>EduSpec</b> is dedicated to providing software tailored for supporting educational institutions.</p>
+                            <p class="footer_text">The South African student fee exemption and legal processes has proven to be a significant drain on accounting departments of schools due to the lengthy manual processes involved when dealing with applications.</p>
+                            <p class="footer_text">We at Eduspec have taken up the challenge of adding efficiency to the process. By adding automation and structure we have simplified and greatly shortened the workload.</p>
+                            <footer style="font-size:10px"><p>&copy; <%: DateTime.Now.Year %> - Copyright Education Specialised Software (PTY) Ltd.</p></footer>
+                        </blockquote>
+                    </div>
+                    <div class="col-md-4">
+                        <h3 class="Eduspec_Green">Contact</h3>
+                        <blockquote class="Orange_Line">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <i class="glyphicon glyphicon-map-marker Eduspec_Green"></i>
+                                </div>
+                                <div class="col-md-10 align-middle" style="padding:2px 15px 2px 15px">
+                                    <p class="footer_text">12 Rooibok Street, Rant en Dal, Krugersdorp, 1739, Gauteng, South Africa.</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <i class="glyphicon glyphicon-earphone Eduspec_Green"></i>
+                                </div>
+                                <div class="col-md-10 align-middle" style="padding:2px 15px 2px 15px">
+                                    <p class="footer_text">011 660 6620</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <i class="glyphicon glyphicon-envelope Eduspec_Green"></i>
+                                </div>
+                                <div class="col-md-10 align-middle" style="padding:2px 15px 2px 15px">
+                                    <p class="footer_text">info@eduspec.co.za</p>
+                                </div>
+                            </div>
+                            <h4 class="Eduspec_Green">Sales</h4>
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <i class="glyphicon glyphicon-user Eduspec_Green"></i>
+                                </div>
+                                <div class="col-md-10 align-middle" style="padding:2px 15px 2px 15px">
+                                    <p class="footer_text">Stephan du Plessis</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <i class="glyphicon glyphicon-phone Eduspec_Green"></i>
+                                </div>
+                                <div class="col-md-10 align-middle" style="padding:2px 15px 2px 15px">
+                                    <p class="footer_text">081 039 3732</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <i class="glyphicon glyphicon-envelope Eduspec_Green"></i>
+                                </div>
+                                <div class="col-md-10 align-middle" style="padding:2px 15px 2px 15px">
+                                    <p class="footer_text">stephan@eduspec.co.za</p>
+                                </div>
+                            </div>
+                        </blockquote>
+                    </div>
+                    <div class="col-md-4">
+                        <img class="img-responsive" src="/Content/Images/We make it Simple.png" alt="Chania" width="400" height="100" style="padding:50px 0px 0px 0px"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

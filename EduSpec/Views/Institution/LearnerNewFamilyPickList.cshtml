@@ -1,0 +1,24 @@
+﻿@Html.DevExpress().ComboBox(edtSettings =>
+    {
+        edtSettings.Name = "cbNewFamily";
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.Width = 250;
+        edtSettings.Properties.TextField = "FamilyCode";
+        edtSettings.Properties.ValueField = "ID";
+        edtSettings.Properties.ValueType = typeof(int);
+        edtSettings.ShowModelErrors = true;
+        edtSettings.CallbackRouteValues = new { Controller = "Institution", Action = "LearnerNewFamilyPicklist" };
+        edtSettings.Properties.CallbackPageSize = 15;
+        edtSettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+        edtSettings.Properties.TextFormatString = "{0} | {1} | {2}";
+        edtSettings.Properties.FilterMinLength = 2;
+        edtSettings.Properties.ClientSideEvents.Init = "function(s, e){ s.SetFocus(); }";
+        edtSettings.Properties.Columns.Add("FamilyCode", "Family Code", 100);
+        edtSettings.Properties.Columns.Add("ExternalAccNo", "Account No.", 100);
+        edtSettings.Properties.Columns.Add("Surname", "Surname", 100);
+        edtSettings.Properties.ClientSideEvents.Validation = "function(s,e){validateRequiredField(e.value, e);}";
+        edtSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+        edtSettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Right;
+        edtSettings.Properties.ClientSideEvents.BeginCallback = "function(s, e) { e.customArgs['LearnerID'] = GridView.GetRowKey(GridView.GetFocusedRowIndex()); }";
+    }).BindList(EduSpec.Controllers.InstitutionController.getNewFamilyList, EduSpec.Controllers.InstitutionController.getNewFamilyListByFamilyID).GetHtml()
+

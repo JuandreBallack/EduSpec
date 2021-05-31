@@ -1,0 +1,146 @@
+﻿@Html.DevExpress().CallbackPanel(settings =>
+{
+
+    settings.Name = "cbpDebtManagemenNote";
+    settings.CallbackRouteValues = new { Controller = "DebtManagement", Action = "DebtManagementNotePartial" };
+    settings.ClientSideEvents.BeginCallback = "function(s, e) { e.customArgs['FamilyID'] = GridView.GetRowKey(GridView.GetFocusedRowIndex()); e.customArgs['YearID'] = cbYear.GetValue(); GridViewStatement.PerformCallback();}";
+
+
+    settings.SetContent(() =>
+    {
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 150);// First column
+        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "AgeStatusID", false, 150, null);
+        EduSpecHtmlHelper.Label(Html, "Contact Type:", "editorLabel");
+        EduSpecHtmlHelper.Label(Html, "Contact name:", "editorLabel");
+        EduSpecHtmlHelper.Label(Html, "Contact Reason:", "editorLabel");
+        EduSpecHtmlHelper.Label(Html, "lbnoteAmount", "Amount:", "editorLabel", false);
+        EduSpecHtmlHelper.Label(Html, "lbnoteArrangementDate", "Arrangement date:", "editorLabel", false);
+        EduSpecHtmlHelper.Label(Html, "lbnoteNumberOfMonths", "Number of months", "editorLabel", false);
+        EduSpecHtmlHelper.Label(Html, "lbUploadFile", "Upload file:", "editorLabel", true);
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 250);// Second column
+        EduSpecHtmlHelper.ComboBox(Html, "cbContactType", "formeditor", 200, "Get_DebtManagement_ContactType_PickList", null);
+        EduSpecHtmlHelper.TextBox(Html, "tbContactName", "formeditor", true, 200, null);
+        Dictionary<EduSpec.ComboboxClientSideEvent, string> ContactReasonChange = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+        ContactReasonChange.Add(ComboboxClientSideEvent.onSelectedIndexChanged, "ContactReasonIDChange");
+        //ContactReasonID.Add(ComboboxClientSideEvent.onInit, "ContactReasonIDChange");
+        EduSpecHtmlHelper.ComboBox(Html, "cbContactReason", "formeditor", 200, "Get_DebtManagement_ContactReason_PickList", ContactReasonChange);
+        EduSpecHtmlHelper.CurrencyEdit(Html, "noteArrangeAmount", "formeditor", 200, false, null);
+        EduSpecHtmlHelper.DateEdit(Html, "noteArrangementDate", "formeditor", 100, false, null);
+        EduSpecHtmlHelper.NewDiv(Html, "line");
+        Html.DevExpress().SpinEdit(edtSettings =>
+        {
+            edtSettings.Name = "noteNumberOfMonths";
+            edtSettings.ControlStyle.CssClass = "formeditor";
+            edtSettings.Properties.NumberFormat = SpinEditNumberFormat.Number;
+            edtSettings.Properties.MaxValue = 12;
+            edtSettings.Properties.MinValue = 1;
+            edtSettings.Properties.DecimalPlaces = 0;
+            edtSettings.ClientVisible = false;
+            edtSettings.Number = 1;
+            edtSettings.Width = 100;
+            edtSettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            edtSettings.Properties.SpinButtons.ShowIncrementButtons = true;
+        }).GetHtml();
+        EduSpecHtmlHelper.EndDiv(Html);
+        using (Html.BeginForm())
+        {
+            ViewContext.Writer.Write("<div class=\"uploadContainer\">");
+            Html.DevExpress().UploadControl(ucsettings =>
+            {
+                ucsettings.ShowProgressPanel = true;
+                ucsettings.CallbackRouteValues = new { Controller = "DebtManagement", Action = "CallbacksDebtManagementNoteCustomFileUpload" };
+                ucsettings.Name = "ucNoteFile";
+                ucsettings.UploadMode = UploadControlUploadMode.Auto;
+                ucsettings.AutoStartUpload = true;
+                ucsettings.ControlStyle.CssClass = "editorArea";
+                ucsettings.UploadMode = UploadControlUploadMode.Advanced;
+                ucsettings.AdvancedModeSettings.EnableFileList = false;
+                ucsettings.AdvancedModeSettings.EnableMultiSelect = false;
+                ucsettings.ValidationSettings.AllowedFileExtensions = new string[] { ".jpg", ".jpeg", ".gif", ".png", ".pdf" };
+                ucsettings.ValidationSettings.ErrorStyle.CssClass = "validationMessage";
+                ucsettings.BrowseButton.Text = "...";
+                ucsettings.Width = 200;
+                ucsettings.ClientSideEvents.FileUploadComplete = "onUploadControlNoteFileUploadComplete";
+            }).GetHtml();
+            ViewContext.Writer.Write("</div>");
+        }
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form");//Third column
+
+
+        // ****************************** Begin Info table ******************************
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 80);// First column
+        EduSpecHtmlHelper.Label(Html, "Family Code:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 100);// Second column
+        EduSpecHtmlHelper.Label(Html, "editorLabel", Model, "NoteInfoFamilyCode");
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 80);// First column
+        EduSpecHtmlHelper.Label(Html, "Account No.:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 100);// Second column
+        EduSpecHtmlHelper.Label(Html, "editorLabel", Model, "NoteInfoExternalAccNo");
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 80);// First column
+        EduSpecHtmlHelper.Label(Html, "School fees:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 100);// Second column
+        EduSpecHtmlHelper.Label(Html, "editorLabel", Model, "SchoolFees");
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 80);// First column
+        EduSpecHtmlHelper.Label(Html, "Exemption status:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 100);// Second column
+        EduSpecHtmlHelper.Label(Html, "editorLabel", Model, "NoteInfoExempStatus");
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 80);// First column
+        EduSpecHtmlHelper.Label(Html, "Exemption amount:", "editorLabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 100);// Second column
+        EduSpecHtmlHelper.Label(Html, "editorLabel", Model, "AmountExempted");
+        EduSpecHtmlHelper.TextBox(Html, "editorLabel", "AgeStatusIDNote", Model, "AgeStatusID", false, 50, null);
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+        EduSpecHtmlHelper.EndTable(Html);
+
+        // ****************************** End Info table ******************************
+
+        EduSpecHtmlHelper.EndTable(Html);
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+        EduSpecHtmlHelper.NewRow(Html);
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form");// First column
+        EduSpecHtmlHelper.Label(Html, "Note:", "editorLabel");
+        EduSpecHtmlHelper.Memo(Html, "memoNote", "formeditor", 550, 100, true, true);
+        EduSpecHtmlHelper.EndColumn(Html);
+        EduSpecHtmlHelper.EndRow(Html);
+        EduSpecHtmlHelper.EndTable(Html);
+
+        EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+        EduSpecHtmlHelper.NewDiv(Html, "line");
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> saveButtonEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        saveButtonEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){ SetContactDetailsNoteValues();}");
+        EduSpecHtmlHelper.Button(Html, "btnSaveLegalNote", "button", "Save", 80, saveButtonEvents);
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> cancelButtonEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        cancelButtonEvents.Add(ButtonClientSideEvent.onClick, "function(s,e){ pcDebtManagemenNote.Hide();}");
+        EduSpecHtmlHelper.Button(Html, "btnCancelLegalNote", "button", "Cancel", 80, cancelButtonEvents);
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> viewAccButtonEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        viewAccButtonEvents.Add(ButtonClientSideEvent.onClick, "function(s,e){ ShowFamilyInfoForm(false, false, false, GridView.GetRowKey(GridView.GetFocusedRowIndex()));}");
+
+        EduSpecHtmlHelper.Button(Html, "btnViewAccountInfo", "button", "View Account Info", 80, viewAccButtonEvents);
+
+        Dictionary<EduSpec.ButtonClientSideEvent, string> EditAccButtonEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        EditAccButtonEvents.Add(ButtonClientSideEvent.onClick, "function(s,e){ cbpFamilyManagement.PerformCallback(); pcFamilyManagement.Show();}");
+        EduSpecHtmlHelper.Button(Html, "btnEditAccountInfo", "button", "Edit Account Info", 80, EditAccButtonEvents);
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+
+    });
+}).GetHtml()

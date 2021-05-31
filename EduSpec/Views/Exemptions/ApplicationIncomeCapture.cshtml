@@ -1,0 +1,223 @@
+﻿<div id="RoundPanel">
+
+    @Html.DevExpress().RoundPanel(rpSettings =>
+{
+
+    rpSettings.Name = "rpApplicationFinalise";
+    rpSettings.HeaderText = "Processing Information";
+    rpSettings.Width = Unit.Percentage(100);
+
+    rpSettings.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 100%; margin:0px 5px 0px 5px;\">");
+        ViewContext.Writer.Write("<div class=\"line\" style=\"width: 100%; margin:0px 10px 10px 0px;\">");
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "formlabel";
+            edtSettings.Width = 250;
+            edtSettings.Text = "Joint application received:";
+        }).Render();
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Name = "IsJointApplicationReceived";
+            edtSettings.ControlStyle.CssClass = "formeditor";
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(DataBinder.Eval(Model, "IsJointApplicationReceived")).Render();
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "formlabel";
+            edtSettings.Width = 250;
+            edtSettings.Text = "Parent/Guardian Monthly income:";
+        }).Render();
+
+        Html.DevExpress().SpinEdit(seSettings =>
+        {
+            seSettings.Name = "IncomeParent1";
+            seSettings.Properties.MaxValue = 1000000;
+            seSettings.Number = 0;
+            seSettings.Properties.MinValue = 0;
+            seSettings.ControlStyle.CssClass = "formeditor";
+            seSettings.Properties.SpinButtons.ShowIncrementButtons = false;
+            seSettings.Width = 100;
+            seSettings.Properties.DisplayFormatString = "c";
+            seSettings.Properties.DecimalPlaces = 2;
+            seSettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        }).Bind(DataBinder.Eval(Model, "IncomeParent1")).GetHtml();
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "formlabel";
+            edtSettings.Width = 250;
+            edtSettings.Text = "Parent/Guardian Spouse Monthly income:";
+        }).Render();
+
+        Html.DevExpress().SpinEdit(seSettings =>
+        {
+            seSettings.Name = "IncomeParent2";
+            seSettings.Properties.MaxValue = 1000000;
+            seSettings.Number = 0;
+            seSettings.Properties.MinValue = 0;
+            seSettings.ControlStyle.CssClass = "formeditor";
+            seSettings.Properties.SpinButtons.ShowIncrementButtons = false;
+            seSettings.Width = 100;
+            seSettings.Properties.DisplayFormatString = "c";
+            seSettings.Properties.DecimalPlaces = 2;
+            seSettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        }).Bind(DataBinder.Eval(Model, "IncomeParent2")).GetHtml();
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "formlabel";
+            edtSettings.Width = 250;
+            edtSettings.Text = "Additional monetary contribution:";
+        }).Render();
+
+        Html.DevExpress().SpinEdit(seSettings =>
+        {
+            seSettings.Name = "Monetary";
+            seSettings.Properties.MaxValue = 500000;
+            seSettings.Number = 0;
+            seSettings.Properties.MinValue = 0;
+            seSettings.ControlStyle.CssClass = "formeditor";
+            seSettings.Properties.SpinButtons.ShowIncrementButtons = false;
+            seSettings.Width = 100;
+            seSettings.Properties.DisplayFormatString = "c";
+            seSettings.Properties.DecimalPlaces = 2;
+            seSettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        }).Bind(DataBinder.Eval(Model, "Monetary")).GetHtml();
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "formlabel";
+            edtSettings.Width = 250;
+            edtSettings.Text = "Learners In Other Schools:";
+        }).Render();
+
+        Html.DevExpress().SpinEdit(seSettings =>
+        {
+            seSettings.Name = "LearnersInOtherSchools";
+            seSettings.Properties.MaxValue = 100000;
+            seSettings.Number = 0;
+            seSettings.Properties.MinValue = 0;
+            seSettings.ControlStyle.CssClass = "formeditor";
+            seSettings.Width = 100;
+            seSettings.Properties.DecimalPlaces = 0;
+            seSettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        }).Bind(DataBinder.Eval(Model, "LearnersInOtherSchools")).GetHtml();
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "formlabel";
+            edtSettings.Width = 250;
+            edtSettings.Text = "Monthly Contibution Offer:";
+        }).Render();
+
+        Html.DevExpress().SpinEdit(seSettings =>
+        {
+            seSettings.Name = "Offer";
+            seSettings.Properties.MaxValue = 100000;
+            seSettings.Number = 0;
+            seSettings.Properties.MinValue = 0;
+            seSettings.ControlStyle.CssClass = "formeditor";
+            seSettings.Properties.SpinButtons.ShowIncrementButtons = false;
+            seSettings.Width = 100;
+            seSettings.Properties.DisplayFormatString = "c";
+            seSettings.Properties.DecimalPlaces = 2;
+            seSettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        }).Bind(DataBinder.Eval(Model, "Offer")).GetHtml();
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "formlabel";
+            edtSettings.Width = 250;
+            edtSettings.Text = "Total School Fees already Paid this year:";
+        }).Render();
+
+        Html.DevExpress().SpinEdit(seSettings =>
+        {
+            seSettings.Name = "AmountPaidToDate";
+            seSettings.Properties.MaxValue = 100000;
+            seSettings.Number = 0;
+            seSettings.Properties.MinValue = 0;
+            seSettings.ControlStyle.CssClass = "formeditor";
+            seSettings.Properties.SpinButtons.ShowIncrementButtons = false;
+            seSettings.Width = 100;
+            seSettings.Properties.DisplayFormatString = "c";
+            seSettings.Properties.DecimalPlaces = 2;
+            seSettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+        }).Bind(DataBinder.Eval(Model, "AmountPaidToDate")).GetHtml();
+
+        //Html.DevExpress().Label(edtSettings =>
+        //{
+        //    edtSettings.ControlStyle.CssClass = "formlabel";
+        //    edtSettings.Width = 250;
+        //    edtSettings.Text = "Effective Month:";
+        //}).Render();
+
+        //Html.DevExpress().ComboBox(comboBox =>
+        //{
+        //    comboBox.Name = "EffectiveFromMonth";
+        //    comboBox.Width = 100;
+        //    comboBox.ControlStyle.CssClass = "formeditor";
+        //    comboBox.Properties.TextField = "Description";
+        //    comboBox.Properties.ValueField = "ID";
+        //    comboBox.Properties.ValueType = typeof(int);
+        //}).BindList(GridUtils.getDropdownList("Get_Months_PickList")).Bind(DataBinder.Eval(Model, "EffectiveFromMonth")).Render();
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "formlabel";
+            edtSettings.Width = 250;
+            edtSettings.Text = "Application due to COVID19:";
+        }).Render();
+
+        Html.DevExpress().CheckBox(edtSettings =>
+        {
+            edtSettings.Name = "IsCovid19";
+            edtSettings.ControlStyle.CssClass = "formeditor";
+            edtSettings.Properties.ValueType = typeof(bool);
+        }).Bind(DataBinder.Eval(Model, "IsCovid19")).Render();
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "formlabel";
+            edtSettings.Width = 250;
+            edtSettings.Text = "Payment from date:";
+        }).Render();
+
+        Html.DevExpress().DateEdit(deSettings =>
+        {
+            deSettings.Name = "PaymentFromDate";
+            deSettings.ControlStyle.CssClass = "formeditor";
+            deSettings.Width = 100;
+            deSettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            deSettings.Properties.NullText = "MM/dd/yyy";
+            deSettings.Date = DateTime.Now;
+        }).Bind(DataBinder.Eval(Model, "PaymentFromDate")).GetHtml();
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "formlabel";
+            edtSettings.Width = 250;
+            edtSettings.Text = "Payment to date:";
+        }).Render();
+
+        Html.DevExpress().DateEdit(seSettings =>
+        {
+            seSettings.Name = "PaymentToDate";
+            seSettings.ControlStyle.CssClass = "formeditor";
+            seSettings.Width = 100;
+            seSettings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+            //seSettings.Properties.ClientSideEvents.ValueChanged = "SetDateEditFirstDayDecember";
+            //seSettings.Properties.n.NullText = "SetDateEditFirstDayDecember";
+        }).Bind(DataBinder.Eval(Model, "PaymentToDate")).GetHtml();
+
+        ViewContext.Writer.Write("</div></div>");
+    });
+
+}).GetHtml()
+
+</div>

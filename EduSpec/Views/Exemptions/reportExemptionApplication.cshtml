@@ -1,0 +1,15 @@
+﻿@model DevExpress.XtraReports.UI.XtraReport
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcExemptionApplication", "Exemption Application");
+    settings.CallbackRouteValues = new { Controller = "Exemptions", Action = "reportExemptionApplication" };
+    //settings.ClientSideEvents.BeginCallback = "function(s, e) { e.customArgs['YearID'] = cbYear.GetValue(); }";
+    settings.ClientSideEvents.EndCallback = "function(s, e) {  LoadingPanel.Hide(); s.Show(); }";
+    settings.SetContent(() =>
+    {
+        Html.RenderPartial("DocumentViewer", Model, new ViewDataDictionary { { "Name", "ExemptionApplication" } });
+    });
+}).GetHtml()
+
+

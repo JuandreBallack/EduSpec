@@ -1,0 +1,36 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["BulkLetterHistoryViewProperties"]);
+
+    settings.Columns.Add(column =>
+    {
+        column.Name = "BulkLettersHistory";
+        //column.FieldName = "IsDealerApplicationUploaded";
+        column.Caption = "Document";
+        column.UnboundType = DevExpress.Data.UnboundColumnType.String;
+        column.Visible = true;
+        column.Width = 75;
+        column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        column.SetDataItemTemplateContent(c =>
+        {
+
+            Html.DevExpress().HyperLink(settingsBtn =>
+            {
+
+                settingsBtn.Name = "cbh_" + c.KeyValue.ToString();
+
+                if (DataBinder.Eval(c.DataItem, "FileName") != null)
+                {
+                    settingsBtn.Properties.ImageUrl = "~/Content/GridImages/FileType_PDF.png";
+                    settingsBtn.NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "BulkCorrespondence", Action = "getInstitutionBulkLettersHistory", returnUrl = "~/Printouts/" + DataBinder.Eval(c.DataItem, "FileName").ToString() });
+                    settingsBtn.Properties.Target = "_blank";
+                }
+
+                settingsBtn.Width = 60;
+
+            }).GetHtml();
+        });
+    });
+
+
+}).Bind(Model).GetHtml()

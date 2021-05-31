@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XtraReportsLayoutSerializer SerializerVersion="17.2.3.0" Ref="0" ControlType="DevExpress.XtraReports.UI.XtraReport, DevExpress.XtraReports.v17.2, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Name="ApplicationForm_P7" Margins="38, 38, 25, 35" PaperKind="A4" PageWidth="827" PageHeight="1169" Version="17.2">
+  <Bands>
+    <Item1 Ref="1" ControlType="DetailBand" Name="Detail" HeightF="986.4583" TextAlignment="TopLeft" Padding="0,0,0,0,100">
+      <Controls>
+        <Item1 Ref="2" ControlType="XRLabel" Name="xrLabel50" Text="NB! A copy of your ID must be included with this form!" TextAlignment="MiddleCenter" SizeF="749.7084,23" LocationFloat="0.2916018, 953.4583" Font="Arial, 12pt, style=Bold" Padding="2,2,0,0,100">
+          <StylePriority Ref="3" UseFont="false" UseTextAlignment="false" />
+        </Item1>
+        <Item2 Ref="4" ControlType="XRLabel" Name="xrLabel48" Multiline="true" Text="Parent/Guardian" TextAlignment="MiddleLeft" SizeF="247.875,40.62494" LocationFloat="0, 484.3334" Font="Arial, 9pt, style=Bold" Padding="15,2,0,0,100" Borders="None" BorderWidth="0.75">
+          <StylePriority Ref="5" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item2>
+        <Item3 Ref="6" ControlType="XRLabel" Name="xrLabel49" Multiline="true" Text="Spouse" TextAlignment="MiddleLeft" SizeF="247.875,40.62494" LocationFloat="0, 729.3854" Font="Arial, 9pt, style=Bold" Padding="15,2,0,0,100" Borders="None" BorderWidth="0.75">
+          <StylePriority Ref="7" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item3>
+        <Item4 Ref="8" ControlType="XRLabel" Name="xrLabel34" Multiline="true" Text="Name" TextAlignment="MiddleLeft" SizeF="60.37496,22.99994" LocationFloat="0.2916018, 770.0104" Font="Arial, 9pt" Padding="10,2,0,0,100" Borders="None" BorderWidth="0.75">
+          <StylePriority Ref="9" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item4>
+        <Item5 Ref="10" ControlType="XRLabel" Name="xrLabel35" TextAlignment="MiddleCenter" SizeF="291.0835,22.99994" LocationFloat="60.66653, 770.0104" Font="Arial, 8pt" Padding="2,2,0,0,100" Borders="Bottom" BorderWidth="0.75">
+          <StylePriority Ref="11" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item5>
+        <Item6 Ref="12" ControlType="XRLabel" Name="xrLabel36" TextAlignment="MiddleCenter" SizeF="46.25006,23.00003" LocationFloat="694.0416, 818.9687" Font="Arial, 8pt" Padding="2,2,0,0,100" Borders="Bottom" BorderWidth="0.75">
+          <StylePriority Ref="13" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item6>
+        <Item7 Ref="14" ControlType="XRLabel" Name="xrLabel37" TextAlignment="MiddleCenter" SizeF="167.1248,23.00003" LocationFloat="489, 818.9687" Font="Arial, 8pt" Padding="2,2,0,0,100" Borders="Bottom" BorderWidth="0.75">
+          <StylePriority Ref="15" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item7>
+        <Item8 Ref="16" ControlType="XRLabel" Name="xrLabel38" Multiline="true" Text="day of" TextAlignment="MiddleCenter" SizeF="45.20837,23.00003" LocationFloat="443.7917, 818.9687" Font="Arial, 9pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="17" UseFont="false" UseTextAlignment="false" />
+        </Item8>
+        <Item9 Ref="18" ControlType="XRLabel" Name="xrLabel39" TextAlignment="MiddleCenter" SizeF="47.87494,23.00003" LocationFloat="395.9167, 818.9687" Font="Arial, 8pt" Padding="2,2,0,0,100" Borders="Bottom" BorderWidth="0.75">
+          <StylePriority Ref="19" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item9>
+        <Item10 Ref="20" ControlType="XRLabel" Name="xrLabel40" Multiline="true" Text="on this" TextAlignment="MiddleCenter" SizeF="44.16669,23" LocationFloat="351.75, 818.9687" Font="Arial, 9pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="21" UseFont="false" UseTextAlignment="false" />
+        </Item10>
+        <Item11 Ref="22" ControlType="XRLabel" Name="xrLabel41" Multiline="true" Text="Signed at" TextAlignment="MiddleLeft" SizeF="80.91666,23.00003" LocationFloat="0, 818.9687" Font="Arial, 9pt" Padding="10,2,0,0,100">
+          <StylePriority Ref="23" UseFont="false" UsePadding="false" UseTextAlignment="false" />
+        </Item11>
+        <Item12 Ref="24" ControlType="XRLabel" Name="xrLabel42" TextAlignment="MiddleCenter" SizeF="270.8334,23.00006" LocationFloat="80.91666, 818.9686" Font="Arial, 8pt" Padding="2,2,0,0,100" Borders="Bottom" BorderWidth="0.75">
+          <StylePriority Ref="25" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item12>
+        <Item13 Ref="26" ControlType="XRLabel" Name="xrLabel43" TextAlignment="MiddleCenter" SizeF="311.4999,23" LocationFloat="428.7917, 770.0104" Font="Arial, 8pt" Padding="2,2,0,0,100" Borders="Bottom" BorderWidth="0.75">
+          <StylePriority Ref="27" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item13>
+        <Item14 Ref="28" ControlType="XRLabel" Name="xrLabel44" Multiline="true" Text="20" TextAlignment="MiddleCenter" SizeF="37.91669,23.00003" LocationFloat="656.1249, 818.9687" Font="Arial, 9pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="29" UseFont="false" UseTextAlignment="false" />
+        </Item14>
+        <Item15 Ref="30" ControlType="XRLabel" Name="xrLabel45" Multiline="true" Text="Surname" TextAlignment="MiddleLeft" SizeF="77.04166,22.99994" LocationFloat="351.75, 770.0104" Font="Arial, 9pt" Padding="10,2,0,0,100" Borders="None" BorderWidth="0.75">
+          <StylePriority Ref="31" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item15>
+        <Item16 Ref="32" ControlType="XRLabel" Name="xrLabel46" TextAlignment="MiddleCenter" SizeF="277.5417,22.99994" LocationFloat="70.29161, 909.073" Font="Arial, 8pt" Padding="2,2,0,0,100" Borders="Bottom" BorderWidth="0.75">
+          <StylePriority Ref="33" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item16>
+        <Item17 Ref="34" ControlType="XRLabel" Name="xrLabel47" Multiline="true" Text="Signature" TextAlignment="MiddleLeft" SizeF="70,22.99994" LocationFloat="0.2916018, 909.073" Font="Arial, 9pt" Padding="10,2,0,0,100" Borders="None" BorderWidth="0.75">
+          <StylePriority Ref="35" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item17>
+        <Item18 Ref="36" ControlType="XRLabel" Name="xrLabel13" Multiline="true" Text="Signature" TextAlignment="MiddleLeft" SizeF="70,22.99994" LocationFloat="0.2916018, 664.0209" Font="Arial, 9pt" Padding="10,2,0,0,100" Borders="None" BorderWidth="0.75">
+          <StylePriority Ref="37" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item18>
+        <Item19 Ref="38" ControlType="XRLabel" Name="xrLabel15" TextAlignment="MiddleCenter" SizeF="277.5417,22.99994" LocationFloat="70.29161, 664.0209" Font="Arial, 8pt" Padding="2,2,0,0,100" Borders="Bottom" BorderWidth="0.75">
+          <StylePriority Ref="39" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item19>
+        <Item20 Ref="40" ControlType="XRLabel" Name="xrLabel12" Multiline="true" Text="Surname" TextAlignment="MiddleLeft" SizeF="77.04166,22.99994" LocationFloat="351.75, 524.9583" Font="Arial, 9pt" Padding="10,2,0,0,100" Borders="None" BorderWidth="0.75">
+          <StylePriority Ref="41" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item20>
+        <Item21 Ref="42" ControlType="XRLabel" Name="xrLabel33" Multiline="true" Text="Spouse" TextAlignment="MiddleLeft" SizeF="247.875,27.08332" LocationFloat="0, 198.3333" Font="Arial, 9pt, style=Bold" Padding="15,2,0,0,100" Borders="None" BorderWidth="0.75">
+          <StylePriority Ref="43" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item21>
+        <Item22 Ref="44" ControlType="XRLabel" Name="xrLabel32" Multiline="true" Text="Parent/Guardian" TextAlignment="MiddleLeft" SizeF="247.875,27.08332" LocationFloat="0, 92.875" Font="Arial, 9pt, style=Bold" Padding="15,2,0,0,100" Borders="None" BorderWidth="0.75">
+          <StylePriority Ref="45" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item22>
+        <Item23 Ref="46" ControlType="XRLabel" Name="xrLabel25" Multiline="true" Text="Surname:" TextAlignment="MiddleLeft" SizeF="375,26.12498" LocationFloat="0, 225.4167" Font="Arial, 9pt" Padding="10,2,0,0,100" Borders="All" BorderWidth="0.75">
+          <StylePriority Ref="47" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item23>
+        <Item24 Ref="48" ControlType="XRLabel" Name="xrLabel26" Multiline="true" Text="First Name:" TextAlignment="MiddleLeft" SizeF="375,26.12498" LocationFloat="375, 225.4167" Font="Arial, 9pt" Padding="10,2,0,0,100" Borders="Top, Right, Bottom" BorderWidth="0.75">
+          <StylePriority Ref="49" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item24>
+        <Item25 Ref="50" ControlType="XRLabel" Name="xrLabel27" Multiline="true" Text="Other ID/Passport:" TextAlignment="MiddleLeft" SizeF="375,26.12498" LocationFloat="375, 251.5417" Font="Arial, 9pt" Padding="10,2,0,0,100" Borders="Right, Bottom" BorderWidth="0.75">
+          <StylePriority Ref="51" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item25>
+        <Item26 Ref="52" ControlType="XRLabel" Name="xrLabel29" Multiline="true" Text="ID Number:" TextAlignment="MiddleLeft" SizeF="375,26.12498" LocationFloat="0, 251.5417" Font="Arial, 9pt" Padding="10,2,0,0,100" Borders="Left, Right, Bottom" BorderWidth="0.75">
+          <StylePriority Ref="53" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item26>
+        <Item27 Ref="54" ControlType="XRLabel" Name="xrLabel30" Multiline="true" Text="Contact No:" TextAlignment="MiddleLeft" SizeF="375,26.12498" LocationFloat="375, 277.6667" Font="Arial, 9pt" Padding="10,2,0,0,100" Borders="Right, Bottom" BorderWidth="0.75">
+          <StylePriority Ref="55" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item27>
+        <Item28 Ref="56" ControlType="XRLabel" Name="xrLabel31" Multiline="true" Text="Date of Birth:" TextAlignment="MiddleLeft" SizeF="375,26.12498" LocationFloat="0, 277.6667" Font="Arial, 9pt" Padding="10,2,0,0,100" Borders="Left, Right, Bottom" BorderWidth="0.75">
+          <StylePriority Ref="57" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item28>
+        <Item29 Ref="58" ControlType="XRLabel" Name="xrLabel16" Multiline="true" Text="Date of Birth:" TextAlignment="MiddleLeft" SizeF="375,26.12498" LocationFloat="0, 172.2083" Font="Arial, 9pt" Padding="10,2,0,0,100" Borders="Left, Right, Bottom" BorderWidth="0.75">
+          <StylePriority Ref="59" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item29>
+        <Item30 Ref="60" ControlType="XRLabel" Name="xrLabel21" Multiline="true" Text="Contact No:" TextAlignment="MiddleLeft" SizeF="375,26.12498" LocationFloat="375, 172.2083" Font="Arial, 9pt" Padding="10,2,0,0,100" Borders="Right, Bottom" BorderWidth="0.75">
+          <StylePriority Ref="61" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item30>
+        <Item31 Ref="62" ControlType="XRLabel" Name="xrLabel9" Multiline="true" Text="ID Number:" TextAlignment="MiddleLeft" SizeF="375,26.12498" LocationFloat="0, 146.0834" Font="Arial, 9pt" Padding="10,2,0,0,100" Borders="Left, Right, Bottom" BorderWidth="0.75">
+          <StylePriority Ref="63" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item31>
+        <Item32 Ref="64" ControlType="XRLabel" Name="xrLabel10" Multiline="true" Text="Other ID/Passport:" TextAlignment="MiddleLeft" SizeF="375,26.12498" LocationFloat="375, 146.0834" Font="Arial, 9pt" Padding="10,2,0,0,100" Borders="Right, Bottom" BorderWidth="0.75">
+          <StylePriority Ref="65" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item32>
+        <Item33 Ref="66" ControlType="XRLabel" Name="xrLabel8" Multiline="true" Text="First Name:" TextAlignment="MiddleLeft" SizeF="375,26.12498" LocationFloat="375, 119.9583" Font="Arial, 9pt" Padding="10,2,0,0,100" Borders="Top, Right, Bottom" BorderWidth="0.75">
+          <StylePriority Ref="67" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item33>
+        <Item34 Ref="68" ControlType="XRLabel" Name="xrLabel7" Multiline="true" Text="Surname:" TextAlignment="MiddleLeft" SizeF="375,26.12498" LocationFloat="0, 119.9583" Font="Arial, 9pt" Padding="10,2,0,0,100" Borders="All" BorderWidth="0.75">
+          <StylePriority Ref="69" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item34>
+        <Item35 Ref="70" ControlType="XRLabel" Name="xrLabel6" Text="Individual/s Information:" TextAlignment="MiddleLeft" SizeF="751,23" LocationFloat="0, 69.87502" Font="Arial, 10pt, style=Bold" Padding="10,2,0,0,100">
+          <StylePriority Ref="71" UseFont="false" UsePadding="false" UseTextAlignment="false" />
+        </Item35>
+        <Item36 Ref="72" ControlType="XRLabel" Name="xrLabel5" Multiline="true" Text="20" TextAlignment="MiddleCenter" SizeF="37.91669,23.00003" LocationFloat="656.1249, 573.9166" Font="Arial, 9pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="73" UseFont="false" UseTextAlignment="false" />
+        </Item36>
+        <Item37 Ref="74" ControlType="XRLabel" Name="xrLabel14" TextAlignment="MiddleCenter" SizeF="311.4999,22.99994" LocationFloat="428.7917, 524.9583" Font="Arial, 8pt" Padding="2,2,0,0,100" Borders="Bottom" BorderWidth="0.75">
+          <StylePriority Ref="75" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item37>
+        <Item38 Ref="76" ControlType="XRLabel" Name="xrLabel18" TextAlignment="MiddleCenter" SizeF="270.8334,23.00006" LocationFloat="80.91666, 573.9165" Font="Arial, 8pt" Padding="2,2,0,0,100" Borders="Bottom" BorderWidth="0.75">
+          <StylePriority Ref="77" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item38>
+        <Item39 Ref="78" ControlType="XRLabel" Name="xrLabel17" Multiline="true" Text="Signed at" TextAlignment="MiddleLeft" SizeF="80.91666,23.00003" LocationFloat="0, 573.9166" Font="Arial, 9pt" Padding="10,2,0,0,100">
+          <StylePriority Ref="79" UseFont="false" UsePadding="false" UseTextAlignment="false" />
+        </Item39>
+        <Item40 Ref="80" ControlType="XRLabel" Name="xrLabel19" Multiline="true" Text="on this" TextAlignment="MiddleCenter" SizeF="44.16669,23" LocationFloat="351.75, 573.9166" Font="Arial, 9pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="81" UseFont="false" UseTextAlignment="false" />
+        </Item40>
+        <Item41 Ref="82" ControlType="XRLabel" Name="xrLabel22" TextAlignment="MiddleCenter" SizeF="47.87494,23.00003" LocationFloat="395.9167, 573.9166" Font="Arial, 8pt" Padding="2,2,0,0,100" Borders="Bottom" BorderWidth="0.75">
+          <StylePriority Ref="83" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item41>
+        <Item42 Ref="84" ControlType="XRLabel" Name="xrLabel20" Multiline="true" Text="day of" TextAlignment="MiddleCenter" SizeF="45.20837,23.00003" LocationFloat="443.7917, 573.9166" Font="Arial, 9pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="85" UseFont="false" UseTextAlignment="false" />
+        </Item42>
+        <Item43 Ref="86" ControlType="XRLabel" Name="xrLabel23" TextAlignment="MiddleCenter" SizeF="167.1248,23.00003" LocationFloat="489, 573.9166" Font="Arial, 8pt" Padding="2,2,0,0,100" Borders="Bottom" BorderWidth="0.75">
+          <StylePriority Ref="87" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item43>
+        <Item44 Ref="88" ControlType="XRLabel" Name="xrLabel24" TextAlignment="MiddleCenter" SizeF="46.25006,23.00003" LocationFloat="694.0416, 573.9166" Font="Arial, 8pt" Padding="2,2,0,0,100" Borders="Bottom" BorderWidth="0.75">
+          <StylePriority Ref="89" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item44>
+        <Item45 Ref="90" ControlType="XRLabel" Name="xrLabel11" TextAlignment="MiddleCenter" SizeF="291.0835,22.99994" LocationFloat="60.66653, 524.9583" Font="Arial, 8pt" Padding="2,2,0,0,100" Borders="Bottom" BorderWidth="0.75">
+          <StylePriority Ref="91" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item45>
+        <Item46 Ref="92" ControlType="XRLabel" Name="xrLabel109" Multiline="true" Text="Name" TextAlignment="MiddleLeft" SizeF="60.37496,22.99994" LocationFloat="0.2916018, 524.9583" Font="Arial, 9pt" Padding="10,2,0,0,100" Borders="None" BorderWidth="0.75">
+          <StylePriority Ref="93" UseFont="false" UsePadding="false" UseBorders="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item46>
+        <Item47 Ref="94" ControlType="XRLabel" Name="xrLabel4" Text="The information is solely for my own personal use and I will abide by the rules as set out by the National Credir Regulator." TextAlignment="MiddleLeft" SizeF="751,33.41669" LocationFloat="0, 438.7084" Font="Arial, 9pt" Padding="10,2,0,0,100">
+          <StylePriority Ref="95" UseFont="false" UsePadding="false" UseTextAlignment="false" />
+        </Item47>
+        <Item48 Ref="96" ControlType="XRLabel" Name="xrLabel3" Text="I authorise there suppliers to furnish personal information regarding my credentials, whether claimed or not, to the company, I unconditionally idemnify them and its verification information suppiers against any liability which result or may result from furnishing information in this regards." TextAlignment="MiddleLeft" SizeF="751,66.75006" LocationFloat="0, 371.9583" Font="Arial, 9pt" Padding="10,2,0,0,100">
+          <StylePriority Ref="97" UseFont="false" UsePadding="false" UseTextAlignment="false" />
+        </Item48>
+        <Item49 Ref="98" ControlType="XRLabel" Name="xrLabel2" Text="I/we hereby authorise The Company MarisIT Developmant CC and/or TPN Group (PTY Limited) duly authorised verification agent to forward or make availble my personal cedit report." TextAlignment="MiddleLeft" SizeF="751,42.79169" LocationFloat="0, 329.1667" Font="Arial, 9pt" Padding="10,2,0,0,100">
+          <StylePriority Ref="99" UseFont="false" UsePadding="false" UseTextAlignment="false" />
+        </Item49>
+        <Item50 Ref="100" ControlType="XRLabel" Name="xrLabel1" Text="Consent and indemnity form for my personal credit report" TextAlignment="MiddleCenter" SizeF="751,23" LocationFloat="0, 36.45833" Font="Arial, 12pt, style=Bold" Padding="2,2,0,0,100">
+          <StylePriority Ref="101" UseFont="false" UseTextAlignment="false" />
+        </Item50>
+        <Item51 Ref="102" ControlType="XRLabel" Name="xrLabel53" Text="13. Consent and Indemnity Form" TextAlignment="MiddleLeft" SizeF="751,23" LocationFloat="0, 0" Font="Arial, 8pt, style=Bold" ForeColor="White" BackColor="DimGray" Padding="6,2,0,0,100" BorderColor="DimGray" BorderWidth="0.75">
+          <StylePriority Ref="103" UseFont="false" UseForeColor="false" UseBackColor="false" UsePadding="false" UseBorderColor="false" UseBorderWidth="false" UseTextAlignment="false" />
+        </Item51>
+      </Controls>
+    </Item1>
+    <Item2 Ref="104" ControlType="TopMarginBand" Name="TopMargin" HeightF="25" TextAlignment="TopLeft" Padding="0,0,0,0,100" />
+    <Item3 Ref="105" ControlType="BottomMarginBand" Name="BottomMargin" HeightF="35" TextAlignment="TopLeft" Padding="0,0,0,0,100">
+      <Controls>
+        <Item1 Ref="106" ControlType="XRLabel" Name="xrLabel28" Text="Printed by EduSpec" SizeF="100,15.70835" LocationFloat="0, 0" Font="Arial Narrow, 8.25pt, charSet=0" Padding="2,2,0,0,100">
+          <StylePriority Ref="107" UseFont="false" />
+        </Item1>
+        <Item2 Ref="108" ControlType="XRPageInfo" Name="xrPageInfo1" TextAlignment="MiddleCenter" SizeF="36.99976,23" LocationFloat="714.0002, 0" Padding="2,2,0,0,100">
+          <StylePriority Ref="109" UseTextAlignment="false" />
+        </Item2>
+      </Controls>
+    </Item3>
+  </Bands>
+</XtraReportsLayoutSerializer>

@@ -1,0 +1,386 @@
+﻿<table class="CheckListTable">
+    <tr>
+        <td class="CheckListTable-l" style="width: 50%;">
+            <div class="edit_form" style="width: 100%; margin:0px 5px 0px 5px;">
+                <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                    @Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "headinglabel";
+                        edtSettings.Width = 200;
+                        edtSettings.Text = "Institution Information";
+                    }).GetHtml()
+
+                    </div><div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                    @Html.DevExpress().Label(lbSettings =>
+                    {
+                        lbSettings.Text = "Institution Name";
+                        lbSettings.ControlStyle.CssClass = "label";
+                        lbSettings.Width = 180;
+                    }).GetHtml()
+
+                    @Html.Partial("MasterInstitutionPickList")
+
+                    @Html.DevExpress().Label(lbSettings =>
+                    {
+                        lbSettings.Text = "Correspondence Language";
+                        lbSettings.ControlStyle.CssClass = "label";
+                        lbSettings.Width = 180;
+                    }).GetHtml()
+
+                    @Html.DevExpress().ComboBox(edtSettings =>
+                    {
+                        edtSettings.Name = "CorrespondenceLanguageID";
+                        edtSettings.ControlStyle.CssClass = "formeditor";
+                        edtSettings.Width = 200;
+                        edtSettings.Properties.TextField = "Description";
+                        edtSettings.Properties.ValueField = "ID";
+                        edtSettings.Properties.ValueType = typeof(Int16);
+                        edtSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                        edtSettings.Properties.ClientSideEvents.Validation = "OnRequiredFieldValidation";
+                        edtSettings.ControlStyle.BackColor = System.Drawing.Color.LightYellow;
+                    }).BindList(GridUtils.getDropdownList("Get_CorrespondenceLanguage_PickList")).Bind(DataBinder.Eval(Model, "CorrespondenceLanguageID")).GetHtml()
+
+                    @Html.DevExpress().Label(lbSettings =>
+                    {
+                        lbSettings.Text = "EMIS Number";
+                        lbSettings.ControlStyle.CssClass = "label";
+                        lbSettings.Width = 180;
+                    }).GetHtml()
+
+                    @Html.DevExpress().TextBox(tbSettings =>
+                    {
+                        tbSettings.Name = "EMISNo";
+                        tbSettings.ControlStyle.CssClass = "formeditor";
+                        tbSettings.Width = 200;
+                    }).Bind(DataBinder.Eval(Model, "EMISNo")).GetHtml()
+
+                    @Html.DevExpress().Label(lbSettings =>
+                    {
+                        lbSettings.Text = "Quintile";
+                        lbSettings.ControlStyle.CssClass = "label";
+                        lbSettings.Width = 180;
+                    }).GetHtml()
+
+                        @Html.DevExpress().ComboBox(edtSettings =>
+                    {
+                        edtSettings.Name = "QuintileID";
+                        edtSettings.ControlStyle.CssClass = "formeditor";
+                        edtSettings.Width = 200;
+                        edtSettings.Properties.TextField = "Description";
+                        edtSettings.Properties.ValueField = "ID";
+                        edtSettings.Properties.ValueType = typeof(Int16);
+                    }).BindList(GridUtils.getDropdownList("Get_Quintile_PickList")).Bind(DataBinder.Eval(Model, "QuintileID")).GetHtml()
+
+                        @Html.DevExpress().Label(lbSettings =>
+                    {
+                        lbSettings.Text = "Phase";
+                        lbSettings.ControlStyle.CssClass = "label";
+                        lbSettings.Width = 180;
+                    }).GetHtml()
+
+                        @Html.DevExpress().ComboBox(edtSettings =>
+                    {
+                        edtSettings.Name = "PhaseID";
+                        edtSettings.ControlStyle.CssClass = "formeditor";
+                        edtSettings.Width = 200;
+                        edtSettings.Properties.TextField = "Description";
+                        edtSettings.Properties.ValueField = "ID";
+                        edtSettings.Properties.ValueType = typeof(Int16);
+                        edtSettings.Properties.ClientSideEvents.SelectedIndexChanged = "setGrade";
+                    }).BindList(GridUtils.getDropdownList("Get_Phases_PickList")).Bind(DataBinder.Eval(Model, "PhaseID")).GetHtml()
+
+                        @Html.DevExpress().Label(lbSettings =>
+                    {
+                        lbSettings.Text = "Grade From:";
+                        lbSettings.ControlStyle.CssClass = "label";
+                        lbSettings.Width = 180;
+                    }).GetHtml()
+
+                        @Html.DevExpress().ComboBox(edtSettings =>
+                    {
+                        edtSettings.Name = "GradeFromID";
+                        edtSettings.ControlStyle.CssClass = "formeditor";
+                        edtSettings.Width = 200;
+                        edtSettings.Properties.TextField = "Description";
+                        edtSettings.Properties.ValueField = "ID";
+                        edtSettings.Properties.ValueType = typeof(Int16);
+                    }).BindList(GridUtils.getDropdownList("Get_Grade_PickList")).Bind(DataBinder.Eval(Model, "GradeFromID")).GetHtml()
+
+                        @Html.DevExpress().Label(lbSettings =>
+                    {
+                        lbSettings.Text = "Grade To:";
+                        lbSettings.ControlStyle.CssClass = "label";
+                        lbSettings.Width = 180;
+                    }).GetHtml()
+
+                        @Html.DevExpress().ComboBox(edtSettings =>
+                    {
+                        edtSettings.Name = "GradeToID";
+                        edtSettings.ControlStyle.CssClass = "formeditor";
+                        edtSettings.Width = 200;
+                        edtSettings.Properties.TextField = "Description";
+                        edtSettings.Properties.ValueField = "ID";
+                        edtSettings.Properties.ValueType = typeof(Int16);
+                    }).BindList(GridUtils.getDropdownList("Get_Grade_PickList")).Bind(DataBinder.Eval(Model, "GradeToID")).GetHtml()
+
+                        @Html.DevExpress().Label(lbSettings =>
+                    {
+                        lbSettings.Text = "Integration:";
+                        lbSettings.ControlStyle.CssClass = "label";
+                        lbSettings.Width = 180;
+                    }).GetHtml()
+
+                        @Html.DevExpress().ComboBox(edtSettings =>
+                    {
+                        edtSettings.Name = "IntegrationTypeID";
+                        edtSettings.ControlStyle.CssClass = "formeditor";
+                        edtSettings.Width = 200;
+                        edtSettings.Properties.TextField = "Description";
+                        edtSettings.Properties.ValueField = "ID";
+                        edtSettings.Properties.ValueType = typeof(Int16);
+                    }).BindList(GridUtils.getDropdownList("Get_IntegrationType_PickList")).Bind(DataBinder.Eval(Model, "IntegrationTypeID")).GetHtml()
+
+                </div><div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                        @Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "headinglabel";
+                        edtSettings.Width = 200;
+                        edtSettings.Text = "Contact";
+                    }).GetHtml()
+
+                        @Html.DevExpress().Label(lbSettings =>
+                    {
+                        lbSettings.Text = "Telephone";
+                        lbSettings.ControlStyle.CssClass = "label";
+                        lbSettings.Width = 180;
+                    }).GetHtml()
+
+                        @Html.DevExpress().TextBox(tbSettings =>
+                    {
+                        tbSettings.Name = "Telephone";
+                        tbSettings.ControlStyle.CssClass = "formeditor";
+                        tbSettings.Width = 200;
+                    }).Bind(DataBinder.Eval(Model, "Telephone")).GetHtml()
+
+                        @Html.DevExpress().Label(lbSettings =>
+                    {
+                        lbSettings.Text = "Fax";
+                        lbSettings.ControlStyle.CssClass = "label";
+                        lbSettings.Width = 180;
+                    }).GetHtml()
+
+                        @Html.DevExpress().TextBox(tbSettings =>
+                    {
+                        tbSettings.Name = "Fax";
+                        tbSettings.ControlStyle.CssClass = "formeditor";
+                        tbSettings.Width = 200;
+                    }).Bind(DataBinder.Eval(Model, "Fax")).GetHtml()
+
+                        @Html.DevExpress().Label(lbSettings =>
+                    {
+                        lbSettings.Text = "Cell";
+                        lbSettings.ControlStyle.CssClass = "label";
+                        lbSettings.Width = 180;
+                    }).GetHtml()
+
+                        @Html.DevExpress().TextBox(tbSettings =>
+                    {
+                        tbSettings.Name = "Cell";
+                        tbSettings.ControlStyle.CssClass = "formeditor";
+                        tbSettings.Width = 200;
+                    }).Bind(DataBinder.Eval(Model, "Cell")).GetHtml()
+
+                        @Html.DevExpress().Label(lbSettings =>
+                    {
+                        lbSettings.Text = "Institution email";
+                        lbSettings.ControlStyle.CssClass = "label";
+                        lbSettings.Width = 180;
+                    }).GetHtml()
+
+                        @Html.DevExpress().TextBox(tbSettings =>
+                    {
+                        tbSettings.Name = "InstEmail";
+                        tbSettings.ControlStyle.CssClass = "formeditor";
+                        tbSettings.Width = 200;
+                    }).Bind(DataBinder.Eval(Model, "InstEmail")).GetHtml()
+
+                    </div>
+            </div>
+        </td>
+        <td class="CheckListTable-r" style="width: 50%;">
+            <div class="edit_form" style=\"width: 335px; margin:0px 5px 0px 5px;\">
+                <div class="line" style=\"width: 335px; margin:0px 10px 0px;\">
+
+                    @Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "headinglabel";
+                        edtSettings.Width = 200;
+                        edtSettings.Text = "Physical Address";
+                    }).GetHtml()
+
+                    @Html.DevExpress().Label(lbSettings =>
+                    {
+                        lbSettings.Text = "Address";
+                        lbSettings.ControlStyle.CssClass = "label";
+                        lbSettings.Width = 180;
+                    }).GetHtml()
+
+                    @Html.DevExpress().TextBox(tbSettings =>
+                    {
+                        tbSettings.Name = "PhysAddress1";
+                        tbSettings.ControlStyle.CssClass = "formeditor";
+                        tbSettings.Width = 200;
+                    }).Bind(DataBinder.Eval(Model, "PhysAddress1")).GetHtml()
+
+                    @Html.DevExpress().Label(lbSettings =>
+                    {
+                        lbSettings.Text = "";
+                        lbSettings.ControlStyle.CssClass = "label";
+                        lbSettings.Width = 180;
+                    }).GetHtml()
+
+                    @Html.DevExpress().TextBox(tbSettings =>
+                    {
+                        tbSettings.Name = "PhysAddress2";
+                        tbSettings.ControlStyle.CssClass = "formeditor";
+                        tbSettings.Width = 200;
+                    }).Bind(DataBinder.Eval(Model, "PhysAddress1")).GetHtml()
+
+                    @Html.DevExpress().Label(lbSettings =>
+                    {
+                        lbSettings.Text = "Area";
+                        lbSettings.ControlStyle.CssClass = "label";
+                        lbSettings.Width = 180;
+                    }).GetHtml()
+
+                    @Html.DevExpress().TextBox(tbSettings =>
+                    {
+                        tbSettings.Name = "PhysAddress3";
+                        tbSettings.ControlStyle.CssClass = "formeditor";
+                        tbSettings.Width = 200;
+                    }).Bind(DataBinder.Eval(Model, "PhysAddress3")).GetHtml()
+
+                    @Html.DevExpress().Label(lbSettings =>
+                    {
+                        lbSettings.Text = "Province";
+                        lbSettings.ControlStyle.CssClass = "label";
+                        lbSettings.Width = 180;
+                    }).GetHtml()
+
+                    @Html.DevExpress().ComboBox(edtSettings =>
+                    {
+                        edtSettings.Name = "PhysProvinceID";
+                        edtSettings.ControlStyle.CssClass = "formeditor";
+                        edtSettings.Width = 200;
+                        edtSettings.Properties.TextField = "Description";
+                        edtSettings.Properties.ValueField = "ID";
+                        edtSettings.Properties.ValueType = typeof(Int16);
+                    }).BindList(GridUtils.getDropdownList("Get_Provinces_PickList")).Bind(DataBinder.Eval(Model, "PhysProvinceID")).GetHtml()
+
+                    @Html.DevExpress().Label(lbSettings =>
+                    {
+                        lbSettings.Text = "Postal code";
+                        lbSettings.ControlStyle.CssClass = "label";
+                        lbSettings.Width = 180;
+                    }).GetHtml()
+
+                    @Html.DevExpress().TextBox(tbSettings =>
+                    {
+                        tbSettings.Name = "PhysCode";
+                        tbSettings.ControlStyle.CssClass = "formeditor";
+                        tbSettings.Width = 50;
+                    }).Bind(DataBinder.Eval(Model, "PhysCode")).GetHtml()
+
+                    </div>
+                    <div class="line" style=\"width: 335px; margin:0px 10px 0px;\">
+                    
+                        @Html.DevExpress().Label(edtSettings =>
+                    {
+                        edtSettings.ControlStyle.CssClass = "headinglabel";
+                        edtSettings.Width = 200;
+                        edtSettings.Text = "Postal Address";
+                    }).GetHtml()
+
+                        @Html.DevExpress().Label(lbSettings =>
+                    {
+                        lbSettings.Text = "Address";
+                        lbSettings.ControlStyle.CssClass = "label";
+                        lbSettings.Width = 180;
+                    }).GetHtml()
+
+                        @Html.DevExpress().TextBox(tbSettings =>
+                    {
+                        tbSettings.Name = "PosAddress1";
+                        tbSettings.ControlStyle.CssClass = "formeditor";
+                        tbSettings.Width = 200;
+                    }).Bind(DataBinder.Eval(Model, "PosAddress1")).GetHtml()
+
+                        @Html.DevExpress().Label(lbSettings =>
+                    {
+                        lbSettings.Text = "";
+                        lbSettings.ControlStyle.CssClass = "label";
+                        lbSettings.Width = 180;
+                    }).GetHtml()
+
+                        @Html.DevExpress().TextBox(tbSettings =>
+                    {
+                        tbSettings.Name = "PosAddress2";
+                        tbSettings.ControlStyle.CssClass = "formeditor";
+                        tbSettings.Width = 200;
+                    }).Bind(DataBinder.Eval(Model, "PosAddress2")).GetHtml()
+
+                        @Html.DevExpress().Label(lbSettings =>
+                    {
+                        lbSettings.Text = "";
+                        lbSettings.ControlStyle.CssClass = "label";
+                        lbSettings.Width = 180;
+                    }).GetHtml()
+
+                        @Html.DevExpress().TextBox(tbSettings =>
+                    {
+                        tbSettings.Name = "PosAddress3";
+                        tbSettings.ControlStyle.CssClass = "formeditor";
+                        tbSettings.Width = 200;
+                    }).Bind(DataBinder.Eval(Model, "PosAddress3")).GetHtml()
+
+                        @Html.DevExpress().Label(lbSettings =>
+                    {
+                        lbSettings.Text = "Province";
+                        lbSettings.ControlStyle.CssClass = "label";
+                        lbSettings.Width = 180;
+                    }).GetHtml()
+
+                        @Html.DevExpress().ComboBox(edtSettings =>
+                    {
+                        edtSettings.Name = "PosProvinceID";
+                        edtSettings.ControlStyle.CssClass = "formeditor";
+                        edtSettings.Width = 200;
+                        edtSettings.Properties.TextField = "Description";
+                        edtSettings.Properties.ValueField = "ID";
+                        edtSettings.Properties.ValueType = typeof(Int16);
+                    }).BindList(GridUtils.getDropdownList("Get_Provinces_PickList")).Bind(DataBinder.Eval(Model, "PosProvinceID")).GetHtml()
+
+                        @Html.DevExpress().Label(lbSettings =>
+                    {
+                        lbSettings.Text = "Postal code";
+                        lbSettings.ControlStyle.CssClass = "label";
+                        lbSettings.Width = 180;
+                    }).GetHtml()
+
+                        @Html.DevExpress().TextBox(tbSettings =>
+                    {
+                        tbSettings.Name = "PosCode";
+                        tbSettings.ControlStyle.CssClass = "formeditor";
+                        tbSettings.Width = 50;
+                    }).Bind(DataBinder.Eval(Model, "PosCode")).GetHtml()
+
+                    </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+

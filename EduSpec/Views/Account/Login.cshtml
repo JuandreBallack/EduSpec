@@ -1,0 +1,73 @@
+@{ Layout = "~/Views/Shared/_lightLayout.cshtml"; }
+@model EduSpec.Models.LoginModel
+
+
+<div style="width:300px; margin-left:auto; margin-right:auto; margin-top:100px;">
+    @using (Html.BeginForm())
+    {
+
+        @Html.AntiForgeryToken()
+
+        @Html.DevExpress().RoundPanel(rpSettings =>
+    {
+        rpSettings.Name = "Box";
+        rpSettings.HeaderText = "Log In";
+        rpSettings.Width = 300;
+
+        rpSettings.SetContent(() =>
+            {
+                ViewContext.Writer.Write(
+                    "<div> Please enter your username and password.</div><br/><div class=\"form-field\">"
+                );
+
+                @Html.DevExpress().Label(settings =>
+                {
+                    settings.Name = "UserNameLabel";
+                    settings.Text = "User Name";
+                    settings.AssociatedControlName = "UserName";
+                }).GetHtml();
+
+                ViewContext.Writer.Write("</div><div class=\"form-field\">");
+
+                Html.DevExpress().TextBoxFor(m => m.UserName, settings =>
+                {
+                    settings.Properties.ClientSideEvents.Init = "function(s, e){ s.SetFocus(); }";
+                    settings.AutoCompleteType = AutoCompleteType.Disabled;
+                }).GetHtml();
+                Html.ValidationMessageFor(m => m.UserName);
+
+                ViewContext.Writer.Write("</div><div class=\"form-field\">");
+
+                Html.DevExpress().Label(settings =>
+                {
+                    settings.Name = "PasswordLabel";
+                    settings.Text = "Password";
+                    settings.AssociatedControlName = "Password";
+                }).GetHtml();
+
+                ViewContext.Writer.Write("</div><div class=\"form-field\">");
+
+                ViewContext.Writer.Write(Html.EditorFor(m => m.Password));
+                ViewContext.Writer.Write(Html.ValidationMessageFor(m => m.Password) + "<br />");
+                ViewContext.Writer.Write(Html.ValidationMessage("CustomError"));
+                ViewContext.Writer.Write("</div>");
+
+                ViewContext.Writer.Write("<Table style=\"width: 100%;\"><tr><td>");
+                                
+                    
+                Html.DevExpress().Button(settings =>
+                {
+                    settings.Name = "Button";
+                    settings.Text = "Log On";
+                    settings.UseSubmitBehavior = true;
+                }).GetHtml();
+
+                ViewContext.Writer.Write("</td><td align=\"right\">");
+                
+                ViewContext.Writer.Write(Html.ActionLink("Register new institution.", "Register", "Account"));
+
+                ViewContext.Writer.Write("</tr></td></Table>");
+            });
+    }).GetHtml();
+    }
+</div>

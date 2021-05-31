@@ -1,0 +1,55 @@
+﻿@model System.Collections.IEnumerable
+
+<script type="text/javascript">
+
+
+
+</script>
+
+@Html.DevExpress().Splitter(settings =>
+{
+    SplitterUtils.SetSplitterProperties(settings, ViewData["ViewProperties"]);
+
+    MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+    HeaderPane.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div ID=\"ViewInfo\">Bulk Letters</div>");
+
+    });
+
+    MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+    MainContentPane.SetContent(() =>
+    {
+
+        Html.DevExpress().PageControl(pcsettings =>
+        {
+            pcsettings.Name = "pcBulkCorrespondence";
+            pcsettings.Width = Unit.Percentage(100);
+            pcsettings.Height = Unit.Percentage(100);
+            pcsettings.EnableTabScrolling = true;
+            pcsettings.TabAlign = TabAlign.Justify;
+            pcsettings.EnableClientSideAPI = true;
+
+            pcsettings.TabPages.Add("Letters", "Letters").SetContent(() =>
+            {
+                Html.RenderAction("BulkCorrespondencePartial");
+            });
+
+            pcsettings.TabPages.Add("SMS's", "SMSs").SetContent(() =>
+            {
+                Html.RenderAction("BulkSMSTrackingPartial");
+                Html.RenderAction("BulkSMSTrackingHistoryPartial");
+            });
+
+        }).GetHtml();
+
+
+    });
+
+    MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+    FooterPane.SetContent(() =>
+    {
+        
+    });
+
+}).GetHtml()

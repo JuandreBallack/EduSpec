@@ -1,0 +1,46 @@
+﻿@using (Html.BeginForm("SetDebtManagementSettingsGeneralSettings", "DebtManagement"))
+{
+
+    ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 320px\" style=\"height: 700px ; margin:0px 5px 0px 5px;\">");
+    ViewContext.Writer.Write("<div class=\"line\" style=\"width: 100%; margin:10px 10px 0px; 10px\">");
+    //EduSpecHtmlHelper.Button(Html, "btnSaveGeneralSettings", "", "Save", 100, null);
+    @Html.DevExpress().Button(btnSettings =>
+    {
+        btnSettings.Name = "btnSaveGeneralSettings";
+        btnSettings.Text = "Save";
+        btnSettings.UseSubmitBehavior = true;
+    }).GetHtml()
+
+    EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+
+    EduSpecHtmlHelper.NewRow(Html);
+    EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+    EduSpecHtmlHelper.Label(Html, "General Settings", "boldlabel");
+    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 120);// Second column
+    //EduSpecHtmlHelper.ComboBox(Html, "formeditor", Model, "BillingCycleTypeID", 220, "Get_BillingCycleType_PickList", null);
+    EduSpecHtmlHelper.EndColumn(Html);
+    EduSpecHtmlHelper.EndRow(Html);
+
+    EduSpecHtmlHelper.NewRow(Html);
+    EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+    EduSpecHtmlHelper.Label(Html, "Billing Cycle:", "editorLabel");
+    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 120);// Second column
+    EduSpecHtmlHelper.ComboBox(Html, "formeditor", Model, "BillingCycleTypeID", 220, "Get_BillingCycleType_PickList", null);
+    EduSpecHtmlHelper.EndColumn(Html);
+    EduSpecHtmlHelper.EndRow(Html);
+
+    EduSpecHtmlHelper.NewRow(Html);
+    EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120);// First column
+    EduSpecHtmlHelper.Label(Html, "Age Import Type:", "editorLabel");
+    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 120);// Second column
+    EduSpecHtmlHelper.ComboBox(Html, "formeditor", Model, "AgeImportTypeID", 220, "Get_AgeAnalysisImportType_PickList", null);
+    EduSpecHtmlHelper.EndColumn(Html);
+    EduSpecHtmlHelper.EndRow(Html);
+
+    EduSpecHtmlHelper.EndTable(Html);
+
+    EduSpecHtmlHelper.EndDiv(Html);
+    EduSpecHtmlHelper.EndDiv(Html);
+
+
+}

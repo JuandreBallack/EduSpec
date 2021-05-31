@@ -1,0 +1,22 @@
+﻿@Html.DevExpress().ComboBox(
+    edtSettings =>
+    {
+        edtSettings.Name = "MasterInstID";
+        edtSettings.ControlStyle.CssClass = "formeditor";
+        edtSettings.Width = 200;
+        edtSettings.Properties.TextField = "Institution";
+        edtSettings.Properties.ValueField = "MasterInstID";
+        edtSettings.Properties.ValueType = typeof(int);
+        edtSettings.ShowModelErrors = true;
+        edtSettings.CallbackRouteValues = new { Controller = "Account", Action = "MasterInstitutionPickList" };
+        //edtSettings.Properties.EnableCallbackMode = true;
+        edtSettings.Properties.CallbackPageSize = 15;
+        edtSettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+        edtSettings.Properties.TextFormatString = "{0} | {1}";
+        edtSettings.Properties.FilterMinLength = 2;
+        edtSettings.Properties.Columns.Add("Institution", "Institution", 250);
+        edtSettings.Properties.Columns.Add("Province", "Province", 100);
+        edtSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+        edtSettings.Properties.ClientSideEvents.Validation = "OnRequiredFieldValidation";
+        edtSettings.ControlStyle.BackColor = System.Drawing.Color.LightYellow;
+    }).BindList(EduSpec.Controllers.AccountController.getMasterInstitutions, EduSpec.Controllers.AccountController.getMasterInstitutionByMasterInstID).GetHtml()

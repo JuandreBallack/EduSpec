@@ -1,0 +1,19 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+   
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["AdHocFeesViewProperties"]);
+
+    settings.Settings.ShowFooter = true;
+    //settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Count, "AgeStatusID");
+
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.Caption = "Action";
+    settings.CommandColumn.ButtonRenderMode = GridCommandButtonRenderMode.Image;
+    settings.CommandColumn.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+    settings.CommandColumn.Width = 60;
+    settings.CommandColumn.ShowSelectCheckbox = true;
+    settings.CommandColumn.ShowClearFilterButton = true;
+    settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.AllPages;
+
+
+}).Bind(Model).GetHtml()

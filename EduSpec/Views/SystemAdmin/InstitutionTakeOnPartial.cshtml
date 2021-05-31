@@ -1,0 +1,147 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["ViewProperties"]);
+        
+    //settings.PreRender = (sender, e) =>
+    //{
+    //    ASPxGridView gridView = (ASPxGridView)sender;
+
+    //    object keyValue = 35;
+    //    gridView.FocusedRowIndex = gridView.FindVisibleIndexByKeyValue(keyValue);
+    //    gridView.ScrollToVisibleIndexOnClient = gridView.FocusedRowIndex;
+    //};
+
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "SystemAdmin", Action = "InstitutionTakeOnUpdate" };
+
+    settings.SetEditFormTemplateContent(c =>
+    {
+        var Institution = ViewData["Institution"] != null ? ViewData["Institution"] : c.DataItem;
+
+        ViewContext.Writer.Write(
+                    "<div class=\"edit_form\" style=\"width: 450px; margin:10px 10px 10px 10px;\">" +
+                    "<div class=\"line\">"
+                );
+
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Width = 180;
+                edtSettings.Text = "Institution:";
+                edtSettings.AssociatedControlName = "Institution";
+            }
+        )
+        .Render();
+                
+        Html.DevExpress().Memo(mSettings =>
+        {
+            mSettings.Name = "Institution";
+            mSettings.ControlStyle.CssClass = "editor";
+            mSettings.Width = 250;
+            mSettings.Height = 50;
+        }).Bind(DataBinder.Eval(Institution, "Institution")).Render();
+
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+        
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Width = 180;
+                edtSettings.Text = "Province:";
+                edtSettings.AssociatedControlName = "ProvinceID";
+            }
+        )
+        .Render();
+        
+        Html.DevExpress().ComboBox(cbSettings =>
+        {
+            cbSettings.Name = "ProvinceID";
+            cbSettings.ControlStyle.CssClass = "editor";
+            cbSettings.Properties.TextField = "Description";
+            cbSettings.Properties.ValueField = "ID";
+            cbSettings.Properties.ValueType = typeof(int);
+            cbSettings.ShowModelErrors = true;
+            cbSettings.Width = 150;
+        }).BindList(GridUtils.getDropdownList("Get_Provinces_PickList"))
+        .Bind(DataBinder.Eval(Institution, "ProvinceID")).Render();
+
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+        
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Width = 180;
+                edtSettings.Text = "Telephone:";
+                edtSettings.AssociatedControlName = "Telephone";
+            }
+        )
+        .Render();
+        
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "Telephone";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Width = 150;
+                edtSettings.ControlStyle.BackColor = System.Drawing.Color.LightYellow;
+            }).Bind(DataBinder.Eval(Institution, "Telephone")).Render();
+
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+        
+        Html.DevExpress().Label(
+            edtSettings =>
+            {
+                edtSettings.ControlStyle.CssClass = "label";
+                edtSettings.Width = 180;
+                edtSettings.Text = "Cell:";
+                edtSettings.AssociatedControlName = "Cell";
+            }).Render();
+
+        Html.DevExpress().TextBox(
+            edtSettings =>
+            {
+                edtSettings.Name = "Cell";
+                edtSettings.ControlStyle.CssClass = "editor";
+                edtSettings.ShowModelErrors = true;
+                edtSettings.Width = 150;
+                edtSettings.ControlStyle.BackColor = System.Drawing.Color.LightYellow;
+            }).Bind(DataBinder.Eval(Institution, "Cell")).Render();
+
+        
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        Html.DevExpress().Button(
+             btnSettings =>
+             {
+                 btnSettings.Name = "btnUpdate";
+                 btnSettings.ControlStyle.CssClass = "button";
+                 btnSettings.Text = "Update";
+                 btnSettings.ClientSideEvents.Click = String.Format("function(s, e) {{{0}.UpdateEdit(); }}", settings.Name); 
+             }
+         ).Render();
+        
+        Html.DevExpress().Button(
+            btnSettings =>
+            {
+                btnSettings.Name = "btnCancel";
+                btnSettings.ControlStyle.CssClass = "button";
+                btnSettings.Text = "Cancel";
+                btnSettings.ClientSideEvents.Click = "function(s, e){ " + settings.Name + ".CancelEdit(); }";
+            }
+        )
+        .Render();
+        ViewContext.Writer.Write("</div></div>");
+
+
+        settings.PreRender = (sender, e) =>
+        {
+            ((MVCxGridView)sender).StartEdit(1);
+        };
+
+    });
+    
+
+}).Bind(Model).GetHtml()

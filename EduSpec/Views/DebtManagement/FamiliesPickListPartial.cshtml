@@ -1,0 +1,53 @@
+﻿@if (Model != null && Model is System.Int32)
+{
+    @Html.DevExpress().ComboBox(edtSettings =>
+    {
+        edtSettings.Name = "FamilyID";
+        edtSettings.ControlStyle.CssClass = "editor";
+        edtSettings.Width = 380;
+        edtSettings.Properties.TextField = "FamilyCode";
+        edtSettings.Properties.ValueField = "ID";
+        edtSettings.Properties.ValueType = typeof(int);
+        edtSettings.ShowModelErrors = true;
+        edtSettings.CallbackRouteValues = new { Controller = "DebtManagement", Action = "FamiliesPickListPartial" };
+        edtSettings.Properties.CallbackPageSize = 15;
+        edtSettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+        edtSettings.Properties.TextFormatString = "{0} | {1} | {2} | {3}";
+        edtSettings.Properties.FilterMinLength = 2;
+        edtSettings.Properties.ClientSideEvents.Init = "function(s, e){ s.SetFocus(); }";
+        edtSettings.Properties.Columns.Add("FamilyCode", "Family Code", 100);
+        edtSettings.Properties.Columns.Add("Surname", "Family Surname", 150);
+        edtSettings.Properties.Columns.Add("AdmissionNo", "Admission No.(Oldest)", 120);
+        edtSettings.Properties.Columns.Add("Learner", "Learner Name (Oldest)", 150);
+        edtSettings.Properties.ClientSideEvents.Validation = "function(s,e){validateRequiredField(e.value, e);}";
+        edtSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+        edtSettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Right;
+    }).BindList(EduSpec.Controllers.DebtManagementController.GetFamilyList, EduSpec.Controllers.DebtManagementController.GetFamilyListByFamilyID).BindList(EduSpec.Controllers.DebtManagementController.GetFamilyListValue(Model)).Bind(Model).GetHtml()
+
+}
+else
+{
+    @Html.DevExpress().ComboBox(edtSettings =>
+{
+    edtSettings.Name = "FamilyID";
+    edtSettings.ControlStyle.CssClass = "editor";
+    edtSettings.Width = 380;
+    edtSettings.Properties.TextField = "FamilyCode";
+    edtSettings.Properties.ValueField = "ID";
+    edtSettings.Properties.ValueType = typeof(int);
+    edtSettings.ShowModelErrors = true;
+    edtSettings.CallbackRouteValues = new { Controller = "DebtManagement", Action = "FamiliesPickListPartial" };
+    edtSettings.Properties.CallbackPageSize = 15;
+    edtSettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+    edtSettings.Properties.TextFormatString = "{0} | {1} | {2} | {3}";
+    edtSettings.Properties.FilterMinLength = 2;
+    edtSettings.Properties.ClientSideEvents.Init = "function(s, e){ s.SetFocus(); }";
+    edtSettings.Properties.Columns.Add("FamilyCode", "Family Code", 100);
+    edtSettings.Properties.Columns.Add("Surname", "Family Surname", 150);
+    edtSettings.Properties.Columns.Add("AdmissionNo", "Admission No.(Oldest)", 120);
+    edtSettings.Properties.Columns.Add("Learner", "Learner Name (Oldest)", 150);
+    edtSettings.Properties.ClientSideEvents.Validation = "function(s,e){validateRequiredField(e.value, e);}";
+    edtSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+    edtSettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Right;
+}).BindList(EduSpec.Controllers.DebtManagementController.GetFamilyList, EduSpec.Controllers.DebtManagementController.GetFamilyListByFamilyID).BindList(EduSpec.Controllers.DebtManagementController.GetFamilyListValue(Model)).Bind(Model, "FamilyID").GetHtml()
+}

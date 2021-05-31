@@ -1,0 +1,14 @@
+﻿@using DevExpress.Web.Mvc.UI;
+@using DevExpress.Web.Mvc;
+
+@Html.DevExpress().HtmlEditor(edtSettings =>
+{
+    edtSettings.Name = "EmailBodyManual";
+    //edtSettings.CallbackRouteValues = new { Controller = "Shared", Action = "SendEmailSingle"};
+    edtSettings.Width = Unit.Pixel(580);
+    edtSettings.Height = 360;
+    edtSettings.Settings.AllowHtmlView = false;
+    edtSettings.Settings.AllowPreview = false;
+   // edtSettings.ClientSideEvents.BeginCallback = String.Format("function(s, e) {{ e.customArgs['EmailKeyValue'] = GridView.GetRowKey(GridView.GetFocusedRowIndex()); e.customArgs['EmailKeyValueType'] = {0}; }}", HttpContext.Current.Session["EmailKeyValueType"]);
+
+}).GetHtml()

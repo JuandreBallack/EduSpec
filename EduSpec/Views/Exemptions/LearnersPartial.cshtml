@@ -1,0 +1,7 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["LearnersViewProperties"]);
+
+    //settings.ClientSideEvents.CallbackError = "function(s, e) {alert(e.message); loadingPanel.Hide()}";
+
+}).Bind(Model).GetHtml()

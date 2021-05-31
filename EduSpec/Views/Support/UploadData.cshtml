@@ -1,0 +1,21 @@
+﻿
+@using (Html.BeginForm())
+{
+
+    Html.DevExpress().UploadControl(
+    ucsettings =>
+    {
+        ucsettings.Name = "ucUploadData";
+        ucsettings.CallbackRouteValues = new { Controller = "Support", Action = "CallbacksSupportFileUpload" };
+        ucsettings.ClientSideEvents.FileUploadComplete = "function(s, e) { AddNewSupportCase(e); }";
+        ucsettings.ControlStyle.CssClass = "editorArea";
+        ucsettings.Width = 200;
+        ucsettings.ShowProgressPanel = true;
+        ucsettings.BrowseButton.Text = ". . .";
+        //ucsettings.AdvancedModeSettings.EnableMultiSelect = true;
+        ucsettings.UploadMode = UploadControlUploadMode.Advanced;
+    }).Render();
+
+
+}
+

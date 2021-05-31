@@ -1,0 +1,25 @@
+﻿@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcGenerateApplication", "Applicant info");
+    settings.Width = 500;
+    //settings.ClientSideEvents.PopUp = "function(s,e){Message.SetText(\"\");}";
+
+    settings.SetContent(() =>
+    {
+        Html.RenderPartial("ApplicantToApplyOrReprint");
+
+        //EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+        //EduSpecHtmlHelper.NewDiv(Html, "line");
+        //Dictionary<EduSpec.ButtonClientSideEvent, string> ApllicationEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        //ApllicationEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){ SendSingleSMS(); }");
+        //EduSpecHtmlHelper.Button(Html, "btnGenerateApplication", "button", "OK", 80, ApllicationEvents);
+
+        //Dictionary<EduSpec.ButtonClientSideEvent, string> cancelApplicantInfoEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        //cancelApplicantInfoEvents.Add(ButtonClientSideEvent.onClick, "function(s,e){pcGenerateApplication.Hide();}");
+        //EduSpecHtmlHelper.Button(Html, "btnCancelApplication", "button", "Cancel", 80, cancelApplicantInfoEvents);
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+    });
+
+}).GetHtml()

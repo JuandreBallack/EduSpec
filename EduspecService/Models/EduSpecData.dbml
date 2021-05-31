@@ -1,0 +1,638 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="EduSpec DEV" Class="EduSpecDataDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Function Name="dbo.Get_EduspecService_UpdatedEmailLetterAttachment_List" Method="Get_EduspecService_UpdatedEmailLetterAttachment_List">
+    <ElementType Name="Get_EduspecService_UpdatedEmailLetterAttachment_ListResult">
+      <Column Name="EmailCorrespondenceID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="InstID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StatusID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FamilyID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="InstLetterID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsPrintLetterHead" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="FileName" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="IsAge" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Get_EduspecService_BulkLetterQueue_List" Method="Get_EduspecService_BulkLetterQueue_List">
+    <ElementType Name="Get_EduspecService_BulkLetterQueue_ListResult">
+      <Column Name="LetterCorrespondenceID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LetterTrackingKey" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FamilyID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="InstID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StatusID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LetterID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsPrintLetterhead" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Get_EduspecService_BulkLetterTracking_List" Method="Get_EduspecService_BulkLetterTracking_List">
+    <ElementType Name="Get_EduspecService_BulkLetterTracking_ListResult">
+      <Column Name="LetterTrackingKey" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsPrintLetterhead" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="FileName" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="InstID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Get_EduspecService_DocumentsToGenerate" Method="Get_EduspecService_DocumentsToGenerate">
+    <ElementType Name="Get_EduspecService_DocumentsToGenerateResult">
+      <Column Name="CorrespondenceID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DocumentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DocumentTypeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DocumentDesc" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="InstID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EmailSubject" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Get_EduSpecService_EmailsToPrepare" Method="Get_EduSpecService_EmailsToPrepare">
+    <ElementType Name="Get_EduSpecService_EmailsToPrepareResult">
+      <Column Name="EmailTrackingKey" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsAge" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="AttachLetter" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="AttachFile" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Get_EduspecService_InstitutionsToMail" Method="Get_EduspecService_InstitutionsToMail">
+    <ElementType Name="Get_EduspecService_InstitutionsToMailResult">
+      <Column Name="CorrespondenceID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DocumentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DocumentTypeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="InstID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="InstName" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="EmailSubject" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="EmailBody" Type="System.String" DbType="VarChar(2354)" CanBeNull="true" />
+      <Column Name="FileName" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="EmailRecipient" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Get_EduspecService_SingleEmailsToMail" Method="Get_EduspecService_SingleEmailsToMail">
+    <ElementType Name="Get_EduspecService_SingleEmailsToMailResult">
+      <Column Name="SingleEmailQueueID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="KeyValueType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="InstName" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Recipient" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Cc" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Subject" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="EmailMessage" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="FileName" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Get_EduSpecService_SMSsToPrepare" Method="Get_EduSpecService_SMSsToPrepare">
+    <ElementType Name="Get_EduSpecService_SMSsToPrepareResult">
+      <Column Name="SMSTrackingKey" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="InstID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="InstSMSID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Get_EduSpecService_SMSsToSent" Method="Get_EduSpecService_SMSsToSent">
+    <ElementType Name="Get_EduSpecService_SMSsToSentResult">
+      <Column Name="SMSCorrespondenceID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SMSTrackingKey" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CellNumber" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="SMSMessage" Type="System.String" DbType="VarChar(918)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Set_EduSpecService_BulkLettersPrinted" Method="Set_EduSpecService_BulkLettersPrinted">
+    <Parameter Name="BulkLetterTrackingKey" Parameter="bulkLetterTrackingKey" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Set_EduspecService_UpdatedEmailGenerated" Method="Set_EduspecService_UpdatedEmailGenerated">
+    <Parameter Name="EmailCorrespondenceID" Parameter="emailCorrespondenceID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Set_EduSpecService_BulkSMSCreditsUsed" Method="Set_EduSpecService_BulkSMSCreditsUsed">
+    <Parameter Name="BulkSMSTrackingKey" Parameter="bulkSMSTrackingKey" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Set_EduspecService_DebtManagement_ActionHistory" Method="Set_EduspecService_DebtManagement_ActionHistory">
+    <Parameter Name="InstID" Parameter="instID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="FamilyID" Parameter="familyID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="AgeStatusID" Parameter="ageStatusID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="LegalActionActionsID" Parameter="legalActionActionsID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UserID" Parameter="userID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="MessageBody" Parameter="messageBody" Type="System.String" DbType="VarChar(918)" />
+    <Parameter Name="SMSNumbers" Parameter="sMSNumbers" Type="System.String" DbType="VarChar(250)" />
+    <Parameter Name="IsSMS" Parameter="isSMS" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="Email" Parameter="email" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="ContactName" Parameter="contactName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="ContactSurname" Parameter="contactSurname" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="LetterID" Parameter="letterID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Description" Parameter="description" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="FileName" Parameter="fileName" Type="System.String" DbType="VarChar(250)" />
+    <ElementType Name="Set_EduspecService_DebtManagement_ActionHistoryResult">
+      <Column Name="FileName" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Set_EduspecService_DocumentGenerated" Method="Set_EduspecService_DocumentGenerated">
+    <Parameter Name="CorrespondenceID" Parameter="correspondenceID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="FileName" Parameter="fileName" Type="System.String" DbType="VarChar(250)" />
+    <Parameter Name="DocumentDesc" Parameter="documentDesc" Type="System.String" DbType="VarChar(100)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Set_EduspecService_DocumentSent" Method="Set_EduspecService_DocumentSent">
+    <Parameter Name="CorrespondenceID" Parameter="correspondenceID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IsSent" Parameter="isSent" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="Error" Parameter="error" Type="System.String" DbType="VarChar(255)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Set_EduspecService_InstitutionStatements" Method="Set_EduspecService_InstitutionStatements">
+    <Parameter Name="InstID" Parameter="instID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Set_EduSpecService_LetterSaved" Method="Set_EduSpecService_LetterSaved">
+    <Parameter Name="CorrespondenceID" Parameter="correspondenceID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="BulkLetterTrackingKey" Parameter="bulkLetterTrackingKey" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IsSaved" Parameter="isSaved" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="FileName" Parameter="fileName" Type="System.String" DbType="VarChar(250)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Set_EduSpecService_PrepareEmailQueue" Method="Set_EduSpecService_PrepareEmailQueue">
+    <Parameter Name="TrackingKey" Parameter="trackingKey" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IsAge" Parameter="isAge" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="AttachLetter" Parameter="attachLetter" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="AttachFile" Parameter="attachFile" Type="System.Boolean" DbType="Bit" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Set_EduSpecService_PrepareSMSQueue" Method="Set_EduSpecService_PrepareSMSQueue">
+    <Parameter Name="TrackingKey" Parameter="trackingKey" Type="System.Int32" DbType="Int" />
+    <Parameter Name="InstID" Parameter="instID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Set_EduspecService_SendMontlyStatements" Method="Set_EduspecService_SendMontlyStatements">
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Set_EduspecService_SingleEmailSent" Method="Set_EduspecService_SingleEmailSent">
+    <Parameter Name="SingleEmailQueueID" Parameter="singleEmailQueueID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="KeyValueType" Parameter="keyValueType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IsSent" Parameter="isSent" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="Error" Parameter="error" Type="System.String" DbType="VarChar(255)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Set_EduSpecService_SMSQueueUpdate" Method="Set_EduSpecService_SMSQueueUpdate">
+    <Parameter Name="CorrespondenceID" Parameter="correspondenceID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="BulkSMSTrackingKey" Parameter="bulkSMSTrackingKey" Type="System.Int32" DbType="Int" />
+    <Parameter Name="SMSMessage" Parameter="sMSMessage" Type="System.String" DbType="VarChar(918)" />
+    <Parameter Name="IsReadyToSend" Parameter="isReadyToSend" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="IsSent" Parameter="isSent" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="Error" Parameter="error" Type="System.String" DbType="VarChar(255)" />
+    <Parameter Name="IsAge" Parameter="isAge" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="BulkSMSStatusID" Parameter="bulkSMSStatusID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Set_EduSpecService_SMSReplies" Method="Set_EduSpecService_SMSReplies">
+    <Parameter Name="SMS_OUTPUT" Parameter="sMS_OUTPUT" Type="System.String" DbType="VarChar(MAX)" />
+    <ElementType Name="Set_EduSpecService_SMSRepliesResult">
+      <Column Name="FileName" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Set_EduSpecService_SMSSent" Method="Set_EduSpecService_SMSSent">
+    <Parameter Name="CorrespondenceID" Parameter="correspondenceID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TrackingKey" Parameter="trackingKey" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IsSent" Parameter="isSent" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="SMS_OUTPUT" Parameter="sMS_OUTPUT" Type="System.String" DbType="VarChar(MAX)" />
+    <ElementType Name="Set_EduSpecService_SMSSentResult">
+      <Column Name="FileName" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.RPT_Bulk_Letters" Method="RPT_Bulk_Letters">
+    <Parameter Name="TrackingKey" Parameter="trackingKey" Type="System.Int32" DbType="Int" />
+    <ElementType Name="RPT_Bulk_LettersResult">
+      <Column Name="Body" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.RPT_Statement" Method="RPT_Statement">
+    <Parameter Name="InstID" Parameter="instID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="RPT_StatementResult">
+      <Column Name="DateDone" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(112)" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="RunningTotal" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.RPT_StatementFooter" Method="RPT_StatementFooter">
+    <Parameter Name="InstID" Parameter="instID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="RPT_StatementFooterResult">
+      <Column Name="InstID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CurrentAmount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Days30Amount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Days60Amount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Days90Amount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Days120Plus" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.RPT_StatementHeader" Method="RPT_StatementHeader">
+    <Parameter Name="InstID" Parameter="instID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="RPT_StatementHeaderResult">
+      <Column Name="BillTo" Type="System.String" DbType="VarChar(5000)" CanBeNull="true" />
+      <Column Name="VATNumber" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.fn_Get_ActiveYearID" Method="fn_Get_ActiveYearID" IsComposable="true">
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.RPT_Age_Letters" Method="RPT_Age_Letters">
+    <Parameter Name="InstID" Parameter="instID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="YearID" Parameter="yearID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="AgeStatusID" Parameter="ageStatusID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="FamilyID" Parameter="familyID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IsBulkLetter" Parameter="isBulkLetter" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="LetterID" Parameter="letterID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CorrespondenceID" Parameter="correspondenceID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="RPT_Age_LettersResult">
+      <Column Name="Body" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.RPT_Invoice" Method="RPT_Invoice">
+    <Parameter Name="InvoiceID" Parameter="invoiceID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="RPT_InvoiceResult">
+      <Column Name="InvoiceID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="LineTotal" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Subtotal" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="VAT" Type="System.Decimal" DbType="Decimal(38,6)" CanBeNull="true" />
+      <Column Name="Total" Type="System.Decimal" DbType="Decimal(38,6)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.RPT_InvoiceHeader" Method="RPT_InvoiceHeader">
+    <Parameter Name="InstID" Parameter="instID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="InvoiceID" Parameter="invoiceID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="RPT_InvoiceHeaderResult">
+      <Column Name="InvoiceDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="BillTo" Type="System.String" DbType="VarChar(5000)" CanBeNull="true" />
+      <Column Name="InvoiceNumber" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="VATNumber" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.fn_Get_EmailToPrepareCount" Method="fn_Get_EmailToPrepareCount" IsComposable="true">
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.fn_GetEmailsToSentCount" Method="fn_GetEmailsToSentCount" IsComposable="true">
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.fn_GetInstEmailsToSentCount" Method="fn_GetInstEmailsToSentCount" IsComposable="true">
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.fn_GetSingleEmailsToSendCount" Method="fn_GetSingleEmailsToSendCount" IsComposable="true">
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.fn_Get_Eduspecservice_BulkEmailLettersPrepareCount" Method="fn_Get_Eduspecservice_BulkEmailLettersPrepareCount" IsComposable="true">
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.fn_Get_Eduspecservice_UpdatedEmailPrepareCount" Method="fn_Get_Eduspecservice_UpdatedEmailPrepareCount" IsComposable="true">
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.fn_Get_InstDocumentsToPrintCount" Method="fn_Get_InstDocumentsToPrintCount" IsComposable="true">
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.fn_Get_LettersToPrintCount" Method="fn_Get_LettersToPrintCount" IsComposable="true">
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.fn_Get_SMSToPrepareCount" Method="fn_Get_SMSToPrepareCount" IsComposable="true">
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.fn_Get_SMSToSendCount" Method="fn_Get_SMSToSendCount" IsComposable="true">
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Get_EduspecService_BulkEmailLetterAttachment_List" Method="Get_EduspecService_BulkEmailLetterAttachment_List">
+    <ElementType Name="Get_EduspecService_BulkEmailLetterAttachment_ListResult">
+      <Column Name="EmailCorrespondenceID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="InstID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StatusID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FamilyID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="InstLetterID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsPrintLetterHead" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="FileName" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="IsAge" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="AttachFile" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Set_EduspecService_EmailAttachementSaved_Update" Method="Set_EduspecService_EmailAttachementSaved_Update">
+    <Parameter Name="EmailCorrespondenceID" Parameter="emailCorrespondenceID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.fn_Get_SingleSMSToSendCount" Method="fn_Get_SingleSMSToSendCount" IsComposable="true">
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Get_EduSpecService_SingleSMSsToSend" Method="Get_EduSpecService_SingleSMSsToSend">
+    <ElementType Name="Get_EduSpecService_SingleSMSsToSendResult">
+      <Column Name="SingleSMSQueueID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="KeyValueType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="InstID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CellNumber" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="SMSMessage" Type="System.String" DbType="VarChar(918)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Set_EduSpecService_SingleSMSSent" Method="Set_EduSpecService_SingleSMSSent">
+    <Parameter Name="SingleSMSQueueID" Parameter="singleSMSQueueID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="KeyValueType" Parameter="keyValueType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="InstID" Parameter="instID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IsSent" Parameter="isSent" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="CellNumber" Parameter="cellNumber" Type="System.String" DbType="VarChar(25)" />
+    <Parameter Name="SMSMessage" Parameter="sMSMessage" Type="System.String" DbType="VarChar(918)" />
+    <Parameter Name="SMS_OUTPUT" Parameter="sMS_OUTPUT" Type="System.String" DbType="VarChar(MAX)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.fn_Get_LegalProcessReportPrepareCount" Method="fn_Get_LegalProcessReportPrepareCount" IsComposable="true">
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Set_EduSpecService_LegalProcessBulkEmail_Add" Method="Set_EduSpecService_LegalProcessBulkEmail_Add">
+    <Parameter Name="BulkEmailTrackkingID" Parameter="bulkEmailTrackkingID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.fn_Get_SysParams" Method="fn_Get_SysParams" IsComposable="true">
+    <ElementType Name="fn_Get_SysParamsResult">
+      <Column Name="VAT" Type="System.Decimal" DbType="Decimal(6,3)" CanBeNull="true" />
+      <Column Name="VATNumber" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="InstitutionInvoiceFilePath" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="ApplicationsFilePath" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="PrintoutsFilePath" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="AgeAnalysisFilePath" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="InstitutionDataUploadFilePath" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="QuotationFilePath" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="EmailUploadFilePath" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="SupportUploadFilePath" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="InstitutionDocumentsFilePath" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="EmailAttachements" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="RegisteredMailsCertificatesFilePath" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="AccessDatabaseProvider" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="SASAMS_Password" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="SQL_Server" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="SQL_Database" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SQL_User" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SQL_Password" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Set_EduSpecService_DownloadRegisteredMail" Method="Set_EduSpecService_DownloadRegisteredMail">
+    <Parameter Name="MailSubject" Parameter="mailSubject" Type="System.String" DbType="VarChar(250)" />
+    <ElementType Name="Set_EduSpecService_DownloadRegisteredMailResult">
+      <Column Name="CertificateName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.RPT_ParentAccountHistory_AgeFamilyActionHistory" Method="RPT_ParentAccountHistory_AgeFamilyActionHistory">
+    <Parameter Name="FamilyID" Parameter="familyID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="RPT_ParentAccountHistory_AgeFamilyActionHistoryResult">
+      <Column Name="DateDone" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="AgeStatusDesc" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ActionDesc" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="MessageBody" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="ActionSentTo" Type="System.String" DbType="VarChar(300)" CanBeNull="true" />
+      <Column Name="ContactName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ContactSurname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.RPT_ParentAccountHistory_LearnerInfo" Method="RPT_ParentAccountHistory_LearnerInfo">
+    <Parameter Name="FamilyID" Parameter="familyID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="RPT_ParentAccountHistory_LearnerInfoResult">
+      <Column Name="AdmissionNo" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Surname" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="DateOfBirth" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Gender" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="Grade" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="Class" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.RPT_ParentAccountHistory_ParentInfo" Method="RPT_ParentAccountHistory_ParentInfo">
+    <Parameter Name="FamilyID" Parameter="familyID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="RPT_ParentAccountHistory_ParentInfoResult">
+      <Column Name="FamilyCode" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ExternalAccNo" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="MaritalStatusDescription" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="NoOfPupils" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AgeStatusDesc" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="TotalFeesPayable" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="AmountInArrears" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="PrimaryParentFullName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="PrimaryParentSurname" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="PrimaryParentIDNumber" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="PrimaryParentTelHome" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
+      <Column Name="PrimaryParentTelCell" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
+      <Column Name="PrimaryParentOccupation" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="PrimaryParentEmail" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="PrimaryParentStreetAddress1" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="PrimaryParentStreetAddress2" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="PrimaryParentStreetAddress3" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="PrimaryParentPostalAddress1" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="PrimaryParentPostalAddress2" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="PrimaryParentPostalAddress3" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="PrimaryParentGender" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="SecondaryParentFullName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="SecondaryParentSurname" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="SecondaryParentIDNumber" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="SecondaryParentTelHome" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
+      <Column Name="SecondaryParentTelCell" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
+      <Column Name="SecondaryParentOccupation" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="SecondaryParentEmail" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="SecondaryParentStreetAddress1" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="SecondaryParentStreetAddress2" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="SecondaryParentStreetAddress3" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="SecondaryParentPostalAddress1" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="SecondaryParentPostalAddress2" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="SecondaryParentPostalAddress3" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="SecondaryParentGender" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="DatePrinted" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.RPT_ParentAccountHistory_Statement" Method="RPT_ParentAccountHistory_Statement">
+    <Parameter Name="FamilyID" Parameter="familyID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="RPT_ParentAccountHistory_StatementResult">
+      <Column Name="DateDone" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Reference" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="RunningTotal" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.RPT_InstitutionDetails" Method="RPT_InstitutionDetails">
+    <Parameter Name="InstID" Parameter="instID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="RPT_InstitutionDetailsResult">
+      <Column Name="Name" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="PhaseDesc" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="PhysAddress1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PhysAddress2" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PhysAddress3" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PhysProvince_ENG" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="PhysCode" Type="System.String" DbType="VarChar(7)" CanBeNull="true" />
+      <Column Name="PosAddress1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PosAddress2" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PosAddress3" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PosCode" Type="System.String" DbType="VarChar(7)" CanBeNull="true" />
+      <Column Name="Telephone" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="Cell" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Get_EduSpecService_LegalProcessEmailAttachements" Method="Get_EduSpecService_LegalProcessEmailAttachements">
+    <Parameter Name="InstID" Parameter="instID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="FamilyID" Parameter="familyID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="Get_EduSpecService_LegalProcessEmailAttachementsResult">
+      <Column Name="FilePath" Type="System.String" DbType="VarChar(400)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Get_EduSpecService_LegalProcessReportsPrepare" Method="Get_EduSpecService_LegalProcessReportsPrepare">
+    <ElementType Name="Get_EduSpecService_LegalProcessReportsPrepareResult">
+      <Column Name="LegalProcessID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BulkEmailTrackkingID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FamilyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="InstID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DebtCollectorID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FileName" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Set_EduspecService_LegalProcessReportGenerated" Method="Set_EduspecService_LegalProcessReportGenerated">
+    <Parameter Name="LegalProcessID" Parameter="legalProcessID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IsGenerated" Parameter="isGenerated" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="Error" Parameter="error" Type="System.String" DbType="VarChar(500)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Get_EduSpecService_FamiliesToMail" Method="Get_EduSpecService_FamiliesToMail">
+    <ElementType Name="Get_EduSpecService_FamiliesToMailResult">
+      <Column Name="EmailCorrespondenceID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Recipient" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Cc" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="EmailSubject" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="EmailBody" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="FileName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="EmailTrackingKey" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="InstID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FamilyID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StatusID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsAge" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsSection41Letter" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsLegalProcess" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DebtCollectorID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Set_EduSpecService_EmailSent" Method="Set_EduSpecService_EmailSent">
+    <Parameter Name="CorrespondenceID" Parameter="correspondenceID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TrackingKey" Parameter="trackingKey" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IsSent" Parameter="isSent" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="Error" Parameter="error" Type="System.String" DbType="VarChar(255)" />
+    <Parameter Name="InstID" Parameter="instID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="FamilyID" Parameter="familyID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="AgeStatusID" Parameter="ageStatusID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IsLegalProcess" Parameter="isLegalProcess" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="UserID" Parameter="userID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="EmailBody" Parameter="emailBody" Type="System.String" DbType="VarChar(918)" />
+    <Parameter Name="Recipient" Parameter="recipient" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="Cc" Parameter="cc" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="FileName" Parameter="fileName" Type="System.String" DbType="VarChar(250)" />
+    <Parameter Name="DebtCollectorID" Parameter="debtCollectorID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="Set_EduSpecService_EmailSentResult">
+      <Column Name="FileName" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.fn_Get_Eduspecservice_ManualEmailLetterPrepareCount" Method="fn_Get_Eduspecservice_ManualEmailLetterPrepareCount" IsComposable="true">
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Get_EduspecService_ManualEmailLetterAttachment_List" Method="Get_EduspecService_ManualEmailLetterAttachment_List">
+    <ElementType Name="Get_EduspecService_ManualEmailLetterAttachment_ListResult">
+      <Column Name="EmailCorrespondenceID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LearnerID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="InstID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StatusID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FamilyID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="InstLetterID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsPrintLetterHead" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="FileName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="IsAge" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Set_EduspecService_ManualEmailLetterGenerated" Method="Set_EduspecService_ManualEmailLetterGenerated">
+    <Parameter Name="EmailCorrespondenceID" Parameter="emailCorrespondenceID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Set_EduSpecService_RegisteredEmailReadCertificates" Method="Set_EduSpecService_RegisteredEmailReadCertificates">
+    <Parameter Name="RegisteredMailID" Parameter="registeredMailID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="DateRead" Parameter="dateRead" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="Read_UID" Parameter="read_UID" Type="System.String" DbType="VarChar(15)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Get_Services_ScheduleToRun" Method="Get_Services_ScheduleToRun">
+    <Parameter Name="Service" Parameter="service" Type="System.String" DbType="VarChar(20)" />
+    <ElementType Name="Get_Services_ScheduleToRunResult">
+      <Column Name="ScheduleName" Type="System.String" DbType="VarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="Timeout" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.fn_Get_Eduspecservice_SendCertificates" Method="fn_Get_Eduspecservice_SendCertificates" IsComposable="true">
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Set_Services_ScheduleComplete" Method="Set_Services_ScheduleComplete">
+    <Parameter Name="ScheduleName" Parameter="scheduleName" Type="System.String" DbType="VarChar(30)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Set_EduSpecService_RegisteredEmailError" Method="Set_EduSpecService_RegisteredEmailError">
+    <Parameter Name="RegisteredMailID" Parameter="registeredMailID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Error" Parameter="error" Type="System.String" DbType="VarChar(1000)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Get_EduSpecService_RegisteredEmailReadCertificates" Method="Get_EduSpecService_RegisteredEmailReadCertificates">
+    <ElementType Name="Get_EduSpecService_RegisteredEmailReadCertificatesResult">
+      <Column Name="RegisteredMailID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FileSR" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.fn_Get_Eduspecservice_ReadCertificates" Method="fn_Get_Eduspecservice_ReadCertificates" IsComposable="true">
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Set_EduSpecService_RegisteredEmailCertificateDownloaded" Method="Set_EduSpecService_RegisteredEmailCertificateDownloaded">
+    <Parameter Name="RegisteredMailID" Parameter="registeredMailID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CertificateType" Parameter="certificateType" Type="System.String" DbType="VarChar(5)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Set_EduSpecService_RegisteredEmailReadCertificatesExpired" Method="Set_EduSpecService_RegisteredEmailReadCertificatesExpired">
+    <Parameter Name="RegisteredMailID" Parameter="registeredMailID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Set_EduSpecService_RegisteredEmailSendCertificatesBulk" Method="Set_EduSpecService_RegisteredEmailSendCertificatesBulk">
+    <Parameter Name="RegisteredMailID" Parameter="registeredMailID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="DocumentDate" Parameter="documentDate" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="DateSent" Parameter="dateSent" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="Doc_UID" Parameter="doc_UID" Type="System.String" DbType="VarChar(15)" />
+    <Parameter Name="Status" Parameter="status" Type="System.String" DbType="VarChar(20)" />
+    <ElementType Name="Set_EduSpecService_RegisteredEmailSendCertificatesBulkResult">
+      <Column Name="DownloadPDF" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Get_EduSpecService_OldRegisteredMailID" Method="Get_EduSpecService_OldRegisteredMailID">
+    <Parameter Name="ParentID" Parameter="parentID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="Get_EduSpecService_OldRegisteredMailIDResult">
+      <Column Name="RegisteredMailID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Get_EduSpecService_RegisteredEmailSendCertificates" Method="Get_EduSpecService_RegisteredEmailSendCertificates">
+    <ElementType Name="Get_EduSpecService_RegisteredEmailSendCertificatesResult">
+      <Column Name="RegisteredMailID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Token" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Set_EduSpecService_RegisteredEmailSendCertificates" Method="Set_EduSpecService_RegisteredEmailSendCertificates">
+    <Parameter Name="RegisteredMailID" Parameter="registeredMailID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Doc_UID" Parameter="doc_UID" Type="System.String" DbType="VarChar(15)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Get_EduSpecService_RegisteredEmailSearchCertificates" Method="Get_EduSpecService_RegisteredEmailSearchCertificates">
+    <ElementType Name="Get_EduSpecService_RegisteredEmailSearchCertificatesResult">
+      <Column Name="RegisteredMailID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Subject" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="MailTo" Type="System.String" DbType="VarChar(300)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Set_EduSpecService_RegisteredEmailTokenData" Method="Set_EduSpecService_RegisteredEmailTokenData">
+    <Parameter Name="RegisteredMailID" Parameter="registeredMailID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Subject" Parameter="subject" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="MailTo" Parameter="mailTo" Type="System.String" DbType="VarChar(300)" />
+    <Parameter Name="IsCertificateProcessed" Parameter="isCertificateProcessed" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="Token" Parameter="token" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="Response" Parameter="response" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="DateSent" Parameter="dateSent" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="DateDelivered" Parameter="dateDelivered" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="Description" Parameter="description" Type="System.String" DbType="VarChar(200)" />
+    <Return Type="System.Int32" />
+  </Function>
+</Database>

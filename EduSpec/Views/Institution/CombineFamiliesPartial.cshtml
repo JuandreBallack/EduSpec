@@ -1,0 +1,546 @@
+﻿@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.Name = "cbpCombineFamilies";
+    //settings.CallbackRouteValues = new { Controller = "Shared", Action = "FamilyManagementPartial" };
+    //settings.ClientSideEvents.BeginCallback = "onFamilyManagementBeginCallback";
+
+    settings.SetContent(() =>
+    {
+        //EduSpecHtmlHelper.TextBox(Html, "", Model, "Edit_FamilyID", false, 100, null);
+        //EduSpecHtmlHelper.TextBox(Html, "", Model, "Edit_PrimaryParentParentID", false, 100, null);
+        //EduSpecHtmlHelper.TextBox(Html, "", Model, "Edit_SecondaryParentParentID", false, 100, null);
+        //EduSpecHtmlHelper.TextBox(Html, "", Model, "Edit_AlternativeParentParentID", false, 100, null);
+
+        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+
+        EduSpecHtmlHelper.NewRow(Html); //********** Row 1
+        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 160); // First column
+        EduSpecHtmlHelper.Label(Html, "Account info", "boldlabel");
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form",150); // Second column
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form",100); // Third column
+        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Forth column
+        EduSpecHtmlHelper.EndColumn(Html);
+
+        EduSpecHtmlHelper.NewRow(Html);
+
+        EduSpecHtmlHelper.NewColumnHeader(Html, "", "InfoTableHeading", 120);
+        EduSpecHtmlHelper.NewColumnHeader(Html, "Primary Parent", "InfoTableHeading", 200);
+        EduSpecHtmlHelper.NewColumnHeader(Html, "Secondary Parent", "InfoTableHeading", 200);
+        EduSpecHtmlHelper.NewColumnHeader(Html, "Alternative Parent", "InfoTableHeading", 200);
+
+        EduSpecHtmlHelper.EndAndNewRow(Html);
+
+        EduSpecHtmlHelper.EndTable(Html);
+
+        //Dictionary<EduSpec.TextBoxClientSideEvent, string> textboxValidateRequiredField = new Dictionary<EduSpec.TextBoxClientSideEvent, string>();
+        //textboxValidateRequiredField.Add(TextBoxClientSideEvent.onValidation, "function(s,e){validateRequiredField(e.value, e);}");
+
+        //Dictionary<EduSpec.ComboboxClientSideEvent, string> comboboxValidateRequiredField = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+        //comboboxValidateRequiredField.Add(ComboboxClientSideEvent.onValidation, "function(s,e){validateRequiredField(e.value, e);}");
+
+        //Html.DevExpress().PageControl(edtsettings =>
+        //{
+        //    edtsettings.Name = "pagecFamilyManagement";
+        //    edtsettings.Width = Unit.Percentage(100);
+        //    edtsettings.EnableTabScrolling = true;
+        //    edtsettings.TabAlign = TabAlign.Justify;
+        //    edtsettings.ClientSideEvents.ActiveTabChanged = "onActiveTabChange";
+
+        //    EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+
+        //    EduSpecHtmlHelper.NewRow(Html); //********** Row 1
+        //    EduSpecHtmlHelper.NewColumn(Html, "edit_form", 160); // First column
+        //    EduSpecHtmlHelper.Label(Html, "Account info", "boldlabel");
+        //    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form",150); // Second column
+        //    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form",100); // Third column
+        //    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Forth column
+        //    EduSpecHtmlHelper.EndColumn(Html);
+
+        //    EduSpecHtmlHelper.NewRow(Html); //********** Row 2
+        //    EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //    EduSpecHtmlHelper.Label(Html, "Family code:", "editorLabel");
+        //    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //    Dictionary<EduSpec.TextBoxClientSideEvent, string> txFamilyCodeEvents = new Dictionary<EduSpec.TextBoxClientSideEvent, string>();
+        //    txFamilyCodeEvents.Add(TextBoxClientSideEvent.onValidation, "function(s,e){OnValidateFamilyCode(e.value, e, " + DataBinder.Eval(Model, "Edit_FamilyID") + ");}");
+        //    EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_FamilyCode", true, 120, txFamilyCodeEvents);
+        //    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //    EduSpecHtmlHelper.Label(Html, "Language:", "editorLabel");
+        //    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Forth column
+        //    EduSpecHtmlHelper.ComboBox(Html, "formeditor", Model, "Edit_LanguageID", 220, "Get_ParentCorrespondenceLanguage_PickList", comboboxValidateRequiredField);
+        //    EduSpecHtmlHelper.EndColumn(Html);
+
+        //    EduSpecHtmlHelper.NewRow(Html); //********** Row 3
+        //    EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //    EduSpecHtmlHelper.Label(Html, "External account number:", "editorLabel");
+        //    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //    Dictionary<EduSpec.TextBoxClientSideEvent, string> txExternalAccNoEvents = new Dictionary<EduSpec.TextBoxClientSideEvent, string>();
+        //    txExternalAccNoEvents.Add(TextBoxClientSideEvent.onValidation, "function(s,e){OnValidateExternalAccNo(e.value, e, " + DataBinder.Eval(Model, "Edit_FamilyID") + ");}");
+        //    EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_ExternalAccNo", true, 120, txExternalAccNoEvents);
+        //    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //    EduSpecHtmlHelper.Label(Html, "Marital Status:", "editorLabel");
+        //    EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Forth column
+        //    EduSpecHtmlHelper.ComboBox(Html, "formeditor", Model, "Edit_MaritalStatusID", 220, "Get_ApplicationMaritalStatus_PickList", comboboxValidateRequiredField);
+        //    EduSpecHtmlHelper.EndColumn(Html);
+
+        //    EduSpecHtmlHelper.EndRow(Html);
+        //    EduSpecHtmlHelper.EndTable(Html);
+
+        //    edtsettings.TabPages.Add("Primary parent", "PrimaryParent").SetContent(() =>
+        //    {
+        //        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+        //        EduSpecHtmlHelper.NewRow(Html); //********** Row 1
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120); // First column
+        //        EduSpecHtmlHelper.Label(Html, "General Info", "boldlabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 220); // Second column
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.Label(Html, "Physical Address", "boldlabel");
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 2
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Title:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.ComboBox(Html, "formeditor", Model, "Edit_PrimaryParentTitleID", 80, "Get_Title_Picklist", comboboxValidateRequiredField);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_PrimaryParentStreetAddress1", true, 250, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 3
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Initals:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_PrimaryParentInitials", true, 80, textboxValidateRequiredField);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_PrimaryParentStreetAddress2", true, 250, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 4
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Full Name:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_PrimaryParentFullName", true, 180, textboxValidateRequiredField);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_PrimaryParentStreetAddress3", true, 250, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 5
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Surname:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_PrimaryParentSurname", true, 180, textboxValidateRequiredField);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_PrimaryParentStreetCode", true, 100, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 6
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "ID Number:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_PrimaryParentIDNumber", true, 180, textboxValidateRequiredField);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.Label(Html, "Postal Address", "boldlabel");
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 7
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Relation:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.ComboBox(Html, "formeditor", Model, "Edit_PrimaryParentRelationID", 180, "Get_ParentRelation_PickList", comboboxValidateRequiredField);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_PrimaryParentPostalAddress1", true, 250, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 8
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Gender:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.ComboBox(Html, "formeditor", Model, "Edit_PrimaryParentGenderID", 180, "Get_Gender_Picklist", comboboxValidateRequiredField);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_PrimaryParentPostalAddress2", true, 250, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 9
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Contact Detail", "boldlabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_PrimaryParentPostalAddress3", true, 250, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 10
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Home Telephone:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_PrimaryParentTelHome", true, 100, null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_PrimaryParentPostalCode", true, 100, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 11
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Work Telephone:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_PrimaryParentTelWork", true, 100, null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.Label(Html, "Employer", "boldlabel");
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 12
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Cellphone:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_PrimaryParentTelCell", true, 100, null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_PrimaryParentEmployer", true, 250, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 13
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Alternative:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_PrimaryParentTelAlternative", true, 100, null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.Label(Html, "Occupation", "boldlabel");
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 14
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Fax:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_PrimaryParentTelFax", true, 100, null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_PrimaryParentOccupation", true, 250, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 15
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Email:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_PrimaryParentEmail", true, 180, null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 16
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Email Work:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_PrimaryParentEmailWork", true, 180, null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndRow(Html);
+        //        EduSpecHtmlHelper.EndTable(Html);
+
+
+        //    });
+        //    edtsettings.TabPages.Add("Secondary parent", "SecondaryParent").SetContent(() =>
+        //    {
+        //        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+        //        EduSpecHtmlHelper.NewRow(Html); //********** Row 1
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120); // First column
+        //        EduSpecHtmlHelper.Label(Html, "General Info", "boldlabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 220); // Second column
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.Label(Html, "Physical Address", "boldlabel");
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 2
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Title:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.ComboBox(Html, "formeditor", Model, "Edit_SecondaryParentTitleID", 80, "Get_Title_Picklist", null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_SecondaryParentStreetAddress1", true, 250, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 3
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Initals:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_SecondaryParentInitials", true, 80, null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_SecondaryParentStreetAddress2", true, 250, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 4
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Full Name:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_SecondaryParentFullName", true, 180, null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_SecondaryParentStreetAddress3", true, 250, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 5
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Surname:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_SecondaryParentSurname", true, 180, null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_SecondaryParentStreetCode", true, 100, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 6
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "ID Number:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_SecondaryParentIDNumber", true, 180, null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.Label(Html, "Postal Address", "boldlabel");
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 7
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Relation:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.ComboBox(Html, "formeditor", Model, "Edit_SecondaryParentRelationID", 180, "Get_ParentRelation_PickList", null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_SecondaryParentPostalAddress1", true, 250, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 8
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Gender:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.ComboBox(Html, "formeditor", Model, "Edit_SecondaryParentGenderID", 180, "Get_Gender_Picklist", null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_SecondaryParentPostalAddress2", true, 250, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 9
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Contact Detail", "boldlabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_SecondaryParentPostalAddress3", true, 250, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 10
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Home Telephone:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_SecondaryParentTelWork", true, 100, null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_SecondaryParentPostalCode", true, 100, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 11
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Work Telephone:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_SecondaryParentTelHome", true, 100, null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.Label(Html, "Employer", "boldlabel");
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 12
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Cellphone:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_SecondaryParentTelCell", true, 100, null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_SecondaryParentEmployer", true, 250, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 13
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Alternative:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_SecondaryParentTelAlternative", true, 100, null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.Label(Html, "Occupation", "boldlabel");
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 14
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Fax:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_SecondaryParentTelFax", true, 100, null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_SecondaryParentOccupation", true, 250, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 15
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Email:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_SecondaryParentEmail", true, 180, null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 16
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Email Work:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_SecondaryParentEmailWork", true, 180, null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndRow(Html);
+        //        EduSpecHtmlHelper.EndTable(Html);
+        //    });
+        //    edtsettings.TabPages.Add("Alternative parent", "AlternativeParent").SetContent(() =>
+        //    {
+        //        EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+        //        EduSpecHtmlHelper.NewRow(Html); //********** Row 1
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form", 120); // First column
+        //        EduSpecHtmlHelper.Label(Html, "General Info", "boldlabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 220); // Second column
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.Label(Html, "Physical Address", "boldlabel");
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 2
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Title:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.ComboBox(Html, "formeditor", Model, "Edit_AlternativeParentTitleID", 80, "Get_Title_Picklist", null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_AlternativeParentStreetAddress1", true, 250, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 3
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Initals:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_AlternativeParentInitials", true, 80, null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_AlternativeParentStreetAddress2", true, 250, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 4
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Full Name:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_AlternativeParentFullName", true, 180, null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_AlternativeParentStreetAddress3", true, 250, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 5
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Surname:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_AlternativeParentSurname", true, 180, null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_AlternativeParentStreetCode", true, 100, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 6
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "ID Number:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_AlternativeParentIDNumber", true, 180, null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.Label(Html, "Postal Address", "boldlabel");
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 7
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Relation:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.ComboBox(Html, "formeditor", Model, "Edit_AlternativeParentRelationID", 180, "Get_ParentRelation_PickList", null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_AlternativeParentPostalAddress1", true, 250, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 8
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Gender:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.ComboBox(Html, "formeditor", Model, "Edit_AlternativeParentGenderID", 180, "Get_Gender_Picklist", null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_AlternativeParentPostalAddress2", true, 250, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 9
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Contact Detail", "boldlabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_AlternativeParentPostalAddress3", true, 250, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 10
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Home Telephone:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_AlternativeParentTelWork", true, 100, null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_AlternativeParentPostalCode", true, 100, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 11
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Work Telephone:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_AlternativeParentTelHome", true, 100, null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.Label(Html, "Employer", "boldlabel");
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 12
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Cellphone:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_AlternativeParentTelCell", true, 100, null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_AlternativeParentEmployer", true, 250, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 13
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Alternative:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_AlternativeParentTelAlternative", true, 100, null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.Label(Html, "Occupation", "boldlabel");
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 14
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Fax:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_AlternativeParentTelFax", true, 100, null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_AlternativeParentOccupation", true, 250, null);
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 15
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Email:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_AlternativeParentEmail", true, 180, null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndAndNewRow(Html); //********** Row 16
+        //        EduSpecHtmlHelper.NewColumn(Html, "edit_form"); // First column
+        //        EduSpecHtmlHelper.Label(Html, "Email Work:", "editorLabel");
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Second column
+        //        EduSpecHtmlHelper.TextBox(Html, "formeditor", Model, "Edit_AlternativeParentEmailWork", true, 180, null);
+        //        EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form"); // Third column
+        //        EduSpecHtmlHelper.EndColumn(Html);
+
+        //        EduSpecHtmlHelper.EndRow(Html);
+        //        EduSpecHtmlHelper.EndTable(Html);
+        //    });
+        //    edtsettings.TabPages.Add("Learners", "Learners").SetContent(() =>
+        //    {
+        //        Html.RenderAction("LearnerManagementPartial", "Shared");
+        //    });
+
+        //}).GetHtml();
+
+        //EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+        //EduSpecHtmlHelper.NewDiv(Html, "line");
+        //Dictionary<EduSpec.ButtonClientSideEvent, string> saveButtonEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        //saveButtonEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){onbtnSaveFamily();}");
+        //EduSpecHtmlHelper.Button(Html, "btnSaveFamily", "button", "Save", 80, saveButtonEvents);
+
+        //Dictionary<EduSpec.ButtonClientSideEvent, string> closeButtonEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+        //closeButtonEvents.Add(ButtonClientSideEvent.onClick, "function(s, e){ pcFamilyManagement.Hide(); }");
+        //EduSpecHtmlHelper.Button(Html, "btnCloseEditInfo", "button", "Cancel", 80, closeButtonEvents);
+
+    });
+}).GetHtml()

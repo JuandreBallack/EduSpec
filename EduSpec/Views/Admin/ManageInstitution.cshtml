@@ -1,0 +1,58 @@
+﻿@model System.Collections.IEnumerable
+
+<script type="text/javascript">
+
+    function onBtnSaveClick(Result) {
+        if (Result == "mrYes") {
+            var e = document.getElementsByName("applyButton");
+            e[0].click();
+        }        
+    }
+
+    function setGrade(s, e) {
+        var x = s.GetValue();
+        switch (s.GetValue()) {
+            case 5:
+                {
+                    GradeFromID.SetValue("8");
+                    GradeToID.SetValue("12");
+                }
+
+        }
+    }
+
+
+</script>
+
+
+@Html.DevExpress().Splitter(settings =>
+    {
+        SplitterUtils.SetSplitterProperties(settings,true,78,false,0);
+
+        MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+        HeaderPane.SetContent(() =>
+        {
+            ViewContext.Writer.Write(
+                "<div ID=\"ViewInfo\">Manage Institution - " + HttpContext.Current.Session["InstitutionName"] + "</div><div style=\"margin:2px\">");
+
+            Html.RenderPartial("MenuButtonsPartialView", ViewData["ViewProperties"]);
+
+        });
+
+        MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+        MainContentPane.ScrollBars = ScrollBars.Vertical;
+        MainContentPane.SetContent(() =>
+        {
+            Html.RenderAction("ManageInstitutionPartial");
+        });
+
+        MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+        FooterPane.Separator.Visible = DefaultBoolean.True;
+        FooterPane.SetContent(() =>
+        {
+            
+        });
+
+    }).GetHtml()
+ 
+@MessageDlg.ShowMessageDlg("pcConfirmSave", Html, "Are you sure you want to save the changes?", new BtnType[] { BtnType.mbYes, BtnType.mbNo }, MessageType.mConfirmation, "onBtnSaveClick")

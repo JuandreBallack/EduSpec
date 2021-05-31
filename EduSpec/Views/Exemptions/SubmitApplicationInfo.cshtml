@@ -1,0 +1,38 @@
+﻿@model  EduSpec.Models.Get_Exemptions_ApplicationInformationResult
+
+@Html.DevExpress().CallbackPanel(settings =>
+{
+    settings.Name = "cbpSubmitApplicationInfo";
+    settings.CallbackRouteValues = new { Controller = "Exemptions", Action = "SubmitApplicationInfo" };
+    settings.ClientSideEvents.BeginCallback = "function(s,e){{ e.customArgs[\"ApplicationNumber\"] = tbApplicationNumber.GetText(); }}";
+    settings.Width = Unit.Percentage(100);
+    settings.SetContent(() =>
+    {
+
+        Html.DevExpress().RoundPanel(rpSettings =>
+        {
+            rpSettings.Name = "rpApplicationNumber";
+            rpSettings.HeaderText = "Application Identification";
+            rpSettings.Width = Unit.Percentage(100);
+            rpSettings.ClientSideEvents.Init = "function(s,e){tbApplicationNumber.SetFocus()}";
+            rpSettings.SetContent(() =>
+            {
+                Html.RenderPartial("ApplicationNumberPartial");
+            });
+        }).GetHtml();
+
+        if(Model == null)
+        {
+            Session["ApplicationQuestionAnswers"] = "0";
+        }
+        else
+        {
+            Session["ApplicationQuestionAnswers"] = Model.ApplicationQuestionAnswers;
+        }
+        
+
+        Html.RenderPartial("ApplicationInformation", Model);
+        Html.RenderPartial("ApplicationParentType", Model);
+        Html.RenderPartial("SubmitApplicationCheckList", Model);
+    });
+}).GetHtml()

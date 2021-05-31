@@ -1,0 +1,224 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["AnnualParamViewProperties"]);
+
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Exemptions", Action = "AnnualParametersUpdate" };
+    
+    settings.SetEditFormTemplateContent(c =>
+    {
+        var AnnualParm = ViewData["AnnualParm"] != null ? ViewData["AnnualParm"] : c.DataItem;
+        var lbWidth = 160;
+        var editorWidth = 120;
+        
+        ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 450px; margin:0px 5px 0px 5px;\">");
+        ViewContext.Writer.Write("<div class=\"line\" style=\"width: 100%; margin:10px 10px 0px; 10px\">");
+
+        Html.DevExpress().Label(lbsettings =>
+        {
+            lbsettings.ControlStyle.CssClass = "label";
+            lbsettings.Text = "Final resource allocation";
+            lbsettings.ControlStyle.Font.Bold = true;
+            lbsettings.ControlStyle.ForeColor = System.Drawing.Color.Blue;
+            lbsettings.ControlStyle.Font.Size = 10;
+            lbsettings.Width = 300;
+        }).GetHtml();
+        
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = "Allocation per learner:";
+            edtSettings.Width = lbWidth;
+        }).Render();
+
+        Html.DevExpress().SpinEdit(edtSettings =>
+        {
+            edtSettings.Name = "AllocationPerLearner";
+            edtSettings.ControlStyle.CssClass = "formeditor";
+            edtSettings.Properties.NumberFormat = SpinEditNumberFormat.Currency;
+            edtSettings.Properties.MaxValue = 10000000;
+            edtSettings.Properties.MinValue = 0;
+            edtSettings.Properties.DecimalPlaces = 2;
+            edtSettings.Properties.DisplayFormatString = "c";
+            edtSettings.Width = editorWidth;
+            //edtSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+            //edtSettings.Properties.ClientSideEvents.Validation = "OnRequiredFieldValidation";
+            edtSettings.Properties.SpinButtons.ShowIncrementButtons = false;
+            edtSettings.Properties.ClientSideEvents.Init = "function(s, e){s.SetFocus();}";
+        }).Bind(DataBinder.Eval(AnnualParm, "AllocationPerLearner")).Render();
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = "Learner Enrolement:";
+            edtSettings.Width = lbWidth;
+        }).Render();
+
+        Html.DevExpress().SpinEdit(edtSettings =>
+        {
+            edtSettings.Name = "LearnerEnrolement";
+            edtSettings.ControlStyle.CssClass = "formeditor";
+            edtSettings.Properties.NumberFormat = SpinEditNumberFormat.Number;
+            edtSettings.Properties.MaxValue = 10000000;
+            edtSettings.Properties.MinValue = 0;
+            edtSettings.Properties.DecimalPlaces = 2;
+            edtSettings.Width = editorWidth;
+            //edtSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+            //edtSettings.Properties.ClientSideEvents.Validation = "OnRequiredFieldValidation";
+            edtSettings.Properties.SpinButtons.ShowIncrementButtons = false;
+        }).Bind(DataBinder.Eval(AnnualParm, "LearnerEnrolement")).Render();
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = "Number of school days:";
+            edtSettings.Width = lbWidth;            
+        }).Render();
+
+        Html.DevExpress().SpinEdit(edtSettings =>
+        {
+            edtSettings.Name = "NoOfSchoolDays";
+            edtSettings.ControlStyle.CssClass = "formeditor";
+            edtSettings.Properties.NumberFormat = SpinEditNumberFormat.Number;
+            edtSettings.Properties.MaxValue = 10000000;
+            edtSettings.Properties.MinValue = 0;
+            edtSettings.Properties.DecimalPlaces = 2;
+            edtSettings.Width = editorWidth;
+            //edtSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+            //edtSettings.Properties.ClientSideEvents.Validation = "OnRequiredFieldValidation";
+            edtSettings.Properties.SpinButtons.ShowIncrementButtons = false;
+        }).Bind(DataBinder.Eval(AnnualParm, "NoOfSchoolDays")).Render();
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = "Total allocation:";
+            edtSettings.Width = lbWidth;
+        }).Render();
+
+        Html.DevExpress().SpinEdit(edtSettings =>
+        {
+            edtSettings.Name = "TotalAllocation";
+            edtSettings.ControlStyle.CssClass = "formeditor";
+            edtSettings.Properties.NumberFormat = SpinEditNumberFormat.Currency;
+            edtSettings.Properties.MaxValue = 10000000;
+            edtSettings.Properties.MinValue = 0;
+            edtSettings.Properties.DecimalPlaces = 2;
+            edtSettings.Width = editorWidth;
+            //edtSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+            //edtSettings.Properties.ClientSideEvents.Validation = "OnRequiredFieldValidation";
+            edtSettings.Properties.SpinButtons.ShowIncrementButtons = false;
+        }).Bind(DataBinder.Eval(AnnualParm, "TotalAllocation")).Render();
+
+        Html.DevExpress().Label(lbsettings =>
+        {
+            lbsettings.ControlStyle.CssClass = "label";
+            lbsettings.Text = "Application dates";
+            lbsettings.ControlStyle.Font.Bold = true;
+            lbsettings.ControlStyle.ForeColor = System.Drawing.Color.Blue;
+            lbsettings.ControlStyle.Font.Size = 10;
+            lbsettings.Width = 300;
+        }).GetHtml();
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = "Return date:";
+            edtSettings.Width = lbWidth;
+        }).Render();
+
+        Html.DevExpress().DateEdit(edtSettings =>
+        {
+            edtSettings.Name = "ApplicationReturnDate";
+            edtSettings.ControlStyle.CssClass = "formeditor";
+            edtSettings.Width = editorWidth;
+        }).Bind(DataBinder.Eval(AnnualParm, "ApplicationReturnDate")).Render();
+
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = "Result date:";
+            edtSettings.Width = lbWidth;
+        }).Render();
+
+        Html.DevExpress().DateEdit(edtSettings =>
+        {
+            edtSettings.Name = "ApplicationResultDate";
+            edtSettings.ControlStyle.CssClass = "formeditor";
+            edtSettings.Width = editorWidth;
+        }).Bind(DataBinder.Eval(AnnualParm, "ApplicationResultDate")).Render();
+        
+
+        Html.DevExpress().Label(lbsettings =>
+        {
+            lbsettings.ControlStyle.CssClass = "label";
+            lbsettings.Text = "Resolution";
+            lbsettings.ControlStyle.Font.Bold = true;
+            lbsettings.ControlStyle.ForeColor = System.Drawing.Color.Blue;
+            lbsettings.ControlStyle.Font.Size = 10;
+            lbsettings.Width = 300;
+        }).GetHtml();
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = "Resolution letter date:";
+            edtSettings.Width = lbWidth;
+        }).Render();
+
+        Html.DevExpress().DateEdit(edtSettings =>
+        {
+            edtSettings.Name = "ResolutionLetterDate";
+            edtSettings.ControlStyle.CssClass = "formeditor";
+            edtSettings.Width = editorWidth;
+        }).Bind(DataBinder.Eval(AnnualParm, "ResolutionLetterDate")).Render();
+
+
+        Html.DevExpress().Label(edtSettings =>
+        {
+            edtSettings.ControlStyle.CssClass = "label";
+            edtSettings.Text = "Budget meeting date:";
+            edtSettings.Width = lbWidth;
+        }).Render();
+
+        Html.DevExpress().DateEdit(edtSettings =>
+        {
+            edtSettings.Name = "BudgetMeetingDate";
+            edtSettings.ControlStyle.CssClass = "formeditor";
+            edtSettings.Width = editorWidth;
+        }).Bind(DataBinder.Eval(AnnualParm, "BudgetMeetingDate")).Render();
+
+        ViewContext.Writer.Write("</div><div class=\"line\">");
+
+        Html.DevExpress().Button(
+            btnSettings =>
+            {
+                btnSettings.Name = "btnUpdate";
+                btnSettings.ControlStyle.CssClass = "button";
+                btnSettings.Text = "Update";
+                btnSettings.ClientSideEvents.Click = String.Format("function(s, e) {{{0}.UpdateEdit(); }}", settings.Name);
+            }
+        )
+        .Render();
+        Html.DevExpress().Button(
+            btnSettings =>
+            {
+                btnSettings.Name = "btnCancel";
+                btnSettings.ControlStyle.CssClass = "button";
+                btnSettings.Text = "Cancel";
+                btnSettings.ClientSideEvents.Click = String.Format("function(s, e) {{{0}.CancelEdit(); }}", settings.Name);
+
+            }
+        )
+        .Render();
+
+        ViewContext.Writer.Write("</div></div>");
+
+        settings.PreRender = (sender, e) =>
+        {
+            ((MVCxGridView)sender).StartEdit(1);
+        };
+
+    });
+
+}).Bind(Model).GetHtml()

@@ -1,0 +1,105 @@
+﻿@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcSelectSMSMessage", "Send SMS");
+    settings.SetContent(() =>
+    {
+
+        Html.DevExpress().PageControl(pcsettings =>
+        {
+            pcsettings.Name = "pcSingleSMSTabControl";
+            pcsettings.Width = Unit.Percentage(100);
+            pcsettings.Height = Unit.Percentage(100);
+            pcsettings.EnableTabScrolling = true;
+            pcsettings.TabAlign = TabAlign.Justify;
+            pcsettings.EnableClientSideAPI = true;
+
+            pcsettings.TabPages.Add("Custom SMS", "CustomSMS").SetContent(() =>
+            {
+
+                EduSpecHtmlHelper.BeginTable(Html, "CheckListTable");
+                EduSpecHtmlHelper.NewRow(Html);
+                EduSpecHtmlHelper.NewColumn(Html, "edit_form", 80);// First column
+                EduSpecHtmlHelper.Label(Html, "Message:", "editorLabel");
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 160);// Second column
+                EduSpecHtmlHelper.ComboBox(Html, "cbCorrespondenceSMS", "formeditor", 150, string.Format("Get_InstitutionSMSMessages_PickList {0},{1}", HttpContext.Current.Session["InstID"], 3), null);
+                EduSpecHtmlHelper.EndColumn(Html);
+                EduSpecHtmlHelper.EndRow(Html);
+
+                EduSpecHtmlHelper.NewRow(Html);
+                EduSpecHtmlHelper.NewColumn(Html, "edit_form", 80);// First column
+                EduSpecHtmlHelper.Label(Html, "Send to:", "editorLabel");
+                EduSpecHtmlHelper.EndAndNewColumn(Html, "edit_form", 160);// Second column
+                Dictionary<EduSpec.ComboboxClientSideEvent, string> FamilyContactType = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+                FamilyContactType.Add(ComboboxClientSideEvent.onSelectedIndexChanged, "function(s,e){ FamilyContactTypeIDCustomChange(s,e);}");
+                EduSpecHtmlHelper.ComboBox(Html, "cbFamilyContactTypeCustom", "formeditor", 150, "Get_FamilyContactType_PickList", FamilyContactType);
+                EduSpecHtmlHelper.EndColumn(Html);
+                EduSpecHtmlHelper.EndRow(Html);
+
+                EduSpecHtmlHelper.NewRow(Html);
+                EduSpecHtmlHelper.NewColumn(Html, "edit_form", 80);// First column
+                EduSpecHtmlHelper.CheckBox(Html, "cbSendSingleParentCustom", "formeditor", "Send to primary parent only", false, 200, null);
+                EduSpecHtmlHelper.EndColumn(Html);
+                EduSpecHtmlHelper.EndRow(Html);
+
+                EduSpecHtmlHelper.EndTable(Html);
+
+                EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+                EduSpecHtmlHelper.NewDiv(Html, "line");
+
+                Dictionary<EduSpec.ButtonClientSideEvent, string> AddSupportCaseEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+                AddSupportCaseEvents.Add(ButtonClientSideEvent.onClick, String.Format("function(s, e) {{LoadingPanel.Show(); QueueSMSList(); }}"));
+                EduSpecHtmlHelper.Button(Html, "btnQueueCorrespondenceSMSList", "button", "Queue messages", 80, AddSupportCaseEvents);
+
+                Dictionary<EduSpec.ButtonClientSideEvent, string> cancelSupportCaseEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+                cancelSupportCaseEvents.Add(ButtonClientSideEvent.onClick, String.Format("function(s, e) {{ pcSelectSMSMessage.Hide(); }}"));
+                EduSpecHtmlHelper.Button(Html, "btnCancelSMSList", "button", "Cancel", 80, cancelSupportCaseEvents);
+
+
+                EduSpecHtmlHelper.EndDiv(Html);
+                EduSpecHtmlHelper.EndDiv(Html);
+
+            });
+
+            pcsettings.TabPages.Add("Manual SMS", "ManualSMS").SetContent(() =>
+            {
+
+                EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+
+                EduSpecHtmlHelper.NewDiv(Html, "line");
+                EduSpecHtmlHelper.Label(Html, "Message:", "formeditor");
+                EduSpecHtmlHelper.Memo(Html, "mSMSMessageCorrespondenceList", "formeditor", 300, 100);
+                EduSpecHtmlHelper.EndDiv(Html);
+
+                EduSpecHtmlHelper.NewDiv(Html, "line");
+                EduSpecHtmlHelper.Label(Html, "Send to:", "formeditor");
+                Dictionary<EduSpec.ComboboxClientSideEvent, string> FamilyContactTypeManual = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+                FamilyContactTypeManual.Add(ComboboxClientSideEvent.onSelectedIndexChanged, "function(s,e){ FamilyContactTypeIDManualChange(s,e);}");
+                EduSpecHtmlHelper.ComboBox(Html, "cbFamilyContactTypeManual", "formeditor", 150, "Get_FamilyContactType_PickList", FamilyContactTypeManual);
+                EduSpecHtmlHelper.EndDiv(Html);
+
+                EduSpecHtmlHelper.NewDiv(Html, "line");
+                EduSpecHtmlHelper.CheckBox(Html, "cbSendSingleParentManual", "formeditor", "Send to primary parent only", false, 200, null);
+                EduSpecHtmlHelper.EndDiv(Html);
+
+                EduSpecHtmlHelper.EndDiv(Html);
+
+                EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+                EduSpecHtmlHelper.NewDiv(Html, "line");
+                Dictionary<EduSpec.ButtonClientSideEvent, string> AddSupportCaseEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+                AddSupportCaseEvents.Add(ButtonClientSideEvent.onClick, String.Format("function(s, e) {{LoadingPanel.Show(); QueueSMSList(); }}"));
+                EduSpecHtmlHelper.Button(Html, "btnQueueCorrespondenceSMSListManual", "button", "Queue messages", 80, AddSupportCaseEvents);
+
+                Dictionary<EduSpec.ButtonClientSideEvent, string> cancelSupportCaseEvents = new Dictionary<EduSpec.ButtonClientSideEvent, string>();
+                cancelSupportCaseEvents.Add(ButtonClientSideEvent.onClick, String.Format("function(s, e) {{ pcSelectSMSMessage.Hide(); }}"));
+                EduSpecHtmlHelper.Button(Html, "btnCancelSMSListManual", "button", "Cancel", 80, cancelSupportCaseEvents);
+
+                EduSpecHtmlHelper.EndDiv(Html);
+                EduSpecHtmlHelper.EndDiv(Html);
+
+            });
+
+        }).GetHtml();
+
+    });
+
+}).GetHtml()

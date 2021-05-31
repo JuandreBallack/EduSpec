@@ -1,0 +1,260 @@
+﻿@model System.Collections.IEnumerable
+
+<script type="text/javascript">
+
+    var ExemptionTypeID;
+    var ExemptedAmount;
+    var ParentInterviewDate;
+    var ParentInterviewStartTime;
+    var ParentInterviewEndTime;
+    var FinaliseReasonTypeID = 0;
+
+
+    function SetExemptionTypeID(s, e) {
+        //MOET DECLINE OPSIE BY SIT--------------------------------------
+        switch (s.name) {
+            case 'rbNoExemption':
+                FinaliseReasonTypeID = 2;
+                ExemptionTypeID = 7;
+                ExemptedAmount = 0;
+                break;
+            case 'rbAutomaticExemption':
+                FinaliseReasonTypeID = 0;
+                ExemptionTypeID = 13;
+                ExemptedAmount = 0;
+                break;
+            case 'rbFullExemption':
+                FinaliseReasonTypeID = 0;
+                ExemptionTypeID = 5;
+                ExemptedAmount = 0;
+                break;
+            case 'rbConditionalFullExemption':
+                FinaliseReasonTypeID = 1;
+                ExemptionTypeID = 14;
+                ExemptedAmount = 0;
+                break;
+            case 'rbPartialExemption':
+                FinaliseReasonTypeID = 0;
+                ExemptionTypeID = 6;
+                ExemptedAmount = tbExemtionAmount.GetValue();
+                break;
+            case 'rbConditionalPartialExemption':
+                FinaliseReasonTypeID = 1;
+                ExemptionTypeID = 15;
+                ExemptedAmount = tbConditionalExemtionAmount.GetValue();
+                break;
+            case 'rbAcceptOffer':
+                FinaliseReasonTypeID = 0;
+                ExemptionTypeID = 8;
+                ExemptedAmount = tbOfferedAmount.GetValue();
+                break;
+            case 'rbIncomplete':
+                FinaliseReasonTypeID = 0;
+                ExemptionTypeID = 9;
+                ExemptedAmount = 0;
+                break;
+            case 'rbRequestInterview':
+                FinaliseReasonTypeID = 0;
+                ExemptionTypeID = 12;
+                ParentInterviewDate = deInterviewDate.GetValue();
+                ParentInterviewStartTime = teInterviewStartTime.GetValue();
+                ParentInterviewEndTime = teInterviewEndTime.GetValue();
+                break;
+            case 'rbApplicationDecline':
+                FinaliseReasonTypeID = 2;
+                ExemptionTypeID = 10;                
+                break;
+            default:
+                ExemptionTypeID = 7;
+                ExemptedAmount = 0;
+                break;
+        }
+    }
+
+    function SetExemptionType(s, e) {
+        //MOET DECLINE OPSIE BY SIT--------------------------------------
+        var d = Number(CalculatedExemptionType.GetValue());
+        tbExemtionAmount.SetValue(AmountExempted.GetValue());
+        tbConditionalExemtionAmount.SetValue(AmountExempted.GetValue());
+        tbOfferedAmount.SetValue(Offer.GetValue());
+
+        switch (d) {
+            case 7:
+                rbNoExemption.SetChecked(true);
+                FinaliseReasonTypeID = 2;//DECLINE
+                ExemptionTypeID = 7;
+                ExemptedAmount = 0;
+                break;
+            case 5:
+                rbFullExemption.SetChecked(true);
+                FinaliseReasonTypeID = 0;
+                ExemptionTypeID = 5;
+                ExemptedAmount = AmountExempted.GetValue();
+                break;
+            case 6:
+                rbPartialExemption.SetChecked(true);
+                FinaliseReasonTypeID = 0;
+                ExemptionTypeID = 6;
+                ExemptedAmount = Offer.GetValue();
+                break;
+            case 10:
+                rbApplicationDecline.SetChecked(true);
+                FinaliseReasonTypeID = 2;//DECLINE
+                ExemptionTypeID = 10;
+                ExemptedAmount = 0;
+                break;
+            case 14:
+                rbConditionalFullExemption.SetChecked(true);
+                ExemptionTypeID = 14;
+                FinaliseReasonTypeID = 1;
+                break;
+            case 13:
+                rbAutomaticExemption.SetChecked(true);
+                FinaliseReasonTypeID = 0;
+                ExemptionTypeID = 13;
+                ExemptedAmount = Offer.GetValue();
+                break;            
+            case 15:
+                rbConditionalPartialExemption.SetChecked(true);
+                ExemptionTypeID = 15;
+                FinaliseReasonTypeID = 1;
+                ExemptedAmount = tbConditionalExemtionAmount.GetValue();
+                break;
+        }
+    }
+
+    function ExemptionsFinaliseApplication(s, e) {
+        var CanContinue = true;
+        var DateNow = new Date();
+        var resultDate;
+        
+        switch (ExemptionTypeID) {
+            case 5:
+            case 7:
+            case 9:
+            case 14:
+            case 10:
+                ExemptedAmount = 0;
+                break;
+            case 6:
+                ExemptedAmount = tbExemtionAmount.GetValue();
+                break;
+            case 8:
+                ExemptedAmount = tbOfferedAmount.GetValue();
+                break;
+            case 15:
+                ExemptedAmount = tbConditionalExemtionAmount.GetValue();
+                break;
+            case 12:
+                if (deInterviewDate.GetDate() === null) {
+                    ParentInterviewDate = null;
+                    ParentInterviewStartTime = null;
+                    ParentInterviewEndTime = null;
+                }
+                else {
+                    if (deInterviewDate.GetDate() !== null) {
+                        if (deInterviewDate.GetDate().toISOString() > new Date().toISOString()) {
+                            ParentInterviewDate = deInterviewDate.GetDate().toISOString();
+                            if (teInterviewStartTime.GetDate() !== null)
+                                ParentInterviewStartTime = teInterviewStartTime.GetDate().toLocaleTimeString();
+                            if (teInterviewEndTime.GetDate() !== null)
+                                ParentInterviewEndTime = teInterviewEndTime.GetDate().toLocaleTimeString();
+                        }
+                        else {
+                            pcChooseValidDate.Show();
+                            CanContinue = false;
+                        }
+
+                    }
+                    else {
+                        pcChooseValidDate.Show();
+                        CanContinue = false;
+                    }
+
+                }
+
+        }
+
+        if (CanContinue === true)
+            $.ajax({
+                type: 'POST',
+                url: '/Exemptions/Set_ApplicationFinalise',
+                dataType: 'json',
+                async: false,
+                data: {
+                    //ExemptionID: ExemptionID.GetText(),
+                    ExemptStatusID: ExemptionTypeID,
+                    AmountExempted: ExemptedAmount,
+                    ParentInterviewDate: ParentInterviewDate,
+                    ParentInterviewStartTime: ParentInterviewStartTime,
+                    ParentInterviewEndTime: ParentInterviewEndTime
+                },
+                success: function (result) {
+                    if (result.Success === true) {
+                        if (result.PrintOnFinalise === true) {
+                            window.open(result.Url, '_Blank');
+                        }
+                        tbApplicationNumber.SetText('');
+                        pcConfirmFinalize.Show();
+                        pcExemptionReason.Hide();
+                    }
+                    else
+                        pcWarning.Show();
+                }
+            });
+
+    }
+
+    function onAddNewReasonBeginCallback(s, e) {
+        e.customArgs["ExemptionTypeID"] = ExemptionTypeID;
+        e.customArgs["FinaliseReasonTypeID"] = FinaliseReasonTypeID;
+    }
+
+</script>
+
+
+@Html.DevExpress().Splitter(settings =>
+    {
+        SplitterUtils.SetSplitterProperties(settings, true, 63, false, 0);
+
+        MVCxSplitterPane HeaderPane = (MVCxSplitterPane)settings.Panes[0];
+        HeaderPane.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<div ID=\"ViewInfo\">Finalise application</div><div style=\"margin:2px\">");
+            Html.RenderPartial("MenuButtonsPartialView", ViewData["ViewProperties"]);
+        });
+
+        MVCxSplitterPane MainContentPane = (MVCxSplitterPane)settings.Panes[1];
+        MainContentPane.ScrollBars = ScrollBars.Vertical;
+        MainContentPane.SetContent(() =>
+        {
+            Html.RenderPartial("FinaliseApplicationInfo");
+        });
+
+        MVCxSplitterPane FooterPane = (MVCxSplitterPane)settings.Panes[2];
+        FooterPane.Separator.Visible = DefaultBoolean.True;
+        FooterPane.SetContent(() =>
+        {
+
+        });
+
+    }).GetHtml()
+
+@MessageDlg.ShowMessageDlg("pcConfirmFinalize", Html, "The application was finalised.", new BtnType[] { BtnType.mbOK }, MessageType.mConfirmation)
+@MessageDlg.ShowMessageDlg("pcWarning", Html, "The Application does not Exist.", new BtnType[] { BtnType.mbOK }, MessageType.mWarning, "onBtnWarningClick")
+@MessageDlg.ShowMessageDlg("pcChooseValidDate", Html, "No future date selected. Please select a valid date.", new BtnType[] { BtnType.mbOK }, MessageType.mWarning)
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    PopupUtils.SetPopupViewProperties(settings, "pcExemptionReason", "Exemption reason");
+    settings.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div class=\"edit_form\" style=\"width: 400px\"><div class=\"line\">");
+
+        Html.RenderAction("FinaliseApplicationReason", "Shared");
+
+        EduSpecHtmlHelper.EndDiv(Html);
+        EduSpecHtmlHelper.EndDiv(Html);
+
+    });
+}).GetHtml()

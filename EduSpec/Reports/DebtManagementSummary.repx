@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XtraReportsLayoutSerializer SerializerVersion="18.1.4.0" Ref="1" ControlType="DevExpress.XtraReports.UI.XtraReport, DevExpress.XtraReports.v18.1, Version=18.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Name="DebtManagementSummary" Landscape="true" Margins="32, 29, 33, 38" PaperKind="A4" PageWidth="1169" PageHeight="827" Version="18.1" DataMember="RPT_DebtManagement_SummaryAccordingToStatus" DataSource="#Ref-0">
+  <FormattingRuleSheet>
+    <Item1 Ref="2" Name="formattingRule1" DataMember="RPT_ExemptionSummary">
+      <Formatting Ref="3" BorderStyle="Inset" StringFormat="Near;Near;0;None;Character;Default" />
+    </Item1>
+  </FormattingRuleSheet>
+  <Bands>
+    <Item1 Ref="4" ControlType="DetailBand" Name="Detail" HeightF="26" KeepTogether="true" TextAlignment="TopLeft" Padding="0,0,0,0,100">
+      <Controls>
+        <Item1 Ref="5" ControlType="XRLabel" Name="xrLabel1" Multiline="true" Text="Parents/Guardians name" TextAlignment="BottomLeft" SizeF="114.4167,26" LocationFloat="0.0001589457, 0" Font="Arial, 8.25pt, charSet=0" Padding="2,2,0,4,100" Borders="Bottom">
+          <DataBindings>
+            <Item1 Ref="6" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.FamilySurname" />
+          </DataBindings>
+          <StylePriority Ref="7" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item1>
+        <Item2 Ref="8" ControlType="XRLabel" Name="xrLabel3" Multiline="true" Text="Acc. Number" TextAlignment="BottomLeft" SizeF="65.92747,26" LocationFloat="114.4167, 0" Font="Arial, 8.25pt, charSet=0" Padding="2,2,0,4,100" Borders="Bottom">
+          <DataBindings>
+            <Item1 Ref="9" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.ExternalAccNo" />
+          </DataBindings>
+          <StylePriority Ref="10" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item2>
+        <Item3 Ref="11" ControlType="XRLabel" Name="xrLabel5" TextFormatString="{0:R ### ##0.00}" Multiline="true" Text="Total school fees" TextAlignment="MiddleRight" SizeF="76.05243,26" LocationFloat="180.3442, 0" Font="Arial Narrow, 8.25pt, charSet=0" Padding="2,2,0,4,100" Borders="Bottom">
+          <DataBindings>
+            <Item1 Ref="12" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.SchoolFees" />
+          </DataBindings>
+          <StylePriority Ref="13" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item3>
+        <Item4 Ref="14" ControlType="XRLabel" Name="xrLabel8" TextFormatString="{0:R ### ##0.00}" Multiline="true" Text="January" TextAlignment="MiddleRight" SizeF="70.91669,26" LocationFloat="256.3966, 0" Font="Arial Narrow, 8.25pt, charSet=0" Padding="2,2,0,4,100" Borders="Bottom">
+          <DataBindings>
+            <Item1 Ref="15" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.January" />
+          </DataBindings>
+          <StylePriority Ref="16" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item4>
+        <Item5 Ref="17" ControlType="XRLabel" Name="xrLabel17" TextFormatString="{0:R ### ##0.00}" Multiline="true" Text="February" TextAlignment="MiddleRight" SizeF="70.91669,26" LocationFloat="327.3133, 0" Font="Arial Narrow, 8.25pt, charSet=0" Padding="2,2,0,4,100" Borders="Bottom">
+          <DataBindings>
+            <Item1 Ref="18" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.February" />
+          </DataBindings>
+          <StylePriority Ref="19" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item5>
+        <Item6 Ref="20" ControlType="XRLabel" Name="xrLabel18" TextFormatString="{0:R ### ##0.00}" Multiline="true" Text="March" TextAlignment="MiddleRight" SizeF="70.91669,26" LocationFloat="398.22998, 0" Font="Arial Narrow, 8.25pt, charSet=0" Padding="2,2,0,4,100" Borders="Bottom">
+          <DataBindings>
+            <Item1 Ref="21" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.March" />
+          </DataBindings>
+          <StylePriority Ref="22" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item6>
+        <Item7 Ref="23" ControlType="XRLabel" Name="xrLabel31" TextFormatString="{0:R ### ##0.00}" Multiline="true" Text="April" TextAlignment="MiddleRight" SizeF="70.91669,26" LocationFloat="469.146667, 0" Font="Arial Narrow, 8.25pt, charSet=0" Padding="2,2,0,4,100" Borders="Bottom">
+          <DataBindings>
+            <Item1 Ref="24" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.April" />
+          </DataBindings>
+          <StylePriority Ref="25" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item7>
+        <Item8 Ref="26" ControlType="XRLabel" Name="xrLabel32" TextFormatString="{0:R ### ##0.00}" Multiline="true" Text="May" TextAlignment="MiddleRight" SizeF="70.91669,26" LocationFloat="540.063354, 0" Font="Arial Narrow, 8.25pt, charSet=0" Padding="2,2,0,4,100" Borders="Bottom">
+          <DataBindings>
+            <Item1 Ref="27" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.May" />
+          </DataBindings>
+          <StylePriority Ref="28" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item8>
+        <Item9 Ref="29" ControlType="XRLabel" Name="xrLabel33" TextFormatString="{0:R ### ##0.00}" Multiline="true" Text="June" TextAlignment="MiddleRight" SizeF="70.91669,26" LocationFloat="610.980042, 0" Font="Arial Narrow, 8.25pt, charSet=0" Padding="2,2,0,4,100" Borders="Bottom">
+          <DataBindings>
+            <Item1 Ref="30" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.June" />
+          </DataBindings>
+          <StylePriority Ref="31" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item9>
+        <Item10 Ref="32" ControlType="XRLabel" Name="xrLabel34" TextFormatString="{0:R ### ##0.00}" Multiline="true" Text="July" TextAlignment="MiddleRight" SizeF="70.91669,26" LocationFloat="681.8967, 0" Font="Arial Narrow, 8.25pt, charSet=0" Padding="2,2,0,4,100" Borders="Bottom">
+          <DataBindings>
+            <Item1 Ref="33" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.July" />
+          </DataBindings>
+          <StylePriority Ref="34" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item10>
+        <Item11 Ref="35" ControlType="XRLabel" Name="xrLabel36" TextFormatString="{0:R ### ##0.00}" Multiline="true" Text="August" TextAlignment="MiddleRight" SizeF="70.91669,26" LocationFloat="752.8134, 0" Font="Arial Narrow, 8.25pt, charSet=0" Padding="2,2,0,4,100" Borders="Bottom">
+          <DataBindings>
+            <Item1 Ref="36" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.August" />
+          </DataBindings>
+          <StylePriority Ref="37" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item11>
+        <Item12 Ref="38" ControlType="XRLabel" Name="xrLabel37" TextFormatString="{0:R ### ##0.00}" Multiline="true" Text="Sept." TextAlignment="MiddleRight" SizeF="70.91669,26" LocationFloat="823.7301, 0" Font="Arial Narrow, 8.25pt, charSet=0" Padding="2,2,0,4,100" Borders="Bottom">
+          <DataBindings>
+            <Item1 Ref="39" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.September" />
+          </DataBindings>
+          <StylePriority Ref="40" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item12>
+        <Item13 Ref="41" ControlType="XRLabel" Name="xrLabel38" TextFormatString="{0:R ### ##0.00}" Multiline="true" Text="Oct." TextAlignment="MiddleRight" SizeF="70.91669,26" LocationFloat="894.6468, 0" Font="Arial Narrow, 8.25pt, charSet=0" Padding="2,2,0,4,100" Borders="Bottom">
+          <DataBindings>
+            <Item1 Ref="42" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.October" />
+          </DataBindings>
+          <StylePriority Ref="43" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item13>
+        <Item14 Ref="44" ControlType="XRLabel" Name="xrLabel39" TextFormatString="{0:R ### ##0.00}" Multiline="true" Text="Nov." TextAlignment="MiddleRight" SizeF="70.91669,26" LocationFloat="965.5635, 0" Font="Arial Narrow, 8.25pt, charSet=0" Padding="2,2,0,4,100" Borders="Bottom">
+          <DataBindings>
+            <Item1 Ref="45" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.November" />
+          </DataBindings>
+          <StylePriority Ref="46" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item14>
+        <Item15 Ref="47" ControlType="XRLabel" Name="xrLabel40" TextFormatString="{0:R ### ##0.00}" Multiline="true" Text="Des." TextAlignment="MiddleRight" SizeF="70.91669,26" LocationFloat="1036.48022, 0" Font="Arial Narrow, 8.25pt, charSet=0" Padding="2,2,0,4,100" Borders="Bottom">
+          <DataBindings>
+            <Item1 Ref="48" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.December" />
+          </DataBindings>
+          <StylePriority Ref="49" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item15>
+      </Controls>
+    </Item1>
+    <Item2 Ref="50" ControlType="TopMarginBand" Name="TopMargin" HeightF="33" TextAlignment="TopLeft" Padding="0,0,0,0,100" />
+    <Item3 Ref="51" ControlType="BottomMarginBand" Name="BottomMargin" HeightF="38.041687" TextAlignment="TopLeft" Padding="0,0,0,0,100">
+      <Controls>
+        <Item1 Ref="52" ControlType="XRPageInfo" Name="xrPageInfo2" TextFormatString="Page {0} of {1}" TextAlignment="MiddleCenter" SizeF="83.07898,22.83465" LocationFloat="1024.921, 0" Font="Arial, 8pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="53" UseFont="false" UseTextAlignment="false" />
+        </Item1>
+        <Item2 Ref="54" ControlType="XRLabel" Name="xrLabel35" Text="Printed by EduSpec ©" TextAlignment="MiddleLeft" SizeF="177.0833,22.83465" LocationFloat="0, 2" Font="Arial, 8pt" Padding="2,2,0,0,100">
+          <StylePriority Ref="55" UseFont="false" UseTextAlignment="false" />
+        </Item2>
+      </Controls>
+    </Item3>
+    <Item4 Ref="56" ControlType="GroupHeaderBand" Name="GroupHeader1" RepeatEveryPage="true" HeightF="36.5416832" KeepTogether="true">
+      <GroupFields>
+        <Item1 Ref="57" FieldName="AgeStatusDesc" SortOrder="None" />
+      </GroupFields>
+      <Controls>
+        <Item1 Ref="58" ControlType="XRLabel" Name="xrLabel2" TextAlignment="MiddleLeft" SizeF="1107.397,23" LocationFloat="0.000158945724, 6.00001" Font="Arial, 10pt, style=Bold" BackColor="LightGray" Padding="6,2,0,0,100" BorderColor="LightGray">
+          <DataBindings>
+            <Item1 Ref="59" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.AgeStatusDesc" />
+          </DataBindings>
+          <StylePriority Ref="60" UseFont="false" UseBackColor="false" UsePadding="false" UseBorderColor="false" UseTextAlignment="false" />
+        </Item1>
+      </Controls>
+    </Item4>
+    <Item5 Ref="61" ControlType="GroupFooterBand" Name="GroupFooter1" HeightF="26">
+      <Controls>
+        <Item1 Ref="62" ControlType="XRLabel" Name="xrLabel23" Text="Total:" TextAlignment="MiddleLeft" SizeF="55.0416946,26" LocationFloat="0, 0" Font="Arial, 8.25pt, style=Bold, charSet=0" Padding="2,2,0,0,100" Borders="Top">
+          <StylePriority Ref="63" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item1>
+        <Item2 Ref="64" ControlType="XRLabel" Name="xrLabel22" TextAlignment="MiddleRight" SizeF="70.91669,26" LocationFloat="965.563538, 0" Font="Arial, 8.25pt, style=Bold, charSet=0" Padding="2,2,0,0,100" Borders="Top">
+          <Summary Ref="65" FormatString="{0:c}" Running="Group" />
+          <DataBindings>
+            <Item1 Ref="66" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.November" />
+          </DataBindings>
+          <StylePriority Ref="67" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item2>
+        <Item3 Ref="68" ControlType="XRLabel" Name="xrLabel21" TextAlignment="MiddleRight" SizeF="70.91669,26" LocationFloat="894.6468, 0" Font="Arial, 8.25pt, style=Bold, charSet=0" Padding="2,2,0,0,100" Borders="Top">
+          <Summary Ref="69" FormatString="{0:c}" Running="Group" />
+          <DataBindings>
+            <Item1 Ref="70" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.October" />
+          </DataBindings>
+          <StylePriority Ref="71" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item3>
+        <Item4 Ref="72" ControlType="XRLabel" Name="xrLabel20" TextAlignment="MiddleRight" SizeF="70.91669,26" LocationFloat="823.7301, 0" Font="Arial, 8.25pt, style=Bold, charSet=0" Padding="2,2,0,0,100" Borders="Top">
+          <Summary Ref="73" FormatString="{0:R ### ##0.00}" Running="Group" />
+          <DataBindings>
+            <Item1 Ref="74" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.September" />
+          </DataBindings>
+          <StylePriority Ref="75" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item4>
+        <Item5 Ref="76" ControlType="XRLabel" Name="xrLabel19" TextAlignment="MiddleLeft" SizeF="125.302513,26" LocationFloat="55.0416946, 0" Font="Arial, 8.25pt, style=Bold, charSet=0" Padding="2,2,0,0,100" Borders="Top">
+          <Summary Ref="77" Running="Group" Func="Count" />
+          <DataBindings>
+            <Item1 Ref="78" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.AgeStatusDesc" />
+          </DataBindings>
+          <StylePriority Ref="79" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item5>
+        <Item6 Ref="80" ControlType="XRLabel" Name="xrLabel41" TextAlignment="MiddleRight" SizeF="70.91669,26" LocationFloat="610.980042, 0" Font="Arial, 8.25pt, style=Bold, charSet=0" Padding="2,2,0,0,100" Borders="Top">
+          <Summary Ref="81" FormatString="{0:R ### ##0.00}" Running="Group" />
+          <DataBindings>
+            <Item1 Ref="82" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.June" />
+          </DataBindings>
+          <StylePriority Ref="83" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item6>
+        <Item7 Ref="84" ControlType="XRLabel" Name="xrLabel42" TextAlignment="MiddleRight" SizeF="70.91669,26" LocationFloat="681.8967, 0" Font="Arial, 8.25pt, style=Bold, charSet=0" Padding="2,2,0,0,100" Borders="Top">
+          <Summary Ref="85" FormatString="{0:c}" Running="Group" />
+          <DataBindings>
+            <Item1 Ref="86" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.July" />
+          </DataBindings>
+          <StylePriority Ref="87" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item7>
+        <Item8 Ref="88" ControlType="XRLabel" Name="xrLabel43" TextAlignment="MiddleRight" SizeF="70.91669,26" LocationFloat="752.8134, 0" Font="Arial, 8.25pt, style=Bold, charSet=0" Padding="2,2,0,0,100" Borders="Top">
+          <Summary Ref="89" FormatString="{0:c}" Running="Group" />
+          <DataBindings>
+            <Item1 Ref="90" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.August" />
+          </DataBindings>
+          <StylePriority Ref="91" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item8>
+        <Item9 Ref="92" ControlType="XRLabel" Name="xrLabel44" TextAlignment="MiddleRight" SizeF="70.91669,26" LocationFloat="398.22998, 0" Font="Arial, 8.25pt, style=Bold, charSet=0" Padding="2,2,0,0,100" Borders="Top">
+          <Summary Ref="93" FormatString="{0:R ### ##0.00}" Running="Group" />
+          <DataBindings>
+            <Item1 Ref="94" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.March" />
+          </DataBindings>
+          <StylePriority Ref="95" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item9>
+        <Item10 Ref="96" ControlType="XRLabel" Name="xrLabel45" TextAlignment="MiddleRight" SizeF="70.91669,26" LocationFloat="469.146667, 0" Font="Arial, 8.25pt, style=Bold, charSet=0" Padding="2,2,0,0,100" Borders="Top">
+          <Summary Ref="97" FormatString="{0:c}" Running="Group" />
+          <DataBindings>
+            <Item1 Ref="98" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.April" />
+          </DataBindings>
+          <StylePriority Ref="99" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item10>
+        <Item11 Ref="100" ControlType="XRLabel" Name="xrLabel46" TextAlignment="MiddleRight" SizeF="70.91669,26" LocationFloat="540.063354, 0" Font="Arial, 8.25pt, style=Bold, charSet=0" Padding="2,2,0,0,100" Borders="Top">
+          <Summary Ref="101" FormatString="{0:c}" Running="Group" />
+          <DataBindings>
+            <Item1 Ref="102" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.May" />
+          </DataBindings>
+          <StylePriority Ref="103" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item11>
+        <Item12 Ref="104" ControlType="XRLabel" Name="xrLabel47" TextAlignment="MiddleRight" SizeF="76.05243,26" LocationFloat="180.3442, 0" Font="Arial, 8.25pt, style=Bold, charSet=0" Padding="2,2,0,0,100" Borders="Top">
+          <Summary Ref="105" FormatString="{0:R ### ##0.00}" Running="Group" />
+          <DataBindings>
+            <Item1 Ref="106" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.SchoolFees" />
+          </DataBindings>
+          <StylePriority Ref="107" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item12>
+        <Item13 Ref="108" ControlType="XRLabel" Name="xrLabel48" TextAlignment="MiddleRight" SizeF="70.91669,26" LocationFloat="256.3966, 0" Font="Arial, 8.25pt, style=Bold, charSet=0" Padding="2,2,0,0,100" Borders="Top">
+          <Summary Ref="109" FormatString="{0:c}" Running="Group" />
+          <DataBindings>
+            <Item1 Ref="110" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.January" />
+          </DataBindings>
+          <StylePriority Ref="111" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item13>
+        <Item14 Ref="112" ControlType="XRLabel" Name="xrLabel49" TextAlignment="MiddleRight" SizeF="70.91669,26" LocationFloat="327.3133, 0" Font="Arial, 8.25pt, style=Bold, charSet=0" Padding="2,2,0,0,100" Borders="Top">
+          <Summary Ref="113" FormatString="{0:c}" Running="Group" />
+          <DataBindings>
+            <Item1 Ref="114" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.February" />
+          </DataBindings>
+          <StylePriority Ref="115" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item14>
+        <Item15 Ref="116" ControlType="XRLabel" Name="xrLabel4" TextAlignment="MiddleRight" SizeF="70.91669,26" LocationFloat="1036.48022, 0" Font="Arial, 8.25pt, style=Bold, charSet=0" Padding="2,2,0,0,100" Borders="Top">
+          <Summary Ref="117" FormatString="{0:c}" Running="Group" />
+          <DataBindings>
+            <Item1 Ref="118" PropertyName="Text" DataMember="RPT_DebtManagement_SummaryAccordingToStatus.December" />
+          </DataBindings>
+          <StylePriority Ref="119" UseFont="false" UseBorders="false" UseTextAlignment="false" />
+        </Item15>
+      </Controls>
+    </Item5>
+    <Item6 Ref="120" ControlType="PageHeaderBand" Name="PageHeader" HeightF="36">
+      <Controls>
+        <Item1 Ref="121" ControlType="XRLabel" Name="xrLabel11" Multiline="true" Text="Acc. Number" TextAlignment="BottomLeft" SizeF="65.92747,36" LocationFloat="114.4167, 0" Font="Arial, 9pt, style=Bold" Padding="2,2,0,4,100" Borders="Bottom">
+          <StylePriority Ref="122" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item1>
+        <Item2 Ref="123" ControlType="XRLabel" Name="xrLabel16" Multiline="true" Text="January" TextAlignment="MiddleRight" SizeF="70.91669,36" LocationFloat="256.3966, 0" Font="Arial, 9pt, style=Bold" Padding="2,2,0,4,100" Borders="Bottom">
+          <StylePriority Ref="124" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item2>
+        <Item3 Ref="125" ControlType="XRLabel" Name="xrLabel9" Multiline="true" Text="Family surname" TextAlignment="BottomLeft" SizeF="114.4167,36" LocationFloat="0, 0" Font="Arial, 9pt, style=Bold" Padding="2,2,0,4,100" Borders="Bottom">
+          <StylePriority Ref="126" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item3>
+        <Item4 Ref="127" ControlType="XRLabel" Name="xrLabel6" Multiline="true" Text="Total school fees" TextAlignment="BottomLeft" SizeF="76.05243,36" LocationFloat="180.3442, 0" Font="Arial, 9pt, style=Bold" Padding="2,2,0,4,100" Borders="Bottom">
+          <StylePriority Ref="128" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item4>
+        <Item5 Ref="129" ControlType="XRLabel" Name="xrLabel13" Multiline="true" Text="February" TextAlignment="MiddleRight" SizeF="70.91669,36" LocationFloat="327.3133, 0" Font="Arial, 9pt, style=Bold" Padding="2,2,0,4,100" Borders="Bottom">
+          <StylePriority Ref="130" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item5>
+        <Item6 Ref="131" ControlType="XRLabel" Name="xrLabel14" Multiline="true" Text="March" TextAlignment="MiddleRight" SizeF="70.91669,36" LocationFloat="398.22998, 0" Font="Arial, 9pt, style=Bold" Padding="2,2,0,4,100" Borders="Bottom">
+          <StylePriority Ref="132" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item6>
+        <Item7 Ref="133" ControlType="XRLabel" Name="xrLabel15" Multiline="true" Text="April" TextAlignment="MiddleRight" SizeF="70.91669,36" LocationFloat="469.146667, 0" Font="Arial, 9pt, style=Bold" Padding="2,2,0,4,100" Borders="Bottom">
+          <StylePriority Ref="134" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item7>
+        <Item8 Ref="135" ControlType="XRLabel" Name="xrLabel24" Multiline="true" Text="May" TextAlignment="MiddleRight" SizeF="70.91669,36" LocationFloat="540.063354, 0" Font="Arial, 9pt, style=Bold" Padding="2,2,0,4,100" Borders="Bottom">
+          <StylePriority Ref="136" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item8>
+        <Item9 Ref="137" ControlType="XRLabel" Name="xrLabel25" Multiline="true" Text="June" TextAlignment="MiddleRight" SizeF="70.91669,36" LocationFloat="610.980042, 0" Font="Arial, 9pt, style=Bold" Padding="2,2,0,4,100" Borders="Bottom">
+          <StylePriority Ref="138" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item9>
+        <Item10 Ref="139" ControlType="XRLabel" Name="xrLabel26" Multiline="true" Text="July" TextAlignment="MiddleRight" SizeF="70.91669,36" LocationFloat="681.8967, 0" Font="Arial, 9pt, style=Bold" Padding="2,2,0,4,100" Borders="Bottom">
+          <StylePriority Ref="140" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item10>
+        <Item11 Ref="141" ControlType="XRLabel" Name="xrLabel10" Multiline="true" Text="August" TextAlignment="MiddleRight" SizeF="70.91669,36" LocationFloat="752.8134, 0" Font="Arial, 9pt, style=Bold" Padding="2,2,0,4,100" Borders="Bottom">
+          <StylePriority Ref="142" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item11>
+        <Item12 Ref="143" ControlType="XRLabel" Name="xrLabel27" Multiline="true" Text="Sept." TextAlignment="MiddleRight" SizeF="70.91669,36" LocationFloat="823.7301, 0" Font="Arial, 9pt, style=Bold" Padding="2,2,0,4,100" Borders="Bottom">
+          <StylePriority Ref="144" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item12>
+        <Item13 Ref="145" ControlType="XRLabel" Name="xrLabel28" Multiline="true" Text="Oct." TextAlignment="MiddleRight" SizeF="70.91669,36" LocationFloat="894.6468, 0" Font="Arial, 9pt, style=Bold" Padding="2,2,0,4,100" Borders="Bottom">
+          <StylePriority Ref="146" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item13>
+        <Item14 Ref="147" ControlType="XRLabel" Name="xrLabel29" Multiline="true" Text="Nov." TextAlignment="MiddleRight" SizeF="70.91669,36" LocationFloat="965.5635, 0" Font="Arial, 9pt, style=Bold" Padding="2,2,0,4,100" Borders="Bottom">
+          <StylePriority Ref="148" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item14>
+        <Item15 Ref="149" ControlType="XRLabel" Name="xrLabel30" Multiline="true" Text="Des." TextAlignment="MiddleRight" SizeF="70.91669,36" LocationFloat="1036.48022, 0" Font="Arial, 9pt, style=Bold" Padding="2,2,0,4,100" Borders="Bottom">
+          <StylePriority Ref="150" UseFont="false" UsePadding="false" UseBorders="false" UseTextAlignment="false" />
+        </Item15>
+      </Controls>
+    </Item6>
+    <Item7 Ref="151" ControlType="ReportHeaderBand" Name="ReportHeader" HeightF="45.83333">
+      <Controls>
+        <Item1 Ref="152" ControlType="XRLabel" Name="xrLabel7" Text="Age Analysis [YearDesc]" TextAlignment="MiddleCenter" SizeF="1108,39.62498" LocationFloat="0, 0" Font="Arial, 12pt, style=Bold" ForeColor="White" BackColor="DimGray" Padding="2,2,0,0,100">
+          <StylePriority Ref="153" UseFont="false" UseForeColor="false" UseBackColor="false" UseTextAlignment="false" />
+        </Item1>
+      </Controls>
+    </Item7>
+    <Item8 Ref="154" ControlType="PageFooterBand" Name="PageFooter" HeightF="5.208333" />
+  </Bands>
+  <ComponentStorage>
+    <Item1 Ref="0" ObjectType="DevExpress.DataAccess.Sql.SqlDataSource,DevExpress.DataAccess.v18.1" Name="sqlDataSource" Base64="PFNxbERhdGFTb3VyY2U+PE5hbWU+c3FsRGF0YVNvdXJjZTwvTmFtZT48Q29ubmVjdGlvbiBOYW1lPSJFZHVTcGVjLlByb3BlcnRpZXMuU2V0dGluZ3MuRWR1U3BlY0Nvbm5lY3Rpb25TdHJpbmciIEZyb21BcHBDb25maWc9InRydWUiIC8+PFF1ZXJ5IFR5cGU9IlN0b3JlZFByb2NRdWVyeSIgTmFtZT0iUlBUX0RlYnRNYW5hZ2VtZW50X1N1bW1hcnlBY2NvcmRpbmdUb1N0YXR1cyI+PFBhcmFtZXRlciBOYW1lPSJASW5zdElEIiBUeXBlPSJTeXN0ZW0uSW50MzIiPjgzPC9QYXJhbWV0ZXI+PFBhcmFtZXRlciBOYW1lPSJAWWVhcklEIiBUeXBlPSJTeXN0ZW0uSW50MzIiPjk8L1BhcmFtZXRlcj48UGFyYW1ldGVyIE5hbWU9IkBBZ2VTdGF0dXNJRCIgVHlwZT0iU3lzdGVtLkludDMyIj41PC9QYXJhbWV0ZXI+PFByb2NOYW1lPlJQVF9EZWJ0TWFuYWdlbWVudF9TdW1tYXJ5QWNjb3JkaW5nVG9TdGF0dXM8L1Byb2NOYW1lPjwvUXVlcnk+PFJlc3VsdFNjaGVtYT48RGF0YVNldCBOYW1lPSJzcWxEYXRhU291cmNlIj48VmlldyBOYW1lPSJSUFRfRGVidE1hbmFnZW1lbnRfU3VtbWFyeUFjY29yZGluZ1RvU3RhdHVzIj48RmllbGQgTmFtZT0iWWVhckRlc2MiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iQWdlU3RhdHVzRGVzYyIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJQYXJlbnRzTmFtZSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJGYW1pbHlTdXJuYW1lIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkxlYXJuZXIiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iRmFtaWx5Q29kZSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJFeHRlcm5hbEFjY05vIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlNjaG9vbEZlZXMiIFR5cGU9IkRlY2ltYWwiIC8+PEZpZWxkIE5hbWU9IlByaW9yT3V0c3RhbmRpbmciIFR5cGU9IkRlY2ltYWwiIC8+PEZpZWxkIE5hbWU9IkJpbGxpbmdDeWNsZURlc2MiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iSmFudWFyeSIgVHlwZT0iRGVjaW1hbCIgLz48RmllbGQgTmFtZT0iRmVicnVhcnkiIFR5cGU9IkRlY2ltYWwiIC8+PEZpZWxkIE5hbWU9Ik1hcmNoIiBUeXBlPSJEZWNpbWFsIiAvPjxGaWVsZCBOYW1lPSJBcHJpbCIgVHlwZT0iRGVjaW1hbCIgLz48RmllbGQgTmFtZT0iTWF5IiBUeXBlPSJEZWNpbWFsIiAvPjxGaWVsZCBOYW1lPSJKdW5lIiBUeXBlPSJEZWNpbWFsIiAvPjxGaWVsZCBOYW1lPSJKdWx5IiBUeXBlPSJEZWNpbWFsIiAvPjxGaWVsZCBOYW1lPSJBdWd1c3QiIFR5cGU9IkRlY2ltYWwiIC8+PEZpZWxkIE5hbWU9IlNlcHRlbWJlciIgVHlwZT0iRGVjaW1hbCIgLz48RmllbGQgTmFtZT0iT2N0b2JlciIgVHlwZT0iRGVjaW1hbCIgLz48RmllbGQgTmFtZT0iTm92ZW1iZXIiIFR5cGU9IkRlY2ltYWwiIC8+PEZpZWxkIE5hbWU9IkRlY2VtYmVyIiBUeXBlPSJEZWNpbWFsIiAvPjwvVmlldz48L0RhdGFTZXQ+PC9SZXN1bHRTY2hlbWE+PENvbm5lY3Rpb25PcHRpb25zIENsb3NlQ29ubmVjdGlvbj0idHJ1ZSIgLz48L1NxbERhdGFTb3VyY2U+" />
+  </ComponentStorage>
+</XtraReportsLayoutSerializer>

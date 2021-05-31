@@ -1,0 +1,35 @@
+﻿@model EduSpec.Models.Get_Exemptions_ApplicationInformationResult
+
+<div id="RoundPanel">
+
+    @Html.DevExpress().RoundPanel(rpSettings =>
+{
+    rpSettings.Name = "rpApplicationCheckList";
+    rpSettings.HeaderText = "Application Checklist";
+    rpSettings.Width = Unit.Percentage(100);
+
+    rpSettings.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div id=\"ApplicationProofLearner\">");
+        Html.RenderPartial("ApplicationProofLearner", Model);
+        ViewContext.Writer.Write("</div>");
+
+        ViewContext.Writer.Write("<div id=\"ApplicationMaritalStatus\">");
+        Html.RenderPartial("ApplicationMaritalStatus", Model);
+        ViewContext.Writer.Write("</div>");
+
+        ViewContext.Writer.Write("<div id=\"ApplicationProofOfIncome\">");
+        Html.RenderPartial("ApplicationProofOfIncome");
+        ViewContext.Writer.Write("</div>");
+
+        ViewContext.Writer.Write("<div id=\"ApplicationProofOfGuardianFosterCare\">");
+        Html.RenderPartial("ApplicationProofOfGuardianFosterCare");
+        ViewContext.Writer.Write("</div>");
+
+        ViewContext.Writer.Write("<div id=\"ApplicationExpenditure\">");
+        Html.RenderPartial("ApplicationExpenditure");
+        ViewContext.Writer.Write("</div>");
+
+    });
+}).GetHtml()
+</div>

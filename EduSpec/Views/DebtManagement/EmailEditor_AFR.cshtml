@@ -1,0 +1,11 @@
+﻿@Html.DevExpress().HtmlEditor(edtSettings =>
+{
+    edtSettings.Name = "EmailBody_AFR";
+    edtSettings.CallbackRouteValues = new { Controller = "DebtManagement", Action = "EmailEditor_AFR", InstEmailID = ViewData["InstEmailID"] };
+    edtSettings.Width = Unit.Percentage(100);
+    edtSettings.Height = 500;
+    edtSettings.Settings.AllowHtmlView = false;
+    edtSettings.Settings.AllowPreview = false;
+    edtSettings.ClientSideEvents.GotFocus = "onGotFocus_Email";
+
+}).Bind(Model).GetHtml()

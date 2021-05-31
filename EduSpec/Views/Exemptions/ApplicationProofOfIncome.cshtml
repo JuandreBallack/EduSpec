@@ -1,0 +1,198 @@
+﻿<table class="CheckListTable">
+    <tr>
+        <td class="CheckListTable-l">
+            <div class="line" style="width: 100%; margin:0px 10px 0px;">
+
+                @Html.DevExpress().Label(edtSettings =>
+                 {
+                     edtSettings.ControlStyle.CssClass = "boldlabel_freestanding";
+                     edtSettings.Width = 200;
+                     edtSettings.Text = "Income";
+                     edtSettings.ControlStyle.Font.Bold = true;
+                 }).GetHtml()
+
+                @Html.DevExpress().RadioButtonList(rbsettings =>
+                {
+                    rbsettings.Name = "ParentIncomeTypeID";
+                    rbsettings.Properties.ValueType = typeof(int);
+                    rbsettings.Width = Unit.Pixel(340);
+                    rbsettings.Properties.Items.Add("Employed", 1);
+                    rbsettings.Properties.Items.Add("Employed and Welfare Grant", 6);
+                    rbsettings.Properties.Items.Add("Self Employed", 2);
+                    rbsettings.Properties.Items.Add("Unemployed", 3);
+                    rbsettings.Properties.Items.Add("Welfare Grant", 4);
+                    rbsettings.Properties.Items.Add("Retrenched", 5);
+                    rbsettings.Properties.RepeatLayout = RepeatLayout.Table;
+                    rbsettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+                    rbsettings.Properties.RepeatColumns = 2;
+                    rbsettings.ControlStyle.Border.BorderStyle = BorderStyle.Solid;
+                    rbsettings.ControlStyle.Border.BorderColor = System.Drawing.Color.LightGray;
+                    if (Model != null)
+                    {
+                        rbsettings.Properties.ClientSideEvents.SelectedIndexChanged = string.Format("function(s, e) {{ setIncomeRequirements(s, e,'{0}','{1}','{2}','{3}','{4}','{5}'); }}",
+                                    DataBinder.Eval(Model, "EmployedRequiredDocs").ToString(),
+                                    DataBinder.Eval(Model, "EmployedandWelfareGrandDocs").ToString(),
+                                    DataBinder.Eval(Model, "SelfEmployedRequiredDocs").ToString(),
+                                    DataBinder.Eval(Model, "UnemployedRequiredDocs").ToString(),
+                                    DataBinder.Eval(Model, "WelfareGrandRequiredDocs").ToString(),
+                                    DataBinder.Eval(Model, "RetrenchedRequiredDocs").ToString());
+                        rbsettings.Properties.ClientSideEvents.Init = string.Format("function(s, e) {{ setIncomeRequirements(s, e,'{0}','{1}','{2}','{3}','{4}','{5}'); }}",
+                                    DataBinder.Eval(Model, "EmployedRequiredDocs").ToString(),
+                                    DataBinder.Eval(Model, "EmployedandWelfareGrandDocs").ToString(),
+                                    DataBinder.Eval(Model, "SelfEmployedRequiredDocs").ToString(),
+                                    DataBinder.Eval(Model, "UnemployedRequiredDocs").ToString(),
+                                    DataBinder.Eval(Model, "WelfareGrandRequiredDocs").ToString(),
+                                    DataBinder.Eval(Model, "RetrenchedRequiredDocs").ToString());
+                    }
+                }).Bind(DataBinder.Eval(Model, "ParentIncomeTypeID")).GetHtml()
+
+                @Html.DevExpress().CheckBox(edtSettings =>
+                 {
+                     edtSettings.Name = "ParentPayslip";
+                     edtSettings.ControlStyle.CssClass = "label";
+                     edtSettings.Width = 200;
+                     edtSettings.Text = "Payslip";
+                 }).Bind(DataBinder.Eval(Model, "ParentPayslip")).GetHtml()
+
+                @Html.DevExpress().CheckBox(edtSettings =>
+                 {
+                     edtSettings.Name = "ParentBankStatements";
+                     edtSettings.ControlStyle.CssClass = "label";
+                     edtSettings.Width = 200;
+                     edtSettings.Text = "Bank Statements for 3 months";
+                 }).Bind(DataBinder.Eval(Model, "ParentBankStatements")).GetHtml()
+
+                @Html.DevExpress().CheckBox(edtSettings =>
+                 {
+                     edtSettings.Name = "ParentUnemploymentProof";
+                     edtSettings.ControlStyle.CssClass = "label";
+                     edtSettings.Width = 200;
+                     edtSettings.Text = "Affidavit for unemployment";
+                 }).Bind(DataBinder.Eval(Model, "ParentUnemploymentProof")).GetHtml()
+
+                @Html.DevExpress().CheckBox(edtSettings =>
+                 {
+                     edtSettings.Name = "ParentRetrenchedProof";
+                     edtSettings.ControlStyle.CssClass = "label";
+                     edtSettings.Width = 200;
+                     edtSettings.Text = "Proof of retrenchment";
+                 }).Bind(DataBinder.Eval(Model, "ParentRetrenchedProof")).GetHtml()
+
+                @Html.DevExpress().CheckBox(edtSettings =>
+                 {
+                     edtSettings.Name = "ParentWelfareGrand";
+                     edtSettings.ControlStyle.CssClass = "label";
+                     edtSettings.Width = 200;
+                     edtSettings.Text = "Proof of welfare grant";
+                 }).Bind(DataBinder.Eval(Model, "ParentWelfareGrand")).GetHtml()
+
+                @Html.DevExpress().CheckBox(edtSettings =>
+                 {
+                     edtSettings.Name = "ParentSARS";
+                     edtSettings.ControlStyle.CssClass = "label";
+                     edtSettings.Width = 200;
+                     edtSettings.Text = "SARS EMPS";
+                 }).Bind(DataBinder.Eval(Model, "ParentSARS")).GetHtml()
+
+            </div>
+        </td>
+        <td class="CheckListTable-r">
+            <div class="line" style="width: 335px; margin:0px 10px 0px;">
+                <div id="SpouseProofOfIncome">
+                    @Html.DevExpress().Label(edtSettings =>
+                     {
+                         edtSettings.ControlStyle.CssClass = "boldlabel_freestanding";
+                         edtSettings.Width = 200;
+                         edtSettings.Text = "Income Spouse";
+                         edtSettings.ControlStyle.Font.Bold = true;
+                     }).GetHtml()
+
+                    @Html.DevExpress().RadioButtonList(rbsettings =>
+                    {
+                        rbsettings.Name = "SpouseIncomeTypeID";
+                        rbsettings.Properties.ValueType = typeof(int);
+                        rbsettings.Width = 350;
+                        rbsettings.Properties.Items.Add("Employed", 1);
+                        rbsettings.Properties.Items.Add("Employed and Welfare Grant", 6);
+                        rbsettings.Properties.Items.Add("Self Employed", 2);
+                        rbsettings.Properties.Items.Add("Unemployed", 3);
+                        rbsettings.Properties.Items.Add("Welfare Grant", 4);
+                        rbsettings.Properties.Items.Add("Retrenched", 5);
+                        rbsettings.Properties.RepeatLayout = RepeatLayout.Table;
+                        rbsettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+                        rbsettings.Properties.RepeatColumns = 2;
+                        rbsettings.ControlStyle.Border.BorderStyle = BorderStyle.Solid;
+                        rbsettings.ControlStyle.Border.BorderColor = System.Drawing.Color.LightGray;
+                        if (Model != null)
+                        {
+                            rbsettings.Properties.ClientSideEvents.SelectedIndexChanged = string.Format("function(s, e) {{ setIncomeRequirements(s, e,'{0}','{1}','{2}','{3}','{4}','{5}'); }}",
+                                DataBinder.Eval(Model, "EmployedRequiredDocs").ToString(),
+                                DataBinder.Eval(Model, "EmployedandWelfareGrandDocs").ToString(),
+                                DataBinder.Eval(Model, "SelfEmployedRequiredDocs").ToString(),
+                                DataBinder.Eval(Model, "UnemployedRequiredDocs").ToString(),
+                                DataBinder.Eval(Model, "WelfareGrandRequiredDocs").ToString(),
+                                DataBinder.Eval(Model, "RetrenchedRequiredDocs").ToString());
+                            rbsettings.Properties.ClientSideEvents.Init = string.Format("function(s, e) {{ setIncomeRequirements(s, e,'{0}','{1}','{2}','{3}','{4}','{5}'); }}",
+                                DataBinder.Eval(Model, "EmployedRequiredDocs").ToString(),
+                                DataBinder.Eval(Model, "EmployedandWelfareGrandDocs").ToString(),
+                                DataBinder.Eval(Model, "SelfEmployedRequiredDocs").ToString(),
+                                DataBinder.Eval(Model, "UnemployedRequiredDocs").ToString(),
+                                DataBinder.Eval(Model, "WelfareGrandRequiredDocs").ToString(),
+                                DataBinder.Eval(Model, "RetrenchedRequiredDocs").ToString());
+                        }
+                    }).Bind(DataBinder.Eval(Model, "SpouseIncomeTypeID")).GetHtml()
+
+                    @Html.DevExpress().CheckBox(edtSettings =>
+                     {
+                         edtSettings.Name = "SpousePaySlip";
+                         edtSettings.ControlStyle.CssClass = "label";
+                         edtSettings.Width = 200;
+                         edtSettings.Text = "Payslip";
+                     }).Bind(DataBinder.Eval(Model, "SpousePaySlip")).GetHtml()
+
+                    @Html.DevExpress().CheckBox(edtSettings =>
+                     {
+                         edtSettings.Name = "SpouseBankStatements";
+                         edtSettings.ControlStyle.CssClass = "label";
+                         edtSettings.Width = 200;
+                         edtSettings.Text = "Bank Statements for 3 months";
+                     }).Bind(DataBinder.Eval(Model, "SpouseBankStatements")).GetHtml()
+
+                    @Html.DevExpress().CheckBox(edtSettings =>
+                     {
+                         edtSettings.Name = "SpouseUnemploymentProof";
+                         edtSettings.ControlStyle.CssClass = "label";
+                         edtSettings.Width = 200;
+                         edtSettings.Text = "Affidavit for unemployment";
+                     }).Bind(DataBinder.Eval(Model, "SpouseUnemploymentProof")).GetHtml()
+
+                    @Html.DevExpress().CheckBox(edtSettings =>
+                     {
+                         edtSettings.Name = "SpouseRetrenchedProof";
+                         edtSettings.ControlStyle.CssClass = "label";
+                         edtSettings.Width = 200;
+                         edtSettings.Text = "Proof of Retrenchment";
+                     }).Bind(DataBinder.Eval(Model, "SpouseRetrenchedProof")).GetHtml()
+
+                    @Html.DevExpress().CheckBox(edtSettings =>
+                     {
+                         edtSettings.Name = "SpouseWelfareGrand";
+                         edtSettings.ControlStyle.CssClass = "label";
+                         edtSettings.Width = 200;
+                         edtSettings.Text = "Proof of welfare grant";
+                     }).Bind(DataBinder.Eval(Model, "SpouseWelfareGrand")).GetHtml()
+
+                    @Html.DevExpress().CheckBox(edtSettings =>
+                    {
+                        edtSettings.Name = "SpouseSARS";
+                        edtSettings.ControlStyle.CssClass = "label";
+                        edtSettings.Width = 200;
+                        edtSettings.Text = "SARS EMPS";
+                    }).Bind(DataBinder.Eval(Model, "SpouseSARS")).GetHtml()
+
+                </div>
+
+                </div>
+        </td>
+    </tr>
+</table>

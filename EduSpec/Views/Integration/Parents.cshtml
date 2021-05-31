@@ -1,0 +1,56 @@
+﻿@Html.DevExpress().GridView(settings =>
+{
+    GridUtils.SetGridViewProperties(settings, settings.CommandColumn, ViewData["ParentsViewProperties"]);
+
+    MVCxGridViewColumnCollection GridColumns = (MVCxGridViewColumnCollection)settings.Columns;
+    foreach (GridViewBandColumn column in GridColumns)
+    {
+        MVCxGridViewColumnCollection GridColumn = (MVCxGridViewColumnCollection)column.Columns;
+        foreach (MVCxGridViewColumn column2 in GridColumn)
+        {
+            column2.PropertiesEdit.EncodeHtml = false;
+        }
+    }
+
+    settings.Settings.ShowFooter = true;
+    settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Count, "TableName");
+
+    MVCxGridViewToolbar Toolbar = (MVCxGridViewToolbar)settings.Toolbars[0];
+    Toolbar.Items.Add(i =>
+    {
+        i.BeginGroup = true;
+        i.SetTemplateContent(c =>
+        {
+            EduSpecHtmlHelper.NewDiv(Html, "edit_form");
+            Dictionary<EduSpec.ComboboxClientSideEvent, string> comboboxIntegrationStatus = new Dictionary<EduSpec.ComboboxClientSideEvent, string>();
+            comboboxIntegrationStatus.Add(ComboboxClientSideEvent.onSelectedIndexChanged, "function(s, e) {GridViewParents.PerformCallback();}");
+            EduSpecHtmlHelper.ComboBox(Html, "cbParentsIntegrationStatus", "gridmenueditor", 180, "Get_IntegrationStatus_PickList", comboboxIntegrationStatus);
+            EduSpecHtmlHelper.EndDiv(Html);
+        });
+    });
+
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.Caption = "Action";
+    settings.CommandColumn.ButtonRenderMode = GridCommandButtonRenderMode.Image;
+    settings.CommandColumn.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+    settings.CommandColumn.Width = 60;
+    settings.CommandColumn.ShowSelectCheckbox = true;
+    settings.CommandColumn.ShowClearFilterButton = true;
+    settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.AllPages;
+
+    settings.CommandButtonInitialize = (sender, e) =>
+    {
+        if (e.VisibleIndex >= 0)
+        {
+
+            MVCxGridView _gridview = sender as MVCxGridView;
+
+            string TableName = (string)_gridview.GetRowValues(e.VisibleIndex, "TableName");
+
+            if (e.ButtonType == ColumnCommandButtonType.SelectCheckbox && TableName == "Imported")
+                e.Visible = true;
+            else
+                e.Visible = false;
+        }
+    };
+}).Bind(Model).GetHtml()

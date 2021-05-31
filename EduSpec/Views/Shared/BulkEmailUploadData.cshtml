@@ -1,0 +1,15 @@
+﻿@using (Html.BeginForm())
+{
+    Html.DevExpress().UploadControl(
+    ucsettings =>
+    {
+        ucsettings.Name = "ucBulkEmailUploadData";
+        ucsettings.CallbackRouteValues = new { Controller = "Shared", Action = "CallbacksBulkEmailFileUpload" };
+        ucsettings.ClientSideEvents.FileUploadComplete = "function(s, e) { SendBulkEmail(e); }";
+        ucsettings.ControlStyle.CssClass = "editorArea";
+        ucsettings.Width = 420;
+        ucsettings.ShowProgressPanel = true;
+        ucsettings.BrowseButton.Text = ". . .";
+        ucsettings.UploadMode = UploadControlUploadMode.Advanced;
+    }).Render();
+}
